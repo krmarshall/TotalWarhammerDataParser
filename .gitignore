@@ -128,3 +128,5 @@ dist
 
 # RPFM
 /rpfm/*
+/game_source/*
+/extracted_files/*

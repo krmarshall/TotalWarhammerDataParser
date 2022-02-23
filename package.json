@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/index.js",
-    "extract": "./rpfm/rpfm_cli.exe"
+    "copySourceVanilla": "cd ./scripts && copySourceVanilla.bat",
+    "rpfmExtractTables": "cd ./scripts && rpfmExtractTables.bat"
   },
   "author": "krmarshall",
   "license": "ISC",

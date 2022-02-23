@@ -10,7 +10,7 @@ const csvParseConfig = {
   quote: '`',
 }
 
-const fileData = fs.readFileSync('./extracted_files/unit_abilities_loc.tsv', 'utf-8');
+const fileData = fs.readFileSync('./extracted_files/vanilla/text/db/unit_abilities__.tsv', 'utf-8');
 
 const records = parse(fileData, csvParseConfig);
 
@@ -30,4 +30,4 @@ const keyedRecords = arrayToKeyedObject(records, 'key');
 
 const jsonString = JSON.stringify(keyedRecords, null, 2)
 
-fs.writeFileSync('./parsed_files/test.json', jsonString);
+fs.writeFileSync('./parsed_files/unit_abilities.json', jsonString);
