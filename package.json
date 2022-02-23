@@ -1,0 +1,16 @@
+{
+  "name": "totalwarhammerdataparser",
+  "version": "0.1.0",
+  "description": "Tool for extracting and parsing character skill trees into usable json.",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "extract": "./rpfm/rpfm_cli.exe"
+  },
+  "author": "krmarshall",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^5.0.4"
+  }
+}
