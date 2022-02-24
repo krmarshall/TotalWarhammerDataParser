@@ -14,7 +14,7 @@ const csvParseConfig = {
 
 const getDirectories = (src, callback) => {
   glob(`${src}**/*.tsv`, callback);
-}
+};
 
 const parseVanillaFiles = () => {
   getDirectories('./extracted_files/vanilla/', (error, filePaths) => {
@@ -30,6 +30,6 @@ const parseVanillaFiles = () => {
       })
     }
   });
-}
+};
 
 export { parseVanillaFiles };
