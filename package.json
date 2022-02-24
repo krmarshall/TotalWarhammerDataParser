@@ -5,6 +5,8 @@
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
+    "lint": "eslint src/",
+    "lint-fix": "eslint src/ --fix",
     "start": "node ./src/index.js",
     "copySourceVanilla": "cd ./scripts && copySourceVanilla.bat",
     "rpfmExtractTables": "cd ./scripts && rpfmExtractTables.bat"
@@ -13,7 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "csv-parse": "^5.0.4",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "fs-extra": "^10.0.1",
-    "glob": "^7.2.0"
+    "glob": "^7.2.0",
+    "prettier": "^2.5.1"
   }
 }
