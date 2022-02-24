@@ -2,12 +2,20 @@ import fse from 'fs-extra';
 import ancillariesPrune from './pruneLists/ancillariesPrune.js';
 
 const stapleVanillaTables = () => {
-  const ancillaries = JSON.parse(fse.readFileSync('./parsed_files/db/ancillaries_tables.json', 'utf-8'));
-  const ancillaryTypes = JSON.parse(fse.readFileSync('./parsed_files/db/ancillary_types_tables.json', 'utf-8'));
-  const ancillariesLoc = JSON.parse(fse.readFileSync('./parsed_files/text/db/ancillaries.json', 'utf-8'));
+  const ancillaries = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/ancillaries_tables.json', 'utf-8'));
+  const ancillaryTypes = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/ancillary_types_tables.json', 'utf-8'));
+  const ancillariesLoc = JSON.parse(fse.readFileSync('./parsed_files/vanilla/text/db/ancillaries.json', 'utf-8'));
   const ancillaries_AncillaryTypes = staple_Ancillaries_AncillaryTypes(ancillaries, ancillaryTypes, ancillariesLoc);
 
-  fse.outputFileSync('./test/test.json', JSON.stringify(ancillaries_AncillaryTypes, null, 2));
+  const characterSkillLevelToAncillariesJunction = JSON.parse(
+    fse.readFileSync('./parsed_files/vanilla/db/character_skill_level_to_ancillaries_junctions_tables.json', 'utf-8')
+  );
+  const characterSkillLevelAncillary = staple_characterSkillLevelToAncillariesJunction_Ancillaries(
+    characterSkillLevelToAncillariesJunction,
+    ancillaries_AncillaryTypes
+  );
+
+  fse.outputFileSync('./test/test.json', JSON.stringify(characterSkillLevelAncillary, null, 2));
 };
 
 const staple_Ancillaries_AncillaryTypes = (ancillaries, ancillaryTypes, ancillariesLoc) => {
@@ -32,6 +40,21 @@ const staple_Ancillaries_AncillaryTypes = (ancillaries, ancillaryTypes, ancillar
     ancillary.text = locText.text;
 
     return ancillary;
+  });
+  return stapledTable;
+};
+
+const staple_characterSkillLevelToAncillariesJunction_Ancillaries = (
+  characterSkillLevelToAncillariesJunction,
+  ancillaries
+) => {
+  const stapledTable = characterSkillLevelToAncillariesJunction.map((characterSkillLevelToAncillaryJunction) => {
+    const relatedAncillary = ancillaries.find((ancillary) => {
+      return ancillary.key === characterSkillLevelToAncillaryJunction.granted_ancillary;
+    });
+    characterSkillLevelToAncillaryJunction.granted_ancillary = relatedAncillary;
+
+    return characterSkillLevelToAncillaryJunction;
   });
   return stapledTable;
 };

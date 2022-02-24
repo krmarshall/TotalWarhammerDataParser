@@ -17,18 +17,21 @@ const getDirectories = (src, callback) => {
 };
 
 const parseVanillaFiles = () => {
-  getDirectories('./extracted_files/vanilla/', (error, filePaths) => {
-    if (error) {
-      console.log(error);
-    } else {
-      filePaths.map((filePath) => {
-        const fileData = fs.readFileSync(filePath, 'utf-8');
-        const parsedArray = parse(fileData, csvParseConfig);
-        const jsonString = JSON.stringify(parsedArray, null, 2);
-        const parsedNewFilePath = filePath.split(/vanilla|\/data__|__.tsv/);
-        fse.outputFileSync(`./parsed_files${parsedNewFilePath[1]}.json`, jsonString);
-      });
-    }
+  return new Promise((resolve, reject) => {
+    getDirectories('./extracted_files/vanilla/', (error, filePaths) => {
+      if (error) {
+        reject(error);
+      } else {
+        filePaths.map((filePath) => {
+          const fileData = fs.readFileSync(filePath, 'utf-8');
+          const parsedArray = parse(fileData, csvParseConfig);
+          const jsonString = JSON.stringify(parsedArray, null, 2);
+          const parsedNewFilePath = filePath.split(/vanilla|\/data__|__.tsv/);
+          fse.outputFileSync(`./parsed_files/vanilla${parsedNewFilePath[1]}.json`, jsonString);
+        });
+        resolve();
+      }
+    });
   });
 };
 
