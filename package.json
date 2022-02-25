@@ -7,10 +7,11 @@
   "scripts": {
     "lint": "eslint src/",
     "lintFix": "eslint src/ --fix",
-    "fullBuild": "run-s copySourceVanilla rpfmExtractTables start",
     "copySourceVanilla": "cd ./scripts && copySourceVanilla.bat",
     "rpfmExtractTables": "cd ./scripts && rpfmExtractTables.bat",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "profile": "node --prof ./src/index.js",
+    "fullBuild": "run-s copySourceVanilla rpfmExtractTables start"
   },
   "author": "krmarshall",
   "license": "ISC",
