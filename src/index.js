@@ -8,6 +8,7 @@ parseVanillaFiles()
 
     console.time('stapleVanilla');
     stapleVanillaTables();
+    process.stdout.write('\n');
     console.timeEnd('stapleVanilla');
   })
   .catch((error) => {

@@ -131,3 +131,4 @@ dist
 /game_source/*
 /extracted_files/*
 /parsed_files/*
+/test/*
