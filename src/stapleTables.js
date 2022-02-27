@@ -13,6 +13,11 @@ import {
   staple_characterSkills_characterSkillsToQuestAncillaries,
   staple_characterSkillNodes_characterSkills,
   staple_characterSkillNodes_characterSkillNodeLinks,
+  staple_characterSkillNodes_characterSkillNodesSkillLocks,
+  staple_cultures_culturesLoc,
+  staple_cultures_culturesSubcultures,
+  staple_cultures_factions,
+  staple_cultures_factionAgentPermittedSubtypes,
 } from './sharedTableFunctions.js';
 
 // If you read this im sorry.
@@ -69,7 +74,29 @@ const stapleVanillaTables = () => {
   const characterSkillNodeLinks = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/character_skill_node_links_tables.json', 'utf-8'));
   characterSkillNodes = staple_characterSkillNodes_characterSkillNodeLinks(characterSkillNodes, characterSkillNodeLinks);
 
+  const characterSkillNodesSkillLocks = JSON.parse(
+    fse.readFileSync('./parsed_files/vanilla/db/character_skill_nodes_skill_locks_tables.json', 'utf-8')
+  );
+  characterSkillNodes = staple_characterSkillNodes_characterSkillNodesSkillLocks(characterSkillNodes, characterSkillNodesSkillLocks);
+
   fse.outputFileSync('./test/characterSkillNodes.json', JSON.stringify(characterSkillNodes, null, 2));
+
+  const culturesLoc = JSON.parse(fse.readFileSync('./parsed_files/vanilla/text/db/cultures.json', 'utf-8'));
+  let cultures = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/cultures_tables.json', 'utf-8'));
+  cultures = staple_cultures_culturesLoc(cultures, culturesLoc);
+
+  const culturesSubcultures = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/cultures_subcultures_tables.json', 'utf-8'));
+  cultures = staple_cultures_culturesSubcultures(cultures, culturesSubcultures);
+
+  const factions = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/factions_tables.json', 'utf-8'));
+  cultures = staple_cultures_factions(cultures, factions);
+
+  const factionAgentPermittedSubtypes = JSON.parse(
+    fse.readFileSync('./parsed_files/vanilla/db/faction_agent_permitted_subtypes_tables.json', 'utf-8')
+  );
+  cultures = staple_cultures_factionAgentPermittedSubtypes(cultures, factionAgentPermittedSubtypes);
+
+  fse.outputFileSync('./test/cultures.json', JSON.stringify(cultures, null, 2));
 };
 
 export { stapleVanillaTables };

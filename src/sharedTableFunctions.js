@@ -11,6 +11,7 @@ const printRecordCount = (count) => {
   }
 };
 
+// If you read this im sorry.
 const staple_effects_effectsLoc = (effects, effectsLoc) => {
   const stapledTable = effects.map((effect) => {
     const locDescription = effectsLoc.find((effectLoc) => {
@@ -323,6 +324,143 @@ const staple_characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes,
   return stapledTable;
 };
 
+const staple_characterSkillNodes_characterSkillNodesSkillLocks = (characterSkillNodes, characterSkillNodesSkillLocks) => {
+  const stapleTables = characterSkillNodes.map((node) => {
+    const relatedSkillLocks = characterSkillNodesSkillLocks.filter((skillLock) => {
+      return skillLock.character_skill_node === node.key;
+    });
+    relatedSkillLocks.forEach((skillLock) => {
+      if (node.levels[skillLock.level - 1].blocks_character_skill_key === undefined) {
+        node.levels[skillLock.level - 1].blocks_character_skill_key = [];
+      }
+      if (!node.levels[skillLock.level - 1].blocks_character_skill_key.includes(skillLock.character_skill)) {
+        node.levels[skillLock.level - 1].blocks_character_skill_key.push(skillLock.character_skill);
+      }
+    });
+
+    printRecordCount(++recordProcessedCount);
+    return { ...node };
+  });
+  return stapleTables;
+};
+
+const staple_cultures_culturesLoc = (cultures, culturesLoc) => {
+  const placeholderIndex = cultures.findIndex((culture) => {
+    return culture.key === '*';
+  });
+  cultures.splice(placeholderIndex, 1);
+
+  const rogueIndex = cultures.findIndex((culture) => {
+    return culture.key === 'wh2_main_rogue';
+  });
+  cultures.splice(rogueIndex, 1);
+
+  const stapledTable = cultures.map((culture) => {
+    const relatedLoc = culturesLoc.find((loc) => {
+      return loc.key === `cultures_name_${culture.key}`;
+    });
+    const tempCulture = { key: culture.key, name: relatedLoc.text };
+
+    printRecordCount(++recordProcessedCount);
+    return { ...tempCulture };
+  });
+  return stapledTable;
+};
+
+// Norsca is treated wonky, subculture exists under chaos so lots of hardcoding fixes here, check with mods/tw3
+const staple_cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
+  const stapledTable = cultures.map((culture) => {
+    const relatedSubcultures = culturesSubcultures.filter((subculture) => {
+      return subculture.culture === culture.key;
+    });
+    culture.subcultures = [];
+    relatedSubcultures.forEach((subculture) => {
+      culture.subcultures.push(subculture.subculture);
+    });
+
+    printRecordCount(++recordProcessedCount);
+    return { ...culture };
+  });
+
+  // Hardcoded fixes z.z
+  const norscaIndex = stapledTable.findIndex((culture) => {
+    return culture.key === 'wh_dlc08_nor_norsca';
+  });
+  stapledTable[norscaIndex].subcultures = ['wh_main_sc_nor_norsca'];
+
+  const chaosIndex = stapledTable.findIndex((culture) => {
+    return culture.key === 'wh_main_chs_chaos';
+  });
+  stapledTable[chaosIndex].subcultures = ['wh_main_sc_chs_chaos'];
+
+  const empireIndex = stapledTable.findIndex((culture) => {
+    return culture.key === 'wh_main_emp_empire';
+  });
+  stapledTable[empireIndex].subcultures = ['wh_main_sc_emp_empire'];
+
+  const greenskinsIndex = stapledTable.findIndex((culture) => {
+    return culture.key === 'wh_main_grn_greenskins';
+  });
+  stapledTable[greenskinsIndex].subcultures = ['wh_main_sc_grn_greenskins'];
+
+  stapledTable.forEach((culture) => {
+    culture.subculture = culture.subcultures[0];
+    delete culture.subcultures;
+  });
+
+  return stapledTable;
+};
+
+const staple_cultures_factions = (cultures, factions) => {
+  const stapledTable = cultures.map((culture) => {
+    const relatedFactions = factions.filter((faction) => {
+      return faction.subculture === culture.subculture;
+    });
+    if (relatedFactions.length) {
+      if (culture.factions === undefined) {
+        culture.factions = [];
+      }
+      relatedFactions.forEach((faction) => {
+        // MP available seems convenient check but missing some lords :-/
+        if (!culture.factions.includes(faction.key) /*&& faction.mp_available === 'true'*/) {
+          culture.factions.push(faction.key);
+        }
+      });
+    }
+
+    printRecordCount(++recordProcessedCount);
+    return { ...culture };
+  });
+  return stapledTable;
+};
+
+const staple_cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedSubtypes) => {
+  const stapledTable = cultures.map((culture) => {
+    const relatedAgents = factionAgentPermittedSubtypes.filter((agent) => {
+      let intersects = false;
+      culture.factions.forEach((faction) => {
+        if (agent.faction === faction) {
+          intersects = true;
+        }
+      });
+      return intersects;
+    });
+
+    if (relatedAgents.length) {
+      culture.agents = [];
+      relatedAgents.forEach((agent) => {
+        if (agent.subtype !== 'default' && !culture.agents.includes(agent.subtype)) {
+          culture.agents.push(agent.subtype);
+        }
+      });
+    }
+
+    printRecordCount(++recordProcessedCount);
+    return { ...culture };
+  });
+  return stapledTable;
+};
+
 export {
   staple_effects_effectsLoc,
   staple_ancillariesToEffects_effects,
@@ -337,4 +475,9 @@ export {
   staple_characterSkills_characterSkillsToQuestAncillaries,
   staple_characterSkillNodes_characterSkills,
   staple_characterSkillNodes_characterSkillNodeLinks,
+  staple_characterSkillNodes_characterSkillNodesSkillLocks,
+  staple_cultures_culturesLoc,
+  staple_cultures_culturesSubcultures,
+  staple_cultures_factions,
+  staple_cultures_factionAgentPermittedSubtypes,
 };
