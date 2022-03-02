@@ -19,6 +19,7 @@ import {
   staple_cultures_factions,
   staple_cultures_factionAgentPermittedSubtypes,
   stapled_cultures_characterSkillNodeSets,
+  collate_characterSkillNodes,
 } from './sharedTableFunctions.js';
 
 // If you read this im sorry.
@@ -100,7 +101,9 @@ const stapleVanillaTables = () => {
   const characterSkillNodeSets = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/character_skill_node_sets_tables.json', 'utf-8'));
   cultures = stapled_cultures_characterSkillNodeSets(cultures, characterSkillNodeSets);
 
-  fse.outputFileSync('./test/cultures.json', JSON.stringify(cultures, null, 2));
+  const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
+
+  fse.outputFileSync('./test/collatedNodeSets.json', JSON.stringify(collatedNodeSets, null, 2));
 };
 
 export { stapleVanillaTables };

@@ -484,6 +484,31 @@ const stapled_cultures_characterSkillNodeSets = (cultures, characterSkillNodeSet
   return stapledTable;
 };
 
+const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
+  const wantedNodeSets = [];
+  cultures.forEach((culture) => {
+    wantedNodeSets.push(...culture.lordNodeSets, ...culture.heroNodeSets);
+  });
+
+  const collatedNodeSets = {};
+  characterSkillNodes.forEach((skillNode) => {
+    if (wantedNodeSets.includes(skillNode.character_skill_node_set_key)) {
+      if (collatedNodeSets[skillNode.character_skill_node_set_key] === undefined) {
+        collatedNodeSets[skillNode.character_skill_node_set_key] = {};
+        // For some reason there are a ton of skills using hidden indents above 6, even tho thats the purpose of 6?
+        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], [], [], [], [], [], []];
+      }
+      collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[parseInt(skillNode.indent)].splice(
+        parseInt(skillNode.tier),
+        0,
+        skillNode
+      );
+      printRecordCount(++recordProcessedCount);
+    }
+  });
+  return collatedNodeSets;
+};
+
 export {
   staple_effects_effectsLoc,
   staple_ancillariesToEffects_effects,
@@ -504,4 +529,5 @@ export {
   staple_cultures_factions,
   staple_cultures_factionAgentPermittedSubtypes,
   stapled_cultures_characterSkillNodeSets,
+  collate_characterSkillNodes,
 };
