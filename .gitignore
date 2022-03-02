@@ -128,7 +128,10 @@ dist
 
 # RPFM
 /rpfm/*
+
+# Intermediate/Output data folders
 /game_source/*
 /extracted_files/*
 /parsed_files/*
 /test/*
+/output/*

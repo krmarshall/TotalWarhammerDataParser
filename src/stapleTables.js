@@ -20,6 +20,7 @@ import {
   staple_cultures_factionAgentPermittedSubtypes,
   stapled_cultures_characterSkillNodeSets,
   collate_characterSkillNodes,
+  output_characters,
 } from './sharedTableFunctions.js';
 
 // If you read this im sorry.
@@ -81,8 +82,6 @@ const stapleVanillaTables = () => {
   );
   characterSkillNodes = staple_characterSkillNodes_characterSkillNodesSkillLocks(characterSkillNodes, characterSkillNodesSkillLocks);
 
-  fse.outputFileSync('./test/characterSkillNodes.json', JSON.stringify(characterSkillNodes, null, 2));
-
   const culturesLoc = JSON.parse(fse.readFileSync('./parsed_files/vanilla/text/db/cultures.json', 'utf-8'));
   let cultures = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/cultures_tables.json', 'utf-8'));
   cultures = staple_cultures_culturesLoc(cultures, culturesLoc);
@@ -103,7 +102,7 @@ const stapleVanillaTables = () => {
 
   const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
 
-  fse.outputFileSync('./test/collatedNodeSets.json', JSON.stringify(collatedNodeSets, null, 2));
+  output_characters(cultures, collatedNodeSets, 'vanilla');
 };
 
 export { stapleVanillaTables };

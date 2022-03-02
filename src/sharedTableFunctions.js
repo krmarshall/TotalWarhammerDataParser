@@ -1,3 +1,4 @@
+import fse from 'fs-extra';
 import ancillariesPrune from './pruneLists/ancillariesPrune.js';
 import characterSkillsPrune from './pruneLists/characterSkillsPrune.js';
 import characterSkillLevelDetailsPrune from './pruneLists/characterSkillLevelDetailsPrune.js';
@@ -497,16 +498,53 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         collatedNodeSets[skillNode.character_skill_node_set_key] = {};
         // For some reason there are a ton of skills using hidden indents above 6, even tho thats the purpose of 6?
         collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], [], [], [], [], [], []];
+        collatedNodeSets[skillNode.character_skill_node_set_key].key = skillNode.character_skill_node_set_key;
       }
       collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[parseInt(skillNode.indent)].splice(
         parseInt(skillNode.tier),
         0,
         skillNode
       );
+
       printRecordCount(++recordProcessedCount);
     }
   });
   return collatedNodeSets;
+};
+
+const output_characters = (cultures, collatedNodeSets, folder) => {
+  fse.emptyDirSync(`./output/${folder}/`);
+  const missingCharacters = [];
+  cultures.forEach((culture) => {
+    culture.lordNodeSets.forEach((lord) => {
+      if (collatedNodeSets[lord] === undefined && !missingCharacters.includes(lord)) {
+        missingCharacters.push(lord);
+      } else {
+        fse.outputFileSync(
+          `./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`,
+          JSON.stringify(collatedNodeSets[lord], null, 2)
+        );
+      }
+
+      printRecordCount(++recordProcessedCount);
+    });
+
+    culture.heroNodeSets.forEach((hero) => {
+      if (collatedNodeSets[hero] === undefined && !missingCharacters.includes(hero)) {
+        missingCharacters.push(hero);
+      } else {
+        fse.outputFileSync(
+          `./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`,
+          JSON.stringify(collatedNodeSets[hero], null, 2)
+        );
+      }
+
+      printRecordCount(++recordProcessedCount);
+    });
+  });
+  process.stdout.write('\n');
+  console.log(`Missing ${folder} characters:`);
+  console.log(missingCharacters);
 };
 
 export {
@@ -530,4 +568,5 @@ export {
   staple_cultures_factionAgentPermittedSubtypes,
   stapled_cultures_characterSkillNodeSets,
   collate_characterSkillNodes,
+  output_characters,
 };
