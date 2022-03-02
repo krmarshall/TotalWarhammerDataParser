@@ -102,6 +102,9 @@ const stapleVanillaTables = () => {
 
   const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
 
+  // fse.outputFileSync('./test/characterSkillNodes.json', JSON.stringify(characterSkillNodes, null, 2));
+  // fse.outputFileSync('./test/cultures.json', JSON.stringify(cultures, null, 2));
+
   output_characters(cultures, collatedNodeSets, 'vanilla');
 };
 

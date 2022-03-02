@@ -4,6 +4,7 @@ import characterSkillsPrune from './pruneLists/characterSkillsPrune.js';
 import characterSkillLevelDetailsPrune from './pruneLists/characterSkillLevelDetailsPrune.js';
 import characterSkillNodesPrune from './pruneLists/characterSkillNodesPrune.js';
 import subculturesPrune from './pruneLists/subculturesPrune.js';
+import nodeSetsPrune from './pruneLists/nodeSetsPrune.js';
 
 let recordProcessedCount = 0;
 const printRecordCount = (count) => {
@@ -21,6 +22,9 @@ const staple_effects_effectsLoc = (effects, effectsLoc) => {
     });
     effect.description = locDescription.text;
     delete effect.icon_negative;
+    effect.priority = parseInt(effect.priority);
+    // Parse to boolean, is kinda scuffed?
+    effect.is_positive_value_good = JSON.parse(effect.is_positive_value_good);
 
     printRecordCount(++recordProcessedCount);
     return { ...effect };
@@ -34,6 +38,7 @@ const staple_ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
       return effect.effect === ancillaryToEffect.effect;
     });
     ancillaryToEffect.effect = { ...relatedEffect };
+    ancillaryToEffect.value = parseInt(ancillaryToEffect.value);
 
     printRecordCount(++recordProcessedCount);
     return { ...ancillaryToEffect };
@@ -60,6 +65,9 @@ const staple_ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffec
           ancillary.effects = [];
         }
         ancillary.effects.push({ ...relatedEffect.effect });
+      });
+      ancillary.effects.sort((a, b) => {
+        return a.priority - b.priority;
       });
     }
     printRecordCount(++recordProcessedCount);
@@ -93,7 +101,7 @@ const staple_characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQ
       characterSkill.ancillary = relatedAncillary;
     }
     characterSkill.level = '1';
-    characterSkill.use_quest_for_prefix;
+    characterSkill.use_quest_for_prefix = JSON.parse(characterSkill.use_quest_for_prefix);
 
     printRecordCount(++recordProcessedCount);
     return { ...characterSkill };
@@ -177,7 +185,8 @@ const staple_characterSkills_characterSkillLevelDetails = (characterSkills, char
         delete characterSkill.levels[relatedRecord.level - 1].skill_key;
       });
     }
-
+    // Convert string to bool, is a tad scuffed
+    characterSkill.is_background_skill = JSON.parse(characterSkill.is_background_skill);
     printRecordCount(++recordProcessedCount);
     return { ...characterSkill };
   });
@@ -198,6 +207,7 @@ const staple_characterSkills_characterSkillLevelToEffectsJunction = (characterSk
         delete relatedRecord.effect_scope;
         relatedRecord.effects = { ...relatedRecord.effect };
         delete relatedRecord.effect;
+        relatedRecord.effects.value = parseInt(relatedRecord.effects.value);
 
         if (characterSkill.levels === undefined) {
           characterSkill.levels = [];
@@ -210,8 +220,12 @@ const staple_characterSkills_characterSkillLevelToEffectsJunction = (characterSk
         }
         characterSkill.levels[relatedRecord.level - 1].effects.push(relatedRecord.effects);
       });
+      characterSkill.levels.forEach((level) => {
+        level.effects.sort((a, b) => {
+          return a.priority - b.priority;
+        });
+      });
     }
-
     printRecordCount(++recordProcessedCount);
     return { ...characterSkill };
   });
@@ -296,6 +310,12 @@ const staple_characterSkillNodes_characterSkills = (characterSkillNodes, charact
     });
     const tempNode = { ...relatedSkill, ...characterSkillNode };
     tempNode.character_skill_key;
+
+    tempNode.tier = parseInt(tempNode.tier);
+    tempNode.indent = parseInt(tempNode.indent);
+    tempNode.points_on_creation = parseInt(tempNode.points_on_creation);
+    tempNode.required_num_parents = parseInt(tempNode.required_num_parents);
+    tempNode.visible_in_ui = JSON.parse(tempNode.visible_in_ui);
 
     printRecordCount(++recordProcessedCount);
     return tempNode;
@@ -472,9 +492,9 @@ const stapled_cultures_characterSkillNodeSets = (cultures, characterSkillNodeSet
     culture.lordNodeSets = [];
     culture.heroNodeSets = [];
     relatedNodeSets.forEach((nodeSet) => {
-      if (nodeSet.agent_key === 'general' && !culture.lordNodeSets.includes(nodeSet.key)) {
+      if (nodeSet.agent_key === 'general' && !culture.lordNodeSets.includes(nodeSet.key) && !nodeSetsPrune.includes(nodeSet.key)) {
         culture.lordNodeSets.push(nodeSet.key);
-      } else if (nodeSet.agent_key !== 'general' && !culture.heroNodeSets.includes(nodeSet.key)) {
+      } else if (nodeSet.agent_key !== 'general' && !culture.heroNodeSets.includes(nodeSet.key) && !nodeSetsPrune.includes(nodeSet.key)) {
         culture.heroNodeSets.push(nodeSet.key);
       }
     });
@@ -499,14 +519,10 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         // For some reason there are a ton of skills using hidden indents above 6, even tho thats the purpose of 6?
         collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], [], [], [], [], [], []];
 
-        const keyName = skillNode.character_skill_node_set_key.split('skill_node_set_');
+        const keyName = skillNode.character_skill_node_set_key.split('node_set_');
         collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
       }
-      collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[parseInt(skillNode.indent)].splice(
-        parseInt(skillNode.tier),
-        0,
-        skillNode
-      );
+      collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent].splice(skillNode.tier, 0, skillNode);
 
       printRecordCount(++recordProcessedCount);
     }
