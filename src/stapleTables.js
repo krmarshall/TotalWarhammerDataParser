@@ -18,6 +18,7 @@ import {
   staple_cultures_culturesSubcultures,
   staple_cultures_factions,
   staple_cultures_factionAgentPermittedSubtypes,
+  stapled_cultures_characterSkillNodeSets,
 } from './sharedTableFunctions.js';
 
 // If you read this im sorry.
@@ -95,6 +96,9 @@ const stapleVanillaTables = () => {
     fse.readFileSync('./parsed_files/vanilla/db/faction_agent_permitted_subtypes_tables.json', 'utf-8')
   );
   cultures = staple_cultures_factionAgentPermittedSubtypes(cultures, factionAgentPermittedSubtypes);
+
+  const characterSkillNodeSets = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/character_skill_node_sets_tables.json', 'utf-8'));
+  cultures = stapled_cultures_characterSkillNodeSets(cultures, characterSkillNodeSets);
 
   fse.outputFileSync('./test/cultures.json', JSON.stringify(cultures, null, 2));
 };

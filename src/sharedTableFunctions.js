@@ -2,6 +2,7 @@ import ancillariesPrune from './pruneLists/ancillariesPrune.js';
 import characterSkillsPrune from './pruneLists/characterSkillsPrune.js';
 import characterSkillLevelDetailsPrune from './pruneLists/characterSkillLevelDetailsPrune.js';
 import characterSkillNodesPrune from './pruneLists/characterSkillNodesPrune.js';
+import subculturesPrune from './pruneLists/subculturesPrune.js';
 
 let recordProcessedCount = 0;
 const printRecordCount = (count) => {
@@ -422,7 +423,8 @@ const staple_cultures_factions = (cultures, factions) => {
       }
       relatedFactions.forEach((faction) => {
         // MP available seems convenient check but missing some lords :-/
-        if (!culture.factions.includes(faction.key) /*&& faction.mp_available === 'true'*/) {
+        // Missing lords/heroes are probably because of the subculture prune here
+        if (!culture.factions.includes(faction.key) && !subculturesPrune.includes(faction.key) /*&& faction.mp_available === 'true'*/) {
           culture.factions.push(faction.key);
         }
       });
@@ -461,6 +463,27 @@ const staple_cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPer
   return stapledTable;
 };
 
+const stapled_cultures_characterSkillNodeSets = (cultures, characterSkillNodeSets) => {
+  const stapledTable = cultures.map((culture) => {
+    const relatedNodeSets = characterSkillNodeSets.filter((nodeSet) => {
+      return culture.agents.includes(nodeSet.agent_subtype_key);
+    });
+    culture.lordNodeSets = [];
+    culture.heroNodeSets = [];
+    relatedNodeSets.forEach((nodeSet) => {
+      if (nodeSet.agent_key === 'general' && !culture.lordNodeSets.includes(nodeSet.key)) {
+        culture.lordNodeSets.push(nodeSet.key);
+      } else if (nodeSet.agent_key !== 'general' && !culture.heroNodeSets.includes(nodeSet.key)) {
+        culture.heroNodeSets.push(nodeSet.key);
+      }
+    });
+
+    printRecordCount(++recordProcessedCount);
+    return { ...culture };
+  });
+  return stapledTable;
+};
+
 export {
   staple_effects_effectsLoc,
   staple_ancillariesToEffects_effects,
@@ -480,4 +503,5 @@ export {
   staple_cultures_culturesSubcultures,
   staple_cultures_factions,
   staple_cultures_factionAgentPermittedSubtypes,
+  stapled_cultures_characterSkillNodeSets,
 };
