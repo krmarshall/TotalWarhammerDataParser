@@ -100,7 +100,7 @@ const staple_characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQ
     if (relatedAncillary != undefined) {
       characterSkill.ancillary = relatedAncillary;
     }
-    characterSkill.level = '1';
+    characterSkill.level = 1;
     characterSkill.use_quest_for_prefix = JSON.parse(characterSkill.use_quest_for_prefix);
 
     printRecordCount(++recordProcessedCount);
@@ -115,14 +115,13 @@ const staple_effects_characterSkillLevelToEffectsJunction = (effects, characterS
       return effect.effect === record.effect_key;
     });
 
-    // Most skills have an effect that increases or decreases agent action chances, if I dont want to display these in the future uncomment these sections
-    // if (
-    //   (relatedEffect.effect === 'wh_main_effect_agent_action_success_chance_enemy_skill' &&
-    //     relatedEffect.priority === '0') ||
-    //   (relatedEffect.effect === 'wh_main_effect_agent_action_success_chance_skill' && relatedEffect.priority === '0')
-    // ) {
-    //   return;
-    // }
+    // Most skills have a hidden effect that increases or decreases agent action chances
+    if (
+      (relatedEffect.effect === 'wh_main_effect_agent_action_success_chance_enemy_skill' && relatedEffect.priority === 0) ||
+      (relatedEffect.effect === 'wh_main_effect_agent_action_success_chance_skill' && relatedEffect.priority === 0)
+    ) {
+      return;
+    }
     delete record.effect_key;
     relatedEffect.key = relatedEffect.effect;
     record.effect = { ...relatedEffect };
@@ -132,11 +131,10 @@ const staple_effects_characterSkillLevelToEffectsJunction = (effects, characterS
     return { ...record };
   });
 
-  // const filteredTable = stapledTable.filter((record) => {
-  //   return record != null;
-  // });
-  // return filteredTable;
-  return stapledTable;
+  const filteredTable = stapledTable.filter((record) => {
+    return record != null;
+  });
+  return filteredTable;
 };
 
 // The localised_name and localised_description seem to be mostly accurate to the vanilla locs, might be more important for modded packs.
