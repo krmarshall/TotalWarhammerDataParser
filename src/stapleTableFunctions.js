@@ -6,14 +6,6 @@ import characterSkillNodesPrune from './pruneLists/characterSkillNodesPrune.js';
 import subculturesPrune from './pruneLists/subculturesPrune.js';
 import nodeSetsPrune from './pruneLists/nodeSetsPrune.js';
 
-let recordProcessedCount = 0;
-const printRecordCount = (count) => {
-  if (count % 10 === 0) {
-    process.stdout.cursorTo(0);
-    process.stdout.write(`Records Processed: ${count}`);
-  }
-};
-
 // If you read this im sorry.
 const staple_effects_effectsLoc = (effects, effectsLoc) => {
   const stapledTable = effects.map((effect) => {
@@ -26,7 +18,6 @@ const staple_effects_effectsLoc = (effects, effectsLoc) => {
     // Parse to boolean, is kinda scuffed?
     effect.is_positive_value_good = JSON.parse(effect.is_positive_value_good);
 
-    printRecordCount(++recordProcessedCount);
     return { ...effect };
   });
   return stapledTable;
@@ -40,7 +31,6 @@ const staple_ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
     ancillaryToEffect.effect = { ...relatedEffect };
     ancillaryToEffect.value = parseInt(ancillaryToEffect.value);
 
-    printRecordCount(++recordProcessedCount);
     return { ...ancillaryToEffect };
   });
   return stapledTable;
@@ -70,7 +60,7 @@ const staple_ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffec
         return a.priority - b.priority;
       });
     }
-    printRecordCount(++recordProcessedCount);
+
     return { ...ancillary };
   });
   return stapledTable;
@@ -86,7 +76,6 @@ const staple_characterSkillLevelToAncillariesJunction_ancillaries = (characterSk
       delete record.granted_ancillary;
     }
 
-    printRecordCount(++recordProcessedCount);
     return { ...record };
   });
   return stapledTable;
@@ -103,7 +92,6 @@ const staple_characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQ
     characterSkill.level = 1;
     characterSkill.use_quest_for_prefix = JSON.parse(characterSkill.use_quest_for_prefix);
 
-    printRecordCount(++recordProcessedCount);
     return { ...characterSkill };
   });
   return stapledTable;
@@ -127,7 +115,6 @@ const staple_effects_characterSkillLevelToEffectsJunction = (effects, characterS
     record.effect = { ...relatedEffect };
     delete record.effect.effect;
 
-    printRecordCount(++recordProcessedCount);
     return { ...record };
   });
 
@@ -152,7 +139,6 @@ const staple_characterSkills_characterSkillsLoc = (characterSkills, characterSki
     delete characterSkill.localised_description;
     characterSkill.description = locDescription.text;
 
-    printRecordCount(++recordProcessedCount);
     return { ...characterSkill };
   });
   return stapledTable;
@@ -185,7 +171,7 @@ const staple_characterSkills_characterSkillLevelDetails = (characterSkills, char
     }
     // Convert string to bool, is a tad scuffed
     characterSkill.is_background_skill = JSON.parse(characterSkill.is_background_skill);
-    printRecordCount(++recordProcessedCount);
+
     return { ...characterSkill };
   });
   return stapledTable;
@@ -224,7 +210,7 @@ const staple_characterSkills_characterSkillLevelToEffectsJunction = (characterSk
         });
       });
     }
-    printRecordCount(++recordProcessedCount);
+
     return { ...characterSkill };
   });
 
@@ -258,7 +244,6 @@ const staple_characterSkills_characterSkillLevelToAncillariesJunction = (charact
       characterSkill.levels[relatedAncillary.level - 1].effects.push(...relatedAncillary.ancillary.effects);
     }
 
-    printRecordCount(++recordProcessedCount);
     return { ...characterSkill };
   });
   return stapledTable;
@@ -292,7 +277,6 @@ const staple_characterSkills_characterSkillsToQuestAncillaries = (characterSkill
       characterSkill.use_quest_for_prefix = relatedAncillary.use_quest_for_prefix;
     }
 
-    printRecordCount(++recordProcessedCount);
     return { ...characterSkill };
   });
   return stapledTable;
@@ -315,7 +299,6 @@ const staple_characterSkillNodes_characterSkills = (characterSkillNodes, charact
     tempNode.required_num_parents = parseInt(tempNode.required_num_parents);
     tempNode.visible_in_ui = JSON.parse(tempNode.visible_in_ui);
 
-    printRecordCount(++recordProcessedCount);
     return tempNode;
   });
   return stapledTable;
@@ -338,7 +321,6 @@ const staple_characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes,
     node.parent_required = parentRequired.length ? parentRequired : undefined;
     node.parent_subset_required = parentSubsetRequired.length ? parentSubsetRequired : undefined;
 
-    printRecordCount(++recordProcessedCount);
     return { ...node };
   });
   return stapledTable;
@@ -358,7 +340,6 @@ const staple_characterSkillNodes_characterSkillNodesSkillLocks = (characterSkill
       }
     });
 
-    printRecordCount(++recordProcessedCount);
     return { ...node };
   });
   return stapleTables;
@@ -381,7 +362,6 @@ const staple_cultures_culturesLoc = (cultures, culturesLoc) => {
     });
     const tempCulture = { key: culture.key, name: relatedLoc.text };
 
-    printRecordCount(++recordProcessedCount);
     return { ...tempCulture };
   });
   return stapledTable;
@@ -398,7 +378,6 @@ const staple_cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
       culture.subcultures.push(subculture.subculture);
     });
 
-    printRecordCount(++recordProcessedCount);
     return { ...culture };
   });
 
@@ -449,7 +428,6 @@ const staple_cultures_factions = (cultures, factions) => {
       });
     }
 
-    printRecordCount(++recordProcessedCount);
     return { ...culture };
   });
   return stapledTable;
@@ -476,7 +454,6 @@ const staple_cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPer
       });
     }
 
-    printRecordCount(++recordProcessedCount);
     return { ...culture };
   });
   return stapledTable;
@@ -497,7 +474,6 @@ const stapled_cultures_characterSkillNodeSets = (cultures, characterSkillNodeSet
       }
     });
 
-    printRecordCount(++recordProcessedCount);
     return { ...culture };
   });
   return stapledTable;
@@ -521,8 +497,6 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
       }
       collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent].splice(skillNode.tier, 0, skillNode);
-
-      printRecordCount(++recordProcessedCount);
     }
   });
   return collatedNodeSets;
@@ -536,29 +510,24 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (collatedNodeSets[lord] === undefined && !missingCharacters.includes(lord)) {
         missingCharacters.push(lord);
       } else {
-        fse.outputFileSync(
+        fse.outputFile(
           `./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`,
           JSON.stringify(collatedNodeSets[lord], null, 2)
         );
       }
-
-      printRecordCount(++recordProcessedCount);
     });
 
     culture.heroNodeSets.forEach((hero) => {
       if (collatedNodeSets[hero] === undefined && !missingCharacters.includes(hero)) {
         missingCharacters.push(hero);
       } else {
-        fse.outputFileSync(
+        fse.outputFile(
           `./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`,
           JSON.stringify(collatedNodeSets[hero], null, 2)
         );
       }
-
-      printRecordCount(++recordProcessedCount);
     });
   });
-  process.stdout.write('\n');
   console.log(`Missing ${folder} characters:`);
   console.log(missingCharacters);
 };

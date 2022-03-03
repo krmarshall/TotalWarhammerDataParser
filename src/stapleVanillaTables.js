@@ -21,7 +21,7 @@ import {
   stapled_cultures_characterSkillNodeSets,
   collate_characterSkillNodes,
   output_characters,
-} from './sharedTableFunctions.js';
+} from './stapleTableFunctions.js';
 
 // If you read this im sorry.
 const stapleVanillaTables = () => {
@@ -102,10 +102,10 @@ const stapleVanillaTables = () => {
 
   const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
 
-  // fse.outputFileSync('./test/characterSkillNodes.json', JSON.stringify(characterSkillNodes, null, 2));
-  // fse.outputFileSync('./test/cultures.json', JSON.stringify(cultures, null, 2));
+  fse.outputFile('./test/characterSkillNodes.json', JSON.stringify(characterSkillNodes, null, 2));
+  fse.outputFile('./test/cultures.json', JSON.stringify(cultures, null, 2));
 
   output_characters(cultures, collatedNodeSets, 'vanilla');
 };
 
-export { stapleVanillaTables };
+export default stapleVanillaTables;

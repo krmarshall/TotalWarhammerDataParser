@@ -1,5 +1,5 @@
 import { parseVanillaFiles } from './parseFiles.js';
-import { stapleVanillaTables } from './stapleTables.js';
+import stapleVanillaTables from './stapleVanillaTables.js';
 
 console.time('parseVanilla');
 parseVanillaFiles()
