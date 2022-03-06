@@ -1,6 +1,6 @@
-const staple_characterSkills_characterSkillsToQuestAncillaries = (characterSkills, characterSkillsToQuestAncillaries) => {
+const characterSkills_characterSkillLevelToAncillariesJunction = (characterSkills, characterSkillLevelToAncillariesJunction) => {
   const stapledTable = characterSkills.map((characterSkill) => {
-    const relatedAncillary = characterSkillsToQuestAncillaries.find((ancillary) => {
+    const relatedAncillary = characterSkillLevelToAncillariesJunction.find((ancillary) => {
       return ancillary.skill === characterSkill.key;
     });
     if (relatedAncillary?.ancillary?.effects != undefined) {
@@ -23,7 +23,6 @@ const staple_characterSkills_characterSkillsToQuestAncillaries = (characterSkill
       });
 
       characterSkill.levels[relatedAncillary.level - 1].effects.push(...relatedAncillary.ancillary.effects);
-      characterSkill.use_quest_for_prefix = relatedAncillary.use_quest_for_prefix;
     }
 
     return { ...characterSkill };
@@ -31,4 +30,4 @@ const staple_characterSkills_characterSkillsToQuestAncillaries = (characterSkill
   return stapledTable;
 };
 
-export default staple_characterSkills_characterSkillsToQuestAncillaries;
+export default characterSkills_characterSkillLevelToAncillariesJunction;

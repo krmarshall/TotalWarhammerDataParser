@@ -1,4 +1,4 @@
-const staple_effects_effectsLoc = (effects, effectsLoc) => {
+const effects_effectsLoc = (effects, effectsLoc) => {
   const stapledTable = effects.map((effect) => {
     const locDescription = effectsLoc.find((effectLoc) => {
       return effectLoc.key === `effects_description_${effect.effect}`;
@@ -14,4 +14,4 @@ const staple_effects_effectsLoc = (effects, effectsLoc) => {
   return stapledTable;
 };
 
-export default staple_effects_effectsLoc;
+export default effects_effectsLoc;

@@ -1,4 +1,4 @@
-const staple_characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQuestAncillaries, ancillaries) => {
+const characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQuestAncillaries, ancillaries) => {
   const stapledTable = characterSkillsToQuestAncillaries.map((characterSkill) => {
     const relatedAncillary = ancillaries.find((ancillary) => {
       return ancillary.key === characterSkill.ancillary;
@@ -14,4 +14,4 @@ const staple_characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQ
   return stapledTable;
 };
 
-export default staple_characterSkillsToQuestAncillaries_ancillaries;
+export default characterSkillsToQuestAncillaries_ancillaries;

@@ -1,4 +1,4 @@
-const staple_ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
+const ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
   const stapledTable = ancillariesToEffects.map((ancillaryToEffect) => {
     const relatedEffect = effects.find((effect) => {
       return effect.effect === ancillaryToEffect.effect;
@@ -11,4 +11,4 @@ const staple_ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
   return stapledTable;
 };
 
-export default staple_ancillariesToEffects_effects;
+export default ancillariesToEffects_effects;

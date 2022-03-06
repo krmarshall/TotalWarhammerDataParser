@@ -1,4 +1,4 @@
-const staple_specialAbilityPhaseStatEffects_unitStatLoc = (specialAbilityPhaseStatEffects, unitStatLoc) => {
+const specialAbilityPhaseStatEffects_unitStatLoc = (specialAbilityPhaseStatEffects, unitStatLoc) => {
   const stapledTable = specialAbilityPhaseStatEffects.map((statEffect) => {
     const relatedStatLoc = unitStatLoc.find((loc) => {
       return loc.key === `unit_stat_localisations_onscreen_name_${statEffect.stat}`;
@@ -12,4 +12,4 @@ const staple_specialAbilityPhaseStatEffects_unitStatLoc = (specialAbilityPhaseSt
   return stapledTable;
 };
 
-export default staple_specialAbilityPhaseStatEffects_unitStatLoc;
+export default specialAbilityPhaseStatEffects_unitStatLoc;

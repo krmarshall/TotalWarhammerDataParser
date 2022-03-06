@@ -1,5 +1,5 @@
 // Norsca is treated wonky, subculture exists under chaos so lots of hardcoding fixes here, check with mods/tw3
-const staple_cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
+const cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
   const stapledTable = cultures.map((culture) => {
     const relatedSubcultures = culturesSubcultures.filter((subculture) => {
       return subculture.culture === culture.key;
@@ -41,4 +41,4 @@ const staple_cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
   return stapledTable;
 };
 
-export default staple_cultures_culturesSubcultures;
+export default cultures_culturesSubcultures;

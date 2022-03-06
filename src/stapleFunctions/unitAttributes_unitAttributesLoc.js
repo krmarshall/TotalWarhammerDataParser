@@ -1,4 +1,4 @@
-const staple_unitAttributes_unitAttributesLoc = (unitAttributes, unitAttributesLoc) => {
+const unitAttributes_unitAttributesLoc = (unitAttributes, unitAttributesLoc) => {
   const stapledTable = unitAttributes.map((attribute) => {
     const relatedLoc = unitAttributesLoc.find((loc) => {
       return loc.key === `unit_attributes_imued_effect_text_${attribute.key}`;
@@ -9,4 +9,4 @@ const staple_unitAttributes_unitAttributesLoc = (unitAttributes, unitAttributesL
   return stapledTable;
 };
 
-export default staple_unitAttributes_unitAttributesLoc;
+export default unitAttributes_unitAttributesLoc;

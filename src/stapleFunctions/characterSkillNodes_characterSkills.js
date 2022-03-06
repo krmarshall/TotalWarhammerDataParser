@@ -1,6 +1,6 @@
 import characterSkillNodesPrune from '../pruneLists/characterSkillNodesPrune.js';
 
-const staple_characterSkillNodes_characterSkills = (characterSkillNodes, characterSkills) => {
+const characterSkillNodes_characterSkills = (characterSkillNodes, characterSkills) => {
   const stapledTable = characterSkillNodes.map((characterSkillNode) => {
     characterSkillNodesPrune.forEach((prune) => {
       delete characterSkillNode[prune];
@@ -22,4 +22,4 @@ const staple_characterSkillNodes_characterSkills = (characterSkillNodes, charact
   return stapledTable;
 };
 
-export default staple_characterSkillNodes_characterSkills;
+export default characterSkillNodes_characterSkills;

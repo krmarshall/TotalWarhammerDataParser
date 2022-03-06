@@ -1,4 +1,4 @@
-const staple_characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, characterSkillLevelToEffectsJunction) => {
+const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, characterSkillLevelToEffectsJunction) => {
   const stapledTable = characterSkills.map((characterSkill) => {
     const relatedRecords = characterSkillLevelToEffectsJunction.filter((record) => {
       return record.character_skill_key === characterSkill.key;
@@ -38,4 +38,4 @@ const staple_characterSkills_characterSkillLevelToEffectsJunction = (characterSk
   return stapledTable;
 };
 
-export default staple_characterSkills_characterSkillLevelToEffectsJunction;
+export default characterSkills_characterSkillLevelToEffectsJunction;

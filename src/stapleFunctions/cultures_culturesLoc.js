@@ -1,4 +1,4 @@
-const staple_cultures_culturesLoc = (cultures, culturesLoc) => {
+const cultures_culturesLoc = (cultures, culturesLoc) => {
   const placeholderIndex = cultures.findIndex((culture) => {
     return culture.key === '*';
   });
@@ -20,4 +20,4 @@ const staple_cultures_culturesLoc = (cultures, culturesLoc) => {
   return stapledTable;
 };
 
-export default staple_cultures_culturesLoc;
+export default cultures_culturesLoc;

@@ -1,4 +1,4 @@
-const staple_characterSkillLevelToAncillariesJunction_ancillaries = (characterSkillLevelToAncillariesJunction, ancillaries) => {
+const characterSkillLevelToAncillariesJunction_ancillaries = (characterSkillLevelToAncillariesJunction, ancillaries) => {
   const stapledTable = characterSkillLevelToAncillariesJunction.map((record) => {
     const relatedAncillary = ancillaries.find((ancillary) => {
       return ancillary.key === record.granted_ancillary;
@@ -13,4 +13,4 @@ const staple_characterSkillLevelToAncillariesJunction_ancillaries = (characterSk
   return stapledTable;
 };
 
-export default staple_characterSkillLevelToAncillariesJunction_ancillaries;
+export default characterSkillLevelToAncillariesJunction_ancillaries;

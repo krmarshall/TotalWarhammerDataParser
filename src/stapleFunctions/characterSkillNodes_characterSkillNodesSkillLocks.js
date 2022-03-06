@@ -1,4 +1,4 @@
-const staple_characterSkillNodes_characterSkillNodesSkillLocks = (characterSkillNodes, characterSkillNodesSkillLocks) => {
+const characterSkillNodes_characterSkillNodesSkillLocks = (characterSkillNodes, characterSkillNodesSkillLocks) => {
   const stapleTables = characterSkillNodes.map((node) => {
     const relatedSkillLocks = characterSkillNodesSkillLocks.filter((skillLock) => {
       return skillLock.character_skill_node === node.key;
@@ -17,4 +17,4 @@ const staple_characterSkillNodes_characterSkillNodesSkillLocks = (characterSkill
   return stapleTables;
 };
 
-export default staple_characterSkillNodes_characterSkillNodesSkillLocks;
+export default characterSkillNodes_characterSkillNodesSkillLocks;

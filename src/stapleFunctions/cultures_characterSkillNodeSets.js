@@ -1,6 +1,6 @@
 import nodeSetsPrune from '../pruneLists/nodeSetsPrune.js';
 
-const staple_cultures_characterSkillNodeSets = (cultures, characterSkillNodeSets) => {
+const cultures_characterSkillNodeSets = (cultures, characterSkillNodeSets) => {
   const stapledTable = cultures.map((culture) => {
     const relatedNodeSets = characterSkillNodeSets.filter((nodeSet) => {
       return culture.agents.includes(nodeSet.agent_subtype_key);
@@ -20,4 +20,4 @@ const staple_cultures_characterSkillNodeSets = (cultures, characterSkillNodeSets
   return stapledTable;
 };
 
-export default staple_cultures_characterSkillNodeSets;
+export default cultures_characterSkillNodeSets;

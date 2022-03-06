@@ -1,4 +1,4 @@
-const staple_cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedSubtypes) => {
+const cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedSubtypes) => {
   const stapledTable = cultures.map((culture) => {
     const relatedAgents = factionAgentPermittedSubtypes.filter((agent) => {
       let intersects = false;
@@ -24,4 +24,4 @@ const staple_cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPer
   return stapledTable;
 };
 
-export default staple_cultures_factionAgentPermittedSubtypes;
+export default cultures_factionAgentPermittedSubtypes;

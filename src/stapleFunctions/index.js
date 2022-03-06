@@ -1,47 +1,47 @@
-import staple_cultures_characterSkillNodeSets from './staple_cultures_characterSkillNodeSets.js';
-import staple_cultures_factionAgentPermittedSubtypes from './staple_cultures_factionAgentPermittedSubtypes.js';
-import staple_cultures_factions from './staple_cultures_factions.js';
-import staple_cultures_culturesSubcultures from './staple_cultures_culturesSubcultures.js';
-import staple_cultures_culturesLoc from './staple_cultures_culturesLoc.js';
-import staple_characterSkillNodes_characterSkillNodesSkillLocks from './staple_characterSkillNodes_characterSkillNodesSkillLocks.js';
-import staple_characterSkillNodes_characterSkillNodeLinks from './staple_characterSkillNodes_characterSkillNodeLinks.js';
-import staple_characterSkillNodes_characterSkills from './staple_characterSkillNodes_characterSkills.js';
-import staple_characterSkills_characterSkillsToQuestAncillaries from './staple_characterSkills_characterSkillsToQuestAncillaries.js';
-import staple_characterSkills_characterSkillLevelToAncillariesJunction from './staple_characterSkills_characterSkillLevelToAncillariesJunction.js';
-import staple_characterSkills_characterSkillLevelToEffectsJunction from './staple_characterSkills_characterSkillLevelToEffectsJunction.js';
-import staple_characterSkills_characterSkillLevelDetails from './staple_characterSkills_characterSkillLevelDetails.js';
-import staple_characterSkills_characterSkillsLoc from './staple_characterSkills_characterSkillsLoc.js';
-import staple_effects_characterSkillLevelToEffectsJunction from './staple_effects_characterSkillLevelToEffectsJunction.js';
-import staple_characterSkillsToQuestAncillaries_ancillaries from './staple_characterSkillsToQuestAncillaries_ancillaries.js';
-import staple_characterSkillLevelToAncillariesJunction_ancillaries from './staple_characterSkillLevelToAncillariesJunction_ancillaries.js';
-import staple_ancillaries_ancillariesToEffects from './staple_ancillaries_ancillariesToEffects.js';
-import staple_ancillariesToEffects_effects from './staple_ancillariesToEffects_effects.js';
-import staple_effects_effectsLoc from './staple_effects_effectsLoc.js';
-import staple_specialAbilityPhaseAttributeEffects_unitAttributes from './staple_specialAbilityPhaseAttributeEffects_unitAttributes.js';
-import staple_unitAttributes_unitAttributesLoc from './staple_unitAttributes_unitAttributesLoc.js';
-import staple_specialAbilityPhaseStatEffects_unitStatLoc from './staple_specialAbilityPhaseStatEffects_unitStatLoc.js';
+import ancillariesToEffects_effects from './ancillariesToEffects_effects.js';
+import ancillaries_ancillariesToEffects from './ancillaries_ancillariesToEffects.js';
+import characterSkillLevelToAncillariesJunction_ancillaries from './characterSkillLevelToAncillariesJunction_ancillaries.js';
+import characterSkillNodes_characterSkillNodeLinks from './characterSkillNodes_characterSkillNodeLinks.js';
+import characterSkillNodes_characterSkillNodesSkillLocks from './characterSkillNodes_characterSkillNodesSkillLocks.js';
+import characterSkillNodes_characterSkills from './characterSkillNodes_characterSkills.js';
+import characterSkillsToQuestAncillaries_ancillaries from './characterSkillsToQuestAncillaries_ancillaries.js';
+import characterSkills_characterSkillLevelDetails from './characterSkills_characterSkillLevelDetails.js';
+import characterSkills_characterSkillLevelToAncillariesJunction from './characterSkills_characterSkillLevelToAncillariesJunction.js';
+import characterSkills_characterSkillLevelToEffectsJunction from './characterSkills_characterSkillLevelToEffectsJunction.js';
+import characterSkills_characterSkillsLoc from './characterSkills_characterSkillsLoc.js';
+import characterSkills_characterSkillsToQuestAncillaries from './characterSkills_characterSkillsToQuestAncillaries.js';
+import cultures_characterSkillNodeSets from './cultures_characterSkillNodeSets.js';
+import cultures_culturesLoc from './cultures_culturesLoc.js';
+import cultures_culturesSubcultures from './cultures_culturesSubcultures.js';
+import cultures_factionAgentPermittedSubtypes from './cultures_factionAgentPermittedSubtypes.js';
+import cultures_factions from './cultures_factions.js';
+import effects_characterSkillLevelToEffectsJunction from './effects_characterSkillLevelToEffectsJunction.js';
+import effects_effectsLoc from './effects_effectsLoc.js';
+import specialAbilityPhaseAttributeEffects_unitAttributes from './specialAbilityPhaseAttributeEffects_unitAttributes.js';
+import specialAbilityPhaseStatEffects_unitStatLoc from './specialAbilityPhaseStatEffects_unitStatLoc.js';
+import unitAttributes_unitAttributesLoc from './unitAttributes_unitAttributesLoc.js';
 
 export {
-  staple_cultures_characterSkillNodeSets,
-  staple_cultures_factionAgentPermittedSubtypes,
-  staple_cultures_factions,
-  staple_cultures_culturesSubcultures,
-  staple_cultures_culturesLoc,
-  staple_characterSkillNodes_characterSkillNodesSkillLocks,
-  staple_characterSkillNodes_characterSkillNodeLinks,
-  staple_characterSkillNodes_characterSkills,
-  staple_characterSkills_characterSkillsToQuestAncillaries,
-  staple_characterSkills_characterSkillLevelToAncillariesJunction,
-  staple_characterSkills_characterSkillLevelToEffectsJunction,
-  staple_characterSkills_characterSkillLevelDetails,
-  staple_characterSkills_characterSkillsLoc,
-  staple_effects_characterSkillLevelToEffectsJunction,
-  staple_characterSkillsToQuestAncillaries_ancillaries,
-  staple_characterSkillLevelToAncillariesJunction_ancillaries,
-  staple_ancillaries_ancillariesToEffects,
-  staple_ancillariesToEffects_effects,
-  staple_effects_effectsLoc,
-  staple_unitAttributes_unitAttributesLoc,
-  staple_specialAbilityPhaseAttributeEffects_unitAttributes,
-  staple_specialAbilityPhaseStatEffects_unitStatLoc,
+  cultures_characterSkillNodeSets,
+  cultures_factionAgentPermittedSubtypes,
+  cultures_factions,
+  cultures_culturesSubcultures,
+  cultures_culturesLoc,
+  characterSkillNodes_characterSkillNodesSkillLocks,
+  characterSkillNodes_characterSkillNodeLinks,
+  characterSkillNodes_characterSkills,
+  characterSkills_characterSkillsToQuestAncillaries,
+  characterSkills_characterSkillLevelToAncillariesJunction,
+  characterSkills_characterSkillLevelToEffectsJunction,
+  characterSkills_characterSkillLevelDetails,
+  characterSkills_characterSkillsLoc,
+  effects_characterSkillLevelToEffectsJunction,
+  characterSkillsToQuestAncillaries_ancillaries,
+  characterSkillLevelToAncillariesJunction_ancillaries,
+  ancillaries_ancillariesToEffects,
+  ancillariesToEffects_effects,
+  effects_effectsLoc,
+  unitAttributes_unitAttributesLoc,
+  specialAbilityPhaseAttributeEffects_unitAttributes,
+  specialAbilityPhaseStatEffects_unitStatLoc,
 };

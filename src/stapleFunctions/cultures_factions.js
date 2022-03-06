@@ -1,6 +1,6 @@
 import subculturesPrune from '../pruneLists/subculturesPrune.js';
 
-const staple_cultures_factions = (cultures, factions) => {
+const cultures_factions = (cultures, factions) => {
   const stapledTable = cultures.map((culture) => {
     const relatedFactions = factions.filter((faction) => {
       return faction.subculture === culture.subculture;
@@ -23,4 +23,4 @@ const staple_cultures_factions = (cultures, factions) => {
   return stapledTable;
 };
 
-export default staple_cultures_factions;
+export default cultures_factions;

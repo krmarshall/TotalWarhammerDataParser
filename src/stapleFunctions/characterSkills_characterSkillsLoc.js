@@ -1,5 +1,5 @@
 // The localised_name and localised_description seem to be mostly accurate to the vanilla locs, might be more important for modded packs.
-const staple_characterSkills_characterSkillsLoc = (characterSkills, characterSkillsLoc) => {
+const characterSkills_characterSkillsLoc = (characterSkills, characterSkillsLoc) => {
   const stapledTable = characterSkills.map((characterSkill) => {
     const locName = characterSkillsLoc.find((characterSkillLoc) => {
       return characterSkillLoc.key === `character_skills_localised_name_${characterSkill.key}`;
@@ -18,4 +18,4 @@ const staple_characterSkills_characterSkillsLoc = (characterSkills, characterSki
   return stapledTable;
 };
 
-export default staple_characterSkills_characterSkillsLoc;
+export default characterSkills_characterSkillsLoc;

@@ -1,7 +1,7 @@
 import characterSkillsPrune from '../pruneLists/characterSkillsPrune.js';
 import characterSkillLevelDetailsPrune from '../pruneLists/characterSkillLevelDetailsPrune.js';
 
-const staple_characterSkills_characterSkillLevelDetails = (characterSkills, characterSkillLevelDetails) => {
+const characterSkills_characterSkillLevelDetails = (characterSkills, characterSkillLevelDetails) => {
   const stapledTable = characterSkills.map((characterSkill) => {
     characterSkillsPrune.forEach((prune) => {
       delete characterSkill[prune];
@@ -34,4 +34,4 @@ const staple_characterSkills_characterSkillLevelDetails = (characterSkills, char
   return stapledTable;
 };
 
-export default staple_characterSkills_characterSkillLevelDetails;
+export default characterSkills_characterSkillLevelDetails;

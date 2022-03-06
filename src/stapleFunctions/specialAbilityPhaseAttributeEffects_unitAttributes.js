@@ -1,4 +1,4 @@
-const staple_specialAbilityPhaseAttributeEffects_unitAttributes = (specialAbilityPhaseAttributeEffects, unitAttributes) => {
+const specialAbilityPhaseAttributeEffects_unitAttributes = (specialAbilityPhaseAttributeEffects, unitAttributes) => {
   const stapledTable = specialAbilityPhaseAttributeEffects.map((phase) => {
     const relatedAttribute = unitAttributes.find((attribute) => {
       return attribute.key === phase.attribute;
@@ -13,4 +13,4 @@ const staple_specialAbilityPhaseAttributeEffects_unitAttributes = (specialAbilit
   return stapledTable;
 };
 
-export default staple_specialAbilityPhaseAttributeEffects_unitAttributes;
+export default specialAbilityPhaseAttributeEffects_unitAttributes;

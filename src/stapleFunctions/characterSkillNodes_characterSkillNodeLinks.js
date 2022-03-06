@@ -1,4 +1,4 @@
-const staple_characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, characterSkillNodeLinks) => {
+const characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, characterSkillNodeLinks) => {
   const stapledTable = characterSkillNodes.map((node) => {
     const relatedLinksImParent = [];
     const relatedLinksImChild = [];
@@ -51,4 +51,4 @@ const staple_characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes,
   return stapledTable;
 };
 
-export default staple_characterSkillNodes_characterSkillNodeLinks;
+export default characterSkillNodes_characterSkillNodeLinks;

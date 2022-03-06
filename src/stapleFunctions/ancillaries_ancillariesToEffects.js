@@ -1,6 +1,6 @@
 import ancillariesPrune from '../pruneLists/ancillariesPrune.js';
 
-const staple_ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffects) => {
+const ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffects) => {
   const stapledTable = ancillaries.map((ancillary) => {
     ancillariesPrune.forEach((prune) => {
       delete ancillary[prune];
@@ -30,4 +30,4 @@ const staple_ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffec
   return stapledTable;
 };
 
-export default staple_ancillaries_ancillariesToEffects;
+export default ancillaries_ancillariesToEffects;
