@@ -17,6 +17,9 @@ import staple_characterSkillLevelToAncillariesJunction_ancillaries from './stapl
 import staple_ancillaries_ancillariesToEffects from './staple_ancillaries_ancillariesToEffects.js';
 import staple_ancillariesToEffects_effects from './staple_ancillariesToEffects_effects.js';
 import staple_effects_effectsLoc from './staple_effects_effectsLoc.js';
+import staple_specialAbilityPhaseAttributeEffects_unitAttributes from './staple_specialAbilityPhaseAttributeEffects_unitAttributes.js';
+import staple_unitAttributes_unitAttributesLoc from './staple_unitAttributes_unitAttributesLoc.js';
+import staple_specialAbilityPhaseStatEffects_unitStatLoc from './staple_specialAbilityPhaseStatEffects_unitStatLoc.js';
 
 export {
   staple_cultures_characterSkillNodeSets,
@@ -38,4 +41,7 @@ export {
   staple_ancillaries_ancillariesToEffects,
   staple_ancillariesToEffects_effects,
   staple_effects_effectsLoc,
+  staple_unitAttributes_unitAttributesLoc,
+  staple_specialAbilityPhaseAttributeEffects_unitAttributes,
+  staple_specialAbilityPhaseStatEffects_unitStatLoc,
 };
