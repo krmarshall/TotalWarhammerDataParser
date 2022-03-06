@@ -1,29 +1,27 @@
 import fse from 'fs-extra';
 import {
-  staple_effects_effectsLoc,
-  staple_ancillariesToEffects_effects,
-  staple_ancillaries_ancillariesToEffects,
-  staple_characterSkillLevelToAncillariesJunction_ancillaries,
-  staple_characterSkillsToQuestAncillaries_ancillaries,
-  staple_effects_characterSkillLevelToEffectsJunction,
-  staple_characterSkills_characterSkillsLoc,
-  staple_characterSkills_characterSkillLevelDetails,
-  staple_characterSkills_characterSkillLevelToEffectsJunction,
-  staple_characterSkills_characterSkillLevelToAncillariesJunction,
-  staple_characterSkills_characterSkillsToQuestAncillaries,
-  staple_characterSkillNodes_characterSkills,
-  staple_characterSkillNodes_characterSkillNodeLinks,
-  staple_characterSkillNodes_characterSkillNodesSkillLocks,
-  staple_cultures_culturesLoc,
-  staple_cultures_culturesSubcultures,
-  staple_cultures_factions,
+  staple_cultures_characterSkillNodeSets,
   staple_cultures_factionAgentPermittedSubtypes,
-  stapled_cultures_characterSkillNodeSets,
-  collate_characterSkillNodes,
-  output_characters,
-} from './stapleTableFunctions.js';
+  staple_cultures_factions,
+  staple_cultures_culturesSubcultures,
+  staple_cultures_culturesLoc,
+  staple_characterSkillNodes_characterSkillNodesSkillLocks,
+  staple_characterSkillNodes_characterSkillNodeLinks,
+  staple_characterSkillNodes_characterSkills,
+  staple_characterSkills_characterSkillsToQuestAncillaries,
+  staple_characterSkills_characterSkillLevelToAncillariesJunction,
+  staple_characterSkills_characterSkillLevelToEffectsJunction,
+  staple_characterSkills_characterSkillLevelDetails,
+  staple_characterSkills_characterSkillsLoc,
+  staple_effects_characterSkillLevelToEffectsJunction,
+  staple_characterSkillsToQuestAncillaries_ancillaries,
+  staple_characterSkillLevelToAncillariesJunction_ancillaries,
+  staple_ancillaries_ancillariesToEffects,
+  staple_ancillariesToEffects_effects,
+  staple_effects_effectsLoc,
+} from './stapleFunctions/index.js';
+import { output_characters, collate_characterSkillNodes } from './otherFunctions/index.js';
 
-// If you read this im sorry.
 const stapleVanillaTables = () => {
   let effects = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/effects_tables.json', 'utf-8'));
   const effectsLoc = JSON.parse(fse.readFileSync('./parsed_files/vanilla/text/db/effects.json', 'utf-8'));
@@ -98,7 +96,7 @@ const stapleVanillaTables = () => {
   cultures = staple_cultures_factionAgentPermittedSubtypes(cultures, factionAgentPermittedSubtypes);
 
   const characterSkillNodeSets = JSON.parse(fse.readFileSync('./parsed_files/vanilla/db/character_skill_node_sets_tables.json', 'utf-8'));
-  cultures = stapled_cultures_characterSkillNodeSets(cultures, characterSkillNodeSets);
+  cultures = staple_cultures_characterSkillNodeSets(cultures, characterSkillNodeSets);
 
   const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
 
