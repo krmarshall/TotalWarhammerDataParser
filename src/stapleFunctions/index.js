@@ -20,6 +20,10 @@ import effects_effectsLoc from './effects_effectsLoc.js';
 import specialAbilityPhaseAttributeEffects_unitAttributes from './specialAbilityPhaseAttributeEffects_unitAttributes.js';
 import specialAbilityPhaseStatEffects_unitStatLoc from './specialAbilityPhaseStatEffects_unitStatLoc.js';
 import unitAttributes_unitAttributesLoc from './unitAttributes_unitAttributesLoc.js';
+import specialAbilityPhases_specialAbilityPhaseAttributeEffects from './specialAbilityPhases_specialAbilityPhaseAttributeEffects.js';
+import specialAbilityPhases_specialAbilityPhaseStatEffects from './specialAbilityPhases_specialAbilityPhaseStatEffects.js';
+import specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases from './specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases.js';
+import unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs from './unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs.js';
 
 export {
   cultures_characterSkillNodeSets,
@@ -44,4 +48,8 @@ export {
   unitAttributes_unitAttributesLoc,
   specialAbilityPhaseAttributeEffects_unitAttributes,
   specialAbilityPhaseStatEffects_unitStatLoc,
+  specialAbilityPhases_specialAbilityPhaseAttributeEffects,
+  specialAbilityPhases_specialAbilityPhaseStatEffects,
+  specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases,
+  unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs,
 };

@@ -12,6 +12,10 @@ const stapleTables = (folder) => {
   let specialAbilityPhaseAttributeEffects = readJson('db/special_ability_phase_attribute_effects_tables.json');
   let specialAbilityPhaseStatEffects = readJson('db/special_ability_phase_stat_effects_tables.json');
   const unitStatLoc = readJson('text/db/unit_stat_localisations.json');
+  let specialAbilityPhases = readJson('db/special_ability_phases_tables.json');
+  let specialAbilityToSpecialAbilityPhaseJuncs = readJson('db/special_ability_to_special_ability_phase_junctions_tables.json');
+  let unitSpecialAbilities = readJson('db/unit_special_abilities_tables.json');
+
   let effects = readJson('db/effects_tables.json');
   const effectsLoc = readJson('text/db/effects.json');
   let ancillaryToEffects = readJson('db/ancillary_to_effects_tables.json');
@@ -38,10 +42,21 @@ const stapleTables = (folder) => {
     unitAttributes
   );
   specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_unitStatLoc(specialAbilityPhaseStatEffects, unitStatLoc);
+  specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseAttributeEffects(
+    specialAbilityPhases,
+    specialAbilityPhaseAttributeEffects
+  );
+  specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseStatEffects(specialAbilityPhases, specialAbilityPhaseStatEffects);
+  specialAbilityToSpecialAbilityPhaseJuncs = staple.specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases(
+    specialAbilityToSpecialAbilityPhaseJuncs,
+    specialAbilityPhases
+  );
+  unitSpecialAbilities = staple.unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs(
+    unitSpecialAbilities,
+    specialAbilityToSpecialAbilityPhaseJuncs
+  );
 
-  // You are here: Staple specialAbilityPhases to specialAbilityPhaseAttributeEffects and specialAbilityPhaseStatEffects
-
-  fse.outputFile(`./test/${folder}/specialAbilityPhaseStatEffects.json`, JSON.stringify(specialAbilityPhaseStatEffects, null, 2));
+  fse.outputFile(`./test/${folder}/unitSpecialAbilities.json`, JSON.stringify(unitSpecialAbilities, null, 2));
 
   effects = staple.effects_effectsLoc(effects, effectsLoc);
   ancillaryToEffects = staple.ancillariesToEffects_effects(ancillaryToEffects, effects);
