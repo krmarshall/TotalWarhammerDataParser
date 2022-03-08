@@ -24,6 +24,15 @@ import specialAbilityPhases_specialAbilityPhaseAttributeEffects from './specialA
 import specialAbilityPhases_specialAbilityPhaseStatEffects from './specialAbilityPhases_specialAbilityPhaseStatEffects.js';
 import specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases from './specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases.js';
 import unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs from './unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs.js';
+import unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc from './unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc.js';
+import unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects from './unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects.js';
+import unitAbilityTypes_unitAbilityTypesLoc from './unitAbilityTypes_unitAbilityTypesLoc.js';
+import unitAbilities_unitAbilitiesLoc from './unitAbilities_unitAbilitiesLoc.js';
+import unitAbilities_unitAbilityTypes from './unitAbilities_unitAbilityTypes.js';
+import unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs from './unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs.js';
+import unitAbilities_unitSpecialAbilities from './unitAbilities_unitSpecialAbilities.js';
+import effectBonusValueUnitAbilityJunc_unitAbilities from './effectBonusValueUnitAbilityJunc_unitAbilities.js';
+import effects_effectBonusValueUnitAbilityJunc from './effects_effectBonusValueUnitAbilityJunc.js';
 
 export {
   cultures_characterSkillNodeSets,
@@ -52,4 +61,13 @@ export {
   specialAbilityPhases_specialAbilityPhaseStatEffects,
   specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases,
   unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs,
+  unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc,
+  unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects,
+  unitAbilityTypes_unitAbilityTypesLoc,
+  unitAbilities_unitAbilitiesLoc,
+  unitAbilities_unitAbilityTypes,
+  unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs,
+  unitAbilities_unitSpecialAbilities,
+  effectBonusValueUnitAbilityJunc_unitAbilities,
+  effects_effectBonusValueUnitAbilityJunc,
 };

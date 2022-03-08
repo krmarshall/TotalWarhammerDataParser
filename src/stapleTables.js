@@ -35,6 +35,14 @@ const stapleTables = (folder) => {
   const factions = readJson('db/factions_tables.json');
   const factionAgentPermittedSubtypes = readJson('db/faction_agent_permitted_subtypes_tables.json');
   const characterSkillNodeSets = readJson('db/character_skill_node_sets_tables.json');
+  const unitAbilitiesAdditionalUiEffectsLoc = readJson('text/db/unit_abilities_additional_ui_effects.json');
+  let unitAbilitiesAdditionalUiEffects = readJson('db/unit_abilities_additional_ui_effects_tables.json');
+  let unitAbilitiesToAdditionalUiEffectsJuncs = readJson('db/unit_abilities_to_additional_ui_effects_juncs_tables.json');
+  let unitAbilityTypes = readJson('db/unit_ability_types_tables.json');
+  const unitAbilityTypesLoc = readJson('text/db/unit_ability_types.json');
+  let unitAbilities = readJson('db/unit_abilities_tables.json');
+  const unitAbilitiesLoc = readJson('text/db/unit_abilities.json');
+  let effectBonusValueUnitAbilityJunc = readJson('db/effect_bonus_value_unit_ability_junctions_tables.json');
 
   unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, unitAttributesLoc);
   specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
@@ -55,10 +63,23 @@ const stapleTables = (folder) => {
     unitSpecialAbilities,
     specialAbilityToSpecialAbilityPhaseJuncs
   );
-
-  fse.outputFile(`./test/${folder}/unitSpecialAbilities.json`, JSON.stringify(unitSpecialAbilities, null, 2));
-
+  unitAbilitiesAdditionalUiEffects = staple.unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc(
+    unitAbilitiesAdditionalUiEffects,
+    unitAbilitiesAdditionalUiEffectsLoc
+  );
+  unitAbilitiesToAdditionalUiEffectsJuncs = staple.unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects(
+    unitAbilitiesToAdditionalUiEffectsJuncs,
+    unitAbilitiesAdditionalUiEffects
+  );
+  unitAbilityTypes = staple.unitAbilityTypes_unitAbilityTypesLoc(unitAbilityTypes, unitAbilityTypesLoc);
+  unitAbilities = staple.unitAbilities_unitAbilitiesLoc(unitAbilities, unitAbilitiesLoc);
+  unitAbilities = staple.unitAbilities_unitAbilityTypes(unitAbilities, unitAbilityTypes);
+  unitAbilities = staple.unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs(unitAbilities, unitAbilitiesToAdditionalUiEffectsJuncs);
+  unitAbilities = staple.unitAbilities_unitSpecialAbilities(unitAbilities, unitSpecialAbilities);
+  effectBonusValueUnitAbilityJunc = staple.effectBonusValueUnitAbilityJunc_unitAbilities(effectBonusValueUnitAbilityJunc, unitAbilities);
   effects = staple.effects_effectsLoc(effects, effectsLoc);
+  // Prob need to filter better that bonus_value_id in effectBonusValueUnitAbilityJunc for related abilities
+  effects = staple.effects_effectBonusValueUnitAbilityJunc(effects, effectBonusValueUnitAbilityJunc);
   ancillaryToEffects = staple.ancillariesToEffects_effects(ancillaryToEffects, effects);
   ancillaries = staple.ancillaries_ancillariesToEffects(ancillaries, ancillaryToEffects);
   characterSkillLevelToAncillariesJunction = staple.characterSkillLevelToAncillariesJunction_ancillaries(
