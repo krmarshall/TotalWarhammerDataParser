@@ -9,9 +9,10 @@
     "lintFix": "eslint src/ --fix",
     "copySource": "cd ./scripts && copySource.bat",
     "rpfmExtract": "cd ./scripts && rpfmExtractVanilla.bat",
+    "rpfmExtractSFO": "cd ./scripts && rpfmExtractSFO.bat",
     "start": "node ./src/index.js",
     "profile": "node --prof ./src/index.js",
-    "fullBuild": "run-s copySource rpfmExtract start"
+    "fullBuild": "run-s copySource rpfmExtract rpfmExtractSFO start"
   },
   "author": "krmarshall",
   "license": "ISC",

@@ -4,5 +4,11 @@ Requires RPFM (or at least the cli) to be available under ./rpfm
 
 ## Possible Expansions
 - Hunt down what table defines the level quest items are unlocked
-- Add ability details for tooltips https://steamcommunity.com/sharedfiles/filedetails/?id=1698960734
 
+## How To Use
+- Ensure an updated version of rpfm exists in ./rpfm
+- Check absolute file paths in scripts for copying game/mod files and clearing data before scripts
+- Make sure all mods are downloaded
+- With rpfm (ui) rename the sfo loc table *SFO_effects__.loc to #SFO_effects__.loc because rpfm cant handle the *. -_-
+- npm run fullBuild
+- Extracted character skill trees will be in the ./output folder as parsed json.
