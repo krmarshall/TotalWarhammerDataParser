@@ -3,6 +3,7 @@ import * as staple from './stapleFunctions/index.js';
 import { output_characters, collate_characterSkillNodes } from './otherFunctions/index.js';
 
 const stapleTables = (folder) => {
+  console.time(`${folder} staple`);
   const readJson = (path) => {
     return JSON.parse(fse.readFileSync(`./parsed_files/${folder}/${path}`, 'utf-8'));
   };
@@ -111,6 +112,7 @@ const stapleTables = (folder) => {
   fse.outputFile(`./test/${folder}/cultures.json`, JSON.stringify(cultures, null, 2));
 
   output_characters(cultures, collatedNodeSets, folder);
+  console.timeEnd(`${folder} staple`);
 };
 
 export default stapleTables;

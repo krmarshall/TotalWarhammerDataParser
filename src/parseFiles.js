@@ -17,6 +17,7 @@ const getDirectories = (src, callback) => {
 };
 
 const parseVanillaFiles = () => {
+  console.time(`vanilla parse`);
   return new Promise((resolve, reject) => {
     getDirectories('./extracted_files/vanilla/', (error, filePaths) => {
       if (error) {
@@ -29,6 +30,7 @@ const parseVanillaFiles = () => {
           const parsedNewFilePath = filePath.split(/vanilla|\/data__|__.tsv/);
           fse.outputFileSync(`./parsed_files/vanilla${parsedNewFilePath[1]}.json`, jsonString);
         });
+        console.timeEnd(`vanilla parse`);
         resolve();
       }
     });
