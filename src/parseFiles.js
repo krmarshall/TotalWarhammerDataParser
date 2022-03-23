@@ -16,10 +16,10 @@ const getDirectories = (src, callback) => {
   glob(`${src}**/*.tsv`, callback);
 };
 
-const parseVanillaFiles = () => {
-  console.time(`vanilla parse`);
+const parseFiles = (folder) => {
+  console.time(`${folder} parse`);
   return new Promise((resolve, reject) => {
-    getDirectories('./extracted_files/vanilla/', (error, filePaths) => {
+    getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
       if (error) {
         reject(error);
       } else {
@@ -27,35 +27,15 @@ const parseVanillaFiles = () => {
           const fileData = fs.readFileSync(filePath, 'utf-8');
           const parsedArray = parse(fileData, csvParseConfig);
           const jsonString = JSON.stringify(parsedArray, null, 2);
-          const parsedNewFilePath = filePath.split(/vanilla|\/data__|__.tsv/);
-          fse.outputFileSync(`./parsed_files/vanilla${parsedNewFilePath[1]}.json`, jsonString);
+          const tempNewFilePath = filePath.split(folder);
+          const parsedNewFilePath = tempNewFilePath[1].split(/\/data__|__|.tsv/);
+          fse.outputFileSync(`./parsed_files/${folder}${parsedNewFilePath[0]}.json`, jsonString);
         });
-        console.timeEnd(`vanilla parse`);
+        console.timeEnd(`${folder} parse`);
         resolve();
       }
     });
   });
 };
 
-const parseVanilla3Files = () => {
-  console.time(`vanilla3 parse`);
-  return new Promise((resolve, reject) => {
-    getDirectories('./extracted_files/vanilla3/', (error, filePaths) => {
-      if (error) {
-        reject(error);
-      } else {
-        filePaths.map((filePath) => {
-          const fileData = fs.readFileSync(filePath, 'utf-8');
-          const parsedArray = parse(fileData, csvParseConfig);
-          const jsonString = JSON.stringify(parsedArray, null, 2);
-          const parsedNewFilePath = filePath.split(/vanilla3|\/data__|__.tsv/);
-          fse.outputFileSync(`./parsed_files/vanilla3${parsedNewFilePath[1]}.json`, jsonString);
-        });
-        console.timeEnd(`vanilla3 parse`);
-        resolve();
-      }
-    });
-  });
-};
-
-export { parseVanillaFiles, parseVanilla3Files };
+export default parseFiles;
