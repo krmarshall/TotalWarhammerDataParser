@@ -2,6 +2,11 @@
  
 Requires RPFM (or at least the cli) to be available under ./rpfm
 
+## To Do
+- Check wh3 phases stapling, think something is wonky?
+- Merge and Parse mods
+- Look through wh3 tables for new properties to prune/handle
+
 ## Possible Expansions
 - Hunt down what table defines the level quest items are unlocked
 
