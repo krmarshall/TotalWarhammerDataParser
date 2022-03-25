@@ -8,7 +8,14 @@ emptyDirSync('./output');
 
 // Vanilla 2
 const workerVanilla2 = new Worker('./src/workers/worker2.js', {
-  workerData: { folder: 'vanilla', dbPackName: 'data', locPackName: 'local_en', dbList: v2DbList, locList: v2LocList, game: 'warhammer_2' },
+  workerData: {
+    folder: 'vanilla2',
+    dbPackName: 'data',
+    locPackName: 'local_en',
+    dbList: v2DbList,
+    locList: v2LocList,
+    game: 'warhammer_2',
+  },
 });
 workerVanilla2.on('error', (error) => {
   console.log(error);

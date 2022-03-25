@@ -17,7 +17,7 @@ extractPackfile(folder, dbPackName, locPackName, dbList, locList, game)
     // SFO 2
     const workerSFO2 = new Worker('./src/workers/workerMod2.js', {
       workerData: {
-        folder: 'sfo',
+        folder: 'sfo2',
         dbPackName: 'steel_faith_overhaul_2',
         locPackName: 'steel_faith_overhaul_2',
         dbList: sfo2DbList,
