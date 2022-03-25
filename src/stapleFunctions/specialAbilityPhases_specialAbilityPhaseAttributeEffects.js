@@ -23,6 +23,8 @@ const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbility
     abilityPhase.recharge_time = parseFloatToFixed(abilityPhase.recharge_time);
     abilityPhase.is_hidden_in_ui = JSON.parse(abilityPhase.is_hidden_in_ui);
     abilityPhase.replenish_ammo = parseFloatToFixed(abilityPhase.replenish_ammo);
+
+    abilityPhase.freeze_recharge ? (abilityPhase.freeze_recharge = JSON.parse(abilityPhase.freeze_recharge)) : undefined;
     // Prune properties that are empty
     [
       'unbreakable',
@@ -36,6 +38,7 @@ const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbility
       'imbue_ignition',
       'replenish_ammo',
       'imbue_contact',
+      'spreading',
     ].forEach((key) => {
       if (!abilityPhase[key]) {
         delete abilityPhase[key];

@@ -4,6 +4,7 @@ Requires RPFM (or at least the cli) to be available under ./rpfm
 
 ## To Do
 - Merge and Parse mods
+- See how spreading works?
 - (Partially Done?)Fix WH3 Faction/Lords/Heroes
 - (Partially Done?)Look through wh3 tables for new properties to prune/handle
 

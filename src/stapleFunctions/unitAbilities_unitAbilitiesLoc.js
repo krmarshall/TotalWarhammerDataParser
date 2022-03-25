@@ -12,6 +12,7 @@ const unitAbilities_unitAbilitiesLoc = (unitAbilities, unitAbilitiesLoc) => {
     if (relatedLoc !== undefined) {
       ability.description = relatedLoc.text;
     }
+    ability.is_hidden_in_ui = JSON.parse(ability.is_hidden_in_ui);
 
     return { ...ability };
   });
