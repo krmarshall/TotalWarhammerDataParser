@@ -25,6 +25,8 @@ const ancillariesPrune = [
   'randomly_dropped',
   'can_be_stolen',
   'can_be_destroyed',
+
+  'faction_set',
 ];
 
 export default ancillariesPrune;

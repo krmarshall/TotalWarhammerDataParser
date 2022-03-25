@@ -3,7 +3,7 @@ import nodeSetsPrune from '../pruneLists/nodeSetsPrune.js';
 const cultures_characterSkillNodeSets = (cultures, characterSkillNodeSets) => {
   const stapledTable = cultures.map((culture) => {
     const relatedNodeSets = characterSkillNodeSets.filter((nodeSet) => {
-      return culture.agents.includes(nodeSet.agent_subtype_key);
+      return culture.agents?.includes(nodeSet.agent_subtype_key);
     });
     culture.lordNodeSets = [];
     culture.heroNodeSets = [];

@@ -217,6 +217,45 @@ const subculturesPrune = [
   'wh_main_vmp_vampire_counts_qb2',
   'wh_main_vmp_vampire_counts_qb3',
   'wh_main_vmp_vampire_rebels',
+
+  // WH3 Probably needs more tweaks
+  // Cathay
+  'wh3_main_cth_cathay_qb1',
+  'wh3_main_cth_cathay_rebels',
+
+  // Daemons
+  'wh3_main_dae_daemons_qb1',
+
+  // Khorne
+  'wh3_main_kho_khorne_qb1',
+  'wh3_main_kho_khorne_qb2',
+  'wh3_main_kho_khorne_rebels',
+
+  // Kislev
+  'wh3_main_ksl_kislev_qb1',
+  'wh3_main_ksl_kislev_rebels',
+
+  // Nurgle
+  'wh3_main_nur_nurgle_qb1',
+  'wh3_main_nur_nurgle_rebels',
+
+  // Ogres
+  'wh3_main_ogr_ogre_kingdoms_qb1',
+  'wh3_main_ogr_ogre_rebels',
+
+  // Slaanesh
+  'wh3_main_sla_slaanesh_qb1',
+  'wh3_main_sla_slaanesh_rebels',
+
+  // Tzeentch
+  'wh3_main_tze_tzeentch_qb1',
+  'wh3_main_tze_tzeentch_qb2',
+  'wh3_main_tze_tzeentch_rebels',
+
+  // Prologue
+  // Lots of prologue factions (including in norsca), need to investigate more
+  'wh3_prologue_dervingard_garrison',
+  'wh3_prologue_kislev_expedition',
 ];
 
 export default subculturesPrune;

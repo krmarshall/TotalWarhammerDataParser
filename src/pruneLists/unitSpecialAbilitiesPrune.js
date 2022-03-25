@@ -34,6 +34,23 @@ const unitSpecialAbilitiesPrune = [
   'spawn_is_decoy',
   'only_affect_owned_units',
   'ability_available_ui_event',
+
+  'only_affect_target',
+  'always_affect_self',
+  'unit_position_offset',
+  'update_phase_by_ability_duration',
+  'formation',
+  'behaviour',
+  'audio_switch_override',
+  'current_mana_moves_to_reserve',
+  'spawn_shares_health_and_fatigue',
+  'affect_siege_equipment',
+  'intensity_based_activation',
+  'autoresolver_usage',
+  'autoresolve_cp_multiplier',
+  'autoresolver_targets',
+  'display_stops_when_display_expires',
+  'can_be_copied_to_transformation_unit',
 ];
 
 export default unitSpecialAbilitiesPrune;

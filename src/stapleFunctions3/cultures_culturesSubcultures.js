@@ -11,26 +11,16 @@ const cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
     return { ...culture };
   });
 
-  // // Hardcoded fixes, got fixed with 3???
-  // const norscaIndex = stapledTable.findIndex((culture) => {
-  //   return culture.key === 'wh_dlc08_nor_norsca';
-  // });
-  // stapledTable[norscaIndex].subcultures = ['wh_main_sc_nor_norsca'];
+  // Hardcoded fixes z.z
+  const khorneIndex = stapledTable.findIndex((culture) => {
+    return culture.key === 'wh3_main_kho_khorne';
+  });
+  stapledTable[khorneIndex].subcultures = ['wh3_main_sc_kho_khorne'];
 
-  // const chaosIndex = stapledTable.findIndex((culture) => {
-  //   return culture.key === 'wh_main_chs_chaos';
-  // });
-  // stapledTable[chaosIndex].subcultures = ['wh_main_sc_chs_chaos'];
-
-  // const empireIndex = stapledTable.findIndex((culture) => {
-  //   return culture.key === 'wh_main_emp_empire';
-  // });
-  // stapledTable[empireIndex].subcultures = ['wh_main_sc_emp_empire'];
-
-  // const greenskinsIndex = stapledTable.findIndex((culture) => {
-  //   return culture.key === 'wh_main_grn_greenskins';
-  // });
-  // stapledTable[greenskinsIndex].subcultures = ['wh_main_sc_grn_greenskins'];
+  const tzeentchIndex = stapledTable.findIndex((culture) => {
+    return culture.key === 'wh3_main_tze_tzeentch';
+  });
+  stapledTable[tzeentchIndex].subcultures = ['wh3_main_sc_tze_tzeentch'];
 
   stapledTable.forEach((culture) => {
     culture.subculture = culture.subcultures[0];
