@@ -4,7 +4,7 @@ const characterSkillLevelToAncillariesJunction_ancillaries = (characterSkillLeve
       return ancillary.key === record.granted_ancillary;
     });
     if (relatedAncillary != undefined) {
-      record.ancillary = relatedAncillary;
+      record.ancillary = { ...relatedAncillary };
       delete record.granted_ancillary;
     }
 

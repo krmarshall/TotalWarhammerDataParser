@@ -4,7 +4,7 @@ const effects_effectBonusValueUnitAbilityJunc = (effects, effectBonusValueUnitAb
       return junc.effect === effect.effect && ['enable', 'enable_overchage'].includes(junc.bonus_value_id);
     });
     if (relatedAbilities.length) {
-      effect.related_abilities = relatedAbilities;
+      effect.related_abilities = [...relatedAbilities];
     }
     return { ...effect };
   });

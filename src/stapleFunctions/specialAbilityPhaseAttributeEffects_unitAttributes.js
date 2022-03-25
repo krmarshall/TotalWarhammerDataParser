@@ -4,7 +4,7 @@ const specialAbilityPhaseAttributeEffects_unitAttributes = (specialAbilityPhaseA
       return attribute.key === phase.attribute;
     });
     if (relatedAttribute !== undefined) {
-      phase.attribute = relatedAttribute;
+      phase.attribute = { ...relatedAttribute };
       phase.attribute.attribute_type = phase.attribute_type;
       delete phase.attribute_type;
     }

@@ -4,7 +4,7 @@ const unitAbilities_unitAbilityTypes = (unitAbilities, unitAbilityTypes) => {
       return type.key === ability.type;
     });
     if (relatedType !== undefined) {
-      ability.type = relatedType;
+      ability.type = { ...relatedType };
     }
     return { ...ability };
   });

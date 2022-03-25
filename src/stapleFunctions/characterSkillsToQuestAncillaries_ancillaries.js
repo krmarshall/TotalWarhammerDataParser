@@ -4,7 +4,7 @@ const characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQuestAnc
       return ancillary.key === characterSkill.ancillary;
     });
     if (relatedAncillary != undefined) {
-      characterSkill.ancillary = relatedAncillary;
+      characterSkill.ancillary = { ...relatedAncillary };
     }
     characterSkill.level = 1;
     characterSkill.use_quest_for_prefix = JSON.parse(characterSkill.use_quest_for_prefix);

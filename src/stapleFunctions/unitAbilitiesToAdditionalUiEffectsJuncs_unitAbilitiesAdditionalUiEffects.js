@@ -7,7 +7,7 @@ const unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects =
       return uiEffect.key === junc.effect;
     });
     if (relatedUiEffect !== undefined) {
-      junc.effect = relatedUiEffect;
+      junc.effect = { ...relatedUiEffect };
     }
     return { ...junc };
   });

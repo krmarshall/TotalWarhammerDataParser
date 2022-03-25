@@ -42,7 +42,7 @@ const unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs = (unitSpeci
     if (relatedPhases.length) {
       ability.phases = [];
       relatedPhases.forEach((phase) => {
-        ability.phases[phase.order - 1] = phase.phase;
+        ability.phases[phase.order - 1] = { ...phase.phase };
       });
     }
     return { ...ability };

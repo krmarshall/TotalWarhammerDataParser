@@ -3,6 +3,9 @@
 Requires RPFM (or at least the cli) to be available under ./rpfm
 
 ## To Do
+- Fix WH3 Faction/Lords/Heroes
+- Investigate characterSkills_characterSkillLevelToAncillariesJunction line 20, think i want the ancillaryEffect over the skillEffect? Not sure if related ability for skill gets added later in which case it doesnt matter.
+- Investigate characterSkills_characterSkillsToQuestAncillaries line 20, same as above?
 - Merge and Parse mods
 - Look through wh3 tables for new properties to prune/handle
 

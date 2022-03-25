@@ -4,7 +4,7 @@ const effectBonusValueUnitAbilityJunc_unitAbilities = (effectBonusValueUnitAbili
       return ability.key === junc.unit_ability;
     });
     if (relatedAbility !== undefined) {
-      junc.unit_ability = relatedAbility;
+      junc.unit_ability = { ...relatedAbility };
     }
     return { ...junc };
   });
