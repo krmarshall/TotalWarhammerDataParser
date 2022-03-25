@@ -1,7 +1,10 @@
 import glob from 'glob';
-import * as fs from 'fs';
+import { readFileSync } from 'fs';
+import { emptydirSync } from 'fs-extra';
+// Cant specify outputFileSync as a specific fse import z.z
 import fse from 'fs-extra';
 import { parse } from 'csv-parse/sync';
+import { dirname } from 'path';
 
 const csvParseConfig = {
   delimiter: '\t',
@@ -18,18 +21,28 @@ const getDirectories = (src, callback) => {
 
 const parseFiles = (folder) => {
   console.time(`${folder} parse`);
+  emptydirSync(`./parsed_files/${folder}/`);
   return new Promise((resolve, reject) => {
     getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
       if (error) {
         reject(error);
       } else {
         filePaths.map((filePath) => {
-          const fileData = fs.readFileSync(filePath, 'utf-8');
+          const fileData = readFileSync(filePath, 'utf-8');
           const parsedArray = parse(fileData, csvParseConfig);
           const jsonString = JSON.stringify(parsedArray, null, 2);
-          const tempNewFilePath = filePath.split(folder);
-          const parsedNewFilePath = tempNewFilePath[1].split(/\/data__|__|.tsv/);
-          fse.outputFileSync(`./parsed_files/${folder}${parsedNewFilePath[0]}.json`, jsonString);
+
+          const fileDir = dirname(filePath);
+          const splitDirs = fileDir.split('/');
+          if (splitDirs[3] === 'db') {
+            fse.outputFileSync(`./parsed_files/${folder}/db/${splitDirs[4]}.json`, jsonString);
+          } else if (splitDirs[3] === 'text') {
+            let cleanedPath = filePath.replace(`./extracted_files/${folder}/text/db/`, '');
+            cleanedPath = cleanedPath.split(/__.tsv|.tsv/)[0];
+            fse.outputFileSync(`./parsed_files/${folder}/text/db/${cleanedPath}.json`, jsonString);
+          } else {
+            throw 'Attempted to parse invalid folder';
+          }
         });
         console.timeEnd(`${folder} parse`);
         resolve();

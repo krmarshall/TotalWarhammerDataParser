@@ -1,17 +1,14 @@
-import fse from 'fs-extra';
+import { emptyDirSync, outputFile } from 'fs-extra';
 
 const output_characters = (cultures, collatedNodeSets, folder) => {
-  fse.emptyDirSync(`./output/${folder}/`);
+  emptyDirSync(`./output/${folder}/`);
   const missingCharacters = [];
   cultures.forEach((culture) => {
     culture.lordNodeSets.forEach((lord) => {
       if (collatedNodeSets[lord] === undefined && !missingCharacters.includes(lord)) {
         missingCharacters.push(lord);
       } else {
-        fse.outputFile(
-          `./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`,
-          JSON.stringify(collatedNodeSets[lord], null, 2)
-        );
+        outputFile(`./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`, JSON.stringify(collatedNodeSets[lord], null, 2));
       }
     });
 
@@ -19,10 +16,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (collatedNodeSets[hero] === undefined && !missingCharacters.includes(hero)) {
         missingCharacters.push(hero);
       } else {
-        fse.outputFile(
-          `./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`,
-          JSON.stringify(collatedNodeSets[hero], null, 2)
-        );
+        outputFile(`./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`, JSON.stringify(collatedNodeSets[hero], null, 2));
       }
     });
   });

@@ -1,8 +1,24 @@
 import glob from 'glob';
 import { emptydirSync } from 'fs-extra';
+import { existsSync } from 'fs';
 import { exec } from 'child_process';
 
 const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
+
+const assertTables = (folder, dbList, locList) => {
+  const missingTables = [];
+  dbList.forEach((table) => {
+    if (!existsSync(`./extracted_files/${folder}/db/${table}`)) {
+      missingTables.push(table);
+    }
+  });
+  locList.forEach((table) => {
+    if (!existsSync(`./extracted_files/${folder}/text/db/${table}.loc`)) {
+      missingTables.push(table);
+    }
+  });
+  return missingTables;
+};
 
 const extractPackfile = (folder, dbPackName, locPackName, dbList, locList, game) => {
   console.time(`${folder} extract`);
@@ -15,7 +31,6 @@ const extractPackfile = (folder, dbPackName, locPackName, dbList, locList, game)
           { cwd },
           (error, stdout, stderr) => {
             if (error) {
-              console.log(error);
               rejectI(error);
             } else {
               resolveI();
@@ -31,7 +46,6 @@ const extractPackfile = (folder, dbPackName, locPackName, dbList, locList, game)
           { cwd },
           (error, stdout, stderr) => {
             if (error) {
-              console.log(error);
               rejectI(error);
             } else {
               resolveI();
@@ -44,6 +58,10 @@ const extractPackfile = (folder, dbPackName, locPackName, dbList, locList, game)
     Promise.all(allPromises)
       .then(() => {
         console.timeEnd(`${folder} extract`);
+        const missingTables = assertTables(folder, dbList, locList);
+        if (missingTables.length > 0) {
+          console.log(`${folder} missing tables: ${missingTables}`);
+        }
         resolve();
       })
       .catch((error) => {
