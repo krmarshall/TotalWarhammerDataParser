@@ -15,5 +15,5 @@ extractPackfile(folder, dbPackName, locPackName, dbList, locList, game)
   //   stapleTables(folder);
   // })
   .catch((error) => {
-    console.log(error);
+    throw error;
   });

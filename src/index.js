@@ -1,5 +1,10 @@
 import { Worker } from 'worker_threads';
+import { emptyDirSync } from 'fs-extra';
 import { v2DbList, v2LocList } from './extractLists/vanilla2.js';
+
+emptyDirSync('./extracted_files');
+emptyDirSync('./parsed_files');
+emptyDirSync('./output');
 
 // Vanilla 2
 const workerVanilla2 = new Worker('./src/workers/worker2.js', {

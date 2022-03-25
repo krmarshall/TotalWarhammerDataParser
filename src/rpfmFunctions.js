@@ -60,7 +60,7 @@ const extractPackfile = (folder, dbPackName, locPackName, dbList, locList, game)
         console.timeEnd(`${folder} extract`);
         const missingTables = assertTables(folder, dbList, locList);
         if (missingTables.length > 0) {
-          console.log(`${folder} missing tables: ${missingTables}`);
+          console.log('\x1b[33m', `\b${folder} missing tables: ${missingTables}`, '\x1b[0m');
         }
         resolve();
       })

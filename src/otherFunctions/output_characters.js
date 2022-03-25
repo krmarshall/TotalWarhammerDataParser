@@ -20,8 +20,9 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       }
     });
   });
-  console.log(`Missing ${folder} characters:`);
-  console.log(missingCharacters);
+  if (missingCharacters.length > 0) {
+    console.log('\x1b[33m', `\b${folder} missing characters: ${missingCharacters}`, '\x1b[0m');
+  }
 };
 
 export default output_characters;

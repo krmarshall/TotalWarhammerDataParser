@@ -13,7 +13,7 @@ extractPackfile(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => {
     stapleTables(folder);
 
-    // Mods are reliant on base game files to be merged into, so spool them up after they are parsed.
+    // Mods are reliant on base game files to be merged into, so spool workers for them up after vanilla is parsed.
     // SFO 2
     const workerSFO2 = new Worker('./src/workers/workerMod2.js', {
       workerData: {
@@ -26,9 +26,9 @@ extractPackfile(folder, dbPackName, locPackName, dbList, locList, game)
       },
     });
     workerSFO2.on('error', (error) => {
-      console.log(error);
+      throw error;
     });
   })
   .catch((error) => {
-    console.log(error);
+    throw error;
   });
