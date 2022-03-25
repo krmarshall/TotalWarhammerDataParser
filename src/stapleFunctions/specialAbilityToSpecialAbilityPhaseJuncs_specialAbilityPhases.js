@@ -4,7 +4,7 @@ const specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases = (specialAb
       return abilityPhase.id === phaseJunc.phase;
     });
     if (relatedAbilityPhase !== undefined) {
-      phaseJunc.phase = relatedAbilityPhase;
+      phaseJunc.phase = { ...relatedAbilityPhase };
       delete phaseJunc.phase.id;
     }
     phaseJunc.order = parseInt(phaseJunc.order);
