@@ -1,5 +1,5 @@
 import { workerData, Worker } from 'worker_threads';
-import { extractPackfile, extractTsv } from '../rpfmFunctions.js';
+import { extractPackfileMass, extractTsv } from '../rpfmFunctions.js';
 import parseFiles from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
 
@@ -7,7 +7,7 @@ import { sfo2DbList, sfo2LocList } from '../extractLists/sfo2.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
-extractPackfile(folder, dbPackName, locPackName, dbList, locList, game)
+extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => extractTsv(folder, game))
   .then(() => parseFiles(folder))
   .then(() => {
