@@ -115,8 +115,10 @@ const stapleTables = (folder) => {
   const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
 
   emptyDirSync(`./test/${folder}`);
-  outputFile(`./test/${folder}/characterSkillNodes.json`, JSON.stringify(characterSkillNodes, null, 2));
-  outputFile(`./test/${folder}/cultures.json`, JSON.stringify(cultures, null, 2));
+  if (!process.env.production) {
+    fse.outputJSON(`./test/${folder}/characterSkillNodes.json`, characterSkillNodes, { spaces: 2 });
+    fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
+  }
 
   output_characters(cultures, collatedNodeSets, folder);
   console.timeEnd(`${folder} staple`);

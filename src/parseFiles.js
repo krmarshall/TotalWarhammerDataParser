@@ -27,19 +27,19 @@ const parseFiles = (folder) => {
       if (error) {
         reject(error);
       } else {
+        const spaces = process.env.production ? 0 : 2;
         filePaths.map((filePath) => {
           const fileData = readFileSync(filePath, 'utf-8');
           const parsedArray = parse(fileData, csvParseConfig);
-          const jsonString = JSON.stringify(parsedArray, null, 2);
 
           const fileDir = dirname(filePath);
           const splitDirs = fileDir.split('/');
           if (splitDirs[3] === 'db') {
-            fse.outputFileSync(`./parsed_files/${folder}/db/${splitDirs[4]}.json`, jsonString);
+            fse.outputJSONSync(`./parsed_files/${folder}/db/${splitDirs[4]}.json`, parsedArray, { spaces });
           } else if (splitDirs[3] === 'text') {
             let cleanedPath = filePath.replace(`./extracted_files/${folder}/text/db/`, '');
             cleanedPath = cleanedPath.split(/__.tsv|.tsv/)[0];
-            fse.outputFileSync(`./parsed_files/${folder}/text/db/${cleanedPath}.json`, jsonString);
+            fse.outputJSONSync(`./parsed_files/${folder}/text/db/${cleanedPath}.json`, parsedArray, { spaces });
           } else {
             throw 'Attempted to parse invalid folder';
           }
@@ -51,4 +51,4 @@ const parseFiles = (folder) => {
   });
 };
 
-export default parseFiles;
+export { parseFiles };

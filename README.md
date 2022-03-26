@@ -2,6 +2,8 @@
  
 Requires RPFM (or at least the cli) to be available under ./rpfm
 
+A saner person would probably have used like mongoose or an ORM instead of stapling everything together...
+
 ## To Do
 - Merge and Parse mods
 - See how spreading works?
