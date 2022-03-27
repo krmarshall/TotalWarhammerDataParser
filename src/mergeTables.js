@@ -3,16 +3,22 @@ import { emptydirSync } from 'fs-extra';
 import fse from 'fs-extra';
 
 import { assertTables } from './otherFunctions/index.js';
+import { v2LocList } from './extractLists/vanilla2.js';
 
 const getJsonPaths = (src) => {
   return glob.sync(`${src}**/*.json`);
 };
 
-const getVanillaJson = (tablePath, folder) => {
+const getVanillaJson = (tablePath, folder, loc) => {
   const game = folder.includes('2') ? 'vanilla2' : 'vanilla3';
-  const splitDirs = tablePath.split('/');
-  const tableName = splitDirs[splitDirs.length - 2];
-  const vanillaJson = fse.readJSONSync(`./parsed_files/${game}/db/${tableName}.json`);
+  let vanillaJson;
+  if (loc) {
+    vanillaJson = fse.readJSONSync(`./parsed_files/${game}/text/db/${tablePath}.json`);
+  } else {
+    const splitDirs = tablePath.split('/');
+    const tableName = splitDirs[splitDirs.length - 2];
+    vanillaJson = fse.readJSONSync(`./parsed_files/${game}/db/${tableName}.json`);
+  }
   return vanillaJson;
 };
 
@@ -58,7 +64,7 @@ const mergeTables = (folder, dbList, locList) => {
     const tablePromises = tableDirs.map((tablePath) => {
       return new Promise((resolveI, rejectI) => {
         const modJsonPaths = getJsonPaths(tablePath);
-        const vanillaJson = getVanillaJson(tablePath, folder);
+        const vanillaJson = getVanillaJson(tablePath, folder, false);
         const moddedTables = modJsonPaths.map((modJsonPath) => {
           return fse.readJSONSync(modJsonPath);
         });
@@ -86,6 +92,48 @@ const mergeTables = (folder, dbList, locList) => {
         resolve();
       })
       .catch((error) => {
+        console.timeEnd(`${folder} merge`);
+        reject(error);
+      });
+  });
+};
+
+const mergeLocs = (folder, locList) => {
+  console.time(`${folder} loc merge`);
+  return new Promise((resolve, reject) => {
+    const cleanedVanillaLocList = v2LocList.map((vanillaLoc) => {
+      return vanillaLoc.replace('__', '');
+    });
+    const locPromises = cleanedVanillaLocList.map((vanillaLoc) => {
+      return new Promise((resolveI, rejectI) => {
+        const relatedModLocs = locList.filter((modLoc) => {
+          return modLoc.includes(vanillaLoc);
+        });
+        const spaces = process.env.production ? 0 : 2;
+        const vanillaLocJson = getVanillaJson(vanillaLoc, folder, true);
+        if (relatedModLocs.length === 0) {
+          fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, vanillaLocJson, { spaces });
+          resolveI();
+          return;
+        }
+
+        const moddedLocsJson = relatedModLocs.map((modLoc) => {
+          return fse.readJsonSync(`./extracted_files/${folder}/text/db/${modLoc}.json`);
+        });
+        const mergedLoc = overwriteMerge(vanillaLocJson, moddedLocsJson, true);
+
+        fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, mergedLoc, { spaces });
+        resolveI();
+      });
+    });
+
+    Promise.all(locPromises)
+      .then(() => {
+        console.timeEnd(`${folder} loc merge`);
+        resolve();
+      })
+      .catch((error) => {
+        console.timeEnd(`${folder} loc merge`);
         reject(error);
       });
   });
@@ -122,4 +170,4 @@ const tableNameMap = {
   unit_special_abilities_tables: ['key'],
 };
 
-export { mergeTables };
+export { mergeTables, mergeLocs };

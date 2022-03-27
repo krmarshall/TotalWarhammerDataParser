@@ -16,7 +16,7 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 ## How To Use
 - Ensure an updated version of rpfm exists in ./rpfm
 - Check absolute file paths in scripts for copying game/mod files and clearing data before scripts
-- Make sure all mods are downloaded
+- Make sure all mods are downloaded (might have to check for new loc files occasionally)
 - With rpfm (ui) rename the sfo loc table *SFO_effects__.loc to #SFO_effects__.loc because rpfm cant handle the *. -_-
 - npm run fullBuild
 - Extracted character skill trees will be in the ./output folder as parsed json.
