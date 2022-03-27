@@ -1,24 +1,10 @@
 import glob from 'glob';
 import { emptydirSync } from 'fs-extra';
-import { existsSync } from 'fs';
 import { exec } from 'child_process';
 
-const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
+import { assertTables } from './otherFunctions/index.js';
 
-const assertTables = (folder, dbList, locList) => {
-  const missingTables = [];
-  dbList.forEach((table) => {
-    if (!existsSync(`./extracted_files/${folder}/db/${table}`)) {
-      missingTables.push(table);
-    }
-  });
-  locList.forEach((table) => {
-    if (!existsSync(`./extracted_files/${folder}/text/db/${table}.loc`)) {
-      missingTables.push(table);
-    }
-  });
-  return missingTables;
-};
+const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 
 const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, game) => {
   console.time(`${folder} mass extract`);

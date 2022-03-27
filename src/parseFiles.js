@@ -28,7 +28,7 @@ const parseFiles = (folder) => {
         reject(error);
       } else {
         const spaces = process.env.production ? 0 : 2;
-        filePaths.map((filePath) => {
+        filePaths.forEach((filePath) => {
           const fileData = readFileSync(filePath, 'utf-8');
           const parsedArray = parse(fileData, csvParseConfig);
 
@@ -51,4 +51,26 @@ const parseFiles = (folder) => {
   });
 };
 
-export { parseFiles };
+const parseMods = (folder) => {
+  console.time(`${folder} mod parse`);
+  return new Promise((resolve, reject) => {
+    getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
+      if (error) {
+        reject(error);
+      } else {
+        const spaces = process.env.production ? 0 : 2;
+        filePaths.forEach((filePath) => {
+          const fileData = readFileSync(filePath, 'utf-8');
+          const parsedArray = parse(fileData, csvParseConfig);
+          const stripTsv = filePath.replace('.tsv', '');
+          fse.outputJSONSync(`${stripTsv}.json`, parsedArray, { spaces });
+        });
+
+        console.timeEnd(`${folder} mod parse`);
+        resolve();
+      }
+    });
+  });
+};
+
+export { parseFiles, parseMods };
