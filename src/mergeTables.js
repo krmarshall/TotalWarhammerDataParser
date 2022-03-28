@@ -72,7 +72,7 @@ const mergeTables = (folder, dbList, locList) => {
         const tableName = splitDirs[splitDirs.length - 2];
         const mergedTable = overwriteMerge(vanillaJson, moddedTables, tableNameMap[tableName]);
 
-        const spaces = process.env.production ? 0 : 2;
+        const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
         fse.outputJSONSync(`./parsed_files/${folder}/db/${tableName}.json`, mergedTable, { spaces });
         resolveI();
       });
@@ -109,7 +109,7 @@ const mergeLocs = (folder, locList, locMap) => {
         const relatedModLocs = locList.filter((modLoc) => {
           return vanillaLoc === locMap[modLoc];
         });
-        const spaces = process.env.production ? 0 : 2;
+        const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
         const vanillaLocJson = getVanillaJson(vanillaLoc, folder, true);
         if (relatedModLocs.length === 0) {
           fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, vanillaLocJson, { spaces });

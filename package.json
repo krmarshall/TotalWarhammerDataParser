@@ -9,7 +9,7 @@
     "lintFix": "eslint src/ --fix",
     "copySource": "cd ./scripts && copySource.bat",
     "start": "node ./src/index.js",
-    "startProd": "SET production=true && node ./src/index.js",
+    "startProd": "SET NODE_ENV=production&&node ./src/index.js",
     "profile": "node --prof ./src/index.js",
     "fullBuild": "run-s copySource start",
     "fullBuildProd": "run-s copySource startProd"

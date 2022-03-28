@@ -27,7 +27,7 @@ const parseFiles = (folder) => {
       if (error) {
         reject(error);
       } else {
-        const spaces = process.env.production ? 0 : 2;
+        const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
         filePaths.forEach((filePath) => {
           const fileData = readFileSync(filePath, 'utf-8');
           const parsedArray = parse(fileData, csvParseConfig);
@@ -58,7 +58,7 @@ const parseMods = (folder) => {
       if (error) {
         reject(error);
       } else {
-        const spaces = process.env.production ? 0 : 2;
+        const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
         filePaths.forEach((filePath) => {
           const fileData = readFileSync(filePath, 'utf-8');
           const parsedArray = parse(fileData, csvParseConfig);

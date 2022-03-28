@@ -117,7 +117,7 @@ const stapleTables = (folder) => {
   const filteredNodeSets = filterNodeSets(collatedNodeSets);
 
   emptyDirSync(`./test/${folder}`);
-  if (!process.env.production) {
+  if (process.env.NODE_ENV !== 'production') {
     fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
   }
 
