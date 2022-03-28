@@ -43,4 +43,19 @@ const sfo2LocList = [
   'jmw_norsca_navy_unit_abilities',
 ];
 
-export { sfo2DbList, sfo2LocList };
+const sfo2LocMap = {
+  '#SFO_character_skills': 'character_skills',
+  '#SFO_effects__': 'effects',
+  jmw_norsca_navy_effects: 'effects',
+  twh_emp_effects__: 'effects',
+  zar_sk_effects__: 'effects',
+  '#SFO_ancillaries__': 'ancillaries',
+  zar_emp_ancillaries__: 'ancillaries',
+  zar_sk_ancillaries__: 'ancillaries',
+  '#SFO_unit_attributes__': 'unit_attributes',
+  '#SFO_unit_abilities_additional_ui_effects__': 'unit_abilities_additional_ui_effects',
+  '#SFO_unit_unit_abilities': 'unit_abilities',
+  jmw_norsca_navy_unit_abilities: 'unit_abilities',
+};
+
+export { sfo2DbList, sfo2LocList, sfo2LocMap };

@@ -3,9 +3,7 @@ const unitAbilityTypes_unitAbilityTypesLoc = (unitAbilityTypes, unitAbilityTypes
     const relatedLoc = unitAbilityTypesLoc.find((loc) => {
       return loc.key === `unit_ability_types_onscreen_name_${type.key}`;
     });
-    if (relatedLoc !== undefined) {
-      type.description = relatedLoc.text;
-    }
+    type.description = relatedLoc?.text ? relatedLoc?.text : '';
     delete type.show_cursor_trail;
     return { ...type };
   });

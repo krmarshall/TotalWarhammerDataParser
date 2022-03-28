@@ -3,7 +3,7 @@ const effects_effectsLoc = (effects, effectsLoc) => {
     const locDescription = effectsLoc.find((effectLoc) => {
       return effectLoc.key === `effects_description_${effect.effect}`;
     });
-    effect.description = locDescription.text;
+    effect.description = locDescription?.text ? locDescription?.text : '';
     delete effect.icon_negative;
     effect.priority = parseInt(effect.priority);
     // Parse to boolean, is kinda scuffed?

@@ -98,7 +98,7 @@ const mergeTables = (folder, dbList, locList) => {
   });
 };
 
-const mergeLocs = (folder, locList) => {
+const mergeLocs = (folder, locList, locMap) => {
   console.time(`${folder} loc merge`);
   return new Promise((resolve, reject) => {
     const cleanedVanillaLocList = v2LocList.map((vanillaLoc) => {
@@ -107,7 +107,7 @@ const mergeLocs = (folder, locList) => {
     const locPromises = cleanedVanillaLocList.map((vanillaLoc) => {
       return new Promise((resolveI, rejectI) => {
         const relatedModLocs = locList.filter((modLoc) => {
-          return modLoc.includes(vanillaLoc);
+          return vanillaLoc === locMap[modLoc];
         });
         const spaces = process.env.production ? 0 : 2;
         const vanillaLocJson = getVanillaJson(vanillaLoc, folder, true);
@@ -120,7 +120,7 @@ const mergeLocs = (folder, locList) => {
         const moddedLocsJson = relatedModLocs.map((modLoc) => {
           return fse.readJsonSync(`./extracted_files/${folder}/text/db/${modLoc}.json`);
         });
-        const mergedLoc = overwriteMerge(vanillaLocJson, moddedLocsJson, true);
+        const mergedLoc = overwriteMerge(vanillaLocJson, moddedLocsJson, ['key']);
 
         fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, mergedLoc, { spaces });
         resolveI();

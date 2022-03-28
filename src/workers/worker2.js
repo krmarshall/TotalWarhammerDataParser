@@ -3,7 +3,7 @@ import { extractPackfileMass, extractTsv } from '../rpfmFunctions.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
 
-import { sfo2DbList, sfo2LocList } from '../extractLists/sfo2.js';
+import { sfo2DbList, sfo2LocList, sfo2LocMap } from '../extractLists/sfo2.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
@@ -22,6 +22,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
         locPackName: 'steel_faith_overhaul_2',
         dbList: sfo2DbList,
         locList: sfo2LocList,
+        locMap: sfo2LocMap,
         game: 'warhammer_2',
       },
     });

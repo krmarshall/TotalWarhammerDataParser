@@ -9,9 +9,7 @@ const unitAbilities_unitAbilitiesLoc = (unitAbilities, unitAbilitiesLoc) => {
     const relatedLoc = unitAbilitiesLoc.find((loc) => {
       return loc.key === `unit_abilities_onscreen_name_${ability.key}`;
     });
-    if (relatedLoc !== undefined) {
-      ability.description = relatedLoc.text;
-    }
+    ability.description = relatedLoc?.text ? relatedLoc?.text : '';
     ability.is_hidden_in_ui = JSON.parse(ability.is_hidden_in_ui);
 
     return { ...ability };

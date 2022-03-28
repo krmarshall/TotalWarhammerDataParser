@@ -13,7 +13,7 @@ const cultures_culturesLoc = (cultures, culturesLoc) => {
     const relatedLoc = culturesLoc.find((loc) => {
       return loc.key === `cultures_name_${culture.key}`;
     });
-    const tempCulture = { key: culture.key, name: relatedLoc.text };
+    const tempCulture = { key: culture.key, name: relatedLoc?.text ? relatedLoc?.text : '' };
 
     return { ...tempCulture };
   });
