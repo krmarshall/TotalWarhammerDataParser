@@ -2,7 +2,7 @@ import { outputFile, emptyDirSync } from 'fs-extra';
 import fse from 'fs-extra';
 import * as staple from './stapleFunctions/index.js';
 import * as staple3 from './stapleFunctions3/index.js';
-import { output_characters, collate_characterSkillNodes } from './otherFunctions/index.js';
+import { output_characters, collate_characterSkillNodes, filterNodeSets } from './otherFunctions/index.js';
 
 const stapleTables = (folder) => {
   console.time(`${folder} staple`);
@@ -114,13 +114,14 @@ const stapleTables = (folder) => {
 
   const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
 
+  const filteredNodeSets = filterNodeSets(collatedNodeSets);
+
   emptyDirSync(`./test/${folder}`);
   if (!process.env.production) {
-    fse.outputJSON(`./test/${folder}/characterSkillNodes.json`, characterSkillNodes, { spaces: 2 });
     fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
   }
 
-  output_characters(cultures, collatedNodeSets, folder);
+  output_characters(cultures, filteredNodeSets, folder);
   console.timeEnd(`${folder} staple`);
 };
 
