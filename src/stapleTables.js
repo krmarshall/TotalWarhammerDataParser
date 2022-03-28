@@ -1,4 +1,4 @@
-import { outputFile, emptyDirSync } from 'fs-extra';
+import { emptyDirSync } from 'fs-extra';
 import fse from 'fs-extra';
 import * as staple from './stapleFunctions/index.js';
 import * as staple3 from './stapleFunctions3/index.js';
