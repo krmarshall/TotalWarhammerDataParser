@@ -1,3 +1,5 @@
+import { numberInsertion } from '../otherFunctions/index.js';
+
 const effects_characterSkillLevelToEffectsJunction = (effects, characterSkillLevelToEffectsJunction) => {
   const stapledTable = characterSkillLevelToEffectsJunction.map((record) => {
     const relatedEffect = effects.find((effect) => {
@@ -15,7 +17,9 @@ const effects_characterSkillLevelToEffectsJunction = (effects, characterSkillLev
     relatedEffect.key = relatedEffect.effect;
     record.effect = { ...relatedEffect };
     delete record.effect.effect;
+    record.value = parseInt(record.value);
 
+    record.effect.description = numberInsertion(record.effect.description, record.value);
     return { ...record };
   });
 

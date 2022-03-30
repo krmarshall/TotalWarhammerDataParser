@@ -12,7 +12,6 @@ const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, c
         delete relatedRecord.effect_scope;
         relatedRecord.effects = { ...relatedRecord.effect };
         delete relatedRecord.effect;
-        relatedRecord.effects.value = parseInt(relatedRecord.effects.value);
 
         if (characterSkill.levels === undefined) {
           characterSkill.levels = [];
