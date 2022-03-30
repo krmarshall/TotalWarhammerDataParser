@@ -37,11 +37,11 @@ const stringInterpolator = (string, uiTextReplacements, missingTextReplacements)
   }
   if (string.includes('[[')) {
     // Grab element within first tag and last tag of the same tagName
-    const regex = new RegExp(/\[\[(?<tagName>[a-zA-Z_]*):?[a-zA-Z0-9_./ ]*\]\](?<innerText>.*)\[\[\/\k<tagName>\]\]/);
+    const regex = new RegExp(/\[\[(?<tagName>[a-zA-Z_]*):?(?<tagAttribute>[a-zA-Z0-9_./ ]*)\]\](?<innerText>.*)\[\[\/\k<tagName>\]\]/);
     let element = string.match(regex);
     // If its an img they have empty innerText so we want the first instance of its closing tagName not the last.
     if (element?.groups.tagName === 'img') {
-      element = string.match(/\[\[(?<tagName>[a-zA-Z_]*):[a-zA-Z0-9_./ ]*\]\](?<innerText>)\[\[\/\k<tagName>\]\]/);
+      element = string.match(/\[\[(?<tagName>[a-zA-Z_]*):(?<tagAttribute>[a-zA-Z0-9_./ ]*)\]\](?<innerText>)\[\[\/\k<tagName>\]\]/);
     }
 
     // Vanilla locs occasionally have opening img tags without closing tags that lead to a null element here z.z
@@ -60,7 +60,17 @@ const stringInterpolator = (string, uiTextReplacements, missingTextReplacements)
         }
       }
     }
-    const innerText = element.groups?.innerText ? element.groups.innerText : '';
+
+    let innerText;
+    if (element.groups?.innerText === null || element.groups?.innerText === undefined) {
+      innerText = '';
+    } else if (element.groups.tagName === 'img' && element.groups.tagAttribute === 'icon_arrow_up') {
+      innerText = '➕';
+    } else if (element.groups.tagName === 'img' && element.groups.tagAttribute === 'icon_arrow_down') {
+      innerText = '➖';
+    } else {
+      innerText = element.groups.innerText;
+    }
     string = string.replace(element[0], innerText);
   }
   return stringInterpolator(string, uiTextReplacements, missingTextReplacements);
