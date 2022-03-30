@@ -41,6 +41,8 @@ const sfo2LocList = [
   '#SFO_unit_abilities_additional_ui_effects__',
   '#SFO_unit_unit_abilities',
   'jmw_norsca_navy_unit_abilities',
+  '#SFO_ui_text_replacements__',
+  'jmw_norsca_navy_ui_text_replacements',
 ];
 
 const sfo2LocMap = {
@@ -56,6 +58,8 @@ const sfo2LocMap = {
   '#SFO_unit_abilities_additional_ui_effects__': 'unit_abilities_additional_ui_effects',
   '#SFO_unit_unit_abilities': 'unit_abilities',
   jmw_norsca_navy_unit_abilities: 'unit_abilities',
+  '#SFO_ui_text_replacements__': 'ui_text_replacements',
+  jmw_norsca_navy_ui_text_replacements: 'ui_text_replacements',
 };
 
 export { sfo2DbList, sfo2LocList, sfo2LocMap };

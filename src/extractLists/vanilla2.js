@@ -38,6 +38,7 @@ const v2LocList = [
   'unit_ability_types__',
   'unit_attributes__',
   'unit_stat_localisations__',
+  'ui_text_replacements__',
 ];
 
 export { v2DbList, v2LocList };

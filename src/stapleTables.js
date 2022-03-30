@@ -10,6 +10,9 @@ const stapleTables = (folder) => {
     return JSON.parse(fse.readFileSync(`./parsed_files/${folder}/${path}`, 'utf-8'));
   };
 
+  const missingTextReplacements = [];
+
+  const uiTextReplacements = readJson('text/db/ui_text_replacements.json');
   let unitAttributes = readJson('db/unit_attributes_tables.json');
   const unitAttributesLoc = readJson('text/db/unit_attributes.json');
   let specialAbilityPhaseAttributeEffects = readJson('db/special_ability_phase_attribute_effects_tables.json');
@@ -18,7 +21,6 @@ const stapleTables = (folder) => {
   let specialAbilityPhases = readJson('db/special_ability_phases_tables.json');
   let specialAbilityToSpecialAbilityPhaseJuncs = readJson('db/special_ability_to_special_ability_phase_junctions_tables.json');
   let unitSpecialAbilities = readJson('db/unit_special_abilities_tables.json');
-
   let effects = readJson('db/effects_tables.json');
   const effectsLoc = readJson('text/db/effects.json');
   let ancillaryToEffects = readJson('db/ancillary_to_effects_tables.json');
@@ -47,12 +49,17 @@ const stapleTables = (folder) => {
   const unitAbilitiesLoc = readJson('text/db/unit_abilities.json');
   let effectBonusValueUnitAbilityJunc = readJson('db/effect_bonus_value_unit_ability_junctions_tables.json');
 
-  unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, unitAttributesLoc);
+  unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, unitAttributesLoc, uiTextReplacements, missingTextReplacements);
   specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
     specialAbilityPhaseAttributeEffects,
     unitAttributes
   );
-  specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_unitStatLoc(specialAbilityPhaseStatEffects, unitStatLoc);
+  specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_unitStatLoc(
+    specialAbilityPhaseStatEffects,
+    unitStatLoc,
+    uiTextReplacements,
+    missingTextReplacements
+  );
   specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseAttributeEffects(
     specialAbilityPhases,
     specialAbilityPhaseAttributeEffects
@@ -68,19 +75,26 @@ const stapleTables = (folder) => {
   );
   unitAbilitiesAdditionalUiEffects = staple.unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc(
     unitAbilitiesAdditionalUiEffects,
-    unitAbilitiesAdditionalUiEffectsLoc
+    unitAbilitiesAdditionalUiEffectsLoc,
+    uiTextReplacements,
+    missingTextReplacements
   );
   unitAbilitiesToAdditionalUiEffectsJuncs = staple.unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects(
     unitAbilitiesToAdditionalUiEffectsJuncs,
     unitAbilitiesAdditionalUiEffects
   );
-  unitAbilityTypes = staple.unitAbilityTypes_unitAbilityTypesLoc(unitAbilityTypes, unitAbilityTypesLoc);
-  unitAbilities = staple.unitAbilities_unitAbilitiesLoc(unitAbilities, unitAbilitiesLoc);
+  unitAbilityTypes = staple.unitAbilityTypes_unitAbilityTypesLoc(
+    unitAbilityTypes,
+    unitAbilityTypesLoc,
+    uiTextReplacements,
+    missingTextReplacements
+  );
+  unitAbilities = staple.unitAbilities_unitAbilitiesLoc(unitAbilities, unitAbilitiesLoc, uiTextReplacements, missingTextReplacements);
   unitAbilities = staple.unitAbilities_unitAbilityTypes(unitAbilities, unitAbilityTypes);
   unitAbilities = staple.unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs(unitAbilities, unitAbilitiesToAdditionalUiEffectsJuncs);
   unitAbilities = staple.unitAbilities_unitSpecialAbilities(unitAbilities, unitSpecialAbilities);
   effectBonusValueUnitAbilityJunc = staple.effectBonusValueUnitAbilityJunc_unitAbilities(effectBonusValueUnitAbilityJunc, unitAbilities);
-  effects = staple.effects_effectsLoc(effects, effectsLoc);
+  effects = staple.effects_effectsLoc(effects, effectsLoc, uiTextReplacements, missingTextReplacements);
   // Prob need to filter better that bonus_value_id in effectBonusValueUnitAbilityJunc for related abilities
   effects = staple.effects_effectBonusValueUnitAbilityJunc(effects, effectBonusValueUnitAbilityJunc);
   ancillaryToEffects = staple.ancillariesToEffects_effects(ancillaryToEffects, effects);
@@ -91,7 +105,12 @@ const stapleTables = (folder) => {
   );
   characterSkillsToQuestAncillaries = staple.characterSkillsToQuestAncillaries_ancillaries(characterSkillsToQuestAncillaries, ancillaries);
   characterSkillLevelToEffectsJunction = staple.effects_characterSkillLevelToEffectsJunction(effects, characterSkillLevelToEffectsJunction);
-  characterSkills = staple.characterSkills_characterSkillsLoc(characterSkills, characterSkillsLoc);
+  characterSkills = staple.characterSkills_characterSkillsLoc(
+    characterSkills,
+    characterSkillsLoc,
+    uiTextReplacements,
+    missingTextReplacements
+  );
   characterSkills = staple.characterSkills_characterSkillLevelDetails(characterSkills, characterSkillLevelDetails);
   characterSkills = staple.characterSkills_characterSkillLevelToEffectsJunction(characterSkills, characterSkillLevelToEffectsJunction);
   characterSkills = staple.characterSkills_characterSkillLevelToAncillariesJunction(
@@ -102,7 +121,7 @@ const stapleTables = (folder) => {
   characterSkillNodes = staple.characterSkillNodes_characterSkills(characterSkillNodes, characterSkills);
   characterSkillNodes = staple.characterSkillNodes_characterSkillNodeLinks(characterSkillNodes, characterSkillNodeLinks);
   characterSkillNodes = staple.characterSkillNodes_characterSkillNodesSkillLocks(characterSkillNodes, characterSkillNodesSkillLocks);
-  cultures = staple.cultures_culturesLoc(cultures, culturesLoc);
+  cultures = staple.cultures_culturesLoc(cultures, culturesLoc, uiTextReplacements, missingTextReplacements);
   if (folder.includes('3')) {
     cultures = staple3.cultures_culturesSubcultures(cultures, culturesSubcultures);
   } else {
@@ -119,6 +138,9 @@ const stapleTables = (folder) => {
   emptyDirSync(`./test/${folder}`);
   if (process.env.NODE_ENV !== 'production') {
     fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
+  }
+  if (missingTextReplacements.length > 0) {
+    console.log('\x1b[33m', `\b${folder} missing text replacements: ${missingTextReplacements}`, '\x1b[0m');
   }
 
   output_characters(cultures, filteredNodeSets, folder);
