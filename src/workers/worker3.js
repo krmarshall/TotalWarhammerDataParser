@@ -1,5 +1,5 @@
 import { workerData } from 'worker_threads';
-import { extractPackfileMass, extractTsv } from '../rpfmFunctions.js';
+import { extractPackfileMass, extractTsv } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
 

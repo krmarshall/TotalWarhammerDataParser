@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint src/",
     "lintFix": "eslint src/ --fix",
-    "copySource": "cd ./scripts && copySource.bat",
+    "copySource": "cd ./bins && copySource.bat",
     "start": "node ./src/index.js",
     "startProd": "SET NODE_ENV=production&&node ./src/index.js",
     "profile": "node --prof ./src/index.js",
