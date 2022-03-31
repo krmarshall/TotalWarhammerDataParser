@@ -114,7 +114,7 @@ const extractPackfile = (folder, dbPackName, locPackName, dbList, locList, game)
 };
 
 const getDirectories = (src, callback) => {
-  glob(`${src}**/*`, { nodir: true, ignore: `${src}**/*.tsv` }, callback);
+  glob(`${src}**/*`, { nodir: true, ignore: [`${src}**/*.tsv`, `${src}**/*.png`] }, callback);
 };
 
 // const extractTsvMass = (folder, game) => {
