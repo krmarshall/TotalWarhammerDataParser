@@ -5,6 +5,7 @@ import { workerVanillaFactory } from './workers/workerFactories.js';
 emptyDirSync('./extracted_files');
 emptyDirSync('./parsed_files');
 emptyDirSync('./output');
+emptyDirSync('./bins/nScripts');
 
 // Vanilla 2
 workerVanillaFactory('vanilla2', 'data', 'local_en', v2DbList, v2LocList, 'warhammer_2');
