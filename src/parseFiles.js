@@ -20,7 +20,6 @@ const getDirectories = (src, callback) => {
 };
 
 const parseFiles = (folder) => {
-  console.time(`${folder} parse`);
   emptydirSync(`./parsed_files/${folder}/`);
   return new Promise((resolve, reject) => {
     getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
@@ -44,7 +43,6 @@ const parseFiles = (folder) => {
             throw 'Attempted to parse invalid folder';
           }
         });
-        console.timeEnd(`${folder} parse`);
         resolve();
       }
     });
@@ -52,7 +50,6 @@ const parseFiles = (folder) => {
 };
 
 const parseMods = (folder) => {
-  console.time(`${folder} mod parse`);
   return new Promise((resolve, reject) => {
     getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
       if (error) {
@@ -65,8 +62,6 @@ const parseMods = (folder) => {
           const stripTsv = filePath.replace('.tsv', '');
           fse.outputJSONSync(`${stripTsv}.json`, parsedArray, { spaces });
         });
-
-        console.timeEnd(`${folder} mod parse`);
         resolve();
       }
     });

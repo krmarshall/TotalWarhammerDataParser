@@ -7,7 +7,6 @@ import { assertTables } from './otherFunctions/index.js';
 const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 
 const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, game) => {
-  console.time(`${folder} mass extract`);
   emptydirSync(`./extracted_files/${folder}/`);
   return new Promise((resolve, reject) => {
     const tablesString = dbList.reduce((prev, cur) => {
@@ -18,7 +17,7 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
       exec(
         `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${dbPackName}.pack" packfile -E "../extracted_files/${folder}" -${tablesString}`,
         { cwd },
-        (error, stdout, stderr) => {
+        (error) => {
           if (error) {
             rejectI(error);
           } else {
@@ -36,7 +35,7 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
       exec(
         `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${locPackName}.pack" packfile -e "../extracted_files/${folder}" -${locsString}`,
         { cwd },
-        (error, stdout, stderr) => {
+        (error) => {
           if (error) {
             rejectI(error);
           } else {
@@ -48,7 +47,6 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
 
     Promise.all([dataPromise, locPromise])
       .then(() => {
-        console.timeEnd(`${folder} mass extract`);
         const missingTables = assertTables(folder, dbList, locList);
         if (missingTables.length > 0) {
           console.log('\x1b[33m', `\b${folder} missing tables: ${missingTables}`, '\x1b[0m');
@@ -56,58 +54,6 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
         resolve();
       })
       .catch((error) => {
-        console.timeEnd(`${folder} mass extract`);
-        reject(error);
-      });
-  });
-};
-
-const extractPackfile = (folder, dbPackName, locPackName, dbList, locList, game) => {
-  console.time(`${folder} extract`);
-  emptydirSync(`./extracted_files/${folder}/`);
-  return new Promise((resolve, reject) => {
-    const dataPromises = dbList.map((table) => {
-      return new Promise((resolveI, rejectI) => {
-        exec(
-          `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${dbPackName}.pack" packfile -E "../extracted_files/${folder}" - "db/${table}"`,
-          { cwd },
-          (error, stdout, stderr) => {
-            if (error) {
-              rejectI(error);
-            } else {
-              resolveI();
-            }
-          }
-        );
-      });
-    });
-    const locPromises = locList.map((table) => {
-      return new Promise((resolveI, rejectI) => {
-        exec(
-          `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${locPackName}.pack" packfile -e "../extracted_files/${folder}" - "text/db/${table}.loc"`,
-          { cwd },
-          (error, stdout, stderr) => {
-            if (error) {
-              rejectI(error);
-            } else {
-              resolveI();
-            }
-          }
-        );
-      });
-    });
-    const allPromises = [...dataPromises, ...locPromises];
-    Promise.all(allPromises)
-      .then(() => {
-        console.timeEnd(`${folder} extract`);
-        const missingTables = assertTables(folder, dbList, locList);
-        if (missingTables.length > 0) {
-          console.log('\x1b[33m', `\b${folder} missing tables: ${missingTables}`, '\x1b[0m');
-        }
-        resolve();
-      })
-      .catch((error) => {
-        console.timeEnd(`${folder} extract`);
         reject(error);
       });
   });
@@ -117,33 +63,7 @@ const getDirectories = (src, callback) => {
   glob(`${src}**/*`, { nodir: true, ignore: [`${src}**/*.tsv`, `${src}**/*.png`] }, callback);
 };
 
-// const extractTsvMass = (folder, game) => {
-//   console.time(`${folder} mass tsv`);
-//   return new Promise((resolve, reject) => {
-//     getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
-//       if (error) {
-//         reject(error);
-//       } else {
-//         const filePathsString = filePaths.reduce((prev, cur) => {
-//           return `${prev} ".${cur}"`;
-//         }, '');
-
-//         exec(`rpfm_cli.exe -g ${game} table -e${filePathsString}`, { cwd }, (error, stdout, stderr) => {
-//           if (error) {
-//             console.timeEnd(`${folder} mass tsv`);
-//             reject(error);
-//           } else {
-//             console.timeEnd(`${folder} mass tsv`);
-//             resolve();
-//           }
-//         });
-//       }
-//     });
-//   });
-// };
-
 const extractTsv = (folder, game) => {
-  console.time(`${folder} tsv`);
   return new Promise((resolve, reject) => {
     getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
       if (error) {
@@ -151,7 +71,7 @@ const extractTsv = (folder, game) => {
       } else {
         const promises = filePaths.map((filePath) => {
           return new Promise((resolveI, rejectI) => {
-            exec(`rpfm_cli.exe -g ${game} table -e ".${filePath}"`, { cwd }, (error, stdout, stderr) => {
+            exec(`rpfm_cli.exe -g ${game} table -e ".${filePath}"`, { cwd }, (error) => {
               if (error) {
                 rejectI(error);
               } else {
@@ -162,11 +82,9 @@ const extractTsv = (folder, game) => {
         });
         Promise.all(promises)
           .then(() => {
-            console.timeEnd(`${folder} tsv`);
             resolve();
           })
           .catch((error) => {
-            console.timeEnd(`${folder} tsv`);
             reject(error);
           });
       }
@@ -174,4 +92,4 @@ const extractTsv = (folder, game) => {
   });
 };
 
-export { extractPackfile, extractTsv, extractPackfileMass };
+export { extractTsv, extractPackfileMass };

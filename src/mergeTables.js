@@ -55,14 +55,13 @@ const overwriteMerge = (vanillaJson, moddedTables, sameProps) => {
 };
 
 const mergeTables = (folder, dbList, locList) => {
-  console.time(`${folder} merge`);
   emptydirSync(`./parsed_files/${folder}/`);
   return new Promise((resolve, reject) => {
     const tableDirs = dbList.map((table) => {
       return `./extracted_files/${folder}/db/${table}/`;
     });
     const tablePromises = tableDirs.map((tablePath) => {
-      return new Promise((resolveI, rejectI) => {
+      return new Promise((resolveI) => {
         const modJsonPaths = getJsonPaths(tablePath);
         const vanillaJson = getVanillaJson(tablePath, folder, false);
         const moddedTables = modJsonPaths.map((modJsonPath) => {
@@ -88,24 +87,21 @@ const mergeTables = (folder, dbList, locList) => {
             });
           });
         }
-        console.timeEnd(`${folder} merge`);
         resolve();
       })
       .catch((error) => {
-        console.timeEnd(`${folder} merge`);
         reject(error);
       });
   });
 };
 
 const mergeLocs = (folder, locList, locMap) => {
-  console.time(`${folder} loc merge`);
   return new Promise((resolve, reject) => {
     const cleanedVanillaLocList = v2LocList.map((vanillaLoc) => {
       return vanillaLoc.replace('__', '');
     });
     const locPromises = cleanedVanillaLocList.map((vanillaLoc) => {
-      return new Promise((resolveI, rejectI) => {
+      return new Promise((resolveI) => {
         const relatedModLocs = locList.filter((modLoc) => {
           return vanillaLoc === locMap[modLoc];
         });
@@ -129,11 +125,9 @@ const mergeLocs = (folder, locList, locMap) => {
 
     Promise.all(locPromises)
       .then(() => {
-        console.timeEnd(`${folder} loc merge`);
         resolve();
       })
       .catch((error) => {
-        console.timeEnd(`${folder} loc merge`);
         reject(error);
       });
   });

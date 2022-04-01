@@ -5,7 +5,6 @@ import * as staple3 from './stapleFunctions3/index.js';
 import { output_characters, collate_characterSkillNodes, filterNodeSets } from './otherFunctions/index.js';
 
 const stapleTables = (folder) => {
-  console.time(`${folder} staple`);
   const readJson = (path) => {
     return JSON.parse(fse.readFileSync(`./parsed_files/${folder}/${path}`, 'utf-8'));
   };
@@ -144,7 +143,6 @@ const stapleTables = (folder) => {
   }
 
   output_characters(cultures, filteredNodeSets, folder);
-  console.timeEnd(`${folder} staple`);
 };
 
 export { stapleTables };

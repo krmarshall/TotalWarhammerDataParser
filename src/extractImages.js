@@ -7,12 +7,11 @@ const cwdNconvert = 'D:/GitHub/TotalWarhammerDataParser/bins';
 
 const extractImages = (folder, packName, game) => {
   return new Promise((resolve, reject) => {
-    console.time(`${folder} images extract`);
     const foldersString = '"ui/battle ui/ability_icons" "ui/campaign ui/effect_bundles" "ui/campaign ui/skills"';
     exec(
       `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${packName}.pack" packfile -E "../extracted_files/${folder}" - ${foldersString}`,
       { cwd: cwdRPFM },
-      (error, stdout, stderr) => {
+      (error) => {
         if (error) {
           reject(error);
         } else {
@@ -43,12 +42,12 @@ const convertImages = (folder) => {
         let outPath = `../output/${folder}/imgs/${splitPath[splitPath.length - 1]}`;
         outPath = outPath.replace(' ', '_');
         // ensureDirSync(outPath);
-        const script = `### -out webp -q 80 -rmeta -quiet -o ${outPath}%`;
+        const script = `### -out webp -q 90 -rmeta -quiet -o ${outPath}%`;
         const finalScript = imagePaths.reduce((prev, cur) => {
           return `${prev}\n.${cur}`;
         }, script);
         fse.outputFileSync(`./bins/nScripts/${folder}${index}.txt`, finalScript);
-        exec(`nconvert.exe ./nScripts/${folder}${index}.txt`, { cwd: cwdNconvert }, (error, stdout, stderr) => {
+        exec(`nconvert.exe ./nScripts/${folder}${index}.txt`, { cwd: cwdNconvert }, (error) => {
           if (error) {
             reject(error);
           } else {
@@ -58,13 +57,15 @@ const convertImages = (folder) => {
       }
     });
   });
-  Promise.all(promises)
-    .then(() => {
-      console.timeEnd(`${folder} images extract`);
-    })
-    .catch((error) => {
-      throw error;
-    });
+  return new Promise((resolve, reject) => {
+    Promise.all(promises)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 export { extractImages, convertImages };
