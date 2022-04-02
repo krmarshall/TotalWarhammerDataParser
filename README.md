@@ -1,6 +1,7 @@
 # TotalWarhammerDataParser
  
 Requires RPFM (or at least the cli) to be available under ./rpfm
+
 Uses NConvert and a webp plugin from XnConvert to convert images and strip metadeta.
 
 A saner person would probably have used like mongoose or an ORM instead of stapling everything together...
@@ -12,12 +13,12 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 
 ## Possible Expansions
 - Hunt down what table defines the level that quest items are unlocked
-- See how spreading works/should be displayed?
+- See how TW3 spreading works/should be displayed
 
 ## How To Use
 - Ensure an updated version of rpfm exists in ./rpfm
-- Check absolute file paths in ./bins/copySource.bat for copying game/mod files
+- Check absolute file paths in ./bins/copySource.bat for copying game/mod files from their install locations
 - Make sure all mods are downloaded (might have to check for new loc files/tables occasionally)
-- With rpfm (ui) rename the sfo loc table *SFO_effects__.loc to #SFO_effects__.loc because rpfm cant handle the *. -_-
+- With rpfm (ui) rename the sfo loc table *SFO_effects__.loc to #SFO_effects__.loc because rpfm cant handle the * -_-
 - npm run fullBuildProd
-- Extracted character skill trees and images will be in the ./output folder as parsed json and webp.
+- Extracted character skill trees and images will be in the ./output folder as parsed json and webp's
