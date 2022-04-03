@@ -135,4 +135,5 @@ dist
 /parsed_files/*
 /test/*
 /output/*
+/output_img/*
 /bins/nScripts/*

@@ -39,7 +39,7 @@ const convertImages = (folder) => {
         resolve();
       } else {
         const splitPath = imageDir.split(`${folder}/ui/`);
-        let outPath = `../output/${folder}/imgs/${splitPath[splitPath.length - 1]}`;
+        let outPath = `../output_img/${folder}/${splitPath[splitPath.length - 1]}`;
         outPath = outPath.replace(' ', '_');
         // ensureDirSync(outPath);
         const script = `### -out webp -q 90 -rmeta -quiet -o ${outPath}%`;

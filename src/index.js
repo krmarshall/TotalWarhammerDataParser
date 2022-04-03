@@ -5,6 +5,7 @@ import { workerVanillaFactory } from './workers/workerFactories.js';
 emptyDirSync('./extracted_files');
 emptyDirSync('./parsed_files');
 emptyDirSync('./output');
+emptyDirSync('./output_img');
 emptyDirSync('./bins/nScripts');
 
 // Vanilla 2
