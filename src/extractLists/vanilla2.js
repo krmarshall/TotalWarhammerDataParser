@@ -39,6 +39,7 @@ const v2LocList = [
   'unit_attributes__',
   'unit_stat_localisations__',
   'ui_text_replacements__',
+  'agent_subtypes__',
 ];
 
 export { v2DbList, v2LocList };

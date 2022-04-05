@@ -43,6 +43,7 @@ const sfo2LocList = [
   'jmw_norsca_navy_unit_abilities',
   '#SFO_ui_text_replacements__',
   'jmw_norsca_navy_ui_text_replacements',
+  '#SFO_hero_agent_subtypes',
 ];
 
 const sfo2LocMap = {
@@ -60,6 +61,7 @@ const sfo2LocMap = {
   jmw_norsca_navy_unit_abilities: 'unit_abilities',
   '#SFO_ui_text_replacements__': 'ui_text_replacements',
   jmw_norsca_navy_ui_text_replacements: 'ui_text_replacements',
+  '#SFO_hero_agent_subtypes': 'agent_subtypes',
 };
 
 export { sfo2DbList, sfo2LocList, sfo2LocMap };

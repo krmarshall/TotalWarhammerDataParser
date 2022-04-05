@@ -2,7 +2,7 @@ import { emptyDirSync } from 'fs-extra';
 import fse from 'fs-extra';
 import * as staple from './stapleFunctions/index.js';
 import * as staple3 from './stapleFunctions3/index.js';
-import { output_characters, collate_characterSkillNodes, filterNodeSets } from './otherFunctions/index.js';
+import { output_characters, collate_characterSkillNodes, filterNodeSets, output_characterLists } from './otherFunctions/index.js';
 
 const stapleTables = (folder) => {
   const readJson = (path) => {
@@ -135,9 +135,8 @@ const stapleTables = (folder) => {
   const filteredNodeSets = filterNodeSets(collatedNodeSets);
 
   emptyDirSync(`./test/${folder}`);
-  if (process.env.NODE_ENV !== 'production') {
-    fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
-  }
+  output_characterLists(folder, cultures, characterSkillNodeSets);
+
   if (missingTextReplacements.length > 0) {
     console.log('\x1b[33m', `\b${folder} missing text replacements: ${missingTextReplacements}`, '\x1b[0m');
   }
