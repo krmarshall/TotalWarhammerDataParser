@@ -136,6 +136,7 @@ const stapleTables = (folder) => {
 
   emptyDirSync(`./test/${folder}`);
   output_characterLists(folder, cultures, characterSkillNodeSets);
+  fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
 
   if (missingTextReplacements.length > 0) {
     console.log('\x1b[33m', `\b${folder} missing text replacements: ${missingTextReplacements}`, '\x1b[0m');

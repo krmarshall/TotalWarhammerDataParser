@@ -22,6 +22,11 @@ const cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
   });
   stapledTable[tzeentchIndex].subcultures = ['wh3_main_sc_tze_tzeentch'];
 
+  const proKislevIndex = stapledTable.findIndex((culture) => {
+    return culture.key === 'wh3_main_pro_ksl_kislev';
+  });
+  stapledTable.splice(proKislevIndex, 1);
+
   stapledTable.forEach((culture) => {
     culture.subculture = culture.subcultures[0];
     delete culture.subcultures;
