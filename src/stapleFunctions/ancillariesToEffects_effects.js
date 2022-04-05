@@ -7,6 +7,7 @@ const ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
     });
     ancillaryToEffect.effect = { ...relatedEffect };
     ancillaryToEffect.value = parseInt(ancillaryToEffect.value);
+    delete ancillaryToEffect.effect_scope;
 
     ancillaryToEffect.effect.description = numberInsertion(ancillaryToEffect.effect.description, ancillaryToEffect.value);
     return { ...ancillaryToEffect };

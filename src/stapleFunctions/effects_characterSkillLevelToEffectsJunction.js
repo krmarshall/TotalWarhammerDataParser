@@ -18,6 +18,7 @@ const effects_characterSkillLevelToEffectsJunction = (effects, characterSkillLev
     record.effect = { ...relatedEffect };
     delete record.effect.effect;
     record.value = parseInt(record.value);
+    delete record.effect_scope;
 
     record.effect.description = numberInsertion(record.effect.description, record.value);
     return { ...record };

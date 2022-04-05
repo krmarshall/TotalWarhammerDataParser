@@ -21,6 +21,7 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
       }
       collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
+      delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier].character_skill_node_set_key;
     }
   });
   return collatedNodeSets;

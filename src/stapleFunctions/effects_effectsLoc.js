@@ -7,6 +7,7 @@ const effects_effectsLoc = (effects, effectsLoc, textReplacements, missingTextRe
     });
     effect.description = locDescription?.text ? stringInterpolator(locDescription?.text, textReplacements, missingTextReplacements) : '';
     delete effect.icon_negative;
+    delete effect.category;
     effect.priority = parseInt(effect.priority);
     // Parse to boolean, is kinda scuffed?
     effect.is_positive_value_good = JSON.parse(effect.is_positive_value_good);

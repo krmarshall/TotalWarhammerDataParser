@@ -34,6 +34,7 @@ const unitSpecialAbilitiesPrune = [
   'spawn_is_decoy',
   'only_affect_owned_units',
   'ability_available_ui_event',
+  'unique_id',
 
   'only_affect_target',
   'always_affect_self',
