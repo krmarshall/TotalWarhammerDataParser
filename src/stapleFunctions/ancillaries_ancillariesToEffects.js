@@ -13,7 +13,8 @@ const ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffects) => 
     if (relatedEffects.length) {
       relatedEffects.forEach((relatedEffect) => {
         relatedEffect.effect.value = relatedEffect.value;
-        relatedEffect.effect.effect_scope = relatedEffect.effect_scope;
+        relatedEffect.effect.key = relatedEffect.effect.effect;
+        delete relatedEffect.effect.effect;
 
         if (ancillary.effects === undefined) {
           ancillary.effects = [];
