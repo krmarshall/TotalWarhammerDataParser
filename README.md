@@ -31,3 +31,32 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 - red_crested_skink_chief_legendary legendary doesnt matter?
 - tlaqua lizardmen heroes?
 - glade_lord_fem ?
+
+## Image Extraction
+Extracted images are mostly useful from mods where everything is in one packfile. For vanilla using rpfm to load all CA packfiles will get everything.
+
+Steps for getting all vanilla stuff:
+- In rpfm select warhammer2 or warhammer 3 (3 seems to have everything from 2 i should need?)
+- load all ca packfiles
+- extract the following folders
+- skilltree related:
+- ui/battle ui/ability_icons/
+- ui/campaign ui/effect_bundles/
+- ui/campaign ui/skills/
+- flags/characters:
+- ui/flags
+- ui/portraits/portholes
+
+XnConvert webp settings for different conversions:
+- skilltree related: quality 90
+- flags: lossless
+- characters quality 90
+
+Warhammer 3 character portholes arent circularized like wh2/1, can use imagemagick to automate cropping/circularizing them. Note the mask is strangely sized, for whatever reason thats what results in a 164x164 output. The mask also loses inner transparency for black, which then gets replaced, so watch for image artifacts.
+
+magick -size 165x166 xc:Transparent -fill White -draw 'circle 83 83 83 1' -alpha Copy mask.png
+
+$files = Get-ChildItem ".\example\"
+foreach ($f in $files){
+magick .\example\${f} -gravity Center mask.png -compose CopyOpacity -composite -trim -transparent Black .\out\${f}
+}
