@@ -16,17 +16,18 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
       }
 
-      // Not including hidden indents simplifies client side build saving, also reduces json size, if i want to include them in the future
-      // replace the if statement with the comments below (keep the delete after assignment tho)
-      // if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
-      //   collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
-      // }
-      // collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
-      if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] <= 6) {
-        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
-        delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier]
-          .character_skill_node_set_key;
+      if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
+        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
       }
+      collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
+      delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier]
+        .character_skill_node_set_key;
+
+      // if (skillNode.indent <= 6) {
+      //   collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
+      //   delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier]
+      //     .character_skill_node_set_key;
+      // }
     }
   });
   return collatedNodeSets;
