@@ -15,13 +15,18 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         const keyName = skillNode.character_skill_node_set_key.split('node_set_');
         collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
       }
-      // Should only be 7 indents, 0-5 for skills, 6 for hidden stuff. But vanilla tables have hidden skills all the way up to 10
-      // and mods up to 100 ._. So if we hit an indent thats undefined (above 6) just define it, will strip out null indexes later
-      if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
-        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
+
+      // Not including hidden indents simplifies client side build saving, also reduces json size, if i want to include them in the future
+      // replace the if statement with the comments below (keep the delete after assignment tho)
+      // if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
+      //   collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
+      // }
+      // collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
+      if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] <= 6) {
+        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
+        delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier]
+          .character_skill_node_set_key;
       }
-      collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
-      delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier].character_skill_node_set_key;
     }
   });
   return collatedNodeSets;
