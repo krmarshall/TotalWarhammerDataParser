@@ -1,5 +1,6 @@
 import { emptyDirSync } from 'fs-extra';
 import fse from 'fs-extra';
+import outputCharactersPrune from '../pruneLists/outputCharactersPrune.js';
 
 const output_characters = (cultures, collatedNodeSets, folder) => {
   emptyDirSync(`./output/${folder}/`);
@@ -9,7 +10,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
     culture.lordNodeSets.forEach((lord) => {
       if (collatedNodeSets[lord] === undefined && !missingCharacters.includes(lord)) {
         missingCharacters.push(lord);
-      } else {
+      } else if (!outputCharactersPrune.includes(collatedNodeSets[lord].key)) {
         fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], { spaces });
       }
     });
@@ -17,7 +18,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
     culture.heroNodeSets.forEach((hero) => {
       if (collatedNodeSets[hero] === undefined && !missingCharacters.includes(hero)) {
         missingCharacters.push(hero);
-      } else {
+      } else if (!outputCharactersPrune.includes(collatedNodeSets[hero].key)) {
         fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], { spaces });
       }
     });

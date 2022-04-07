@@ -26,10 +26,6 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 - Extracted character skill trees and images will be in the ./output folder as parsed json and webp's
 
 ## Can probably prune
-- Vampire Coast lords with tech_?
-- Black ark lords?
-- red_crested_skink_chief_legendary legendary doesnt matter?
-- tlaqua lizardmen heroes?
 - glade_lord_fem ?
 
 ## Image Extraction
