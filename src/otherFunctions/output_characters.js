@@ -10,17 +10,27 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
     culture.lordNodeSets.forEach((lord) => {
       if (collatedNodeSets[lord] === undefined && !missingCharacters.includes(lord)) {
         missingCharacters.push(lord);
-      } else if (!outputCharactersPrune.includes(collatedNodeSets[lord].key)) {
-        fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], { spaces });
+        return;
       }
+      if (outputCharactersPrune.includes(collatedNodeSets[lord].key)) {
+        return;
+      }
+      // WH3 has beastlords randomly in subculture pools like oxyotl?
+      if (culture.key !== 'wh_dlc03_bst_beastmen' && collatedNodeSets[lord].key === 'bst_beastlord') {
+        return;
+      }
+      fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], { spaces });
     });
 
     culture.heroNodeSets.forEach((hero) => {
       if (collatedNodeSets[hero] === undefined && !missingCharacters.includes(hero)) {
         missingCharacters.push(hero);
-      } else if (!outputCharactersPrune.includes(collatedNodeSets[hero].key)) {
-        fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], { spaces });
+        return;
       }
+      if (outputCharactersPrune.includes(collatedNodeSets[hero].key)) {
+        return;
+      }
+      fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], { spaces });
     });
   });
   if (missingCharacters.length > 0) {

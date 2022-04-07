@@ -256,6 +256,14 @@ const subculturesPrune = [
   // Lots of prologue factions (including in norsca), need to investigate more
   'wh3_prologue_dervingard_garrison',
   'wh3_prologue_kislev_expedition',
+  'wh3_prologue_gharhars',
+  'wh3_prologue_great_eagle_tribe',
+  'wh3_prologue_horde_of_kurnz',
+  'wh3_prologue_ksl_petrenkos_raiders',
+  'wh3_prologue_the_kvelligs',
+  'wh3_prologue_the_narj',
+  'wh3_prologue_the_tahmaks',
+  'wh3_prologue_tong',
 ];
 
 export default subculturesPrune;
