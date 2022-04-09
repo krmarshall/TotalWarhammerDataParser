@@ -130,7 +130,20 @@ const stapleTables = (folder) => {
   cultures = staple.cultures_factionAgentPermittedSubtypes(cultures, factionAgentPermittedSubtypes);
   cultures = staple.cultures_characterSkillNodeSets(cultures, characterSkillNodeSets);
 
-  const collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
+  let collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
+
+  // WH3 attaches quest ancillaries to the agent instead of a skill node
+  if (folder.includes('3')) {
+    const characterAncillaryQuestUIDetails = readJson('db/character_ancillary_quest_ui_details_tables.json');
+    const ancillaryLoc = readJson('text/db/ancillaries.json');
+    collatedNodeSets = staple3.collatedNodeSets_characterAncillaryQuestUIDetails(
+      collatedNodeSets,
+      characterSkillNodeSets,
+      characterAncillaryQuestUIDetails,
+      ancillaries,
+      ancillaryLoc
+    );
+  }
 
   const filteredNodeSets = filterNodeSets(collatedNodeSets);
 
