@@ -1,3 +1,5 @@
+import addFactionAgents from '../pruneLists/addFactionAgents.js';
+
 const cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedSubtypes) => {
   const stapledTable = cultures.map((culture) => {
     const relatedAgents = factionAgentPermittedSubtypes.filter((agent) => {
@@ -19,6 +21,12 @@ const cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedS
       });
     }
 
+    const addAgents = addFactionAgents.filter((agent) => {
+      return agent.faction === culture.key;
+    });
+    addAgents.forEach((agent) => {
+      culture.agents.push(agent.agent);
+    });
     return { ...culture };
   });
   return stapledTable;
