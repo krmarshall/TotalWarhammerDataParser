@@ -7,7 +7,7 @@ const characterSkills_characterSkillsLoc = (characterSkills, characterSkillsLoc,
       return characterSkillLoc.key === `character_skills_localised_name_${characterSkill.key}`;
     });
     delete characterSkill.localised_name;
-    characterSkill.name = locName?.text ? locName?.text : '';
+    characterSkill.name = locName?.text ? stringInterpolator(locName?.text, textReplacements, missingTextReplacements) : '';
 
     const locDescription = characterSkillsLoc.find((characterSkillLoc) => {
       return characterSkillLoc.key === `character_skills_localised_description_${characterSkill.key}`;
