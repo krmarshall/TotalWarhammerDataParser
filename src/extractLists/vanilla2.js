@@ -26,6 +26,7 @@ const v2DbList = [
   'unit_ability_types_tables',
   'unit_attributes_tables',
   'unit_special_abilities_tables',
+  'ui_unit_stats_tables',
 ];
 
 const v2LocList = [

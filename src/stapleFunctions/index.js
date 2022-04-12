@@ -33,6 +33,7 @@ import unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs from './unitAbiliti
 import unitAbilities_unitSpecialAbilities from './unitAbilities_unitSpecialAbilities.js';
 import effectBonusValueUnitAbilityJunc_unitAbilities from './effectBonusValueUnitAbilityJunc_unitAbilities.js';
 import effects_effectBonusValueUnitAbilityJunc from './effects_effectBonusValueUnitAbilityJunc.js';
+import specialAbilityPhaseStatEffects_uiUnitStats from './specialAbilityPhaseStatEffects_uiUnitStats.js';
 
 export {
   cultures_characterSkillNodeSets,
@@ -70,4 +71,5 @@ export {
   unitAbilities_unitSpecialAbilities,
   effectBonusValueUnitAbilityJunc_unitAbilities,
   effects_effectBonusValueUnitAbilityJunc,
+  specialAbilityPhaseStatEffects_uiUnitStats,
 };

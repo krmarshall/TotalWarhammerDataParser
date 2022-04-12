@@ -1,32 +1,6 @@
-const sfo2DbList = [
-  'ancillaries_tables',
-  'ancillary_to_effects_tables',
-  'character_skill_level_details_tables',
-  'character_skill_level_to_ancillaries_junctions_tables',
-  'character_skill_level_to_effects_junctions_tables',
-  'character_skill_node_links_tables',
-  'character_skill_node_sets_tables',
-  'character_skill_nodes_skill_locks_tables',
-  'character_skill_nodes_tables',
-  'character_skills_tables',
-  'character_skills_to_quest_ancillaries_tables',
-  'cultures_subcultures_tables',
-  'cultures_tables',
-  'effect_bonus_value_unit_ability_junctions_tables',
-  'effects_tables',
-  'faction_agent_permitted_subtypes_tables',
-  'factions_tables',
-  'special_ability_phase_attribute_effects_tables',
-  'special_ability_phase_stat_effects_tables',
-  'special_ability_phases_tables',
-  'special_ability_to_special_ability_phase_junctions_tables',
-  'unit_abilities_additional_ui_effects_tables',
-  'unit_abilities_tables',
-  'unit_abilities_to_additional_ui_effects_juncs_tables',
-  'unit_ability_types_tables',
-  'unit_attributes_tables',
-  'unit_special_abilities_tables',
-];
+import { v2DbList } from './vanilla2.js';
+
+const sfo2DbList = [...v2DbList];
 
 const sfo2LocList = [
   '#SFO_character_skills',

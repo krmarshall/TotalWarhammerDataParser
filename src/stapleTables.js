@@ -17,6 +17,7 @@ const stapleTables = (folder) => {
   let specialAbilityPhaseAttributeEffects = readJson('db/special_ability_phase_attribute_effects_tables.json');
   let specialAbilityPhaseStatEffects = readJson('db/special_ability_phase_stat_effects_tables.json');
   const unitStatLoc = readJson('text/db/unit_stat_localisations.json');
+  const uiUnitStats = readJson('db/ui_unit_stats_tables.json');
   let specialAbilityPhases = readJson('db/special_ability_phases_tables.json');
   let specialAbilityToSpecialAbilityPhaseJuncs = readJson('db/special_ability_to_special_ability_phase_junctions_tables.json');
   let unitSpecialAbilities = readJson('db/unit_special_abilities_tables.json');
@@ -59,6 +60,7 @@ const stapleTables = (folder) => {
     uiTextReplacements,
     missingTextReplacements
   );
+  specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_uiUnitStats(specialAbilityPhaseStatEffects, uiUnitStats);
   specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseAttributeEffects(
     specialAbilityPhases,
     specialAbilityPhaseAttributeEffects

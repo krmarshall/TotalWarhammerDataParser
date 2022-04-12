@@ -7,6 +7,7 @@ Uses NConvert and a webp plugin from XnConvert to convert images and strip metad
 A saner person would probably have used like mongoose or an ORM instead of stapling everything together...
 
 ## To Do
+- Fix right arrow meta tag, not always sorted correctly.
 - Add more WH2 Mods
 - (Done?)Fix WH3 Faction/Lords/Heroes
 - (Done?)Look through wh3 tables for new properties to prune/handle
@@ -37,9 +38,14 @@ Steps for getting all vanilla stuff:
 - ui/battle ui/ability_icons/
 - ui/campaign ui/effect_bundles/
 - ui/campaign ui/skills/
+- ui/skins/default/icon_stat_*
 - flags/characters:
 - ui/flags
 - ui/portraits/portholes
+
+WH3 also needs
+- ui/skins/default/modifier_icon_*
+- ui/battle ui/ability_icons/resistance_* (put with the skins/default)
 
 XnConvert webp settings for different conversions:
 - skilltree related: quality 90
