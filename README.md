@@ -9,6 +9,7 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 ## To Do
 - Fix right arrow meta tag, not always sorted correctly.
 - Add more WH2 Mods
+- Prune more props not used in frontend to save file size
 - (Done?)Fix WH3 Faction/Lords/Heroes
 - (Done?)Look through wh3 tables for new properties to prune/handle
 
@@ -47,6 +48,8 @@ WH3 also needs
 - ui/skins/default/modifier_icon_*
 - ui/battle ui/ability_icons/resistance_* (put with the skins/default)
 
+WH2 has a lot of placeholder ui/skins/default that get hardcode fixed. So copy over imgs in that folder from WH3.
+
 XnConvert webp settings for different conversions:
 - skilltree related: quality 90
 - flags: lossless
@@ -60,3 +63,20 @@ $files = Get-ChildItem ".\example\"
 foreach ($f in $files){
 magick .\example\${f} -gravity Center mask.png -compose CopyOpacity -composite -trim -transparent Black .\out\${f}
 }
+
+
+## Adding a mod
+- Create new extract lists such as ./extractLists/sfo2.js
+- Use rpfm to check loc table names and map them to their vanilla counterparts
+- Check if the mod uses any * in table names, rpfm chokes on that character to rename it to something like #
+- Add a new workerModFactory to the mods base game worker (worker2/worker3)
+- Check for bugs, especially in string replacements.
+- Manually extract the following image paths: 
+- ui/skins/default/icon_stat_*
+- ui/flags
+- ui/portraits/portholes
+WH3 also needs
+- ui/skins/default/modifier_icon_*
+- ui/battle ui/ability_icons/resistance_* (put with the skins/default)
+- Use the above image conversion settings/scripts appropriately
+- Copy extracted data and images over to TotalWarhammerPlanner repo
