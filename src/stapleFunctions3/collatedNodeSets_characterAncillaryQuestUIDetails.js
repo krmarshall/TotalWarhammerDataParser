@@ -52,6 +52,8 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
       });
     }
     returnObj[collatedNodeKey] = node;
+
+    returnObj[collatedNodeKey].items.sort((a, b) => a.unlocked_at_rank - b.unlocked_at_rank);
   });
   return returnObj;
 };
