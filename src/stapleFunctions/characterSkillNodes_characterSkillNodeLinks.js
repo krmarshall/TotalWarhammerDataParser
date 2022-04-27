@@ -41,11 +41,21 @@ const characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, charac
     return node.parent_subset_required?.length;
   });
   metaTable.forEach((node) => {
-    const lastSubsetKey = node.parent_subset_required[node.parent_subset_required.length - 1];
-    const lastSubsetIndex = stapledTable.findIndex((node) => {
-      return node.key === lastSubsetKey;
-    });
-    stapledTable[lastSubsetIndex].right_arrow = true;
+    // Grab all the parent subset required indices/nodes
+    const subsetIndices = node.parent_subset_required.map((subsetKey) => stapledTable.findIndex((node) => node.key === subsetKey));
+    const subsetNodes = subsetIndices.map((subIndex) => stapledTable[subIndex]);
+
+    // Find the key with the highest tier
+    let highest = subsetNodes[0];
+    let highestSubsetIndex = subsetIndices[0];
+    for (let i = 0; i < subsetNodes.length; i++) {
+      if (subsetNodes[i].tier > highest.tier) {
+        highest = subsetNodes[i];
+        highestSubsetIndex = subsetIndices[i];
+      }
+    }
+
+    stapledTable[highestSubsetIndex].right_arrow = true;
   });
 
   return stapledTable;
