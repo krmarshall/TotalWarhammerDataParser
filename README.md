@@ -49,6 +49,7 @@ Steps for getting all vanilla stuff:
 WH3 also needs
 - ui/skins/default/modifier_icon_*
 - ui/battle ui/ability_icons/resistance_* (put with the skins/default)
+- ui/campaign ui/skills/item_arcane_item (from WH2, missing from 3)
 
 WH2 has a lot of placeholder ui/skins/default that get hardcode fixed. So copy over imgs in that folder from WH3.
 

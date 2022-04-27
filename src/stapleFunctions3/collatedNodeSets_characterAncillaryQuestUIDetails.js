@@ -59,7 +59,7 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
 export default collatedNodeSets_characterAncillaryQuestUIDetails;
 
 const ancillaryTypeImageEnum = {
-  wh_main_anc_arcane_item: 'character_magic.png',
+  wh_main_anc_arcane_item: 'item_arcane_item.png',
   wh_main_anc_enchanted_item: 'item_enchanted_item.png',
   wh_main_anc_weapon: 'item_weapon.png',
   wh_main_anc_armour: 'item_armour.png',
