@@ -1,3 +1,5 @@
+import wh2QuestNodePrune from '../pruneLists/wh2QuestNodePrune.js';
+
 const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
   const wantedNodeSets = [];
   cultures.forEach((culture) => {
@@ -16,18 +18,26 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
       }
 
-      if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
-        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
+      // For WH2 quest items in the skilltree push them to the items array instead.
+      if (skillNode.use_quest_for_prefix) {
+        if (collatedNodeSets[skillNode.character_skill_node_set_key].items === undefined) {
+          collatedNodeSets[skillNode.character_skill_node_set_key].items = [];
+        }
+        const tempKey = skillNode.character_skill_node_set_key;
+        wh2QuestNodePrune.forEach((prune) => {
+          delete skillNode[prune];
+        });
+        skillNode.effects = skillNode.levels[0].effects;
+        delete skillNode.levels;
+        collatedNodeSets[tempKey].items.push(skillNode);
+      } else {
+        if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
+          collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
+        }
+        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
+        delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier]
+          .character_skill_node_set_key;
       }
-      collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
-      delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier]
-        .character_skill_node_set_key;
-
-      // if (skillNode.indent <= 6) {
-      //   collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier] = skillNode;
-      //   delete collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent][skillNode.tier]
-      //     .character_skill_node_set_key;
-      // }
     }
   });
   return collatedNodeSets;

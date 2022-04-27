@@ -37,6 +37,12 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
           tempAncillary.description = relatedLocDesc.text;
           tempAncillary.unlocked_at_rank = parseInt(questAncillary.rank);
           tempAncillary.instant = JSON.parse(questAncillary.instant);
+          tempAncillary.image_path = ancillaryTypeImageEnum[tempAncillary.type];
+
+          if (tempAncillary.image_path === undefined) {
+            console.log('Missing ancillary image for: ');
+            console.log(tempAncillary.type);
+          }
 
           if (node.items === undefined) {
             node.items = [];
@@ -51,3 +57,15 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
 };
 
 export default collatedNodeSets_characterAncillaryQuestUIDetails;
+
+const ancillaryTypeImageEnum = {
+  wh_main_anc_arcane_item: 'character_magic.png',
+  wh_main_anc_enchanted_item: 'item_enchanted_item.png',
+  wh_main_anc_weapon: 'item_weapon.png',
+  wh_main_anc_armour: 'item_armour.png',
+  wh_main_anc_talisman: 'item_talisman.png',
+  wh_dlc05_anc_mount_wef_forest_dragon: 'mount_forest_dragon.png',
+  wh2_dlc17_anc_banner_lzd_poison_daemonbane: '0_placeholder_skill.png',
+  wh2_dlc17_anc_banner_lzd_poison_slow_death: '0_placeholder_skill.png',
+  wh2_main_anc_magic_standard_sunburst_standard_of_hexoatl: '0_placeholder_skill.png',
+};
