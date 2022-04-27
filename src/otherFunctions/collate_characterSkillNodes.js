@@ -32,7 +32,7 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         collatedNodeSets[tempKey].items.push(skillNode);
 
         // Similarly push background skills into their array instead of the skilltree.
-      } else if (skillNode.is_background_skill) {
+      } else if (skillNode.is_background_skill || !skillNode.visible_in_ui) {
         if (collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills === undefined) {
           collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills = [];
         }
