@@ -3,7 +3,7 @@ const filterNodeSets = (characterNodeSets) => {
   const returnObject = {};
   nodeSetsKeys.forEach((nodeSetKey) => {
     const nodeSet = characterNodeSets[nodeSetKey];
-    if (nodeSet.skillTree.length > 7) {
+    if (nodeSet.skillTree.length > 6) {
       const filteredIndentTree = nodeSet.skillTree.filter((skillLine) => {
         return skillLine !== null;
       });

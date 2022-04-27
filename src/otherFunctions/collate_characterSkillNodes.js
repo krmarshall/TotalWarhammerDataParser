@@ -12,7 +12,7 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
       if (collatedNodeSets[skillNode.character_skill_node_set_key] === undefined) {
         collatedNodeSets[skillNode.character_skill_node_set_key] = {};
         // For some reason there are a ton of skills using hidden indents above 6, even tho thats the purpose of 6?
-        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], [], []];
+        collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], []];
 
         const keyName = skillNode.character_skill_node_set_key.split('node_set_');
         collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
@@ -30,6 +30,15 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         skillNode.effects = skillNode.levels[0].effects;
         delete skillNode.levels;
         collatedNodeSets[tempKey].items.push(skillNode);
+
+        // Similarly push background skills into their array instead of the skilltree.
+      } else if (skillNode.is_background_skill) {
+        if (collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills === undefined) {
+          collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills = [];
+        }
+        collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills.push(skillNode);
+
+        // If neither of the above add it to the skilltree.
       } else {
         if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
           collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
