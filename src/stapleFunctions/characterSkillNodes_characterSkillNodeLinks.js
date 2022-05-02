@@ -1,15 +1,60 @@
+const prepTables = (characterSkillNodeLinks) => {
+  const parentTable = {};
+  const childTable = {};
+
+  characterSkillNodeLinks.forEach((nodeLink) => {
+    let parentInserted = false;
+    for (let i = 0; !parentInserted; i++) {
+      if (parentTable[`${nodeLink.parent_key}|${i}`] === undefined) {
+        parentTable[`${nodeLink.parent_key}|${i}`] = nodeLink;
+        parentInserted = true;
+      }
+    }
+
+    let childInserted = false;
+    for (let i = 0; !childInserted; i++) {
+      if (childTable[`${nodeLink.child_key}|${i}`] === undefined) {
+        childTable[`${nodeLink.child_key}|${i}`] = nodeLink;
+        childInserted = true;
+      }
+    }
+  });
+  return { parentTable, childTable };
+};
+
 const characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, characterSkillNodeLinks) => {
+  const { parentTable, childTable } = prepTables(characterSkillNodeLinks);
+
   const stapledTable = characterSkillNodes.map((node) => {
     const relatedLinksImParent = [];
     const relatedLinksImChild = [];
 
-    characterSkillNodeLinks.forEach((nodeLink) => {
-      if (nodeLink.child_key === node.key) {
-        relatedLinksImChild.push(nodeLink);
-      } else if (nodeLink.parent_key === node.key) {
-        relatedLinksImParent.push(nodeLink);
+    // Below commented forEach does the same thing as all this object shenanigans, but a LOT slower. Saved ~7s when implemented, prob more with added mods.
+    let allParentsFound = false;
+    for (let i = 0; !allParentsFound; i++) {
+      if (parentTable[`${node.key}|${i}`] !== undefined) {
+        relatedLinksImParent.push(parentTable[`${node.key}|${i}`]);
+      } else {
+        allParentsFound = true;
       }
-    });
+    }
+
+    let allChildrenFound = false;
+    for (let i = 0; !allChildrenFound; i++) {
+      if (childTable[`${node.key}|${i}`] !== undefined) {
+        relatedLinksImChild.push(childTable[`${node.key}|${i}`]);
+      } else {
+        allChildrenFound = true;
+      }
+    }
+    // characterSkillNodeLinks.forEach((nodeLink) => {
+    //   if (nodeLink.child_key === node.key) {
+    //     relatedLinksImChild.push(nodeLink);
+    //   } else if (nodeLink.parent_key === node.key) {
+    //     relatedLinksImParent.push(nodeLink);
+    //   }
+    // });
+
     // Add parent requirements to each skill
     const parentRequired = [];
     const parentSubsetRequired = [];
