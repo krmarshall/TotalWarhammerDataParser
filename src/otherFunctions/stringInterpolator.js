@@ -15,6 +15,10 @@
 // Whoever at CA decided to not close random img tags, sometimes close overridecol with /col, and sometimes with /overridecol has my eternal regex hatred
 const stringInterpolator = (string, uiTextReplacements, missingTextReplacements) => {
   if (!string.includes('[[') && !string.includes('{{')) {
+    // Replacing this before going through the rest of string interpolator breaks element innertext checks at bottom.
+    if (string.includes('\\\\n')) {
+      string = string.replaceAll('\\\\n', '\n\t');
+    }
     return string;
   }
 

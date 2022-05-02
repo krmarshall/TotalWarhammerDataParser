@@ -12,7 +12,6 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 - Prune more props not used in frontend to save file size
 - (Done?)Fix WH3 Faction/Lords/Heroes
 - (Done?)Look through wh3 tables for new properties to prune/handle
-- //n in effect descriptions
 - SFO2 Son of Bretonnia has a hidden skill in skilltree
 - Red crested skink chief has a wonky boxed issue
 - Skink Oracle has boxed issue
