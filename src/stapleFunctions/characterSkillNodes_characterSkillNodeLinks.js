@@ -73,24 +73,30 @@ const characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, charac
       relatedLinksImParent.forEach((link) => {
         if (link.link_type === 'REQUIRED') {
           node.right_arrow = true;
-        } else if (link.link_type === 'SUBSET_REQUIRED') {
-          node.boxed = true;
         }
       });
     }
+
     return { ...node };
   });
 
-  // After adding all the node links, find any nodes with a subset required, and give the last subset required the right_arrow property
-  const metaTable = stapledTable.filter((node) => {
-    return node.parent_subset_required?.length;
+  const subsetTable = [];
+  const requiredTable = [];
+  stapledTable.forEach((node) => {
+    if (node.parent_subset_required?.length) {
+      subsetTable.push(node);
+    }
+    if (node.parent_required?.length) {
+      requiredTable.push(node);
+    }
   });
-  metaTable.forEach((node) => {
+  // After adding all the node links, find any nodes with a subset required, and give the last subset required the right_arrow property
+  subsetTable.forEach((node) => {
     // Grab all the parent subset required indices/nodes
-    const subsetIndices = node.parent_subset_required.map((subsetKey) => stapledTable.findIndex((node) => node.key === subsetKey));
+    const subsetIndices = node.parent_subset_required.map((subsetKey) => stapledTable.findIndex((altnode) => altnode.key === subsetKey));
     const subsetNodes = subsetIndices.map((subIndex) => stapledTable[subIndex]);
 
-    // Find the key with the highest tier
+    // Find the key with the highest tier and give right_arrow prop
     let highest = subsetNodes[0];
     let highestSubsetIndex = subsetIndices[0];
     for (let i = 0; i < subsetNodes.length; i++) {
@@ -99,8 +105,40 @@ const characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, charac
         highestSubsetIndex = subsetIndices[i];
       }
     }
-
     stapledTable[highestSubsetIndex].right_arrow = true;
+  });
+
+  // Also want to find if the node shares a parent required with any other nodes, if it does give boxed prop
+  requiredTable.forEach((node) => {
+    const sharedParent = requiredTable.find((altnode) => {
+      const intersects = altnode.parent_required.find((parent) => node.parent_required.includes(parent) && node.key !== altnode.key);
+      if (intersects !== undefined) {
+        return true;
+      }
+      return false;
+    });
+
+    if (sharedParent !== undefined) {
+      const requiredIndex = stapledTable.findIndex((subnode) => subnode.key === node.key);
+      stapledTable[requiredIndex].boxed = true;
+    }
+  });
+
+  subsetTable.forEach((node) => {
+    const sharedParent = subsetTable.find((altnode) => {
+      const intersects = altnode.parent_subset_required.find(
+        (parent) => node.parent_subset_required.includes(parent) && node.key !== altnode.key
+      );
+      if (intersects !== undefined) {
+        return true;
+      }
+      return false;
+    });
+
+    if (sharedParent !== undefined) {
+      const subsetIndex = stapledTable.findIndex((subnode) => subnode.key === node.key);
+      stapledTable[subsetIndex].boxed = true;
+    }
   });
 
   return stapledTable;
