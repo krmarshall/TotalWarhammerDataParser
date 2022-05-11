@@ -2,7 +2,7 @@
  
 Requires RPFM (or at least the cli) to be available under ./rpfm
 
-Uses NConvert and a webp plugin from XnConvert to convert images and strip metadeta.
+Uses NConvert and a webp plugin from XnConvert to convert images and strip metadata.
 
 A saner person would probably have used like mongoose or an ORM instead of stapling everything together...
 
@@ -14,7 +14,7 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 - SFO2 Son of Bretonnia has a hidden skill in skilltree
 
 ## Possible Expansions
-- Hunt down what table defines the level that quest items are unlocked
+- Hunt down what table defines the level that quest items are unlocked in wh2
 - See how TW3 spreading works/should be displayed
 
 ## How To Use
@@ -32,7 +32,7 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 Extracted images are mostly useful from mods where everything is in one packfile. For vanilla using rpfm to load all CA packfiles will get everything.
 
 Steps for getting all vanilla stuff:
-- In rpfm select warhammer2 or warhammer 3 (3 seems to have everything from 2 i should need?)
+- In rpfm select warhammer2 or warhammer3 (3 seems to have everything from 2 i should need?)
 - load all ca packfiles
 - extract the following folders
 - skilltree related:
@@ -67,6 +67,7 @@ magick .\example\${f} -gravity Center mask.png -compose CopyOpacity -composite -
 
 
 ## Adding a mod
+- Add relevant robocopies in the copySource.bat
 - Create new extract lists such as ./extractLists/sfo2.js
 - Use rpfm to check loc table names and map them to their vanilla counterparts
 - Check if the mod uses any * in table names, rpfm chokes on that character to rename it to something like #

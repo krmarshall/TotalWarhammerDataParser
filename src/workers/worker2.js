@@ -2,9 +2,9 @@ import { workerData } from 'worker_threads';
 import { extractPackfileMass, extractTsv } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
-
-import { sfo2DbList, sfo2LocList, sfo2LocMap } from '../extractLists/sfo2.js';
 import { workerImageFactory, workerModFactory } from './workerFactories.js';
+import { sfo2DbList, sfo2LocList, sfo2LocMap } from '../extractLists/sfo2.js';
+import { artefacts2DbList, artefacts2LocList, artefacts2LocMap } from '../extractLists/artefacts2.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
@@ -23,6 +23,15 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
 
     // Mods are reliant on base game files to be merged into, so spool workers for them up after vanilla is parsed.
     workerModFactory('sfo2', 'steel_faith_overhaul_2', 'steel_faith_overhaul_2', sfo2DbList, sfo2LocList, sfo2LocMap, 'warhammer_2');
+    workerModFactory(
+      'artefacts2',
+      'stompies_new_artefacts',
+      'stompies_new_artefacts',
+      artefacts2DbList,
+      artefacts2LocList,
+      artefacts2LocMap,
+      'warhammer_2'
+    );
   })
   .catch((error) => {
     throw error;
