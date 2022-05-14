@@ -14,7 +14,8 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         // For some reason there are a ton of skills using hidden indents above 6, even tho thats the purpose of 6?
         collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], []];
 
-        const keyName = skillNode.character_skill_node_set_key.split('node_set_');
+        // node_set_ from vanilla, _skill_node_(?!set_) from radious2
+        const keyName = skillNode.character_skill_node_set_key.split(/node_set_|_skill_node_(?!set_)/);
         collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
       }
 

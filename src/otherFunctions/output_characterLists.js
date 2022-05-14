@@ -23,7 +23,7 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets) => {
         });
 
         if (lordName === undefined) {
-          console.log(`${lordKey} no loc name`);
+          characterList[`${cultureName}Lords`][lordKey] = 'undefined';
         } else {
           characterList[`${cultureName}Lords`][lordKey] = lordName.text;
         }
@@ -43,7 +43,7 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets) => {
         });
 
         if (heroName === undefined) {
-          console.log(`${heroKey} no loc name`);
+          characterList[`${cultureName}Heroes`][heroKey] = 'undefined';
         } else {
           characterList[`${cultureName}Heroes`][heroKey] = heroName.text;
         }

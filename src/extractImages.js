@@ -5,20 +5,31 @@ import fse from 'fs-extra';
 const cwdRPFM = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 const cwdNconvert = 'D:/GitHub/TotalWarhammerDataParser/bins';
 
-const extractImages = (folder, packName, game) => {
+const extractImages = (folder, packNames, game) => {
   return new Promise((resolve, reject) => {
-    const foldersString = '"ui/battle ui/ability_icons" "ui/campaign ui/effect_bundles" "ui/campaign ui/skills"';
-    exec(
-      `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${packName}.pack" packfile -E "../extracted_files/${folder}" - ${foldersString}`,
-      { cwd: cwdRPFM },
-      (error) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      }
-    );
+    const imagePromises = packNames.map((packName) => {
+      return new Promise((resolveI, rejectI) => {
+        const foldersString = '"ui/battle ui/ability_icons" "ui/campaign ui/effect_bundles" "ui/campaign ui/skills"';
+        exec(
+          `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${packName}.pack" packfile -E "../extracted_files/${folder}" - ${foldersString}`,
+          { cwd: cwdRPFM },
+          (error) => {
+            if (error) {
+              rejectI(error);
+            } else {
+              resolveI();
+            }
+          }
+        );
+      });
+    });
+    Promise.all(imagePromises)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 };
 

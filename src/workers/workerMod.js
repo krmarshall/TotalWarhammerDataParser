@@ -1,30 +1,23 @@
 import { workerData } from 'worker_threads';
 import { extractPackfileMass, extractTsv } from '../extractTables.js';
 import { parseMods } from '../parseFiles.js';
-import { mergeTables, mergeLocs } from '../mergeTables.js';
+import { mergeTablesIntoVanilla, mergeLocsIntoVanilla } from '../mergeTables.js';
 import { stapleTables } from '../stapleTables.js';
 import { workerImageFactory } from './workerFactories.js';
+import { ensureDirSync } from 'fs-extra';
 
 const { folder, dbPackName, locPackName, dbList, locList, locMap, game } = workerData;
 
-console.time(`${folder} extract/parse`);
+ensureDirSync(`./extracted_files/${folder}/`);
 extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => extractTsv(folder, game))
   .then(() => parseMods(folder))
+  .then(() => mergeTablesIntoVanilla(folder, dbList, locList))
+  .then(() => mergeLocsIntoVanilla(folder, locList, locMap))
   .then(() => {
-    console.timeEnd(`${folder} extract/parse`);
-    console.time(`${folder} merge`);
-    return mergeTables(folder, dbList, locList);
-  })
-  .then(() => mergeLocs(folder, locList, locMap))
-  .then(() => {
-    console.timeEnd(`${folder} merge`);
+    workerImageFactory(folder, [dbPackName], game);
 
-    workerImageFactory(folder, dbPackName, game);
-
-    console.time(`${folder} staple`);
     stapleTables(folder);
-    console.timeEnd(`${folder} staple`);
   })
   .catch((error) => {
     throw error;

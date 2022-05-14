@@ -1,13 +1,11 @@
 import { workerData } from 'worker_threads';
 import { convertImages, extractImages } from '../extractImages.js';
 
-const { folder, dbPackName, game } = workerData;
+const { folder, dbPackNames, game } = workerData;
 
-console.time(`${folder} images`);
-extractImages(folder, dbPackName, game)
+extractImages(folder, dbPackNames, game)
   .then(async () => {
     await convertImages(folder);
-    console.timeEnd(`${folder} images`);
   })
   .catch((error) => {
     throw error;

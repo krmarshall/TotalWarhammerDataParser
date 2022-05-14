@@ -1,6 +1,5 @@
 import glob from 'glob';
 import { readFileSync } from 'fs';
-import { emptydirSync } from 'fs-extra';
 // Cant specify outputFileSync as a specific fse import z.z
 import fse from 'fs-extra';
 import { parse } from 'csv-parse/sync';
@@ -20,7 +19,6 @@ const getDirectories = (src, callback) => {
 };
 
 const parseFiles = (folder) => {
-  emptydirSync(`./parsed_files/${folder}/`);
   return new Promise((resolve, reject) => {
     getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
       if (error) {

@@ -1,9 +1,7 @@
-import { emptyDirSync } from 'fs-extra';
 import fse from 'fs-extra';
 import outputCharactersPrune from '../pruneLists/outputCharactersPrune.js';
 
 const output_characters = (cultures, collatedNodeSets, folder) => {
-  emptyDirSync(`./output/${folder}/`);
   const missingCharacters = [];
   cultures.forEach((culture) => {
     const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;

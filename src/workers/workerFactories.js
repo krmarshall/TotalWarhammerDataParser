@@ -43,11 +43,32 @@ const workerModFactory = (folder, dbPackName, locPackName, dbList, locList, locM
   });
 };
 
-const workerImageFactory = (folder, dbPackName, game) => {
+const workerModMultiFactory = (folder, dbPackNames, locPackNames, dbList, locList, locMap, game) => {
+  console.time(`${folder} total`);
+  const workerMod = new Worker('./src/workers/workerModMulti.js', {
+    workerData: {
+      folder,
+      dbPackNames,
+      locPackNames,
+      dbList,
+      locList,
+      locMap,
+      game,
+    },
+  });
+  workerMod.on('error', (error) => {
+    throw error;
+  });
+  workerMod.on('exit', () => {
+    console.timeEnd(`${folder} total`);
+  });
+};
+
+const workerImageFactory = (folder, dbPackNames, game) => {
   const workerImage = new Worker('./src/workers/workerImage.js', {
     workerData: {
       folder,
-      dbPackName,
+      dbPackNames,
       game,
     },
   });
@@ -57,4 +78,4 @@ const workerImageFactory = (folder, dbPackName, game) => {
   return workerImage;
 };
 
-export { workerVanillaFactory, workerModFactory, workerImageFactory };
+export { workerVanillaFactory, workerModFactory, workerModMultiFactory, workerImageFactory };

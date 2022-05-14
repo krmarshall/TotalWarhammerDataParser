@@ -25,9 +25,13 @@ const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, c
         characterSkill.levels[relatedRecord.level - 1].effects.push(relatedRecord.effects);
       });
       characterSkill.levels.forEach((level) => {
-        level.effects.sort((a, b) => {
-          return a.priority - b.priority;
-        });
+        if (level.effects !== undefined) {
+          level.effects.sort((a, b) => {
+            return a.priority - b.priority;
+          });
+        } else {
+          console.log(`${characterSkill.key} has a skill level with no effects`);
+        }
       });
     }
 

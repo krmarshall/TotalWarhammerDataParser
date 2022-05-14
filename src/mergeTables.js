@@ -1,9 +1,11 @@
 import glob from 'glob';
-import { emptydirSync } from 'fs-extra';
 import fse from 'fs-extra';
 
 import { assertTables } from './otherFunctions/index.js';
 import { v2LocList } from './extractLists/vanilla2.js';
+import { v3LocList } from './extractLists/vanilla3.js';
+
+const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
 
 const getJsonPaths = (src) => {
   return glob.sync(`${src}**/*.json`);
@@ -54,8 +56,7 @@ const overwriteMerge = (vanillaJson, moddedTables, sameProps) => {
   return vanillaMerged;
 };
 
-const mergeTables = (folder, dbList, locList) => {
-  emptydirSync(`./parsed_files/${folder}/`);
+const mergeTablesIntoVanilla = (folder, dbList, locList) => {
   return new Promise((resolve, reject) => {
     const tableDirs = dbList.map((table) => {
       return `./extracted_files/${folder}/db/${table}/`;
@@ -71,7 +72,6 @@ const mergeTables = (folder, dbList, locList) => {
         const tableName = splitDirs[splitDirs.length - 2];
         const mergedTable = overwriteMerge(vanillaJson, moddedTables, tableNameMap[tableName]);
 
-        const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
         fse.outputJSONSync(`./parsed_files/${folder}/db/${tableName}.json`, mergedTable, { spaces });
         resolveI();
       });
@@ -95,9 +95,10 @@ const mergeTables = (folder, dbList, locList) => {
   });
 };
 
-const mergeLocs = (folder, locList, locMap) => {
+const mergeLocsIntoVanilla = (folder, locList, locMap) => {
   return new Promise((resolve, reject) => {
-    const cleanedVanillaLocList = v2LocList.map((vanillaLoc) => {
+    const baseLocList = folder.includes('2') ? v2LocList : v3LocList;
+    const cleanedVanillaLocList = baseLocList.map((vanillaLoc) => {
       return vanillaLoc.replace('__', '');
     });
     const locPromises = cleanedVanillaLocList.map((vanillaLoc) => {
@@ -105,7 +106,6 @@ const mergeLocs = (folder, locList, locMap) => {
         const relatedModLocs = locList.filter((modLoc) => {
           return vanillaLoc === locMap[modLoc];
         });
-        const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
         const vanillaLocJson = getVanillaJson(vanillaLoc, folder, true);
         if (relatedModLocs.length === 0) {
           fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, vanillaLocJson, { spaces });
@@ -133,8 +133,84 @@ const mergeLocs = (folder, locList, locMap) => {
   });
 };
 
+// For multi pack mods they are extracted out across subDB/subLOC, start with the vanilla table and merge in modded tables from each subfolder
+const mergeTablesMulti = (folder, dbList) => {
+  return new Promise((resolve, reject) => {
+    const tablePromises = dbList.map((table) => {
+      return new Promise((resolveI) => {
+        const vanillaJson = getVanillaJson(`./extracted_files/${folder}/db/${table}/`, folder, false);
+        const subDBs = glob.sync(`./extracted_files/${folder}/subDB*/db/${table}/**.json`);
+        if (subDBs.length === 0) {
+          fse.outputJSONSync(`./parsed_files/${folder}/db/${table}.json`, vanillaJson, { spaces });
+          resolveI();
+          return;
+        }
+        const moddedTables = subDBs.map((subDBPath) => fse.readJSONSync(subDBPath));
+        const mergedTable = overwriteMerge(vanillaJson, moddedTables, tableNameMap[table]);
+
+        fse.outputJSONSync(`./parsed_files/${folder}/db/${table}.json`, mergedTable, { spaces });
+        resolveI();
+      });
+    });
+
+    Promise.all(tablePromises)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const mergeLocsMulti = (folder, locList, locMap) => {
+  return new Promise((resolve, reject) => {
+    const baseLocList = folder.includes('2') ? v2LocList : v3LocList;
+    const cleanedVanillaLocList = baseLocList.map((vanillaLoc) => {
+      return vanillaLoc.replace('__', '');
+    });
+    const locPromises = cleanedVanillaLocList.map((vanillaLoc) => {
+      return new Promise((resolveI) => {
+        const vanillaLocJson = getVanillaJson(vanillaLoc, folder, true);
+        const allModLocs = [];
+        locList.forEach((subLocList) => {
+          allModLocs.push(...subLocList);
+        });
+        const relatedModLocs = allModLocs.filter((modLoc) => {
+          return vanillaLoc === locMap[modLoc];
+        });
+
+        if (relatedModLocs.length === 0) {
+          fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, vanillaLocJson, { spaces });
+          resolveI();
+          return;
+        }
+        const subDBs = [];
+        relatedModLocs.forEach((relatedModLocPath) =>{
+          const modLocPaths = glob.sync(`./extracted_files/${folder}/subLOC*/text/db/${relatedModLocPath}.json`);
+          subDBs.push(...modLocPaths);
+        });
+        const moddedLocsJson = subDBs.map((subDBPath) => fse.readJSONSync(subDBPath));
+        const mergedLoc = overwriteMerge(vanillaLocJson, moddedLocsJson, ['key']);
+
+        fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, mergedLoc, { spaces });
+        resolveI();
+      });
+    });
+
+    Promise.all(locPromises)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 // RPFM highlights the tables key/composite key in yellow, im banking thats what the engine determines what overrides vanilla tables
 const tableNameMap = {
+  // WH2
   ancillaries_tables: ['key'],
   ancillary_to_effects_tables: ['ancillary', 'effect'],
   character_skill_level_details_tables: ['level', 'skill_key', 'faction_key', 'campaign_key', 'subculture_key'],
@@ -162,6 +238,8 @@ const tableNameMap = {
   unit_ability_types_tables: ['key'],
   unit_attributes_tables: ['key'],
   unit_special_abilities_tables: ['key'],
+  // WH3
+  character_ancillary_quest_ui_details_tables: ['ancillary', 'agent_subtype'],
 };
 
-export { mergeTables, mergeLocs };
+export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti, mergeLocsMulti };

@@ -10,7 +10,6 @@ A saner person would probably have used like mongoose or an ORM instead of stapl
 - WH3 Oxyotl and Mazdamundi have quest item ancillaries that still exist in skill tree. Check what to do when immortal empires releases.
 - Add more WH2 Mods
 - Prune more props not used in frontend to save file size
-- Red Duke / Blood Dragon Vampire Lord "Curse of Years" skill has weird requirements issue
 - SFO2 Son of Bretonnia has a hidden skill in skilltree
 
 ## Possible Expansions

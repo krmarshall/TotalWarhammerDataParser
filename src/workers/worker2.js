@@ -2,24 +2,22 @@ import { workerData } from 'worker_threads';
 import { extractPackfileMass, extractTsv } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
-import { workerImageFactory, workerModFactory } from './workerFactories.js';
+import { workerImageFactory, workerModFactory, workerModMultiFactory } from './workerFactories.js';
 import { sfo2DbList, sfo2LocList, sfo2LocMap } from '../extractLists/sfo2.js';
 import { artefacts2DbList, artefacts2LocList, artefacts2LocMap } from '../extractLists/artefacts2.js';
+import { radious2DbList, radious2LocList, radious2LocMap } from '../extractLists/radious2.js';
+import { ensureDirSync } from 'fs-extra';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
-console.time(`${folder} extract/parse`);
+ensureDirSync(`./extracted_files/${folder}/`);
 extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => extractTsv(folder, game))
   .then(() => parseFiles(folder))
   .then(() => {
-    console.timeEnd(`${folder} extract/parse`);
+    workerImageFactory(folder, [dbPackName], game);
 
-    workerImageFactory(folder, dbPackName, game);
-
-    console.time(`${folder} staple`);
     stapleTables(folder);
-    console.timeEnd(`${folder} staple`);
 
     // Mods are reliant on base game files to be merged into, so spool workers for them up after vanilla is parsed.
     workerModFactory('sfo2', 'steel_faith_overhaul_2', 'steel_faith_overhaul_2', sfo2DbList, sfo2LocList, sfo2LocMap, 'warhammer_2');
@@ -30,6 +28,15 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
       artefacts2DbList,
       artefacts2LocList,
       artefacts2LocMap,
+      'warhammer_2'
+    );
+    workerModMultiFactory(
+      'radious2',
+      ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'],
+      ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'],
+      radious2DbList,
+      radious2LocList,
+      radious2LocMap,
       'warhammer_2'
     );
   })
