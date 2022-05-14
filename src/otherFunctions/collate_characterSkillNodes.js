@@ -14,9 +14,11 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         // For some reason there are a ton of skills using hidden indents above 6, even tho thats the purpose of 6?
         collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], []];
 
-        // node_set_ from vanilla, _skill_node_(?!set_) from radious2
-        const keyName = skillNode.character_skill_node_set_key.split(/node_set_|_skill_node_(?!set_)/);
-        collatedNodeSets[skillNode.character_skill_node_set_key].key = keyName[keyName.length - 1];
+        // node_set_ from vanilla, _skill_node_(?!set_) from radious2, variety_agent_subtype_ from radious2
+        const keyName = skillNode.character_skill_node_set_key.split(/node_set_|_skill_node_(?!set_)|variety_agent_subtype_/);
+        // Radious has some annoying name conventions, like _skill_node at the end of a couple names
+        const cleanedKeyName = keyName[keyName.length - 1].replace('_skill_node', '');
+        collatedNodeSets[skillNode.character_skill_node_set_key].key = cleanedKeyName;
       }
 
       // For WH2 quest items in the skilltree push them to the items array instead.

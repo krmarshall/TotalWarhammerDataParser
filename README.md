@@ -7,6 +7,7 @@ Uses NConvert and a webp plugin from XnConvert to convert images and strip metad
 A saner person would probably have used like mongoose or an ORM instead of stapling everything together...
 
 ## To Do
+- Radious 2 Fimir Noble boxed issue
 - WH3 Oxyotl and Mazdamundi have quest item ancillaries that still exist in skill tree. Check what to do when immortal empires releases.
 - Add more WH2 Mods
 - Prune more props not used in frontend to save file size
