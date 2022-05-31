@@ -119,6 +119,13 @@ const stapleTables = (folder) => {
     characterSkillLevelToAncillariesJunction
   );
   characterSkills = staple.characterSkills_characterSkillsToQuestAncillaries(characterSkills, characterSkillsToQuestAncillaries);
+  if (folder.includes('3')) {
+    const characterSkillsToLevelReachedCriterias = readJson('db/character_skills_to_level_reached_criterias_tables.json');
+    characterSkills = staple3.characterSkills_characterSkillsToLevelReachedCriterias(
+      characterSkills,
+      characterSkillsToLevelReachedCriterias
+    );
+  }
   characterSkillNodes = staple.characterSkillNodes_characterSkills(characterSkillNodes, characterSkills);
   characterSkillNodes = staple.characterSkillNodes_characterSkillNodeLinks(characterSkillNodes, characterSkillNodeLinks);
   characterSkillNodes = staple.characterSkillNodes_characterSkillNodesSkillLocks(characterSkillNodes, characterSkillNodesSkillLocks);

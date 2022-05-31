@@ -4,7 +4,11 @@ Requires RPFM (or at least the cli) to be available under ./rpfm
 
 Uses NConvert and a webp plugin from XnConvert to convert images and strip metadata.
 
-A saner person would probably have used like mongoose or an ORM instead of stapling everything together...
+A saner person would probably have rebuilt the DB in like mongo/mongoose instead of stapling together tables...
+
+Reverse engineered DB schema (kinda rough and not totally complete, but handy reference): https://dbdiagram.io/d/6212fade485e433543e7fe91
+
+When CA adds weird stuff that probably needs new tables (like mounts getting autoleveled) check https://github.com/Frodo45127/rpfm-schemas commits to look through table changes.
 
 ## To Do
 - Radious 2 Fimir Noble boxed issue
