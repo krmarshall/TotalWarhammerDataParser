@@ -13,7 +13,8 @@ const characterSkillNodes_characterSkills = (characterSkillNodes, characterSkill
 
     tempNode.tier = parseInt(tempNode.tier);
     tempNode.indent = parseInt(tempNode.indent);
-    tempNode.points_on_creation = parseInt(tempNode.points_on_creation);
+    tempNode.points_on_creation =
+      relatedSkill.points_on_creation !== undefined ? relatedSkill.points_on_creation : parseInt(tempNode.points_on_creation);
     tempNode.required_num_parents = parseInt(tempNode.required_num_parents);
     tempNode.visible_in_ui = JSON.parse(tempNode.visible_in_ui);
 
