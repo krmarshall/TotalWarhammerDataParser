@@ -6,6 +6,7 @@ const characterSkills_characterSkillsToLevelReachedCriterias = (characterSkills,
         skill.points_on_creation = 1;
       } else {
         skill.levels[relatedCriteria.rank - 1].auto_unlock_at_rank = parseInt(relatedCriteria.level) + 1;
+        delete skill.levels[relatedCriteria.rank - 1].unlocked_at_rank;
       }
     }
 
