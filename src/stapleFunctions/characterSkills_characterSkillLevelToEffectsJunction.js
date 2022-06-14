@@ -6,12 +6,15 @@ const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, c
 
     if (relatedRecords.length) {
       relatedRecords.forEach((relatedRecord) => {
-        relatedRecord.effect.value = relatedRecord.value;
-        relatedRecord.effect.effect_scope = relatedRecord.effect_scope;
-        delete relatedRecord.value;
-        delete relatedRecord.effect_scope;
-        relatedRecord.effects = { ...relatedRecord.effect };
-        delete relatedRecord.effect;
+        // If the record has effects instead of effect prop, it has already been parsed and doesnt need to have props shuffled around
+        if (relatedRecord.effects === undefined) {
+          relatedRecord.effect.value = relatedRecord.value;
+          relatedRecord.effect.effect_scope = relatedRecord.effect_scope;
+          delete relatedRecord.value;
+          delete relatedRecord.effect_scope;
+          relatedRecord.effects = { ...relatedRecord.effect };
+          delete relatedRecord.effect;
+        }
 
         if (characterSkill.levels === undefined) {
           characterSkill.levels = [];
