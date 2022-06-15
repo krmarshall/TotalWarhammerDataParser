@@ -11,10 +11,13 @@ Reverse engineered DB schema (kinda rough and not totally complete, but handy re
 When CA adds weird stuff that probably needs new tables (like mounts getting autoleveled) check https://github.com/Frodo45127/rpfm-schemas commits to look through table changes.
 
 ## To Do
-- Radious 2 Fimir Noble boxed issue
+- Mixus mods dont connect agents to faction using faction_agent_permitted_subtypes, figure out how to add them to relevant factions without just hard coding ideally.
 - WH3 Oxyotl and Mazdamundi have quest item ancillaries that still exist in skill tree. Check what to do when immortal empires releases.
 - Add more WH2 Mods
 - Prune more props not used in frontend to save file size
+
+## Known Issues
+- Radious 2 Fimir Noble boxed issue
 - SFO2 Son of Bretonnia has a hidden skill in skilltree
 
 ## Possible Expansions
