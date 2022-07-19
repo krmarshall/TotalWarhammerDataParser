@@ -26,12 +26,20 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
           return ancillary.key === questAncillary.ancillary;
         });
         if (relatedAncillary !== undefined) {
-          const relatedLocName = ancillaryLoc.find((loc) => {
+          let relatedLocName = ancillaryLoc.find((loc) => {
             return loc.key === `ancillaries_onscreen_name_${questAncillary.ancillary}`;
           });
-          const relatedLocDesc = ancillaryLoc.find((loc) => {
+          if (relatedLocName === undefined) {
+            console.log(`${questAncillary.ancillary} missing ancillaries_onscreen_name_ loc`);
+            relatedLocName = { text: 'MISSING LOC ENTRY' };
+          }
+          let relatedLocDesc = ancillaryLoc.find((loc) => {
             return loc.key === `ancillaries_colour_text_${questAncillary.ancillary}`;
           });
+          if (relatedLocDesc === undefined) {
+            console.log(`${questAncillary.ancillary} missing ancillaries_colour_text_ loc`);
+            relatedLocDesc = { text: 'MISSING LOC ENTRY' };
+          }
           const tempAncillary = { ...relatedAncillary };
           tempAncillary.name = relatedLocName.text;
           tempAncillary.description = relatedLocDesc.text;

@@ -1,3 +1,5 @@
+// If adding to this array be sure to add corresponding entry to the tableNameMap at the bottom of mergeTables.js
+
 const v2DbList = [
   'ancillaries_tables',
   'ancillary_to_effects_tables',

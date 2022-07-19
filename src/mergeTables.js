@@ -232,6 +232,7 @@ const tableNameMap = {
   special_ability_phase_stat_effects_tables: ['phase', 'stat'],
   special_ability_phases_tables: ['id'],
   special_ability_to_special_ability_phase_junctions_tables: ['special_ability', 'order'],
+  ui_unit_stats_tables: ['key'],
   unit_abilities_additional_ui_effects_tables: ['key'],
   unit_abilities_tables: ['key'],
   unit_abilities_to_additional_ui_effects_juncs_tables: ['ability', 'effect'],
@@ -240,6 +241,7 @@ const tableNameMap = {
   unit_special_abilities_tables: ['key'],
   // WH3
   character_ancillary_quest_ui_details_tables: ['ancillary', 'agent_subtype'],
+  character_skills_to_level_reached_criterias_tables: ['skill_key'],
 };
 
 export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti, mergeLocsMulti };
