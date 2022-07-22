@@ -17,7 +17,9 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - Prune more props not used in frontend to save file size
 
 ## Known Issues
+- artefacts3 might not be grabbing effects properly? see skarbrand
 - Radious 2 Fimir Noble boxed issue
+- Radious 2 Wood Seer mounts missing skill titles
 - SFO2 Son of Bretonnia has a hidden skill in skilltree
 
 ## Possible Expansions
@@ -78,7 +80,7 @@ magick .\example\${f} -gravity Center mask.png -compose CopyOpacity -composite -
 - Create new extract lists such as ./extractLists/sfo2.js
 - Use rpfm to check loc table names and map them to their vanilla counterparts
 - Check if the mod uses any * in table names, rpfm chokes on that character to rename it to something like #
-- Add a new workerModFactory to the mods base game worker (worker2/worker3)
+- Add a new workerMod to the mods base game worker (worker2/worker3)
 - Check for bugs, especially in string replacements.
 - Manually extract the following image paths: 
 - ui/skins/default/icon_stat_*

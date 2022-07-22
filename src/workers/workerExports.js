@@ -1,6 +1,6 @@
 import { Worker } from 'worker_threads';
 
-const workerVanillaFactory = (folder, dbPackName, locPackName, dbList, locList, game) => {
+const workerVanilla = (folder, dbPackName, locPackName, dbList, locList, game) => {
   console.time(`${game} total`);
   const workerScript = game === 'warhammer_2' ? './src/workers/worker2.js' : './src/workers/worker3.js';
   const workerVanilla = new Worker(workerScript, {
@@ -22,7 +22,7 @@ const workerVanillaFactory = (folder, dbPackName, locPackName, dbList, locList, 
   return workerVanilla;
 };
 
-const workerModFactory = (folder, dbPackName, locPackName, dbList, locList, locMap, game) => {
+const workerMod = (folder, dbPackName, locPackName, dbList, locList, locMap, game) => {
   console.time(`${folder} total`);
   const workerMod = new Worker('./src/workers/workerMod.js', {
     workerData: {
@@ -43,7 +43,7 @@ const workerModFactory = (folder, dbPackName, locPackName, dbList, locList, locM
   });
 };
 
-const workerModMultiFactory = (folder, dbPackNames, locPackNames, dbList, locList, locMap, game) => {
+const workerModMulti = (folder, dbPackNames, locPackNames, dbList, locList, locMap, game) => {
   console.time(`${folder} total`);
   const workerMod = new Worker('./src/workers/workerModMulti.js', {
     workerData: {
@@ -64,7 +64,7 @@ const workerModMultiFactory = (folder, dbPackNames, locPackNames, dbList, locLis
   });
 };
 
-const workerImageFactory = (folder, dbPackNames, game) => {
+const workerImage = (folder, dbPackNames, game) => {
   const workerImage = new Worker('./src/workers/workerImage.js', {
     workerData: {
       folder,
@@ -78,4 +78,4 @@ const workerImageFactory = (folder, dbPackNames, game) => {
   return workerImage;
 };
 
-export { workerVanillaFactory, workerModFactory, workerModMultiFactory, workerImageFactory };
+export { workerVanilla, workerMod, workerModMulti, workerImage };

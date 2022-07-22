@@ -3,7 +3,7 @@ import { extractPackfileMulti, extractTsv } from '../extractTables.js';
 import { parseMods } from '../parseFiles.js';
 import { mergeTablesMulti, mergeLocsMulti } from '../mergeTables.js';
 import { stapleTables } from '../stapleTables.js';
-import { workerImageFactory } from './workerFactories.js';
+import { workerImage } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 
 const { folder, dbPackNames, locPackNames, dbList, locList, locMap, game } = workerData;
@@ -15,7 +15,7 @@ extractPackfileMulti(folder, dbPackNames, locPackNames, dbList, locList, game)
   .then(() => mergeTablesMulti(folder, dbList, locList))
   .then(() => mergeLocsMulti(folder, locList, locMap))
   .then(() => {
-    workerImageFactory(folder, dbPackNames, game);
+    workerImage(folder, dbPackNames, game);
 
     stapleTables(folder);
   })
