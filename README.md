@@ -16,11 +16,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - Add more WH2 Mods
 - Prune more props not used in frontend to save file size
 
-## Known Issues
-- artefacts3 might not be grabbing effects properly? see skarbrand
-- Radious 2 Fimir Noble boxed issue
-- Radious 2 Wood Seer mounts missing skill titles
-- SFO2 Son of Bretonnia has a hidden skill in skilltree
+## Known Issues (mostly on issues site page)
 
 ## Possible Expansions
 - Hunt down what table defines the level that quest items are unlocked in wh2
