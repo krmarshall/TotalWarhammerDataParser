@@ -4,7 +4,6 @@ import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
 import { workerImage, workerMod, workerModMulti } from './workerExports.js';
 import { sfo2DbList, sfo2LocList, sfo2LocMap } from '../extractLists/sfo2.js';
-import { artefacts2DbList, artefacts2LocList, artefacts2LocMap } from '../extractLists/artefacts2.js';
 import { radious2DbList, radious2LocList, radious2LocMap } from '../extractLists/radious2.js';
 // import { mixu2DbList, mixu2LocList, mixu2LocMap } from '../extractLists/mixu2.js';
 import { ensureDirSync } from 'fs-extra';
@@ -22,15 +21,6 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
 
     // Mods are reliant on base game files to be merged into, so spool workers for them up after vanilla is parsed.
     workerMod('sfo2', 'steel_faith_overhaul_2', 'steel_faith_overhaul_2', sfo2DbList, sfo2LocList, sfo2LocMap, 'warhammer_2');
-    workerMod(
-      'artefacts2',
-      'stompies_new_artefacts',
-      'stompies_new_artefacts',
-      artefacts2DbList,
-      artefacts2LocList,
-      artefacts2LocMap,
-      'warhammer_2'
-    );
     workerModMulti(
       'radious2',
       ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'],
