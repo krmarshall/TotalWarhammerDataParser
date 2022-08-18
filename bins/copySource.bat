@@ -8,4 +8,9 @@ ROBOCOPY "D:\Steam\steamapps\workshop\content\594570\1194588998" "D:\GitHub\Tota
 ROBOCOPY "D:\Steam\steamapps\workshop\content\594570\1158791019" "D:\GitHub\TotalWarhammerDataParser\game_source\mixu2" ab_mixus_darkhand.pack /NJH /NJS
 
 ROBOCOPY "D:\Steam\steamapps\common\Total War WARHAMMER III\data" "D:\GitHub\TotalWarhammerDataParser\game_source\vanilla3" data.pack local_en.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2792731173" "D:\GitHub\TotalWarhammerDataParser\game_source\sfo3" sfo_grimhammer_3_main.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2791750313" "D:\GitHub\TotalWarhammerDataParser\game_source\radious3" Radious_WH3_Mod_Part1.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2791750896" "D:\GitHub\TotalWarhammerDataParser\game_source\radious3" Radious_WH3_Mod_Part2.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2791750075" "D:\GitHub\TotalWarhammerDataParser\game_source\radious3" Radious_WH3_Mod_Part3.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2813892035" "D:\GitHub\TotalWarhammerDataParser\game_source\radious3" Radious_WH3_Mod_Part4.pack /NJH /NJS
 EXIT /B

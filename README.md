@@ -11,18 +11,14 @@ Reverse engineered DB schema (kinda rough and not totally complete, but handy re
 When CA adds weird stuff that probably needs new tables (like mounts getting autoleveled) check https://github.com/Frodo45127/rpfm-schemas commits to look through table changes.
 
 ## To Do
+
 - Mixus mods dont connect agents to faction using faction_agent_permitted_subtypes, figure out how to add them to relevant factions without just hard coding ideally.
 - WH3 Oxyotl and Mazdamundi have quest item ancillaries that still exist in skill tree. Check what to do when immortal empires releases.
 - Add more WH2 Mods
 - Prune more props not used in frontend to save file size
 
-## Known Issues (mostly on issues site page)
-
-## Possible Expansions
-- Hunt down what table defines the level that quest items are unlocked in wh2
-- See how TW3 spreading works/should be displayed
-
 ## How To Use
+
 - Ensure an updated version of rpfm exists in ./rpfm
 - Check absolute file paths in ./bins/copySource.bat for copying game/mod files from their install locations
 - Make sure all mods are downloaded (might have to check for new loc files/tables occasionally)
@@ -31,9 +27,11 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - Extracted character skill trees and images will be in the ./output folder as parsed json and webp's
 
 ## Can probably prune
+
 - glade_lord_fem ?
 
 ## Image Extraction
+
 Extracted images are mostly useful from mods where everything is in one packfile. For vanilla using rpfm to load all CA packfiles will get everything.
 
 Steps for getting all vanilla stuff:
@@ -70,8 +68,10 @@ foreach ($f in $files){
 magick .\example\${f} -gravity Center mask.png -compose CopyOpacity -composite -trim -transparent Black .\out\${f}
 }
 
+Alternatively use xnconvert actions preset if imagemagick results are wonky.
 
 ## Adding a mod
+
 - Add relevant robocopies in the copySource.bat
 - Create new extract lists such as ./extractLists/sfo2.js
 - Use rpfm to check loc table names and map them to their vanilla counterparts
@@ -79,6 +79,7 @@ magick .\example\${f} -gravity Center mask.png -compose CopyOpacity -composite -
 - Add a new workerMod to the mods base game worker (worker2/worker3)
 - Check for bugs, especially in string replacements.
 - Manually extract the following image paths: 
+- ui/skins/default/fe_logo.png
 - ui/skins/default/icon_stat_*
 - ui/flags
 - ui/portraits/portholes
@@ -86,4 +87,5 @@ WH3 also needs
 - ui/skins/default/modifier_icon_*
 - ui/battle ui/ability_icons/resistance_* (put with the skins/default)
 - Use the above image conversion settings/scripts appropriately
-- Copy extracted data and images over to TotalWarhammerPlanner repo
+- Copy extracted data TotalWarhammerPlanner repo backend/src/data and add test entries
+- Copy extracted imgs TotalWarhammerPlanner repo frontend/public/imgs

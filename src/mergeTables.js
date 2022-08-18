@@ -186,7 +186,7 @@ const mergeLocsMulti = (folder, locList, locMap) => {
           return;
         }
         const subDBs = [];
-        relatedModLocs.forEach((relatedModLocPath) =>{
+        relatedModLocs.forEach((relatedModLocPath) => {
           const modLocPaths = glob.sync(`./extracted_files/${folder}/subLOC*/text/db/${relatedModLocPath}.json`);
           subDBs.push(...modLocPaths);
         });
