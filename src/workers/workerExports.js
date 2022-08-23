@@ -36,7 +36,8 @@ const workerMod = (folder, dbPackName, locPackName, dbList, locList, locMap, gam
     },
   });
   workerMod.on('error', (error) => {
-    throw error;
+    console.log(error);
+    console.log(`${folder} failed`);
   });
   workerMod.on('exit', () => {
     console.timeEnd(`${folder} total`);
@@ -45,7 +46,7 @@ const workerMod = (folder, dbPackName, locPackName, dbList, locList, locMap, gam
 
 const workerModMulti = (folder, dbPackNames, locPackNames, dbList, locList, locMap, game) => {
   console.time(`${folder} total`);
-  const workerMod = new Worker('./src/workers/workerModMulti.js', {
+  const workerModMulti = new Worker('./src/workers/workerModMulti.js', {
     workerData: {
       folder,
       dbPackNames,
@@ -56,10 +57,11 @@ const workerModMulti = (folder, dbPackNames, locPackNames, dbList, locList, locM
       game,
     },
   });
-  workerMod.on('error', (error) => {
-    throw error;
+  workerModMulti.on('error', (error) => {
+    console.log(error);
+    console.log(`${folder} failed`);
   });
-  workerMod.on('exit', () => {
+  workerModMulti.on('exit', () => {
     console.timeEnd(`${folder} total`);
   });
 };
@@ -73,7 +75,8 @@ const workerImage = (folder, dbPackNames, game) => {
     },
   });
   workerImage.on('error', (error) => {
-    throw error;
+    console.log(error);
+    console.log(`${folder} images failed`);
   });
   return workerImage;
 };
