@@ -8,12 +8,14 @@ import { radious3DbList, radious3LocList, radious3LocMap } from '../extractLists
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
+const imagePacknames = ['data', 'data_1', 'data_2', 'data_3', 'data_bl', 'data_bm', 'data_sc', 'data_sf', 'data_tk', 'data_we', 'data_wp_'];
+
 ensureDirSync(`./extracted_files/${folder}/`);
 extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => extractTsv(folder, game))
   .then(() => parseFiles(folder))
   .then(() => {
-    workerImage(folder, [dbPackName], game);
+    workerImage(folder, imagePacknames, game);
 
     stapleTables(folder);
 

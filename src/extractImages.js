@@ -58,7 +58,7 @@ const convertImages = (folder) => {
           return `${prev}\n.${cur}`;
         }, script);
         fse.outputFileSync(`./bins/nScripts/${folder}${index}.txt`, finalScript);
-        exec(`nconvert.exe ./nScripts/${folder}${index}.txt`, { cwd: cwdNconvert }, (error) => {
+        exec(`nconvert.exe ./nScripts/${folder}${index}.txt`, { cwd: cwdNconvert, maxBuffer: 5 * 1024 * 1024 }, (error) => {
           if (error) {
             reject(error);
           } else {
