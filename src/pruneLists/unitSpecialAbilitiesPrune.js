@@ -52,6 +52,9 @@ const unitSpecialAbilitiesPrune = [
   'autoresolver_targets',
   'display_stops_when_display_expires',
   'can_be_copied_to_transformation_unit',
+
+  'audio_switch_casting_override',
+  'ai_usage_template_group',
 ];
 
 export default unitSpecialAbilitiesPrune;

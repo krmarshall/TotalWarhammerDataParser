@@ -24,6 +24,8 @@ const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbility
     abilityPhase.is_hidden_in_ui = JSON.parse(abilityPhase.is_hidden_in_ui);
     abilityPhase.replenish_ammo = parseFloatToFixed(abilityPhase.replenish_ammo);
 
+    abilityPhase.barrier_heal_amount = parseFloatToFixed(abilityPhase.barrier_heal_amount);
+
     abilityPhase.freeze_recharge ? (abilityPhase.freeze_recharge = JSON.parse(abilityPhase.freeze_recharge)) : undefined;
     // Prune properties that are empty
     [
@@ -39,6 +41,7 @@ const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbility
       'replenish_ammo',
       'imbue_contact',
       'spreading',
+      'barrier_heal_amount',
     ].forEach((key) => {
       if (!abilityPhase[key]) {
         delete abilityPhase[key];

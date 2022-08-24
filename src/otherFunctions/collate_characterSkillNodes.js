@@ -17,7 +17,9 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         // node_set_ from vanilla, _skill_node_(?!set_) from radious2, variety_agent_subtype_ from radious2
         const keyName = skillNode.character_skill_node_set_key.split(/node_set_|_skill_node_(?!set_)|variety_agent_subtype_/);
         // Radious has some annoying name conventions, like _skill_node at the end of a couple names
-        const cleanedKeyName = keyName[keyName.length - 1].replace('_skill_node', '');
+        let cleanedKeyName = keyName[keyName.length - 1].replace('_skill_node', '');
+        // WH3 DLC20 quick name clean
+        cleanedKeyName = keyName[keyName.length - 1].replace('wh3_dlc20_', '');
         collatedNodeSets[skillNode.character_skill_node_set_key].key = cleanedKeyName;
       }
 
@@ -34,7 +36,10 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         delete skillNode.levels;
         collatedNodeSets[tempKey].items.push(skillNode);
 
-        // Similarly push background skills into their array instead of the skilltree.
+        // If its hero action success scaling dont add to tree.
+      } else if (skillNode.character_skill_key === 'wh3_main_skill_agent_action_success_scaling') {
+        // Do Nothing
+        // Push background skills into their array instead of the skilltree.
       } else if (skillNode.is_background_skill || !skillNode.visible_in_ui) {
         if (collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills === undefined) {
           collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills = [];

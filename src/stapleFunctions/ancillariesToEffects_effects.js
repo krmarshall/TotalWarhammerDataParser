@@ -9,7 +9,10 @@ const ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
     ancillaryToEffect.value = parseInt(ancillaryToEffect.value);
     delete ancillaryToEffect.effect_scope;
 
-    ancillaryToEffect.effect.description = numberInsertion(ancillaryToEffect.effect.description, ancillaryToEffect.value);
+    if (ancillaryToEffect.effect.description !== undefined) {
+      ancillaryToEffect.effect.description = numberInsertion(ancillaryToEffect.effect.description, ancillaryToEffect.value);
+    }
+
     return { ...ancillaryToEffect };
   });
   return stapledTable;
