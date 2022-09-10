@@ -19,7 +19,7 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         // Radious has some annoying name conventions, like _skill_node at the end of a couple names
         let cleanedKeyName = keyName[keyName.length - 1].replace('_skill_node', '');
         // WH3 DLC20 quick name clean
-        cleanedKeyName = keyName[keyName.length - 1].replace('wh3_dlc20_', '');
+        cleanedKeyName = cleanedKeyName.replace('wh3_dlc20_', '');
         collatedNodeSets[skillNode.character_skill_node_set_key].key = cleanedKeyName;
       }
 
