@@ -1,6 +1,12 @@
-import { numberInsertion } from '../otherFunctions/index.js';
+import { numberInsertion, stringInterpolator } from '../otherFunctions/index.js';
 
-const effects_characterSkillLevelToEffectsJunction = (effects, characterSkillLevelToEffectsJunction) => {
+const effects_characterSkillLevelToEffectsJunction = (
+  effects,
+  characterSkillLevelToEffectsJunction,
+  campaignEffectScopes,
+  uiTextReplacements,
+  missingTextReplacements
+) => {
   const stapledTable = characterSkillLevelToEffectsJunction.map((record) => {
     const relatedEffect = effects.find((effect) => {
       return effect.effect === record.effect_key;
@@ -22,6 +28,15 @@ const effects_characterSkillLevelToEffectsJunction = (effects, characterSkillLev
     record.effect = { ...relatedEffect };
     delete record.effect.effect;
     record.value = parseInt(record.value);
+
+    if (record.effect_scope && record.effect.description) {
+      const effectScopeText = campaignEffectScopes.find(
+        (scope) => scope.key === `campaign_effect_scopes_localised_text_${record.effect_scope}`
+      );
+      if (effectScopeText !== undefined) {
+        record.effect.description += stringInterpolator(effectScopeText.text, uiTextReplacements, missingTextReplacements);
+      }
+    }
     delete record.effect_scope;
 
     record.effect.description = numberInsertion(record.effect.description, record.value);

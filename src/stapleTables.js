@@ -28,6 +28,7 @@ const stapleTables = (folder) => {
   let characterSkillLevelToAncillariesJunction = readJson('db/character_skill_level_to_ancillaries_junctions_tables.json');
   let characterSkillsToQuestAncillaries = readJson('db/character_skills_to_quest_ancillaries_tables.json');
   let characterSkillLevelToEffectsJunction = readJson('db/character_skill_level_to_effects_junctions_tables.json');
+  const campaignEffectScopes = readJson('text/db/campaign_effect_scopes.json');
   let characterSkills = readJson('db/character_skills_tables.json');
   const characterSkillsLoc = readJson('text/db/character_skills.json');
   const characterSkillLevelDetails = readJson('db/character_skill_level_details_tables.json');
@@ -105,7 +106,13 @@ const stapleTables = (folder) => {
     ancillaries
   );
   characterSkillsToQuestAncillaries = staple.characterSkillsToQuestAncillaries_ancillaries(characterSkillsToQuestAncillaries, ancillaries);
-  characterSkillLevelToEffectsJunction = staple.effects_characterSkillLevelToEffectsJunction(effects, characterSkillLevelToEffectsJunction);
+  characterSkillLevelToEffectsJunction = staple.effects_characterSkillLevelToEffectsJunction(
+    effects,
+    characterSkillLevelToEffectsJunction,
+    campaignEffectScopes,
+    uiTextReplacements,
+    missingTextReplacements
+  );
   characterSkills = staple.characterSkills_characterSkillsLoc(
     characterSkills,
     characterSkillsLoc,
