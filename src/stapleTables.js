@@ -143,7 +143,7 @@ const stapleTables = (folder) => {
     cultures = staple.cultures_culturesSubcultures(cultures, culturesSubcultures);
   }
   cultures = staple.cultures_factions(cultures, factions);
-  cultures = staple.cultures_factionAgentPermittedSubtypes(cultures, factionAgentPermittedSubtypes);
+  cultures = staple.cultures_factionAgentPermittedSubtypes(cultures, factionAgentPermittedSubtypes, folder);
   cultures = staple.cultures_characterSkillNodeSets(cultures, characterSkillNodeSets);
 
   let collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
