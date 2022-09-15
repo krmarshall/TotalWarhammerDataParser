@@ -17,7 +17,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (culture.key !== 'wh_dlc03_bst_beastmen' && collatedNodeSets[lord].key === 'bst_beastlord') {
         return;
       }
-      fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], { spaces });
+      fse.outputJSONSync(`./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], { spaces });
     });
 
     culture.heroNodeSets.forEach((hero) => {
@@ -28,7 +28,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (outputCharactersPrune.includes(collatedNodeSets[hero].key)) {
         return;
       }
-      fse.outputJSON(`./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], { spaces });
+      fse.outputJSONSync(`./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], { spaces });
     });
   });
   if (missingCharacters.length > 0) {

@@ -23,7 +23,7 @@ const cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedS
     }
 
     const addAgents = addFactionAgents.filter((agent) => {
-      return game === agent.game && agent.faction === culture.key;
+      return (agent.mod === undefined || agent.mod === folder) && game === agent.game && agent.faction === culture.key;
     });
     addAgents.forEach((agent) => {
       culture.agents.push(agent.agent);
