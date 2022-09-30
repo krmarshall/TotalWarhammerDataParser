@@ -14,12 +14,12 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         // For some reason there are a ton of skills using hidden indents above 6, even tho thats the purpose of 6?
         collatedNodeSets[skillNode.character_skill_node_set_key].skillTree = [[], [], [], [], [], []];
 
-        // node_set_ from vanilla, _skill_node_(?!set_) from radious2, variety_agent_subtype_ from radious2
-        const keyName = skillNode.character_skill_node_set_key.split(/node_set_|_skill_node_(?!set_)|variety_agent_subtype_/);
+        // node_set_ vanilla, _skill_node_(?!set_) radious2, variety_agent_subtype_ radious2, wh3_dlc20_ CoC DLC, rad_wh3_part3_main_unit_ radious3
+        const keyName = skillNode.character_skill_node_set_key.split(
+          /node_set_|_skill_node_(?!set_)|variety_agent_subtype_|wh3_dlc20_|rad_wh3_part3_main_unit_/
+        );
         // Radious has some annoying name conventions, like _skill_node at the end of a couple names
-        let cleanedKeyName = keyName[keyName.length - 1].replace('_skill_node', '');
-        // WH3 DLC20 quick name clean
-        cleanedKeyName = cleanedKeyName.replace('wh3_dlc20_', '');
+        const cleanedKeyName = keyName[keyName.length - 1].replace('_skill_node', '');
         collatedNodeSets[skillNode.character_skill_node_set_key].key = cleanedKeyName;
       }
 
