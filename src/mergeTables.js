@@ -25,39 +25,34 @@ const getVanillaJson = (tablePath, folder, loc) => {
 };
 
 const overwriteMerge = (vanillaJson, moddedTables, sameProps) => {
-  const vanillaMerged = [...vanillaJson];
+  const mergedMap = {};
+  vanillaJson.forEach((record) => {
+    const recordKey = sameProps.reduce((prev, next) => prev + record[next], '');
+    if (mergedMap[recordKey] === undefined) {
+      mergedMap[recordKey] = record;
+    } else {
+      console.log('\x1b[31m', `\bmergeTables conflict: ${recordKey}`, '\x1b[0m');
+    }
+  });
+
   moddedTables.forEach((modTable) => {
-    modTable.forEach((modItem) => {
-      let duplicateIndex;
-      const duplicate = vanillaJson.find((vanillaItem, index) => {
-        let samePropCount = 0;
-        let hasDupes = true;
-        // reduce sameProps with a short circuit
-        for (let i = 0, n = sameProps.length; i < n && hasDupes === true; i++) {
-          if (vanillaItem[sameProps[i]] === modItem[sameProps[i]]) {
-            samePropCount++;
-          } else {
-            hasDupes = false;
-          }
-        }
-        if (samePropCount === sameProps.length) {
-          duplicateIndex = index;
-          return true;
-        }
-        return false;
-      });
-      if (duplicate === undefined) {
-        vanillaMerged.push(modItem);
-      } else {
-        vanillaMerged[duplicateIndex] = modItem;
-      }
+    modTable.forEach((modRecord) => {
+      const recordKey = sameProps.reduce((prev, next) => prev + modRecord[next], '');
+      mergedMap[recordKey] = modRecord;
     });
   });
-  return vanillaMerged;
+
+  const mergedMapKeys = Object.keys(mergedMap);
+  const mergedTable = mergedMapKeys.map((mapKey) => {
+    return mergedMap[mapKey];
+  });
+  return mergedTable;
 };
 
 const mergeTablesIntoVanilla = (folder, dbList, locList) => {
   return new Promise((resolve, reject) => {
+    const tableNameMap = folder.includes('2') ? tableNameMap2 : tableNameMap3;
+
     const tableDirs = dbList.map((table) => {
       return `./extracted_files/${folder}/db/${table}/`;
     });
@@ -136,6 +131,8 @@ const mergeLocsIntoVanilla = (folder, locList, locMap) => {
 // For multi pack mods they are extracted out across subDB/subLOC, start with the vanilla table and merge in modded tables from each subfolder
 const mergeTablesMulti = (folder, dbList) => {
   return new Promise((resolve, reject) => {
+    const tableNameMap = folder.includes('2') ? tableNameMap2 : tableNameMap3;
+
     const tablePromises = dbList.map((table) => {
       return new Promise((resolveI) => {
         const vanillaJson = getVanillaJson(`./extracted_files/${folder}/db/${table}/`, folder, false);
@@ -209,7 +206,7 @@ const mergeLocsMulti = (folder, locList, locMap) => {
 };
 
 // RPFM highlights the tables key/composite key in yellow, im banking thats what the engine determines what overrides vanilla tables
-const tableNameMap = {
+const tableNameMap2 = {
   // WH2
   ancillaries_tables: ['key'],
   ancillary_to_effects_tables: ['ancillary', 'effect'],
@@ -239,9 +236,23 @@ const tableNameMap = {
   unit_ability_types_tables: ['key'],
   unit_attributes_tables: ['key'],
   unit_special_abilities_tables: ['key'],
+};
+
+const tableNameMap3 = {
+  ...tableNameMap2,
+  // WH2 Changed
+  special_ability_to_special_ability_phase_junctions_tables: [
+    'special_ability',
+    'order',
+    'target_self',
+    'target_friends',
+    'target_enemies',
+  ],
+
   // WH3
   character_ancillary_quest_ui_details_tables: ['ancillary', 'agent_subtype'],
-  character_skills_to_level_reached_criterias_tables: ['skill_key'],
+  // rpfm only shows skill_key as the PK, but think it needs to be skill_key and rank CP?
+  character_skills_to_level_reached_criterias_tables: ['skill_key', 'rank'],
 };
 
 export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti, mergeLocsMulti };

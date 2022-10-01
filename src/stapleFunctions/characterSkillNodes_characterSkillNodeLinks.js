@@ -91,53 +91,64 @@ const characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, charac
     }
   });
   // After adding all the node links, find any nodes with a subset required, and give the last subset required the right_arrow property
+  // Set up map to grab nodes quickly by keys
+  const stapledMap = {};
+  stapledTable.forEach((node) => {
+    if (stapledMap[node.key] === undefined) {
+      stapledMap[node.key] = node;
+    } else {
+      console.log('\x1b[31m', `\bcharacterSkillNodes_characterSkillNodeLinks conflict: ${node.key}`, '\x1b[0m');
+    }
+  });
+  // Iterate through nodes with parent_subset_required
   subsetTable.forEach((node) => {
-    // Grab all the parent subset required indices/nodes
-    const subsetIndices = node.parent_subset_required.map((subsetKey) => stapledTable.findIndex((altnode) => altnode.key === subsetKey));
-    const subsetNodes = subsetIndices.map((subIndex) => stapledTable[subIndex]);
-
-    // Find the key with the highest tier and give right_arrow prop
+    // Grab all the nodes from the parent_subset_required
+    const subsetNodes = node.parent_subset_required.map((subReq) => stapledMap[subReq]);
+    // Find the highest tier node
     let highest = subsetNodes[0];
-    let highestSubsetIndex = subsetIndices[0];
     for (let i = 0; i < subsetNodes.length; i++) {
       if (subsetNodes[i].tier > highest.tier) {
         highest = subsetNodes[i];
-        highestSubsetIndex = subsetIndices[i];
       }
     }
-    stapledTable[highestSubsetIndex].right_arrow = true;
+    // Give right arrow
+    highest.right_arrow = true;
   });
 
-  // Also want to find if the node shares a parent required with any other nodes, if it does give boxed prop
+  // Also want to find if the node shares a parent (subset) required with any other nodes, if it does give boxed prop
+  const requiredBucket = {};
   requiredTable.forEach((node) => {
-    const sharedParent = requiredTable.find((altnode) => {
-      const intersects = altnode.parent_required.find((parent) => node.parent_required.includes(parent) && node.key !== altnode.key);
-      if (intersects !== undefined) {
-        return true;
+    node.parent_required.forEach((parReq) => {
+      if (requiredBucket[parReq] === undefined) {
+        requiredBucket[parReq] = [];
       }
-      return false;
+      requiredBucket[parReq].push(node.key);
     });
-
-    if (sharedParent !== undefined) {
-      const requiredIndex = stapledTable.findIndex((subnode) => subnode.key === node.key);
-      stapledTable[requiredIndex].boxed = true;
+  });
+  const requiredBucketKeys = Object.keys(requiredBucket);
+  requiredBucketKeys.forEach((requiredBucketKey) => {
+    if (requiredBucket[requiredBucketKey].length > 1) {
+      requiredBucket[requiredBucketKey].forEach((nodeKey) => {
+        stapledMap[nodeKey].boxed = true;
+      });
     }
   });
 
+  const subsetBucket = {};
   subsetTable.forEach((node) => {
-    const sharedParent = subsetTable.find((altnode) => {
-      const intersects = altnode.parent_subset_required.find(
-        (parent) => node.parent_subset_required.includes(parent) && node.key !== altnode.key
-      );
-      if (intersects !== undefined) {
-        return true;
+    node.parent_subset_required.forEach((parSubReq) => {
+      if (subsetBucket[parSubReq] === undefined) {
+        subsetBucket[parSubReq] = [];
       }
-      return false;
+      subsetBucket[parSubReq].push(node.key);
     });
-
-    if (sharedParent !== undefined) {
-      const subsetIndex = stapledTable.findIndex((subnode) => subnode.key === node.key);
-      stapledTable[subsetIndex].boxed = true;
+  });
+  const subsetBucketKeys = Object.keys(subsetBucket);
+  subsetBucketKeys.forEach((subsetBucketKey) => {
+    if (subsetBucket[subsetBucketKey].length > 1) {
+      subsetBucket[subsetBucketKey].forEach((nodeKey) => {
+        stapledMap[nodeKey].boxed = true;
+      });
     }
   });
 
