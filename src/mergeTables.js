@@ -1,4 +1,4 @@
-import glob from 'glob';
+import fg from 'fast-glob';
 import fse from 'fs-extra';
 
 import { assertTables } from './otherFunctions/index.js';
@@ -6,10 +6,6 @@ import { v2LocList } from './extractLists/vanilla2.js';
 import { v3LocList } from './extractLists/vanilla3.js';
 
 const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
-
-const getJsonPaths = (src) => {
-  return glob.sync(`${src}**/*.json`);
-};
 
 const getVanillaJson = (tablePath, folder, loc) => {
   const game = folder.includes('2') ? 'vanilla2' : 'vanilla3';
@@ -58,7 +54,7 @@ const mergeTablesIntoVanilla = (folder, dbList, locList) => {
     });
     const tablePromises = tableDirs.map((tablePath) => {
       return new Promise((resolveI) => {
-        const modJsonPaths = getJsonPaths(tablePath);
+        const modJsonPaths = fg.sync(`${tablePath}**/*.json`, { onlyFiles: true });
         const vanillaJson = getVanillaJson(tablePath, folder, false);
         const moddedTables = modJsonPaths.map((modJsonPath) => {
           return fse.readJSONSync(modJsonPath);
@@ -136,7 +132,7 @@ const mergeTablesMulti = (folder, dbList) => {
     const tablePromises = dbList.map((table) => {
       return new Promise((resolveI) => {
         const vanillaJson = getVanillaJson(`./extracted_files/${folder}/db/${table}/`, folder, false);
-        const subDBs = glob.sync(`./extracted_files/${folder}/subDB*/db/${table}/**.json`);
+        const subDBs = fg.sync(`./extracted_files/${folder}/subDB*/db/${table}/**.json`, { onlyFiles: true });
         if (subDBs.length === 0) {
           fse.outputJSONSync(`./parsed_files/${folder}/db/${table}.json`, vanillaJson, { spaces });
           resolveI();
@@ -184,7 +180,7 @@ const mergeLocsMulti = (folder, locList, locMap) => {
         }
         const subDBs = [];
         relatedModLocs.forEach((relatedModLocPath) => {
-          const modLocPaths = glob.sync(`./extracted_files/${folder}/subLOC*/text/db/${relatedModLocPath}.json`);
+          const modLocPaths = fg.sync(`./extracted_files/${folder}/subLOC*/text/db/${relatedModLocPath}.json`, { onlyFiles: true });
           subDBs.push(...modLocPaths);
         });
         const moddedLocsJson = subDBs.map((subDBPath) => fse.readJSONSync(subDBPath));

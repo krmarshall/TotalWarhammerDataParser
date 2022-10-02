@@ -1,4 +1,4 @@
-import glob from 'glob';
+import fg from 'fast-glob';
 import { exec } from 'child_process';
 
 import { assertTables } from './otherFunctions/index.js';
@@ -64,36 +64,29 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
   });
 };
 
-const getDirectories = (src, callback) => {
-  glob(`${src}**/*`, { nodir: true, ignore: [`${src}**/*.tsv`, `${src}**/*.png`] }, callback);
-};
-
 const extractTsv = (folder, game) => {
   return new Promise((resolve, reject) => {
-    getDirectories(`./extracted_files/${folder}/`, (error, filePaths) => {
-      if (error) {
-        reject(error);
-      } else {
-        const promises = filePaths.map((filePath) => {
-          return new Promise((resolveI, rejectI) => {
-            exec(`rpfm_cli.exe -g ${game} table -e ".${filePath}"`, { cwd }, (error) => {
-              if (error) {
-                rejectI(error);
-              } else {
-                resolveI();
-              }
-            });
-          });
+    const src = `./extracted_files/${folder}/`;
+    const filePaths = fg.sync(`${src}**/*`, { onlyFiles: true, ignore: [`${src}**/*.tsv`, `${src}**/*.png`] });
+
+    const promises = filePaths.map((filePath) => {
+      return new Promise((resolveI, rejectI) => {
+        exec(`rpfm_cli.exe -g ${game} table -e ".${filePath}"`, { cwd }, (error) => {
+          if (error) {
+            rejectI(error);
+          } else {
+            resolveI();
+          }
         });
-        Promise.all(promises)
-          .then(() => {
-            resolve();
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      }
+      });
     });
+    Promise.all(promises)
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 };
 

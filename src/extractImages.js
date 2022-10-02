@@ -1,4 +1,4 @@
-import glob from 'glob';
+import fg from 'fast-glob';
 import { exec } from 'child_process';
 import fse from 'fs-extra';
 
@@ -33,19 +33,11 @@ const extractImages = (folder, packNames, game) => {
   });
 };
 
-const getImageDirs = (src) => {
-  return glob.sync(`${src}**/`);
-};
-
-const getImagePaths = (src) => {
-  return glob.sync(`${src}*.png`);
-};
-
 const convertImages = (folder) => {
-  const imageDirs = getImageDirs(`./extracted_files/${folder}/ui/`);
+  const imageDirs = fg.sync(`./extracted_files/${folder}/ui/**/`, { markDirectories: true, onlyDirectories: true });
   const promises = imageDirs.map((imageDir, index) => {
     return new Promise((resolve, reject) => {
-      const imagePaths = getImagePaths(imageDir);
+      const imagePaths = fg.sync(`${imageDir}*.png`);
       if (imagePaths.length === 0) {
         resolve();
       } else {
