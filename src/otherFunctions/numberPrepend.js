@@ -9,6 +9,9 @@ const numberPrepend = (string, value, how) => {
       break;
     }
     case 'mult': {
+      if (string[0] !== ' ') {
+        string = ` ${string}`;
+      }
       string = `x${value}${string}`;
       break;
     }
