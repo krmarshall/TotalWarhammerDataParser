@@ -5,8 +5,9 @@ import { mergeTablesMulti, mergeLocsMulti } from '../mergeTables.js';
 import { stapleTables } from '../stapleTables.js';
 import { workerImage } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
+import pruneChars from '../pruneChars.js';
 
-const { folder, dbPackNames, locPackNames, dbList, locList, locMap, game } = workerData;
+const { folder, dbPackNames, locPackNames, dbList, locList, locMap, game, prune } = workerData;
 
 ensureDirSync(`./extracted_files/${folder}/`);
 extractPackfileMulti(folder, dbPackNames, locPackNames, dbList, locList, game)
@@ -17,7 +18,12 @@ extractPackfileMulti(folder, dbPackNames, locPackNames, dbList, locList, game)
   .then(() => {
     workerImage(folder, dbPackNames, game);
 
-    stapleTables(folder);
+    return stapleTables(folder);
+  })
+  .then(() => {
+    if (prune) {
+      pruneChars(folder);
+    }
   })
   .catch((error) => {
     throw error;

@@ -18,9 +18,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => {
     workerImage(folder, imagePacknames, game);
 
-    stapleTables(folder);
-
-    // Mods are reliant on base game files to be merged into, so spool workers for them up after vanilla is parsed.
+    // Mods we dont need to prune characters from can run before vanilla is finished
     workerModMulti(
       'radious3',
       ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'],
@@ -28,10 +26,15 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
       radious3DbList,
       radious3LocList,
       radious3LocMap,
-      'warhammer_3'
+      'warhammer_3',
+      false
     );
 
-    workerMod('mixu3', 'ab_mixu_legendary_lords', 'ab_mixu_legendary_lords', mixu3DbList, mixu3LocList, mixu3LocMap, 'warhammer_3');
+    return stapleTables(folder);
+  })
+  .then(() => {
+    // Mods that prune chars at the end need to wait
+    workerMod('mixu3', 'ab_mixu_legendary_lords', 'ab_mixu_legendary_lords', mixu3DbList, mixu3LocList, mixu3LocMap, 'warhammer_3', true);
   })
   .catch((error) => {
     throw error;

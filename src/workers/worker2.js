@@ -20,7 +20,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     stapleTables(folder);
 
     // Mods are reliant on base game files to be merged into, so spool workers for them up after vanilla is parsed.
-    workerMod('sfo2', 'steel_faith_overhaul_2', 'steel_faith_overhaul_2', sfo2DbList, sfo2LocList, sfo2LocMap, 'warhammer_2');
+    workerMod('sfo2', 'steel_faith_overhaul_2', 'steel_faith_overhaul_2', sfo2DbList, sfo2LocList, sfo2LocMap, 'warhammer_2', false);
     workerModMulti(
       'radious2',
       ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'],
@@ -28,7 +28,8 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
       radious2DbList,
       radious2LocList,
       radious2LocMap,
-      'warhammer_2'
+      'warhammer_2',
+      false
     );
 
     // Mixus mods dont add agents to factions through the standard faction_agent_permitted_subtypes table, so disabling
@@ -41,7 +42,8 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     //   mixu2DbList,
     //   mixu2LocList,
     //   mixu2LocMap,
-    //   'warhammer_2'
+    //   'warhammer_2',
+    //   true
     // );
   })
   .catch((error) => {
