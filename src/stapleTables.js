@@ -50,6 +50,10 @@ const stapleTables = (folder) => {
     let unitAbilities = readJson('db/unit_abilities_tables.json');
     const unitAbilitiesLoc = readJson('text/db/unit_abilities.json');
     let effectBonusValueUnitAbilityJunc = readJson('db/effect_bonus_value_unit_ability_junctions_tables.json');
+    let battleVortexes = readJson('db/battle_vortexs_tables.json');
+    let projectileBombardments = readJson('db/projectile_bombardments_tables.json');
+    let projectiles = readJson('db/projectiles_tables.json');
+    let projectilesExplosions = readJson('db/projectiles_explosions_tables.json');
 
     unitAttributes = staple.unitAttributes_unitAttributesLoc(
       unitAttributes,
@@ -81,6 +85,16 @@ const stapleTables = (folder) => {
       unitSpecialAbilities,
       specialAbilityToSpecialAbilityPhaseJuncs
     );
+    // Spell tables
+    battleVortexes = staple.battleVortexes_specialAbilityPhases(battleVortexes, specialAbilityPhases);
+    projectilesExplosions = staple.projectilesExplosions_specialAbilityPhases(projectilesExplosions, specialAbilityPhases);
+    projectiles = staple.projectiles_specialAbilityPhases(projectiles, specialAbilityPhases);
+    projectiles = staple.projectiles_projectilesExplosions(projectiles, projectilesExplosions);
+    projectileBombardments = staple.projectileBombardments_projectiles(projectileBombardments, projectiles);
+    unitSpecialAbilities = staple.unitSpecialAbilities_battleVortexes(unitSpecialAbilities, battleVortexes);
+    unitSpecialAbilities = staple.unitSpecialAbilities_projectiles(unitSpecialAbilities, projectiles);
+    unitSpecialAbilities = staple.unitSpecialAbilities_projectileBombardments(unitSpecialAbilities, projectileBombardments);
+
     unitAbilitiesAdditionalUiEffects = staple.unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc(
       unitAbilitiesAdditionalUiEffects,
       unitAbilitiesAdditionalUiEffectsLoc,

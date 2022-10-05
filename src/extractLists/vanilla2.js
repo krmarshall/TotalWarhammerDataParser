@@ -29,6 +29,10 @@ const v2DbList = [
   'unit_attributes_tables',
   'unit_special_abilities_tables',
   'ui_unit_stats_tables',
+  'battle_vortexs_tables', // Not a type
+  'projectile_bombardments_tables',
+  'projectiles_tables',
+  'projectiles_explosions_tables',
 ];
 
 const v2LocList = [

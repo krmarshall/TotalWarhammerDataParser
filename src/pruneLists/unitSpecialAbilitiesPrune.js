@@ -1,13 +1,8 @@
 const unitSpecialAbilitiesPrune = [
-  'num_effected_friendly_units',
-  'num_effected_enemy_units',
   'update_targets_every_frame',
-  'activated_projectile',
   'assume_specific_behaviour',
   'clear_current_order',
-  'bombardment',
   'spawned_unit',
-  'vortex',
   'wind_up_stance',
   'targetting_aoe',
   'passive_aoe',
@@ -35,6 +30,8 @@ const unitSpecialAbilitiesPrune = [
   'only_affect_owned_units',
   'ability_available_ui_event',
   'unique_id',
+  'affect_self',
+  'passive',
 
   'only_affect_target',
   'always_affect_self',

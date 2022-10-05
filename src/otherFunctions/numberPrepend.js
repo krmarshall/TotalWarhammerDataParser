@@ -1,4 +1,7 @@
 const numberPrepend = (string, value, how) => {
+  if (string[0] !== ' ') {
+    string = ` ${string}`;
+  }
   switch (how) {
     case 'add': {
       if (value > 0) {
@@ -9,9 +12,6 @@ const numberPrepend = (string, value, how) => {
       break;
     }
     case 'mult': {
-      if (string[0] !== ' ') {
-        string = ` ${string}`;
-      }
       string = `x${value}${string}`;
       break;
     }

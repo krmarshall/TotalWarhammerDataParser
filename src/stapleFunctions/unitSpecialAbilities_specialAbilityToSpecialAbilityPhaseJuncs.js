@@ -1,8 +1,5 @@
 import unitSpecialAbilitiesPrune from '../pruneLists/unitSpecialAbilitiesPrune.js';
-
-const parseFloatToFixed = (input) => {
-  return parseFloat(parseFloat(input).toFixed(1));
-};
+import { parseFloatToFixed } from '../otherFunctions/index.js';
 
 const unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs = (unitSpecialAbilities, specialAbilityToSpecialAbilityPhaseJuncs) => {
   const stapledTable = unitSpecialAbilities.map((ability) => {
@@ -19,9 +16,7 @@ const unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs = (unitSpeci
     ability.initial_recharge > 0 ? undefined : delete ability.initial_recharge;
     ability.wind_up_time = parseFloatToFixed(ability.wind_up_time);
     ability.wind_up_time > 0 ? undefined : delete ability.wind_up_time;
-    ability.passive = JSON.parse(ability.passive);
     ability.effect_range = parseFloatToFixed(ability.effect_range);
-    ability.affect_self = JSON.parse(ability.affect_self);
     ability.target_friends = JSON.parse(ability.target_friends);
     ability.target_enemies = JSON.parse(ability.target_enemies);
     ability.target_ground = JSON.parse(ability.target_ground);
@@ -35,6 +30,10 @@ const unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs = (unitSpeci
     ability.miscast_chance > 0 ? undefined : delete ability.miscast_chance;
     ability.shared_recharge_time = parseFloatToFixed(ability.shared_recharge_time);
     ability.shared_recharge_time > 0 ? undefined : delete ability.shared_recharge_time;
+    ability.num_effected_friendly_units = parseInt(ability.num_effected_friendly_units);
+    ability.num_effected_friendly_units > 1 ? undefined : delete ability.num_effected_friendly_units;
+    ability.num_effected_enemy_units = parseInt(ability.num_effected_enemy_units);
+    ability.num_effected_enemy_units > 1 ? undefined : delete ability.num_effected_enemy_units;
 
     const relatedPhases = specialAbilityToSpecialAbilityPhaseJuncs.filter((phase) => {
       return phase.special_ability === ability.key;

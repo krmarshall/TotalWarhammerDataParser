@@ -34,6 +34,14 @@ import unitAbilities_unitSpecialAbilities from './unitAbilities_unitSpecialAbili
 import effectBonusValueUnitAbilityJunc_unitAbilities from './effectBonusValueUnitAbilityJunc_unitAbilities.js';
 import effects_effectBonusValueUnitAbilityJunc from './effects_effectBonusValueUnitAbilityJunc.js';
 import specialAbilityPhaseStatEffects_uiUnitStats from './specialAbilityPhaseStatEffects_uiUnitStats.js';
+import battleVortexes_specialAbilityPhases from './battleVortexes_specialAbilityPhases.js';
+import projectilesExplosions_specialAbilityPhases from './projectilesExplosions_specialAbilityPhases.js';
+import projectiles_specialAbilityPhases from './projectiles_specialAbilityPhases.js';
+import projectiles_projectilesExplosions from './projectiles_projectilesExplosions.js';
+import projectileBombardments_projectiles from './projectileBombardments_projectiles.js';
+import unitSpecialAbilities_battleVortexes from './unitSpecialAbilities_battleVortexes.js';
+import unitSpecialAbilities_projectiles from './unitSpecialAbilities_projectiles.js';
+import unitSpecialAbilities_projectileBombardments from './unitSpecialAbilities_projectileBombardments.js';
 
 export {
   cultures_characterSkillNodeSets,
@@ -72,4 +80,12 @@ export {
   effectBonusValueUnitAbilityJunc_unitAbilities,
   effects_effectBonusValueUnitAbilityJunc,
   specialAbilityPhaseStatEffects_uiUnitStats,
+  battleVortexes_specialAbilityPhases,
+  projectilesExplosions_specialAbilityPhases,
+  projectiles_specialAbilityPhases,
+  projectiles_projectilesExplosions,
+  projectileBombardments_projectiles,
+  unitSpecialAbilities_battleVortexes,
+  unitSpecialAbilities_projectiles,
+  unitSpecialAbilities_projectileBombardments,
 };

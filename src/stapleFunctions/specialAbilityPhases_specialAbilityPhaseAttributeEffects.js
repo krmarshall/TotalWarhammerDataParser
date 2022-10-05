@@ -1,8 +1,5 @@
 import specialAbilityPhasePrune from '../pruneLists/specialAbilityPhasesPrune.js';
-
-const parseFloatToFixed = (input) => {
-  return parseFloat(parseFloat(input).toFixed(1));
-};
+import { parseFloatToFixed } from '../otherFunctions/index.js';
 
 // Might have to look more at imbue_contact?
 const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbilityPhases, specialAbilityPhaseAttributeEffects) => {
@@ -19,10 +16,17 @@ const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbility
     abilityPhase.mana_regen_mod = parseFloatToFixed(abilityPhase.mana_regen_mod);
     abilityPhase.mana_max_depletion_mod = parseFloatToFixed(abilityPhase.mana_max_depletion_mod);
     abilityPhase.imbue_magical = JSON.parse(abilityPhase.imbue_magical);
-    abilityPhase.imbue_ignition = parseFloatToFixed(abilityPhase.imbue_ignition);
+    abilityPhase.imbue_ignition = abilityPhase.imbue_ignition >= 1 ? true : false;
     abilityPhase.recharge_time = parseFloatToFixed(abilityPhase.recharge_time);
+    abilityPhase.recharge_time > 0 ? undefined : delete abilityPhase.recharge_time;
     abilityPhase.is_hidden_in_ui = JSON.parse(abilityPhase.is_hidden_in_ui);
     abilityPhase.replenish_ammo = parseFloatToFixed(abilityPhase.replenish_ammo);
+    abilityPhase.resurrect = JSON.parse(abilityPhase.resurrect);
+    abilityPhase.hp_change_frequency = parseFloatToFixed(abilityPhase.hp_change_frequency);
+    abilityPhase.heal_amount = parseFloatToFixed(abilityPhase.heal_amount);
+    abilityPhase.damage_amount = parseFloatToFixed(abilityPhase.damage_amount);
+    abilityPhase.damage_chance = parseFloatToFixed(abilityPhase.damage_chance);
+    abilityPhase.max_damaged_entities = parseInt(abilityPhase.max_damaged_entities);
 
     abilityPhase.barrier_heal_amount = parseFloatToFixed(abilityPhase.barrier_heal_amount);
 
@@ -42,6 +46,12 @@ const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbility
       'imbue_contact',
       'spreading',
       'barrier_heal_amount',
+      'resurrect',
+      'hp_change_frequency',
+      'heal_amount',
+      'damage_amount',
+      'max_damaged_entities',
+      'damage_chance',
     ].forEach((key) => {
       if (!abilityPhase[key]) {
         delete abilityPhase[key];

@@ -232,6 +232,10 @@ const tableNameMap2 = {
   unit_ability_types_tables: ['key'],
   unit_attributes_tables: ['key'],
   unit_special_abilities_tables: ['key'],
+  battle_vortexs_tables: ['vortex_key'],
+  projectile_bombardments_tables: ['bombardment_key'],
+  projectiles_tables: ['key'],
+  projectiles_explosions_tables: ['key'],
 };
 
 const tableNameMap3 = {

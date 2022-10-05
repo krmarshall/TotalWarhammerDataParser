@@ -6,6 +6,7 @@ import stringInterpolator from './stringInterpolator.js';
 import numberInsertion from './numberInsertion.js';
 import numberPrepend from './numberPrepend.js';
 import output_characterLists from './output_characterLists.js';
+import parseFloatToFixed from './parseFloatToFixed.js';
 
 export {
   output_characters,
@@ -16,4 +17,5 @@ export {
   numberInsertion,
   numberPrepend,
   output_characterLists,
+  parseFloatToFixed,
 };
