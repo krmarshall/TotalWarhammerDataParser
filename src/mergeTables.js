@@ -2,8 +2,6 @@ import fg from 'fast-glob';
 import fse from 'fs-extra';
 
 import { assertTables } from './otherFunctions/index.js';
-import { v2LocList } from './extractLists/vanilla2.js';
-import { v3LocList } from './extractLists/vanilla3.js';
 
 const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
 
@@ -11,7 +9,7 @@ const getVanillaJson = (tablePath, folder, loc) => {
   const game = folder.includes('2') ? 'vanilla2' : 'vanilla3';
   let vanillaJson;
   if (loc) {
-    vanillaJson = fse.readJSONSync(`./parsed_files/${game}/text/db/${tablePath}.json`);
+    vanillaJson = fse.readJSONSync(`./parsed_files/${game}/text/db/combinedLoc.json`);
   } else {
     const splitDirs = tablePath.split('/');
     const tableName = splitDirs[splitDirs.length - 2];
@@ -86,41 +84,13 @@ const mergeTablesIntoVanilla = (folder, dbList, locList) => {
   });
 };
 
-const mergeLocsIntoVanilla = (folder, locList, locMap) => {
-  return new Promise((resolve, reject) => {
-    const baseLocList = folder.includes('2') ? v2LocList : v3LocList;
-    const cleanedVanillaLocList = baseLocList.map((vanillaLoc) => {
-      return vanillaLoc.replace('__', '');
-    });
-    const locPromises = cleanedVanillaLocList.map((vanillaLoc) => {
-      return new Promise((resolveI) => {
-        const relatedModLocs = locList.filter((modLoc) => {
-          return vanillaLoc === locMap[modLoc];
-        });
-        const vanillaLocJson = getVanillaJson(vanillaLoc, folder, true);
-        if (relatedModLocs.length === 0) {
-          fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, vanillaLocJson, { spaces });
-          resolveI();
-          return;
-        }
-
-        const moddedLocsJson = relatedModLocs.map((modLoc) => {
-          return fse.readJsonSync(`./extracted_files/${folder}/text/db/${modLoc}.json`);
-        });
-        const mergedLoc = overwriteMerge(vanillaLocJson, moddedLocsJson, ['key']);
-
-        fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, mergedLoc, { spaces });
-        resolveI();
-      });
-    });
-
-    Promise.all(locPromises)
-      .then(() => {
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
+const mergeLocsIntoVanilla = (folder) => {
+  return new Promise((resolve) => {
+    const vanillaLoc = getVanillaJson('', folder, true);
+    const modLoc = fse.readJsonSync(`./parsed_files/${folder}/text/db/modLoc.json`);
+    const combinedLoc = { ...vanillaLoc, ...modLoc };
+    fse.outputJSONSync(`./parsed_files/${folder}/text/db/combinedLoc.json`, combinedLoc, { spaces });
+    resolve();
   });
 };
 
@@ -147,51 +117,6 @@ const mergeTablesMulti = (folder, dbList) => {
     });
 
     Promise.all(tablePromises)
-      .then(() => {
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
-const mergeLocsMulti = (folder, locList, locMap) => {
-  return new Promise((resolve, reject) => {
-    const baseLocList = folder.includes('2') ? v2LocList : v3LocList;
-    const cleanedVanillaLocList = baseLocList.map((vanillaLoc) => {
-      return vanillaLoc.replace('__', '');
-    });
-    const locPromises = cleanedVanillaLocList.map((vanillaLoc) => {
-      return new Promise((resolveI) => {
-        const vanillaLocJson = getVanillaJson(vanillaLoc, folder, true);
-        const allModLocs = [];
-        locList.forEach((subLocList) => {
-          allModLocs.push(...subLocList);
-        });
-        const relatedModLocs = allModLocs.filter((modLoc) => {
-          return vanillaLoc === locMap[modLoc];
-        });
-
-        if (relatedModLocs.length === 0) {
-          fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, vanillaLocJson, { spaces });
-          resolveI();
-          return;
-        }
-        const subDBs = [];
-        relatedModLocs.forEach((relatedModLocPath) => {
-          const modLocPaths = fg.sync(`./extracted_files/${folder}/subLOC*/text/db/${relatedModLocPath}.json`, { onlyFiles: true });
-          subDBs.push(...modLocPaths);
-        });
-        const moddedLocsJson = subDBs.map((subDBPath) => fse.readJSONSync(subDBPath));
-        const mergedLoc = overwriteMerge(vanillaLocJson, moddedLocsJson, ['key']);
-
-        fse.outputJSONSync(`./parsed_files/${folder}/text/db/${vanillaLoc}.json`, mergedLoc, { spaces });
-        resolveI();
-      });
-    });
-
-    Promise.all(locPromises)
       .then(() => {
         resolve();
       })
@@ -257,4 +182,4 @@ const tableNameMap3 = {
   character_skills_to_level_reached_criterias_tables: ['skill_key', 'rank'],
 };
 
-export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti, mergeLocsMulti };
+export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti };

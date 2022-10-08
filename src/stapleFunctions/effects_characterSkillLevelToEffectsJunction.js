@@ -3,8 +3,7 @@ import { numberInsertion, stringInterpolator } from '../otherFunctions/index.js'
 const effects_characterSkillLevelToEffectsJunction = (
   effects,
   characterSkillLevelToEffectsJunction,
-  campaignEffectScopes,
-  uiTextReplacements,
+  combinedLoc,
   missingTextReplacements
 ) => {
   const stapledTable = characterSkillLevelToEffectsJunction.map((record) => {
@@ -30,11 +29,9 @@ const effects_characterSkillLevelToEffectsJunction = (
     record.value = parseInt(record.value);
 
     if (record.effect_scope && record.effect.description) {
-      const effectScopeText = campaignEffectScopes.find(
-        (scope) => scope.key === `campaign_effect_scopes_localised_text_${record.effect_scope}`
-      );
+      const effectScopeText = combinedLoc[`campaign_effect_scopes_localised_text_${record.effect_scope}`];
       if (effectScopeText !== undefined) {
-        record.effect.description += stringInterpolator(effectScopeText.text, uiTextReplacements, missingTextReplacements);
+        record.effect.description += stringInterpolator(effectScopeText, combinedLoc, missingTextReplacements);
       }
     }
     delete record.effect_scope;

@@ -1,11 +1,9 @@
 import { stringInterpolator } from '../otherFunctions/index.js';
 
-const effects_effectsLoc = (effects, effectsLoc, textReplacements, missingTextReplacements) => {
+const effects_effectsLoc = (effects, combinedLoc, missingTextReplacements) => {
   const stapledTable = effects.map((effect) => {
-    const locDescription = effectsLoc.find((effectLoc) => {
-      return effectLoc.key === `effects_description_${effect.effect}`;
-    });
-    effect.description = locDescription?.text ? stringInterpolator(locDescription?.text, textReplacements, missingTextReplacements) : '';
+    const locDescription = combinedLoc[`effects_description_${effect.effect}`];
+    effect.description = locDescription ? stringInterpolator(locDescription, combinedLoc, missingTextReplacements) : '';
     delete effect.icon_negative;
     delete effect.category;
     effect.priority = parseInt(effect.priority);

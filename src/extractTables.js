@@ -38,6 +38,22 @@ const extractLoc = (folder, locPackName, locsString, game, inputFolder = folder)
   });
 };
 
+const extractLocBulk = (folder, locPackName, game, inputFolder = folder) => {
+  return new Promise((resolve, reject) => {
+    exec(
+      `rpfm_cli.exe -g ${game} -p "../game_source/${inputFolder}/${locPackName}.pack" packfile -E "../extracted_files/${folder}" - "text/db"`,
+      { cwd },
+      (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      }
+    );
+  });
+};
+
 const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, game) => {
   return new Promise((resolve, reject) => {
     const tablesString = dbList.reduce((prev, cur) => {
@@ -45,10 +61,16 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
     }, '');
     const dataPromise = extractData(folder, dbPackName, tablesString, game);
 
-    const locsString = locList.reduce((prev, cur) => {
-      return `${prev} "text/db/${cur}.loc"`;
-    }, '');
-    const locPromise = extractLoc(folder, locPackName, locsString, game);
+    // If a locList isnt provided, just extract every loc file, useful for mods, too much data for vanilla games.
+    let locPromise;
+    if (locList === undefined) {
+      locPromise = extractLocBulk(folder, locPackName, game);
+    } else {
+      const locsString = locList.reduce((prev, cur) => {
+        return `${prev} "text/db/${cur}.loc"`;
+      }, '');
+      locPromise = extractLoc(folder, locPackName, locsString, game);
+    }
 
     Promise.all([dataPromise, locPromise])
       .then(() => {
@@ -56,6 +78,48 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
         if (missingTables.length > 0) {
           console.log('\x1b[33m', `\b${folder} missing tables: ${missingTables}`, '\x1b[0m');
         }
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const extractPackfileMulti = (folder, dbPackNames, locPackNames, dbList, locList, game) => {
+  return new Promise((resolve, reject) => {
+    const tablesString = dbList.reduce((prev, cur) => {
+      return `${prev} "db/${cur}"`;
+    }, '');
+
+    const dataPromises = dbPackNames.map((dbPackName, index) => {
+      ensureDirSync(`./extracted_files/${folder}/subDB${index}`);
+      return extractData(folder + `/subDB${index}`, dbPackName, tablesString, game, folder);
+    });
+
+    // If a locList isnt provided, just extract every loc file, useful for mods, too much data for vanilla games.
+    let locPromises;
+    if (locList === undefined) {
+      locPromises = locPackNames.map((locPackName, index) => {
+        ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
+        return extractLocBulk(folder + `/subLOC${index}`, locPackName, game, folder);
+      });
+    } else {
+      locPromises = locPackNames.map((locPackName, index) => {
+        ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
+        if (locList[index].length === 0) {
+          return null;
+        }
+        const locsString = locList[index].reduce((prev, cur) => {
+          return `${prev} "text/db/${cur}.loc"`;
+        }, '');
+        return extractLoc(folder + `/subLOC${index}`, locPackName, locsString, game, folder);
+      });
+    }
+
+    Promise.all([...dataPromises, ...locPromises])
+      .then(() => {
+        // Dont think ill check for missing tables in each subfolder, imagine quite a lot will be missing.
         resolve();
       })
       .catch((error) => {
@@ -82,38 +146,6 @@ const extractTsv = (folder, game) => {
     });
     Promise.all(promises)
       .then(() => {
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
-const extractPackfileMulti = (folder, dbPackNames, locPackNames, dbList, locList, game) => {
-  return new Promise((resolve, reject) => {
-    const tablesString = dbList.reduce((prev, cur) => {
-      return `${prev} "db/${cur}"`;
-    }, '');
-
-    const dataPromises = dbPackNames.map((dbPackName, index) => {
-      ensureDirSync(`./extracted_files/${folder}/subDB${index}`);
-      return extractData(folder + `/subDB${index}`, dbPackName, tablesString, game, folder);
-    });
-    const locPromises = locPackNames.map((locPackName, index) => {
-      ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
-      if (locList[index].length === 0) {
-        return null;
-      }
-      const locsString = locList[index].reduce((prev, cur) => {
-        return `${prev} "text/db/${cur}.loc"`;
-      }, '');
-      return extractLoc(folder + `/subLOC${index}`, locPackName, locsString, game, folder);
-    });
-
-    Promise.all([...dataPromises, ...locPromises])
-      .then(() => {
-        // Dont think ill check for missing tables in each subfolder, imagine quite a lot will be missing.
         resolve();
       })
       .catch((error) => {

@@ -7,11 +7,14 @@ const assertTables = (folder, dbList, locList) => {
       missingTables.push(table);
     }
   });
-  locList.forEach((table) => {
-    if (!existsSync(`./extracted_files/${folder}/text/db/${table}.loc`)) {
-      missingTables.push(table);
-    }
-  });
+  if (locList !== undefined) {
+    locList?.forEach((table) => {
+      if (!existsSync(`./extracted_files/${folder}/text/db/${table}.loc`)) {
+        missingTables.push(table);
+      }
+    });
+  }
+
   return missingTables;
 };
 

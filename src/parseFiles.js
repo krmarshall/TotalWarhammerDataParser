@@ -2,7 +2,7 @@ import fg from 'fast-glob';
 import { readFileSync } from 'fs';
 import fse from 'fs-extra';
 import { parse } from 'csv-parse/sync';
-import { dirname } from 'path';
+import { dirname, sep } from 'path';
 
 const csvParseConfig = {
   delimiter: '\t',
@@ -13,42 +13,47 @@ const csvParseConfig = {
   quote: '`',
 };
 
-const parseFiles = (folder) => {
-  return new Promise((resolve, reject) => {
-    const filePaths = fg.sync(`./extracted_files/${folder}/**/*.tsv`, { onlyFiles: true });
+const parseFiles = (folder, mod) => {
+  return new Promise((resolve) => {
+    const dbFilePaths = fg.sync([`./extracted_files/${folder}/db/**/*.tsv`, `./extracted_files/${folder}/subDB*/**/*.tsv`], {
+      onlyFiles: true,
+    });
+    const locFilePaths = fg.sync([`./extracted_files/${folder}/text/db/**/*.tsv`, `./extracted_files/${folder}/subLOC*/**/*.tsv`], {
+      onlyFiles: true,
+    });
     const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
-    filePaths.forEach((filePath) => {
+    const locObject = {};
+
+    dbFilePaths.forEach((filePath) => {
       const fileData = readFileSync(filePath, 'utf-8');
       const parsedArray = parse(fileData, csvParseConfig);
 
-      const fileDir = dirname(filePath);
-      const splitDirs = fileDir.split('/');
-      if (splitDirs[3] === 'db') {
-        fse.outputJSONSync(`./parsed_files/${folder}/db/${splitDirs[4]}.json`, parsedArray, { spaces });
-      } else if (splitDirs[3] === 'text') {
-        let cleanedPath = filePath.replace(`./extracted_files/${folder}/text/db/`, '');
-        cleanedPath = cleanedPath.split(/__.tsv|.tsv/)[0];
-        fse.outputJSONSync(`./parsed_files/${folder}/text/db/${cleanedPath}.json`, parsedArray, { spaces });
+      if (mod) {
+        const stripTsv = filePath.replace('.tsv', '');
+        fse.outputJSONSync(`${stripTsv}.json`, parsedArray, { spaces });
       } else {
-        reject('Attempted to parse invalid folder');
+        const fileDir = dirname(filePath).split('/');
+        const dbFolder = fileDir[fileDir.length - 1];
+        fse.outputJSONSync(`./parsed_files/${folder}/db/${dbFolder}.json`, parsedArray, { spaces });
       }
     });
-    resolve();
-  });
-};
 
-const parseMods = (folder) => {
-  return new Promise((resolve) => {
-    const filePaths = fg.sync(`./extracted_files/${folder}/**/*.tsv`, { onlyFiles: true });
-    const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
-    filePaths.forEach((filePath) => {
+    locFilePaths.forEach((filePath) => {
       const fileData = readFileSync(filePath, 'utf-8');
       const parsedArray = parse(fileData, csvParseConfig);
-      const stripTsv = filePath.replace('.tsv', '');
-      fse.outputJSONSync(`${stripTsv}.json`, parsedArray, { spaces });
+
+      parsedArray.forEach((loc) => {
+        locObject[loc.key] = loc.text;
+      });
     });
+
+    if (mod) {
+      fse.outputJSONSync(`./parsed_files/${folder}/text/db/modLoc.json`, locObject, { spaces });
+    } else {
+      fse.outputJSONSync(`./parsed_files/${folder}/text/db/combinedLoc.json`, locObject, { spaces });
+    }
     resolve();
   });
 };
 
-export { parseFiles, parseMods };
+export { parseFiles };

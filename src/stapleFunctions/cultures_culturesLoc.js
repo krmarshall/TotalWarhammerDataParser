@@ -1,6 +1,6 @@
 import { stringInterpolator } from '../otherFunctions/index.js';
 
-const cultures_culturesLoc = (cultures, culturesLoc, textReplacements, missingTextReplacements) => {
+const cultures_culturesLoc = (cultures, combinedLoc, missingTextReplacements) => {
   const placeholderIndex = cultures.findIndex((culture) => {
     return culture.key === '*';
   });
@@ -12,12 +12,10 @@ const cultures_culturesLoc = (cultures, culturesLoc, textReplacements, missingTe
   cultures.splice(rogueIndex, 1);
 
   const stapledTable = cultures.map((culture) => {
-    const relatedLoc = culturesLoc.find((loc) => {
-      return loc.key === `cultures_name_${culture.key}`;
-    });
+    const relatedLoc = combinedLoc[`cultures_name_${culture.key}`];
     const tempCulture = {
       key: culture.key,
-      name: relatedLoc?.text ? stringInterpolator(relatedLoc?.text, textReplacements, missingTextReplacements) : '',
+      name: relatedLoc ? stringInterpolator(relatedLoc, combinedLoc, missingTextReplacements) : '',
     };
 
     return { ...tempCulture };

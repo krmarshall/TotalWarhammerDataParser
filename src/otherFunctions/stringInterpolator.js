@@ -13,7 +13,7 @@
 // For the time being just does text replacement for {{tr}} tags, and returns whatever is inside [[]] tags
 
 // Whoever at CA decided to not close random img tags, sometimes close overridecol with /col, and sometimes with /overridecol has my eternal regex hatred
-const stringInterpolator = (string, uiTextReplacements, missingTextReplacements) => {
+const stringInterpolator = (string, combinedLoc, missingTextReplacements) => {
   if (!string.includes('[[') && !string.includes('{{')) {
     // Replacing this before going through the rest of string interpolator breaks element innertext checks at bottom.
     if (string.includes('\\\\n')) {
@@ -29,14 +29,12 @@ const stringInterpolator = (string, uiTextReplacements, missingTextReplacements)
     }
     let cleanedKey = tagR[0].replace('{{tr:', '');
     cleanedKey = cleanedKey.replace('}}', '');
-    const replacementText = uiTextReplacements.find((replacement) => {
-      return replacement.key === `ui_text_replacements_localised_text_${cleanedKey}`;
-    });
+    const replacementText = combinedLoc[`ui_text_replacements_localised_text_${cleanedKey}`];
     if (replacementText === undefined) {
       missingTextReplacements.push(tagR[0]);
       string = string.replace(tagR[0], '!Missing!');
     } else {
-      string = string.replace(tagR[0], replacementText.text);
+      string = string.replace(tagR[0], replacementText);
     }
   }
   if (string.includes('[[')) {
@@ -77,7 +75,7 @@ const stringInterpolator = (string, uiTextReplacements, missingTextReplacements)
     }
     string = string.replace(element[0], innerText);
   }
-  return stringInterpolator(string, uiTextReplacements, missingTextReplacements);
+  return stringInterpolator(string, combinedLoc, missingTextReplacements);
 };
 
 export default stringInterpolator;

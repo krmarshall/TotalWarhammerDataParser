@@ -3,7 +3,7 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
   characterSkillNodeSets,
   characterAncillaryQuestUIDetails,
   ancillaries,
-  ancillaryLoc
+  combinedLoc
 ) => {
   const returnObj = {};
   const collatedNodeKeys = Object.keys(collatedNodeSets);
@@ -26,23 +26,19 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
           return ancillary.key === questAncillary.ancillary;
         });
         if (relatedAncillary !== undefined) {
-          let relatedLocName = ancillaryLoc.find((loc) => {
-            return loc.key === `ancillaries_onscreen_name_${questAncillary.ancillary}`;
-          });
+          let relatedLocName = combinedLoc[`ancillaries_onscreen_name_${questAncillary.ancillary}`];
           if (relatedLocName === undefined) {
             console.log(`${questAncillary.ancillary} missing ancillaries_onscreen_name_ loc`);
-            relatedLocName = { text: 'MISSING LOC ENTRY' };
+            relatedLocName = 'MISSING LOC ENTRY';
           }
-          let relatedLocDesc = ancillaryLoc.find((loc) => {
-            return loc.key === `ancillaries_colour_text_${questAncillary.ancillary}`;
-          });
+          let relatedLocDesc = combinedLoc[`ancillaries_colour_text_${questAncillary.ancillary}`];
           if (relatedLocDesc === undefined) {
             console.log(`${questAncillary.ancillary} missing ancillaries_colour_text_ loc`);
-            relatedLocDesc = { text: 'MISSING LOC ENTRY' };
+            relatedLocDesc = 'MISSING LOC ENTRY';
           }
           const tempAncillary = { ...relatedAncillary };
-          tempAncillary.name = relatedLocName.text;
-          tempAncillary.description = relatedLocDesc.text;
+          tempAncillary.name = relatedLocName;
+          tempAncillary.description = relatedLocDesc;
           tempAncillary.unlocked_at_rank = parseInt(questAncillary.rank);
           tempAncillary.instant = JSON.parse(questAncillary.instant);
           tempAncillary.image_path = ancillaryTypeImageEnum[tempAncillary.type];

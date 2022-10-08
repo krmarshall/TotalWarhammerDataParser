@@ -2,16 +2,13 @@ import { stringInterpolator } from '../otherFunctions/index.js';
 
 const specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc = (
   specialAbilityAutoDeactivateFlags,
-  specialAbilityInvalidFlagsLoc,
-  uiTextReplacements,
+  combinedLoc,
   missingTextReplacements
 ) => {
   const stapledTable = specialAbilityAutoDeactivateFlags.map((abilityFlag) => {
-    const relatedLoc = specialAbilityInvalidFlagsLoc.find(
-      (loc) => `special_ability_invalid_usage_flags_alt_description_${abilityFlag.deactivate_flag}` === loc.key
-    );
+    const relatedLoc = combinedLoc[`special_ability_invalid_usage_flags_alt_description_${abilityFlag.deactivate_flag}`];
     if (relatedLoc !== undefined) {
-      let temp = stringInterpolator(relatedLoc.text, uiTextReplacements, missingTextReplacements);
+      let temp = stringInterpolator(relatedLoc, combinedLoc, missingTextReplacements);
 
       // Some skills enable on having more than x kills, these leave %d flags that need to be replaced based on what the flag is
       let dValue = 'UNKNOWN';

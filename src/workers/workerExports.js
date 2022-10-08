@@ -22,7 +22,7 @@ const workerVanilla = (folder, dbPackName, locPackName, dbList, locList, game) =
   return workerVanilla;
 };
 
-const workerMod = (folder, dbPackName, locPackName, dbList, locList, locMap, game, prune) => {
+const workerMod = (folder, dbPackName, locPackName, dbList, locList, game, prune) => {
   console.time(`${folder} total`);
   const workerMod = new Worker('./src/workers/workerMod.js', {
     workerData: {
@@ -31,7 +31,6 @@ const workerMod = (folder, dbPackName, locPackName, dbList, locList, locMap, gam
       locPackName,
       dbList,
       locList,
-      locMap,
       game,
       prune,
     },
@@ -45,7 +44,7 @@ const workerMod = (folder, dbPackName, locPackName, dbList, locList, locMap, gam
   });
 };
 
-const workerModMulti = (folder, dbPackNames, locPackNames, dbList, locList, locMap, game, prune) => {
+const workerModMulti = (folder, dbPackNames, locPackNames, dbList, locList, game, prune) => {
   console.time(`${folder} total`);
   const workerModMulti = new Worker('./src/workers/workerModMulti.js', {
     workerData: {
@@ -54,7 +53,6 @@ const workerModMulti = (folder, dbPackNames, locPackNames, dbList, locList, locM
       locPackNames,
       dbList,
       locList,
-      locMap,
       game,
       prune,
     },

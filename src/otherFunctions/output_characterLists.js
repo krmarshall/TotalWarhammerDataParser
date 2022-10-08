@@ -1,9 +1,8 @@
 import fse from 'fs-extra';
 
-const output_characterLists = (folder, cultures, characterSkillNodeSets) => {
+const output_characterLists = (folder, cultures, characterSkillNodeSets, combinedLoc) => {
   // Properly assigned names for legendary lords seem to be done through the name table and scripting
   // so without digging into parsing scripts this gets most heroes and some lords names pretty well.
-  const agentLocTable = fse.readJsonSync(`./parsed_files/${folder}/text/db/agent_subtypes.json`);
   const characterList = {};
   cultures.forEach((culture) => {
     const cultureName = culture.name.replace(/\s/, '');
@@ -18,14 +17,12 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets) => {
         console.log(`Cant find key for ${lord}`);
       } else {
         const lordKey = relatedLord.agent_subtype_key;
-        const lordName = agentLocTable.find((agentLoc) => {
-          return agentLoc.key === `agent_subtypes_onscreen_name_override_${lordKey}`;
-        });
+        const lordName = combinedLoc[`agent_subtypes_onscreen_name_override_${lordKey}`];
 
         if (lordName === undefined) {
           characterList[`${cultureName}Lords`][lordKey] = 'undefined';
         } else {
-          characterList[`${cultureName}Lords`][lordKey] = lordName.text;
+          characterList[`${cultureName}Lords`][lordKey] = lordName;
         }
       }
     });
@@ -38,14 +35,12 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets) => {
         console.log(`Cant find key for ${hero}`);
       } else {
         const heroKey = relatedHero.agent_subtype_key;
-        const heroName = agentLocTable.find((agentLoc) => {
-          return agentLoc.key === `agent_subtypes_onscreen_name_override_${heroKey}`;
-        });
+        const heroName = combinedLoc[`agent_subtypes_onscreen_name_override_${heroKey}`];
 
         if (heroName === undefined) {
           characterList[`${cultureName}Heroes`][heroKey] = 'undefined';
         } else {
-          characterList[`${cultureName}Heroes`][heroKey] = heroName.text;
+          characterList[`${cultureName}Heroes`][heroKey] = heroName;
         }
       }
     });
