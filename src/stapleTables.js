@@ -54,6 +54,9 @@ const stapleTables = (folder) => {
     let projectileBombardments = readJson('db/projectile_bombardments_tables.json');
     let projectiles = readJson('db/projectiles_tables.json');
     let projectilesExplosions = readJson('db/projectiles_explosions_tables.json');
+    let specialAbilityAutoDeactivateFlags = readJson('db/special_ability_to_auto_deactivate_flags_tables.json');
+    let specialAbilityInvalidTargetFlags = readJson('db/special_ability_to_invalid_target_flags_tables.json');
+    const specialAbilityInvalidFlagsLoc = readJson('text/db/special_ability_invalid_usage_flags.json');
 
     unitAttributes = staple.unitAttributes_unitAttributesLoc(
       unitAttributes,
@@ -85,7 +88,6 @@ const stapleTables = (folder) => {
       unitSpecialAbilities,
       specialAbilityToSpecialAbilityPhaseJuncs
     );
-    // Spell tables
     battleVortexes = staple.battleVortexes_specialAbilityPhases(battleVortexes, specialAbilityPhases);
     projectilesExplosions = staple.projectilesExplosions_specialAbilityPhases(projectilesExplosions, specialAbilityPhases);
     projectiles = staple.projectiles_specialAbilityPhases(projectiles, specialAbilityPhases);
@@ -94,6 +96,23 @@ const stapleTables = (folder) => {
     unitSpecialAbilities = staple.unitSpecialAbilities_battleVortexes(unitSpecialAbilities, battleVortexes);
     unitSpecialAbilities = staple.unitSpecialAbilities_projectiles(unitSpecialAbilities, projectiles);
     unitSpecialAbilities = staple.unitSpecialAbilities_projectileBombardments(unitSpecialAbilities, projectileBombardments);
+    specialAbilityAutoDeactivateFlags = staple.specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc(
+      specialAbilityAutoDeactivateFlags,
+      specialAbilityInvalidFlagsLoc,
+      uiTextReplacements,
+      missingTextReplacements
+    );
+    specialAbilityInvalidTargetFlags = staple.specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc(
+      specialAbilityInvalidTargetFlags,
+      specialAbilityInvalidFlagsLoc,
+      uiTextReplacements,
+      missingTextReplacements
+    );
+    unitSpecialAbilities = staple.unitSpecialAbilities_specialAbilityFlags(
+      unitSpecialAbilities,
+      specialAbilityAutoDeactivateFlags,
+      specialAbilityInvalidTargetFlags
+    );
 
     unitAbilitiesAdditionalUiEffects = staple.unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc(
       unitAbilitiesAdditionalUiEffects,

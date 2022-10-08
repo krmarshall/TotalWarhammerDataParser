@@ -236,6 +236,8 @@ const tableNameMap2 = {
   projectile_bombardments_tables: ['bombardment_key'],
   projectiles_tables: ['key'],
   projectiles_explosions_tables: ['key'],
+  special_ability_to_auto_deactivate_flags_tables: ['special_ability', 'deactivate_flag'],
+  special_ability_to_invalid_target_flags_tables: ['special_ability', 'invalid_target'],
 };
 
 const tableNameMap3 = {

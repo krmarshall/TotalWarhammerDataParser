@@ -29,10 +29,12 @@ const v2DbList = [
   'unit_attributes_tables',
   'unit_special_abilities_tables',
   'ui_unit_stats_tables',
-  'battle_vortexs_tables', // Not a type
+  'battle_vortexs_tables', // Not a typo
   'projectile_bombardments_tables',
   'projectiles_tables',
   'projectiles_explosions_tables',
+  'special_ability_to_auto_deactivate_flags_tables',
+  'special_ability_to_invalid_target_flags_tables',
 ];
 
 const v2LocList = [
@@ -48,6 +50,7 @@ const v2LocList = [
   'ui_text_replacements__',
   'agent_subtypes__',
   'campaign_effect_scopes__',
+  'special_ability_invalid_usage_flags__',
 ];
 
 export { v2DbList, v2LocList };

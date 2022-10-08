@@ -42,6 +42,9 @@ import projectileBombardments_projectiles from './projectileBombardments_project
 import unitSpecialAbilities_battleVortexes from './unitSpecialAbilities_battleVortexes.js';
 import unitSpecialAbilities_projectiles from './unitSpecialAbilities_projectiles.js';
 import unitSpecialAbilities_projectileBombardments from './unitSpecialAbilities_projectileBombardments.js';
+import specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc from './specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc.js';
+import specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc from './specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc.js';
+import unitSpecialAbilities_specialAbilityFlags from './unitSpecialAbilities_specialAbilityFlags.js';
 
 export {
   cultures_characterSkillNodeSets,
@@ -88,4 +91,7 @@ export {
   unitSpecialAbilities_battleVortexes,
   unitSpecialAbilities_projectiles,
   unitSpecialAbilities_projectileBombardments,
+  specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc,
+  specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc,
+  unitSpecialAbilities_specialAbilityFlags,
 };
