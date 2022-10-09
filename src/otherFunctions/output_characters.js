@@ -17,7 +17,9 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (culture.key !== 'wh_dlc03_bst_beastmen' && collatedNodeSets[lord].key === 'bst_beastlord') {
         return;
       }
-      fse.outputJSONSync(`./output/${folder}/${culture.key}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], { spaces });
+      fse.outputJSONSync(`./output/${folder}/${cultureMap[culture.key]}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], {
+        spaces,
+      });
     });
 
     culture.heroNodeSets.forEach((hero) => {
@@ -28,7 +30,9 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (outputCharactersPrune.includes(collatedNodeSets[hero].key)) {
         return;
       }
-      fse.outputJSONSync(`./output/${folder}/${culture.key}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], { spaces });
+      fse.outputJSONSync(`./output/${folder}/${cultureMap[culture.key]}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], {
+        spaces,
+      });
     });
   });
   if (missingCharacters.length > 0) {
@@ -37,3 +41,29 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
 };
 
 export default output_characters;
+
+const cultureMap = {
+  wh_dlc03_bst_beastmen: 'bst_beastmen',
+  wh_main_brt_bretonnia: 'brt_bretonnia',
+  wh3_main_dae_daemons: 'dae_daemons',
+  wh2_main_def_dark_elves: 'def_dark_elves',
+  wh_main_dwf_dwarfs: 'dwf_dwarfs',
+  wh_main_emp_empire: 'emp_empire',
+  wh3_main_cth_cathay: 'cth_cathay',
+  wh_main_grn_greenskins: 'grn_greenskins',
+  wh2_main_hef_high_elves: 'hef_high_elves',
+  wh3_main_kho_khorne: 'kho_khorne',
+  wh3_main_ksl_kislev: 'ksl_kislev',
+  wh2_main_lzd_lizardmen: 'lzd_lizardmen',
+  wh_dlc08_nor_norsca: 'nor_norsca',
+  wh3_main_nur_nurgle: 'nur_nurgle',
+  wh3_main_ogr_ogre_kingdoms: 'ogr_ogre_kingdoms',
+  wh2_main_skv_skaven: 'skv_skaven',
+  wh3_main_sla_slaanesh: 'sla_slaanesh',
+  wh2_dlc09_tmb_tomb_kings: 'tmb_tomb_kings',
+  wh3_main_tze_tzeentch: 'tze_tzeentch',
+  wh2_dlc11_cst_vampire_coast: 'cst_vampire_coast',
+  wh_main_vmp_vampire_counts: 'vmp_vampire_counts',
+  wh_main_chs_chaos: 'chs_chaos',
+  wh_dlc05_wef_wood_elves: 'wef_wood_elves',
+};
