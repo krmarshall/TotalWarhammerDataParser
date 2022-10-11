@@ -163,6 +163,10 @@ const tableNameMap2 = {
   projectiles_explosions_tables: ['key'],
   special_ability_to_auto_deactivate_flags_tables: ['special_ability', 'deactivate_flag'],
   special_ability_to_invalid_target_flags_tables: ['special_ability', 'invalid_target'],
+  unit_set_unit_ability_junctions_tables: ['key'],
+  effect_bonus_value_unit_set_unit_ability_junctions_tables: ['effect', 'bonus_value_id', 'unit_set_ability'],
+  effect_bonus_value_military_force_ability_junctions_tables: ['effect', 'bonus_value_id', 'force_ability'],
+  army_special_abilities_tables: ['army_special_ability'],
 };
 
 const tableNameMap3 = {

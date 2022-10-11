@@ -45,6 +45,13 @@ import unitSpecialAbilities_projectileBombardments from './unitSpecialAbilities_
 import specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc from './specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc.js';
 import specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc from './specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc.js';
 import unitSpecialAbilities_specialAbilityFlags from './unitSpecialAbilities_specialAbilityFlags.js';
+import unitSetUnitAbilityJunc_unit_abilities from './unitSetUnitAbilityJunc_unit_abilities.js';
+import effectBonusValueUnitSetUnitAbilityJunc_unitSetUnitAbilityJunc from './effectBonusValueUnitSetUnitAbilityJunc_unitSetUnitAbilityJunc.js';
+import effects_effectBonusValueUnitSetUnitAbilityJunc from './effects_effectBonusValueUnitSetUnitAbilityJunc.js';
+import armySpecialAbilities_unitAbilities from './armySpecialAbilities_unitAbilities.js';
+import effectBonusValueMilitaryForceAbilityJunc_armySpecialAbilities from './effectBonusValueMilitaryForceAbilityJunc_armySpecialAbilities.js';
+import effects_effectBonusValueMilitaryForceAbilityJunc from './effects_effectBonusValueMilitaryForceAbilityJunc.js';
+import specialAbilityPhases_specialAbilityPhases from './specialAbilityPhases_specialAbilityPhases.js';
 
 export {
   cultures_characterSkillNodeSets,
@@ -94,4 +101,11 @@ export {
   specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc,
   specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc,
   unitSpecialAbilities_specialAbilityFlags,
+  unitSetUnitAbilityJunc_unit_abilities,
+  effectBonusValueUnitSetUnitAbilityJunc_unitSetUnitAbilityJunc,
+  effects_effectBonusValueUnitSetUnitAbilityJunc,
+  armySpecialAbilities_unitAbilities,
+  effectBonusValueMilitaryForceAbilityJunc_armySpecialAbilities,
+  effects_effectBonusValueMilitaryForceAbilityJunc,
+  specialAbilityPhases_specialAbilityPhases,
 };

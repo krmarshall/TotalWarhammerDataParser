@@ -47,6 +47,10 @@ const stapleTables = (folder) => {
     let projectilesExplosions = readJson('db/projectiles_explosions_tables.json');
     let specialAbilityAutoDeactivateFlags = readJson('db/special_ability_to_auto_deactivate_flags_tables.json');
     let specialAbilityInvalidTargetFlags = readJson('db/special_ability_to_invalid_target_flags_tables.json');
+    let unitSetUnitAbilityJunc = readJson('db/unit_set_unit_ability_junctions_tables.json');
+    let effectBonusValueUnitSetUnitAbilityJunc = readJson('db/effect_bonus_value_unit_set_unit_ability_junctions_tables.json');
+    let armySpecialAbilities = readJson('db/army_special_abilities_tables.json');
+    let effectBonusValueMilitaryForceAbilityJunc = readJson('db/effect_bonus_value_military_force_ability_junctions_tables.json');
 
     unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, combinedLoc, missingTextReplacements);
     specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
@@ -64,6 +68,7 @@ const stapleTables = (folder) => {
       specialAbilityPhaseAttributeEffects
     );
     specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseStatEffects(specialAbilityPhases, specialAbilityPhaseStatEffects);
+    specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhases(specialAbilityPhases);
     specialAbilityToSpecialAbilityPhaseJuncs = staple.specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases(
       specialAbilityToSpecialAbilityPhaseJuncs,
       specialAbilityPhases
@@ -111,9 +116,20 @@ const stapleTables = (folder) => {
     unitAbilities = staple.unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs(unitAbilities, unitAbilitiesToAdditionalUiEffectsJuncs);
     unitAbilities = staple.unitAbilities_unitSpecialAbilities(unitAbilities, unitSpecialAbilities);
     effectBonusValueUnitAbilityJunc = staple.effectBonusValueUnitAbilityJunc_unitAbilities(effectBonusValueUnitAbilityJunc, unitAbilities);
+    unitSetUnitAbilityJunc = staple.unitSetUnitAbilityJunc_unit_abilities(unitSetUnitAbilityJunc, unitAbilities);
+    effectBonusValueUnitSetUnitAbilityJunc = staple.effectBonusValueUnitSetUnitAbilityJunc_unitSetUnitAbilityJunc(
+      effectBonusValueUnitSetUnitAbilityJunc,
+      unitSetUnitAbilityJunc
+    );
+    armySpecialAbilities = staple.armySpecialAbilities_unitAbilities(armySpecialAbilities, unitAbilities);
+    effectBonusValueMilitaryForceAbilityJunc = staple.effectBonusValueMilitaryForceAbilityJunc_armySpecialAbilities(
+      effectBonusValueMilitaryForceAbilityJunc,
+      armySpecialAbilities
+    );
     effects = staple.effects_effectsLoc(effects, combinedLoc, missingTextReplacements);
-    // Prob need to filter better that bonus_value_id in effectBonusValueUnitAbilityJunc for related abilities
     effects = staple.effects_effectBonusValueUnitAbilityJunc(effects, effectBonusValueUnitAbilityJunc);
+    effects = staple.effects_effectBonusValueUnitSetUnitAbilityJunc(effects, effectBonusValueUnitSetUnitAbilityJunc);
+    effects = staple.effects_effectBonusValueMilitaryForceAbilityJunc(effects, effectBonusValueMilitaryForceAbilityJunc);
     ancillaryToEffects = staple.ancillariesToEffects_effects(ancillaryToEffects, effects);
     ancillaries = staple.ancillaries_ancillariesToEffects(ancillaries, ancillaryToEffects);
     characterSkillLevelToAncillariesJunction = staple.characterSkillLevelToAncillariesJunction_ancillaries(

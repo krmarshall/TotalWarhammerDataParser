@@ -37,6 +37,10 @@ const effects_characterSkillLevelToEffectsJunction = (
     delete record.effect_scope;
 
     record.effect.description = numberInsertion(record.effect.description, record.value);
+
+    if (record.effect.icon === '' && (record.effect.description === '' || record.effect.description === '[hidden]')) {
+      return;
+    }
     return { ...record };
   });
 
