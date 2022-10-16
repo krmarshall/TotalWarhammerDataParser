@@ -8,14 +8,16 @@ const effects_effectBonusValueMilitaryForceAbilityJunc = (effects, effectBonusVa
   });
 
   const stapledTable = effects.map((effect) => {
-    const enableAbilities = juncMap[`${effect.effect}|enable`];
+    let enableAbilities = juncMap[`${effect.effect}|enable`];
     if (enableAbilities?.length > 0) {
+      enableAbilities = enableAbilities.slice(0, 3);
       effect.related_abilities = [...enableAbilities];
       return { ...effect };
     }
 
-    const usesModAbilities = juncMap[`${effect.effect}|uses_mod`];
+    let usesModAbilities = juncMap[`${effect.effect}|uses_mod`];
     if (usesModAbilities?.length > 0) {
+      usesModAbilities = usesModAbilities.slice(0, 3);
       effect.related_abilities = [...usesModAbilities];
       return { ...effect };
     }

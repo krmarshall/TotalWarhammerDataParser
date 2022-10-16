@@ -8,20 +8,23 @@ const effects_effectBonusValueUnitSetUnitAbilityJunc = (effects, effectBonusValu
   });
 
   const stapledTable = effects.map((effect) => {
-    const enableAbilities = juncMap[`${effect.effect}|enable`];
+    let enableAbilities = juncMap[`${effect.effect}|enable`];
     if (enableAbilities?.length > 0) {
+      enableAbilities = enableAbilities.slice(0, 3);
       effect.related_abilities = [...enableAbilities];
       return { ...effect };
     }
 
-    const usesModAbilities = juncMap[`${effect.effect}|uses_mod`];
+    let usesModAbilities = juncMap[`${effect.effect}|uses_mod`];
     if (usesModAbilities?.length > 0) {
+      usesModAbilities = usesModAbilities.slice(0, 3);
       effect.related_abilities = [...usesModAbilities];
       return { ...effect };
     }
 
-    const rechargeAbilities = juncMap[`${effect.effect}|recharge_mod`];
+    let rechargeAbilities = juncMap[`${effect.effect}|recharge_mod`];
     if (rechargeAbilities?.length > 0) {
+      rechargeAbilities = rechargeAbilities.slice(0, 3);
       effect.related_abilities = [...rechargeAbilities];
       return { ...effect };
     }
