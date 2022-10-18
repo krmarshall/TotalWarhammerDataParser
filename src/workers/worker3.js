@@ -2,7 +2,7 @@ import { workerData } from 'worker_threads';
 import { extractPackfileMass, extractTsv } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
-import { workerImage, workerMod, workerModMulti } from './workerExports.js';
+import { workerImage, workerModMulti } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 import { radious3DbList } from '../extractLists/radious3.js';
 import { mixu3DbList } from '../extractLists/mixu3.js';
@@ -19,21 +19,15 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     workerImage(folder, imagePacknames, game);
 
     // Mods we dont need to prune characters from can run before vanilla is finished
-    workerModMulti(
-      'radious3',
-      ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'],
-      ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'],
-      radious3DbList,
-      undefined,
-      'warhammer_3',
-      false
-    );
+    const radious3PackNames = ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'];
+    workerModMulti('radious3', radious3PackNames, radious3PackNames, radious3DbList, undefined, 'warhammer_3', false);
 
     return stapleTables(folder);
   })
   .then(() => {
     // Mods that prune chars at the end need to wait
-    workerMod('mixu3', 'ab_mixu_legendary_lords', 'ab_mixu_legendary_lords', mixu3DbList, undefined, 'warhammer_3', true);
+    const mixuPackNames = ['ab_mixu_legendary_lords', 'ab_unwashed_masses'];
+    workerModMulti('mixu3', mixuPackNames, mixuPackNames, mixu3DbList, undefined, 'warhammer_3', true);
   })
   .catch((error) => {
     throw error;

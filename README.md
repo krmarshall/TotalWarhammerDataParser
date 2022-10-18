@@ -76,6 +76,7 @@ Alternatively use xnconvert actions preset if imagemagick results are wonky.
 - Create new extract lists such as ./extractLists/sfo2.js
 - Check if the mod uses any * in table names, rpfm chokes on that character to rename it to something like #
 - Add a new workerMod to the mods base game worker (worker2/worker3)
+- Check for characters in agent_subtypes that arent in faction_agent_permitted_subtypes, add to ./pruneLists/addFactionAgents.js
 - Check for bugs, especially in string replacements.
 - Manually extract the following image paths: 
 - ui/skins/default/fe_logo.png

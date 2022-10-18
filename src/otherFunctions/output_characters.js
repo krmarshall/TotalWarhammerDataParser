@@ -81,4 +81,6 @@ const cultureMap = {
   wh_main_vmp_vampire_counts: 'vmp_vampire_counts',
   wh_main_chs_chaos: 'chs_chaos',
   wh_dlc05_wef_wood_elves: 'wef_wood_elves',
+
+  mixer_gnob_gnoblar_horde: 'gnb_gnoblars',
 };

@@ -40,7 +40,7 @@ const addFactionAgents = [
 
   { faction: 'wh3_main_tze_tzeentch', agent: 'wh3_dlc20_chs_daemon_prince_tzeentch', game: '3' },
 
-  // Mixu3
+  // Mixu3 LL
   { faction: 'wh_main_brt_bretonnia', agent: 'brt_adalhard', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_brt_bretonnia', agent: 'brt_amalric_de_gaudaron', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_brt_bretonnia', agent: 'brt_bohemond', game: '3', mod: 'mixu3' },
@@ -112,6 +112,11 @@ const addFactionAgents = [
   { faction: 'wh_dlc05_wef_wood_elves', agent: 'wef_wychwethyl', game: '3', mod: 'mixu3' },
 
   { faction: 'wh_main_chs_chaos', agent: 'tze_melekh_the_changer', game: '3', mod: 'mixu3' }, // Apparently chaos according to https://steamcommunity.com/workshop/filedetails/discussion/2802810577/3317484899042968859/
+
+  // Mixu 3 Gnobs
+  { faction: 'mixer_gnob_gnoblar_horde', agent: 'gnob_bragg_the_gutsman', game: '3', mod: 'mixu3' },
+  { faction: 'mixer_gnob_gnoblar_horde', agent: 'gnob_gnobbo', game: '3', mod: 'mixu3' },
+  { faction: 'mixer_gnob_gnoblar_horde', agent: 'gnob_king_bezos', game: '3', mod: 'mixu3' },
 ];
 
 export default addFactionAgents;
