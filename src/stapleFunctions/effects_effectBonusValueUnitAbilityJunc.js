@@ -29,6 +29,13 @@ const effects_effectBonusValueUnitAbilityJunc = (effects, effectBonusValueUnitAb
       return { ...effect };
     }
 
+    let effectRangeModAbilities = juncMap[`${effect.effect}|effect_range_mod`];
+    if (effectRangeModAbilities?.length > 0) {
+      effectRangeModAbilities = effectRangeModAbilities.slice(0, 3);
+      effect.related_abilities = [...effectRangeModAbilities];
+      return { ...effect };
+    }
+
     const rechargeModAbilities = juncMap[`${effect.effect}|recharge_mod`];
     // Some effects lower cd on a LOT of abilities, dont want that much spam
     if (
