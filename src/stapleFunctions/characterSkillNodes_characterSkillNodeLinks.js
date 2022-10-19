@@ -1,3 +1,5 @@
+import log from '../log.js';
+
 const prepTables = (characterSkillNodeLinks) => {
   const parentTable = {};
   const childTable = {};
@@ -97,7 +99,7 @@ const characterSkillNodes_characterSkillNodeLinks = (characterSkillNodes, charac
     if (stapledMap[node.key] === undefined) {
       stapledMap[node.key] = node;
     } else {
-      console.log('\x1b[31m', `\bcharacterSkillNodes_characterSkillNodeLinks conflict: ${node.key}`, '\x1b[0m');
+      log(`characterSkillNodes_characterSkillNodeLinks conflict: ${node.key}`, 'red');
     }
   });
   // Iterate through nodes with parent_subset_required

@@ -1,4 +1,5 @@
 import fse from 'fs-extra';
+import log from '../log.js';
 
 const output_characterLists = (folder, cultures, characterSkillNodeSets, combinedLoc) => {
   // Properly assigned names for legendary lords seem to be done through the name table and scripting
@@ -14,7 +15,7 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets, combine
         return nodeSet.key === lord;
       });
       if (relatedLord === undefined) {
-        console.log(`Cant find key for ${lord}`);
+        log(`Cant find key for ${lord}`, 'yellow');
       } else {
         const lordKey = relatedLord.agent_subtype_key;
         const lordName = combinedLoc[`agent_subtypes_onscreen_name_override_${lordKey}`];
@@ -32,7 +33,7 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets, combine
         return nodeSet.key === hero;
       });
       if (relatedHero === undefined) {
-        console.log(`Cant find key for ${hero}`);
+        log(`Cant find key for ${hero}`, 'yellow');
       } else {
         const heroKey = relatedHero.agent_subtype_key;
         const heroName = combinedLoc[`agent_subtypes_onscreen_name_override_${heroKey}`];

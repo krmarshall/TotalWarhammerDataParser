@@ -1,5 +1,6 @@
 import fg from 'fast-glob';
 import fse from 'fs-extra';
+import log from './log.js';
 
 const pruneChars = (folder) => {
   const vanillaFolder = folder.includes('2') ? 'vanilla2' : 'vanilla3';
@@ -21,7 +22,7 @@ const pruneChars = (folder) => {
         if (error.code === 'ENOTEMPTY') {
           // Folder is not empty, so is not deleted, this is intended
         } else {
-          console.log(error);
+          log(error, 'red');
         }
       });
   });

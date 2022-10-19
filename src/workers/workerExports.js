@@ -1,4 +1,5 @@
 import { Worker } from 'worker_threads';
+import log from '../log.js';
 
 const workerVanilla = (folder, dbPackName, locPackName, dbList, locList, game) => {
   console.time(`${game} total`);
@@ -14,7 +15,7 @@ const workerVanilla = (folder, dbPackName, locPackName, dbList, locList, game) =
     },
   });
   workerVanilla.on('error', (error) => {
-    console.log(error);
+    log(error, 'red');
   });
   workerVanilla.on('exit', () => {
     console.timeEnd(`${game} total`);
@@ -36,8 +37,8 @@ const workerMod = (folder, dbPackName, locPackName, dbList, locList, game, prune
     },
   });
   workerMod.on('error', (error) => {
-    console.log(error);
-    console.log(`${folder} failed`);
+    log(error, 'red');
+    log(`${folder} failed`, 'red');
   });
   workerMod.on('exit', () => {
     console.timeEnd(`${folder} total`);
@@ -58,8 +59,8 @@ const workerModMulti = (folder, dbPackNames, locPackNames, dbList, locList, game
     },
   });
   workerModMulti.on('error', (error) => {
-    console.log(error);
-    console.log(`${folder} failed`);
+    log(error, 'red');
+    log(`${folder} failed`, 'red');
   });
   workerModMulti.on('exit', () => {
     console.timeEnd(`${folder} total`);
@@ -75,8 +76,8 @@ const workerImage = (folder, dbPackNames, game) => {
     },
   });
   workerImage.on('error', (error) => {
-    console.log(error);
-    console.log(`${folder} images failed`);
+    log(error, 'red');
+    log(`${folder} images failed`, 'red');
   });
   return workerImage;
 };

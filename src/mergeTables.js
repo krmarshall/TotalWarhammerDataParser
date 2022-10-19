@@ -1,5 +1,6 @@
 import fg from 'fast-glob';
 import fse from 'fs-extra';
+import log from './log.js';
 
 import { assertTables } from './otherFunctions/index.js';
 
@@ -25,7 +26,7 @@ const overwriteMerge = (vanillaJson, moddedTables, sameProps) => {
     if (mergedMap[recordKey] === undefined) {
       mergedMap[recordKey] = record;
     } else {
-      console.log('\x1b[31m', `\bmergeTables conflict: ${recordKey}`, '\x1b[0m');
+      log(`mergeTables conflict: ${recordKey}`, 'red');
     }
   });
 

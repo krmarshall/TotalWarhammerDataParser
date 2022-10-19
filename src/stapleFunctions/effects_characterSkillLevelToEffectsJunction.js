@@ -1,3 +1,4 @@
+import log from '../log.js';
 import { numberInsertion, stringInterpolator } from '../otherFunctions/index.js';
 
 const effects_characterSkillLevelToEffectsJunction = (
@@ -12,7 +13,7 @@ const effects_characterSkillLevelToEffectsJunction = (
     });
 
     if (relatedEffect?.effect === undefined) {
-      console.log(`${record.effect_key} missing.`);
+      log(`missing effect: ${record.effect_key}`, 'grey');
       return;
     }
     // Most skills have a hidden effect that increases or decreases agent action chances

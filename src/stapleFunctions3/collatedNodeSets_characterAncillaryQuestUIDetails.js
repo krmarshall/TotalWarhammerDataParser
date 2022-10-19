@@ -1,3 +1,5 @@
+import log from '../log.js';
+
 const collatedNodeSets_characterAncillaryQuestUIDetails = (
   collatedNodeSets,
   characterSkillNodeSets,
@@ -28,12 +30,12 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
         if (relatedAncillary !== undefined) {
           let relatedLocName = combinedLoc[`ancillaries_onscreen_name_${questAncillary.ancillary}`];
           if (relatedLocName === undefined) {
-            console.log(`${questAncillary.ancillary} missing ancillaries_onscreen_name_ loc`);
+            log(`missing ancillary name: ${questAncillary.ancillary}`, 'grey');
             relatedLocName = 'MISSING LOC ENTRY';
           }
           let relatedLocDesc = combinedLoc[`ancillaries_colour_text_${questAncillary.ancillary}`];
           if (relatedLocDesc === undefined) {
-            console.log(`${questAncillary.ancillary} missing ancillaries_colour_text_ loc`);
+            log(`missing ancillary text: ${questAncillary.ancillary}`, 'grey');
             relatedLocDesc = 'MISSING LOC ENTRY';
           }
           const tempAncillary = { ...relatedAncillary };
@@ -44,8 +46,7 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
           tempAncillary.image_path = ancillaryTypeImageEnum[tempAncillary.type];
 
           if (tempAncillary.image_path === undefined) {
-            console.log('Missing ancillary image for: ');
-            console.log(tempAncillary.type);
+            log(`Missing ancillary image for: ${tempAncillary.type}`, 'yellow');
           }
 
           if (node.items === undefined) {

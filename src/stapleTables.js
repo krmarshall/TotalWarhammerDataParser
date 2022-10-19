@@ -3,6 +3,7 @@ import fse from 'fs-extra';
 import * as staple from './stapleFunctions/index.js';
 import * as staple3 from './stapleFunctions3/index.js';
 import { output_characters, collate_characterSkillNodes, filterNodeSets, output_characterLists } from './otherFunctions/index.js';
+import log from './log.js';
 
 const stapleTables = (folder) => {
   return new Promise((resolve) => {
@@ -195,7 +196,7 @@ const stapleTables = (folder) => {
     fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
 
     if (missingTextReplacements.length > 0) {
-      console.log('\x1b[33m', `\b${folder} missing text replacements: ${missingTextReplacements}`, '\x1b[0m');
+      log(`${folder} missing text replacements: ${missingTextReplacements}`, 'yellow');
     }
 
     output_characters(cultures, filteredNodeSets, folder);

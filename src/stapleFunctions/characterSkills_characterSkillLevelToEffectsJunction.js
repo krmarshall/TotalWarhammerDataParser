@@ -1,3 +1,5 @@
+import log from '../log.js';
+
 const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, characterSkillLevelToEffectsJunction) => {
   const stapledTable = characterSkills.map((characterSkill) => {
     const relatedRecords = characterSkillLevelToEffectsJunction.filter((record) => {
@@ -33,7 +35,7 @@ const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, c
             return a.priority - b.priority;
           });
         } else {
-          console.log(`${characterSkill.key} has a skill level with no effects`);
+          log(`skill level with no effects: ${characterSkill.key}`, 'grey');
         }
       });
     }

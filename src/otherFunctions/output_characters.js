@@ -1,4 +1,5 @@
 import fse from 'fs-extra';
+import log from '../log.js';
 import { outputCharactersPruneAll, outputCharactersPrune2, outputCharactersPrune3 } from '../pruneLists/outputCharactersPrune.js';
 
 const pruneChar = (charKey, faction, folder) => {
@@ -51,7 +52,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
     });
   });
   if (missingCharacters.length > 0) {
-    console.log('\x1b[33m', `\b${folder} missing characters: ${missingCharacters}`, '\x1b[0m');
+    log(`${folder} missing characters: ${missingCharacters}`, 'yellow');
   }
 };
 

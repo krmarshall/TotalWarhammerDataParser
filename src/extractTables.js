@@ -3,6 +3,7 @@ import { exec } from 'child_process';
 
 import { assertTables } from './otherFunctions/index.js';
 import { ensureDirSync } from 'fs-extra';
+import log from './log.js';
 
 const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 
@@ -76,7 +77,7 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
       .then(() => {
         const missingTables = assertTables(folder, dbList, locList);
         if (missingTables.length > 0) {
-          console.log('\x1b[33m', `\b${folder} missing tables: ${missingTables}`, '\x1b[0m');
+          log(`${folder} missing tables: ${missingTables}`, 'yellow');
         }
         resolve();
       })
