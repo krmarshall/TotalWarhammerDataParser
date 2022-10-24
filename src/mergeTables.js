@@ -184,7 +184,7 @@ const tableNameMap3 = {
   // WH3
   character_ancillary_quest_ui_details_tables: ['ancillary', 'agent_subtype'],
   // rpfm only shows skill_key as the PK, but think it needs to be skill_key and rank CP?
-  character_skills_to_level_reached_criterias_tables: ['skill_key', 'rank'],
+  character_skills_to_level_reached_criterias_tables: ['character_skill', 'character_level', 'upgrade_to_skill_level'],
 };
 
 export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti };
