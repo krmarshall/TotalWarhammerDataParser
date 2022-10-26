@@ -10,7 +10,7 @@ const ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffects) => 
       return ancillaryToEffect.ancillary === ancillary.key;
     });
 
-    if (relatedEffects.length) {
+    if (relatedEffects.length !== 0) {
       relatedEffects.forEach((relatedEffect) => {
         relatedEffect.effect.value = relatedEffect.value;
         relatedEffect.effect.key = relatedEffect.effect.effect;

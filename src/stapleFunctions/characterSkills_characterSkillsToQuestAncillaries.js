@@ -3,7 +3,7 @@ const characterSkills_characterSkillsToQuestAncillaries = (characterSkills, char
     const relatedAncillary = characterSkillsToQuestAncillaries.find((ancillary) => {
       return ancillary.skill === characterSkill.key;
     });
-    if (relatedAncillary?.ancillary?.effects != undefined) {
+    if (relatedAncillary?.ancillary?.effects !== undefined) {
       if (characterSkill.levels === undefined) {
         characterSkill.levels = [];
       }
@@ -14,15 +14,17 @@ const characterSkills_characterSkillsToQuestAncillaries = (characterSkills, char
         characterSkill.levels[relatedAncillary.level - 1].effects = [];
       }
 
+      const tempAncillaryEffects = JSON.parse(JSON.stringify(relatedAncillary.ancillary.effects));
+
       characterSkill.levels[relatedAncillary.level - 1].effects.forEach((charSkillEffect) => {
-        relatedAncillary.ancillary.effects.forEach((ancillaryEffect, index) => {
+        tempAncillaryEffects.forEach((ancillaryEffect, index) => {
           if (ancillaryEffect.priority === charSkillEffect.priority) {
-            relatedAncillary.ancillary.effects.splice(index, 1);
+            tempAncillaryEffects.splice(index, 1);
           }
         });
       });
 
-      characterSkill.levels[relatedAncillary.level - 1].effects.push(...relatedAncillary.ancillary.effects);
+      characterSkill.levels[relatedAncillary.level - 1].effects.push(...tempAncillaryEffects);
       characterSkill.use_quest_for_prefix = relatedAncillary.use_quest_for_prefix;
     }
 

@@ -3,7 +3,7 @@ const characterSkillsToQuestAncillaries_ancillaries = (characterSkillsToQuestAnc
     const relatedAncillary = ancillaries.find((ancillary) => {
       return ancillary.key === characterSkill.ancillary;
     });
-    if (relatedAncillary != undefined) {
+    if (relatedAncillary !== undefined) {
       characterSkill.ancillary = { ...relatedAncillary };
     }
     characterSkill.level = 1;
