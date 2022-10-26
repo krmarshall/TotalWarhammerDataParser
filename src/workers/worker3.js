@@ -2,10 +2,11 @@ import { workerData } from 'worker_threads';
 import { extractPackfileMass, extractTsv } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
-import { workerImage, workerModMulti } from './workerExports.js';
+import { workerImage, workerMod, workerModMulti } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 import { radious3DbList } from '../extractLists/radious3.js';
 import { mixu3DbList } from '../extractLists/mixu3.js';
+import { lege3DbList } from '../extractLists/lege3.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
@@ -28,6 +29,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     // Mods that prune chars at the end need to wait
     const mixuPackNames = ['ab_mixu_legendary_lords', 'ab_unwashed_masses'];
     workerModMulti('mixu3', mixuPackNames, mixuPackNames, mixu3DbList, undefined, 'warhammer_3', true);
+    workerMod('lege3', '!str_legendary', '!str_legendary', lege3DbList, undefined, 'warhammer_3', true);
   })
   .catch((error) => {
     throw error;

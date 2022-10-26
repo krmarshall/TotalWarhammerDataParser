@@ -18,8 +18,8 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         const keyName = skillNode.character_skill_node_set_key.split(
           /node_set_|_skill_node_(?!set_)|variety_agent_subtype_|wh3_dlc20_|rad_wh3_part3_main_unit_/
         );
-        // Radious has some annoying name conventions, like _skill_node at the end of a couple names
-        const cleanedKeyName = keyName[keyName.length - 1].replace('_skill_node', '');
+        // _skill_node radious, _skills legendary characters
+        const cleanedKeyName = keyName[keyName.length - 1].replace(/_skill_node$|_skills$/, '');
         collatedNodeSets[skillNode.character_skill_node_set_key].key = cleanedKeyName;
       }
 
