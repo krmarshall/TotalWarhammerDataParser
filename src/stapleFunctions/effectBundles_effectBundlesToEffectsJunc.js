@@ -17,9 +17,9 @@ const effectBundles_effectBundlesToEffectsJunc = (effectBundles, effectBundlesTo
 
       bundle.effects.forEach((effect) => {
         delete effect.effect_bundle_key;
-        effect.effect.description = numberInsertion(effect.effect.description, effect.value);
-        if (effect.effect.key === undefined) {
-          effect.effect.key = effect.effect.effect;
+        effect.description = numberInsertion(effect.description, effect.value);
+        if (effect.key === undefined) {
+          effect.key = effect.effect;
         }
       });
     }

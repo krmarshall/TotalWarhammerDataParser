@@ -21,11 +21,11 @@ const effectBundlesToEffectsJunc_effects = (effectBundlesToEffectsJunc, effects)
       return null;
     }
 
-    bundle.effect = { ...relatedEffect };
-    delete bundle.effect_key;
-    bundle.value = parseInt(bundle.value);
+    const returnBundle = { ...relatedEffect };
+    returnBundle.value = parseInt(bundle.value);
+    returnBundle.effect_bundle_key = bundle.effect_bundle_key;
 
-    return { ...bundle };
+    return returnBundle;
   });
 
   const filteredTable = stapledTable.filter((record) => {
