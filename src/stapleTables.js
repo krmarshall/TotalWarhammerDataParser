@@ -52,6 +52,8 @@ const stapleTables = (folder) => {
     let effectBonusValueUnitSetUnitAbilityJunc = readJson('db/effect_bonus_value_unit_set_unit_ability_junctions_tables.json');
     let armySpecialAbilities = readJson('db/army_special_abilities_tables.json');
     let effectBonusValueMilitaryForceAbilityJunc = readJson('db/effect_bonus_value_military_force_ability_junctions_tables.json');
+    let effectBundles = readJson('db/effect_bundles_tables.json');
+    let effectBundlesToEffectsJunc = readJson('db/effect_bundles_to_effects_junctions_tables.json');
 
     unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, combinedLoc, missingTextReplacements);
     specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
@@ -187,6 +189,23 @@ const stapleTables = (folder) => {
         ancillaries,
         combinedLoc
       );
+    }
+
+    // LL Faction effects
+    effectBundlesToEffectsJunc = staple.effectBundlesToEffectsJunc_effects(effectBundlesToEffectsJunc, effects);
+    effectBundles = staple.effectBundles_loc(effectBundles, combinedLoc);
+    effectBundles = staple.effectBundles_effectBundlesToEffectsJunc(effectBundles, effectBundlesToEffectsJunc);
+    // WH3 has a table to link effects to agent key, WH2 doesnt, so just guessing the agent key
+    if (folder.includes('3')) {
+      let factionStartingGeneralEffects = readJson('db/faction_starting_general_effects_tables.json');
+      factionStartingGeneralEffects = staple3.factionStartingGeneralEffects_effectBundles(factionStartingGeneralEffects, effectBundles);
+      collatedNodeSets = staple3.collatedNodeSets_factionStartingGeneralEffects(
+        collatedNodeSets,
+        characterSkillNodeSets,
+        factionStartingGeneralEffects
+      );
+    } else {
+      collatedNodeSets = staple.collatedNodeSets_effectBundles(collatedNodeSets, effectBundles);
     }
 
     const filteredNodeSets = filterNodeSets(collatedNodeSets);

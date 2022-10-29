@@ -39,6 +39,8 @@ const v2DbList = [
   'effect_bonus_value_unit_set_unit_ability_junctions_tables',
   'effect_bonus_value_military_force_ability_junctions_tables',
   'army_special_abilities_tables',
+  'effect_bundles_tables',
+  'effect_bundles_to_effects_junctions_tables',
 ];
 
 const v2LocList = [
@@ -55,6 +57,7 @@ const v2LocList = [
   'agent_subtypes__',
   'campaign_effect_scopes__',
   'special_ability_invalid_usage_flags__',
+  'effect_bundles__',
 ];
 
 export { v2DbList, v2LocList };

@@ -168,6 +168,8 @@ const tableNameMap2 = {
   effect_bonus_value_unit_set_unit_ability_junctions_tables: ['effect', 'bonus_value_id', 'unit_set_ability'],
   effect_bonus_value_military_force_ability_junctions_tables: ['effect', 'bonus_value_id', 'force_ability'],
   army_special_abilities_tables: ['army_special_ability'],
+  effect_bundles_tables: ['key'],
+  effect_bundles_to_effects_junctions_tables: ['effect_bundle_key', 'effect_key'],
 };
 
 const tableNameMap3 = {
@@ -185,6 +187,7 @@ const tableNameMap3 = {
   character_ancillary_quest_ui_details_tables: ['ancillary', 'agent_subtype'],
   // rpfm only shows skill_key as the PK, but think it needs to be skill_key and rank CP?
   character_skills_to_level_reached_criterias_tables: ['character_skill', 'character_level', 'upgrade_to_skill_level'],
+  faction_starting_general_effects_tables: ['agent_subtype'],
 };
 
 export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti };
