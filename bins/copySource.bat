@@ -12,4 +12,5 @@ ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2791750896" "D:\GitHub\Tot
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2791750075" "D:\GitHub\TotalWarhammerDataParser\game_source\radious3" Radious_WH3_Mod_Part3.pack /NJH /NJS
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2813892035" "D:\GitHub\TotalWarhammerDataParser\game_source\radious3" Radious_WH3_Mod_Part4.pack /NJH /NJS
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2826930183" "D:\GitHub\TotalWarhammerDataParser\game_source\lege3" !str_legendary.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2880244265" "D:\GitHub\TotalWarhammerDataParser\game_source\crys3" crys_leaders.pack /NJH /NJS
 EXIT /B

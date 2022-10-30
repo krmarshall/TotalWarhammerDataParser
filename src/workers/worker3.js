@@ -8,6 +8,7 @@ import { globalDataInit } from '../otherFunctions/index.js';
 import { radious3DbList } from '../extractLists/radious3.js';
 import { mixu3DbList } from '../extractLists/mixu3.js';
 import { lege3DbList } from '../extractLists/lege3.js';
+import { crys3DbList } from '../extractLists/crys3.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
@@ -26,6 +27,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     // Unpruned Mods
     const radious3PackNames = ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'];
     workerModMulti(globalData, 'radious3', radious3PackNames, radious3PackNames, radious3DbList, undefined, 'warhammer_3', false);
+    workerMod(globalData, 'crys3', 'crys_leaders', 'crys_leaders', crys3DbList, undefined, 'warhammer_3', false);
 
     return stapleTables(globalData, folder);
   })
