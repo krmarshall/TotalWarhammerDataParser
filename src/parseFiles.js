@@ -1,8 +1,7 @@
 import fg from 'fast-glob';
 import { readFileSync } from 'fs';
-import fse from 'fs-extra';
 import { parse } from 'csv-parse/sync';
-import { dirname, sep } from 'path';
+import path from 'path';
 
 const csvParseConfig = {
   delimiter: '\t',
@@ -13,47 +12,58 @@ const csvParseConfig = {
   quote: '`',
 };
 
-const parseFiles = (folder, mod) => {
-  return new Promise((resolve) => {
-    const dbFilePaths = fg.sync([`./extracted_files/${folder}/db/**/*.tsv`, `./extracted_files/${folder}/subDB*/**/*.tsv`], {
-      onlyFiles: true,
-    });
-    const locFilePaths = fg.sync([`./extracted_files/${folder}/text/db/**/*.tsv`, `./extracted_files/${folder}/subLOC*/**/*.tsv`], {
-      onlyFiles: true,
-    });
-    const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
-    const locObject = {};
+const parseFiles = (folder, mod, globalData) => {
+  // Add 0 to end of db name until it doesnt exist, then return that name
+  const dbFileName = (dbFolder, dbName, iterator = '') => {
+    if (globalData.extractedData[folder].db[dbFolder][dbName + iterator] !== undefined) {
+      return dbFileName(dbFolder, dbName, iterator + '0');
+    }
+    return dbName + iterator;
+  };
 
-    dbFilePaths.forEach((filePath) => {
-      const fileData = readFileSync(filePath, 'utf-8');
-      const parsedArray = parse(fileData, csvParseConfig);
+  const dbFilePaths = fg.sync([`./extracted_files/${folder}/db/**/*.tsv`, `./extracted_files/${folder}/subDB*/**/*.tsv`], {
+    onlyFiles: true,
+  });
+  const locFilePaths = fg.sync([`./extracted_files/${folder}/text/db/**/*.tsv`, `./extracted_files/${folder}/subLOC*/**/*.tsv`], {
+    onlyFiles: true,
+  });
+  const locObject = {};
 
-      if (mod) {
-        const stripTsv = filePath.replace('.tsv', '');
-        fse.outputJSONSync(`${stripTsv}.json`, parsedArray, { spaces });
-      } else {
-        const fileDir = dirname(filePath).split('/');
-        const dbFolder = fileDir[fileDir.length - 1];
-        fse.outputJSONSync(`./parsed_files/${folder}/db/${dbFolder}.json`, parsedArray, { spaces });
-      }
-    });
-
-    locFilePaths.forEach((filePath) => {
-      const fileData = readFileSync(filePath, 'utf-8');
-      const parsedArray = parse(fileData, csvParseConfig);
-
-      parsedArray.forEach((loc) => {
-        locObject[loc.key] = loc.text;
-      });
-    });
+  dbFilePaths.forEach((filePath) => {
+    const fileData = readFileSync(filePath, 'utf-8');
+    const parsedArray = parse(fileData, csvParseConfig);
 
     if (mod) {
-      fse.outputJSONSync(`./parsed_files/${folder}/text/db/modLoc.json`, locObject, { spaces });
+      const dirInfo = path.parse(filePath);
+      const dirs = dirInfo.dir.split('/');
+      const dbFolder = dirs[dirs.length - 1];
+
+      if (globalData.extractedData[folder].db[dbFolder] === undefined) {
+        globalData.extractedData[folder].db[dbFolder] = {};
+      }
+      const dbName = dbFileName(dbFolder, dirInfo.name);
+      globalData.extractedData[folder].db[dbFolder][dbName] = parsedArray;
     } else {
-      fse.outputJSONSync(`./parsed_files/${folder}/text/db/combinedLoc.json`, locObject, { spaces });
+      const fileDir = path.dirname(filePath).split('/');
+      const dbFolder = fileDir[fileDir.length - 1];
+      globalData.parsedData[folder].db[dbFolder] = parsedArray;
     }
-    resolve();
   });
+
+  locFilePaths.forEach((filePath) => {
+    const fileData = readFileSync(filePath, 'utf-8');
+    const parsedArray = parse(fileData, csvParseConfig);
+
+    parsedArray.forEach((loc) => {
+      locObject[loc.key] = loc.text;
+    });
+  });
+
+  if (mod) {
+    globalData.extractedData[folder].text = locObject;
+  } else {
+    globalData.parsedData[folder].text = locObject;
+  }
 };
 
 export { parseFiles };

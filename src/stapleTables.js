@@ -5,55 +5,56 @@ import * as staple3 from './stapleFunctions3/index.js';
 import { output_characters, collate_characterSkillNodes, filterNodeSets, output_characterLists } from './otherFunctions/index.js';
 import log from './log.js';
 
-const stapleTables = (folder) => {
+const stapleTables = (globalData, folder) => {
   return new Promise((resolve) => {
-    const readJson = (path) => {
-      return JSON.parse(fse.readFileSync(`./parsed_files/${folder}/${path}`, 'utf-8'));
+    const readTable = (path) => {
+      return JSON.parse(JSON.stringify(globalData.parsedData[folder].db[path]));
     };
 
     const missingTextReplacements = [];
 
-    const combinedLoc = readJson('text/db/combinedLoc.json');
-    let unitAttributes = readJson('db/unit_attributes_tables.json');
-    let specialAbilityPhaseAttributeEffects = readJson('db/special_ability_phase_attribute_effects_tables.json');
-    let specialAbilityPhaseStatEffects = readJson('db/special_ability_phase_stat_effects_tables.json');
-    const uiUnitStats = readJson('db/ui_unit_stats_tables.json');
-    let specialAbilityPhases = readJson('db/special_ability_phases_tables.json');
-    let specialAbilityToSpecialAbilityPhaseJuncs = readJson('db/special_ability_to_special_ability_phase_junctions_tables.json');
-    let unitSpecialAbilities = readJson('db/unit_special_abilities_tables.json');
-    let effects = readJson('db/effects_tables.json');
-    let ancillaryToEffects = readJson('db/ancillary_to_effects_tables.json');
-    let ancillaries = readJson('db/ancillaries_tables.json');
-    let characterSkillLevelToAncillariesJunction = readJson('db/character_skill_level_to_ancillaries_junctions_tables.json');
-    let characterSkillsToQuestAncillaries = readJson('db/character_skills_to_quest_ancillaries_tables.json');
-    let characterSkillLevelToEffectsJunction = readJson('db/character_skill_level_to_effects_junctions_tables.json');
-    let characterSkills = readJson('db/character_skills_tables.json');
-    const characterSkillLevelDetails = readJson('db/character_skill_level_details_tables.json');
-    let characterSkillNodes = readJson('db/character_skill_nodes_tables.json');
-    const characterSkillNodeLinks = readJson('db/character_skill_node_links_tables.json');
-    const characterSkillNodesSkillLocks = readJson('db/character_skill_nodes_skill_locks_tables.json');
-    let cultures = readJson('db/cultures_tables.json');
-    const culturesSubcultures = readJson('db/cultures_subcultures_tables.json');
-    const factions = readJson('db/factions_tables.json');
-    const factionAgentPermittedSubtypes = readJson('db/faction_agent_permitted_subtypes_tables.json');
-    const characterSkillNodeSets = readJson('db/character_skill_node_sets_tables.json');
-    let unitAbilitiesAdditionalUiEffects = readJson('db/unit_abilities_additional_ui_effects_tables.json');
-    let unitAbilitiesToAdditionalUiEffectsJuncs = readJson('db/unit_abilities_to_additional_ui_effects_juncs_tables.json');
-    let unitAbilityTypes = readJson('db/unit_ability_types_tables.json');
-    let unitAbilities = readJson('db/unit_abilities_tables.json');
-    let effectBonusValueUnitAbilityJunc = readJson('db/effect_bonus_value_unit_ability_junctions_tables.json');
-    let battleVortexes = readJson('db/battle_vortexs_tables.json');
-    let projectileBombardments = readJson('db/projectile_bombardments_tables.json');
-    let projectiles = readJson('db/projectiles_tables.json');
-    let projectilesExplosions = readJson('db/projectiles_explosions_tables.json');
-    let specialAbilityAutoDeactivateFlags = readJson('db/special_ability_to_auto_deactivate_flags_tables.json');
-    let specialAbilityInvalidTargetFlags = readJson('db/special_ability_to_invalid_target_flags_tables.json');
-    let unitSetUnitAbilityJunc = readJson('db/unit_set_unit_ability_junctions_tables.json');
-    let effectBonusValueUnitSetUnitAbilityJunc = readJson('db/effect_bonus_value_unit_set_unit_ability_junctions_tables.json');
-    let armySpecialAbilities = readJson('db/army_special_abilities_tables.json');
-    let effectBonusValueMilitaryForceAbilityJunc = readJson('db/effect_bonus_value_military_force_ability_junctions_tables.json');
-    let effectBundles = readJson('db/effect_bundles_tables.json');
-    let effectBundlesToEffectsJunc = readJson('db/effect_bundles_to_effects_junctions_tables.json');
+    const combinedLoc = JSON.parse(JSON.stringify(globalData.parsedData[folder].text));
+
+    let unitAttributes = readTable('unit_attributes_tables');
+    let specialAbilityPhaseAttributeEffects = readTable('special_ability_phase_attribute_effects_tables');
+    let specialAbilityPhaseStatEffects = readTable('special_ability_phase_stat_effects_tables');
+    const uiUnitStats = readTable('ui_unit_stats_tables');
+    let specialAbilityPhases = readTable('special_ability_phases_tables');
+    let specialAbilityToSpecialAbilityPhaseJuncs = readTable('special_ability_to_special_ability_phase_junctions_tables');
+    let unitSpecialAbilities = readTable('unit_special_abilities_tables');
+    let effects = readTable('effects_tables');
+    let ancillaryToEffects = readTable('ancillary_to_effects_tables');
+    let ancillaries = readTable('ancillaries_tables');
+    let characterSkillLevelToAncillariesJunction = readTable('character_skill_level_to_ancillaries_junctions_tables');
+    let characterSkillsToQuestAncillaries = readTable('character_skills_to_quest_ancillaries_tables');
+    let characterSkillLevelToEffectsJunction = readTable('character_skill_level_to_effects_junctions_tables');
+    let characterSkills = readTable('character_skills_tables');
+    const characterSkillLevelDetails = readTable('character_skill_level_details_tables');
+    let characterSkillNodes = readTable('character_skill_nodes_tables');
+    const characterSkillNodeLinks = readTable('character_skill_node_links_tables');
+    const characterSkillNodesSkillLocks = readTable('character_skill_nodes_skill_locks_tables');
+    let cultures = readTable('cultures_tables');
+    const culturesSubcultures = readTable('cultures_subcultures_tables');
+    const factions = readTable('factions_tables');
+    const factionAgentPermittedSubtypes = readTable('faction_agent_permitted_subtypes_tables');
+    const characterSkillNodeSets = readTable('character_skill_node_sets_tables');
+    let unitAbilitiesAdditionalUiEffects = readTable('unit_abilities_additional_ui_effects_tables');
+    let unitAbilitiesToAdditionalUiEffectsJuncs = readTable('unit_abilities_to_additional_ui_effects_juncs_tables');
+    let unitAbilityTypes = readTable('unit_ability_types_tables');
+    let unitAbilities = readTable('unit_abilities_tables');
+    let effectBonusValueUnitAbilityJunc = readTable('effect_bonus_value_unit_ability_junctions_tables');
+    let battleVortexes = readTable('battle_vortexs_tables');
+    let projectileBombardments = readTable('projectile_bombardments_tables');
+    let projectiles = readTable('projectiles_tables');
+    let projectilesExplosions = readTable('projectiles_explosions_tables');
+    let specialAbilityAutoDeactivateFlags = readTable('special_ability_to_auto_deactivate_flags_tables');
+    let specialAbilityInvalidTargetFlags = readTable('special_ability_to_invalid_target_flags_tables');
+    let unitSetUnitAbilityJunc = readTable('unit_set_unit_ability_junctions_tables');
+    let effectBonusValueUnitSetUnitAbilityJunc = readTable('effect_bonus_value_unit_set_unit_ability_junctions_tables');
+    let armySpecialAbilities = readTable('army_special_abilities_tables');
+    let effectBonusValueMilitaryForceAbilityJunc = readTable('effect_bonus_value_military_force_ability_junctions_tables');
+    let effectBundles = readTable('effect_bundles_tables');
+    let effectBundlesToEffectsJunc = readTable('effect_bundles_to_effects_junctions_tables');
 
     unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, combinedLoc, missingTextReplacements);
     specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
@@ -158,7 +159,7 @@ const stapleTables = (folder) => {
     );
     characterSkills = staple.characterSkills_characterSkillsToQuestAncillaries(characterSkills, characterSkillsToQuestAncillaries);
     if (folder.includes('3')) {
-      const characterSkillsToLevelReachedCriterias = readJson('db/character_skills_to_level_reached_criterias_tables.json');
+      const characterSkillsToLevelReachedCriterias = readTable('character_skills_to_level_reached_criterias_tables');
       characterSkills = staple3.characterSkills_characterSkillsToLevelReachedCriterias(
         characterSkills,
         characterSkillsToLevelReachedCriterias
@@ -181,7 +182,7 @@ const stapleTables = (folder) => {
 
     // WH3 attaches quest ancillaries to the agent instead of a skill node
     if (folder.includes('3')) {
-      const characterAncillaryQuestUIDetails = readJson('db/character_ancillary_quest_ui_details_tables.json');
+      const characterAncillaryQuestUIDetails = readTable('character_ancillary_quest_ui_details_tables');
       collatedNodeSets = staple3.collatedNodeSets_characterAncillaryQuestUIDetails(
         collatedNodeSets,
         characterSkillNodeSets,
@@ -197,7 +198,7 @@ const stapleTables = (folder) => {
     effectBundles = staple.effectBundles_effectBundlesToEffectsJunc(effectBundles, effectBundlesToEffectsJunc);
     // WH3 has a table to link effects to agent key, WH2 doesnt, so just guessing the agent key
     if (folder.includes('3')) {
-      let factionStartingGeneralEffects = readJson('db/faction_starting_general_effects_tables.json');
+      let factionStartingGeneralEffects = readTable('faction_starting_general_effects_tables');
       factionStartingGeneralEffects = staple3.factionStartingGeneralEffects_effectBundles(factionStartingGeneralEffects, effectBundles);
       collatedNodeSets = staple3.collatedNodeSets_factionStartingGeneralEffects(
         collatedNodeSets,

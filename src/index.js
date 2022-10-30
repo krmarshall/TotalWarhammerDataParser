@@ -8,7 +8,6 @@ import { workerVanilla } from './workers/workerExports.js';
 // node option --max-old-space-size=8192
 
 emptyDirSync('./extracted_files');
-emptyDirSync('./parsed_files');
 emptyDirSync('./output');
 emptyDirSync('./output_img');
 emptyDirSync('./bins/nScripts');

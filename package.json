@@ -5,14 +5,15 @@
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint src/",
-    "lintFix": "eslint src/ --fix",
+    "lint": "eslint ./src",
+    "lintFix": "eslint ./src --fix",
     "copySource": "cd ./bins && copySource.bat",
-    "start": "node ./src/index.js",
-    "startProd": "SET NODE_ENV=production&&node ./src/index.js",
-    "profile": "node --prof ./src/index.js",
+    "start": "node --max-old-space-size=8192 ./src/index.js",
+    "startProd": "SET NODE_ENV=production&&node --max-old-space-size=8192 ./src/index.js",
+    "profile": "node --prof --max-old-space-size=8192 ./src/index.js",
     "fullBuild": "run-s copySource start",
-    "fullBuildProd": "run-s copySource startProd"
+    "fullBuildProd": "run-s copySource startProd",
+    "img": "SET IMG=true&&node --max-old-space-size=8192 ./src/index.js"
   },
   "author": "krmarshall",
   "license": "ISC",

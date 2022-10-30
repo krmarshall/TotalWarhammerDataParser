@@ -1,27 +1,8 @@
-import fg from 'fast-glob';
-import fse from 'fs-extra';
 import log from './log.js';
 
-import { assertTables } from './otherFunctions/index.js';
-
-const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
-
-const getVanillaJson = (tablePath, folder, loc) => {
-  const game = folder.includes('2') ? 'vanilla2' : 'vanilla3';
-  let vanillaJson;
-  if (loc) {
-    vanillaJson = fse.readJSONSync(`./parsed_files/${game}/text/db/combinedLoc.json`);
-  } else {
-    const splitDirs = tablePath.split('/');
-    const tableName = splitDirs[splitDirs.length - 2];
-    vanillaJson = fse.readJSONSync(`./parsed_files/${game}/db/${tableName}.json`);
-  }
-  return vanillaJson;
-};
-
-const overwriteMerge = (vanillaJson, moddedTables, sameProps) => {
+const overwriteMerge = (vanillaTable, moddedTables, sameProps) => {
   const mergedMap = {};
-  vanillaJson.forEach((record) => {
+  vanillaTable.forEach((record) => {
     const recordKey = sameProps.reduce((prev, next) => prev + record[next], '');
     if (mergedMap[recordKey] === undefined) {
       mergedMap[recordKey] = record;
@@ -38,93 +19,37 @@ const overwriteMerge = (vanillaJson, moddedTables, sameProps) => {
   });
 
   const mergedMapKeys = Object.keys(mergedMap);
-  const mergedTable = mergedMapKeys.map((mapKey) => {
-    return mergedMap[mapKey];
-  });
+  const mergedTable = mergedMapKeys.map((mapKey) => mergedMap[mapKey]);
   return mergedTable;
 };
 
-const mergeTablesIntoVanilla = (folder, dbList, locList) => {
-  return new Promise((resolve, reject) => {
-    const tableNameMap = folder.includes('2') ? tableNameMap2 : tableNameMap3;
+const mergeTablesIntoVanilla = (globalData, folder) => {
+  const vanillaFolder = folder.includes('2') ? 'vanilla2' : 'vanilla3';
+  const tableNameMap = folder.includes('2') ? tableNameMap2 : tableNameMap3;
 
-    const tableDirs = dbList.map((table) => {
-      return `./extracted_files/${folder}/db/${table}/`;
-    });
-    const tablePromises = tableDirs.map((tablePath) => {
-      return new Promise((resolveI) => {
-        const modJsonPaths = fg.sync(`${tablePath}**/*.json`, { onlyFiles: true });
-        const vanillaJson = getVanillaJson(tablePath, folder, false);
-        const moddedTables = modJsonPaths.map((modJsonPath) => {
-          return fse.readJSONSync(modJsonPath);
-        });
-        const splitDirs = tablePath.split('/');
-        const tableName = splitDirs[splitDirs.length - 2];
-        const mergedTable = overwriteMerge(vanillaJson, moddedTables, tableNameMap[tableName]);
+  const vanillaKeys = Object.keys(globalData.parsedData[vanillaFolder].db);
 
-        fse.outputJSONSync(`./parsed_files/${folder}/db/${tableName}.json`, mergedTable, { spaces });
-        resolveI();
-      });
-    });
-    Promise.all(tablePromises)
-      .then(() => {
-        const missingTables = assertTables(folder, dbList, locList);
-        if (missingTables.length > 0) {
-          const vanillaFolder = folder.includes('2') ? 'vanilla2' : 'vanilla3';
-          missingTables.forEach((missingTable) => {
-            fse.copySync(`./parsed_files/${vanillaFolder}/db/${missingTable}.json`, `./parsed_files/${folder}/db/${missingTable}.json`, {
-              errorOnExist: true,
-            });
-          });
-        }
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
+  vanillaKeys.forEach((vanillaKey) => {
+    const vanillaTable = globalData.parsedData[vanillaFolder].db[vanillaKey];
+    if (globalData.extractedData[folder].db[vanillaKey] !== undefined) {
+      const moddedKeys = Object.keys(globalData.extractedData[folder].db[vanillaKey]);
+      const moddedTables = moddedKeys.map((moddedKey) => globalData.extractedData[folder].db[vanillaKey][moddedKey]);
+      const mergedTable = overwriteMerge(vanillaTable, moddedTables, tableNameMap[vanillaKey]);
+      globalData.parsedData[folder].db[vanillaKey] = mergedTable;
+    } else {
+      globalData.parsedData[folder].db[vanillaKey] = vanillaTable;
+    }
   });
 };
 
-const mergeLocsIntoVanilla = (folder) => {
-  return new Promise((resolve) => {
-    const vanillaLoc = getVanillaJson('', folder, true);
-    const modLoc = fse.readJsonSync(`./parsed_files/${folder}/text/db/modLoc.json`);
-    const combinedLoc = { ...vanillaLoc, ...modLoc };
-    fse.outputJSONSync(`./parsed_files/${folder}/text/db/combinedLoc.json`, combinedLoc, { spaces });
-    resolve();
-  });
-};
+const mergeLocsIntoVanilla = (globalData, folder) => {
+  const vanillaFolder = folder.includes('2') ? 'vanilla2' : 'vanilla3';
+  const vanillaLoc = globalData.parsedData[vanillaFolder].text;
+  const modLoc = globalData.extractedData[folder].text;
 
-// For multi pack mods they are extracted out across subDB/subLOC, start with the vanilla table and merge in modded tables from each subfolder
-const mergeTablesMulti = (folder, dbList) => {
-  return new Promise((resolve, reject) => {
-    const tableNameMap = folder.includes('2') ? tableNameMap2 : tableNameMap3;
+  const combinedLoc = { ...vanillaLoc, ...modLoc };
 
-    const tablePromises = dbList.map((table) => {
-      return new Promise((resolveI) => {
-        const vanillaJson = getVanillaJson(`./extracted_files/${folder}/db/${table}/`, folder, false);
-        const subDBs = fg.sync(`./extracted_files/${folder}/subDB*/db/${table}/**.json`, { onlyFiles: true });
-        if (subDBs.length === 0) {
-          fse.outputJSONSync(`./parsed_files/${folder}/db/${table}.json`, vanillaJson, { spaces });
-          resolveI();
-          return;
-        }
-        const moddedTables = subDBs.map((subDBPath) => fse.readJSONSync(subDBPath));
-        const mergedTable = overwriteMerge(vanillaJson, moddedTables, tableNameMap[table]);
-
-        fse.outputJSONSync(`./parsed_files/${folder}/db/${table}.json`, mergedTable, { spaces });
-        resolveI();
-      });
-    });
-
-    Promise.all(tablePromises)
-      .then(() => {
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
+  globalData.parsedData[folder].text = combinedLoc;
 };
 
 // RPFM highlights the tables key/composite key in yellow, im banking thats what the engine determines what overrides vanilla tables
@@ -190,4 +115,4 @@ const tableNameMap3 = {
   faction_starting_general_effects_tables: ['agent_subtype'],
 };
 
-export { mergeTablesIntoVanilla, mergeLocsIntoVanilla, mergeTablesMulti };
+export { mergeTablesIntoVanilla, mergeLocsIntoVanilla };

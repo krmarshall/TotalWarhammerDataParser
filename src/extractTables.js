@@ -1,9 +1,6 @@
 import fg from 'fast-glob';
 import { exec } from 'child_process';
-
-import { assertTables } from './otherFunctions/index.js';
 import { ensureDirSync } from 'fs-extra';
-import log from './log.js';
 
 const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 
@@ -75,10 +72,6 @@ const extractPackfileMass = (folder, dbPackName, locPackName, dbList, locList, g
 
     Promise.all([dataPromise, locPromise])
       .then(() => {
-        const missingTables = assertTables(folder, dbList, locList);
-        if (missingTables.length > 0) {
-          log(`${folder} missing tables: ${missingTables}`, 'yellow');
-        }
         resolve();
       })
       .catch((error) => {
@@ -120,7 +113,6 @@ const extractPackfileMulti = (folder, dbPackNames, locPackNames, dbList, locList
 
     Promise.all([...dataPromises, ...locPromises])
       .then(() => {
-        // Dont think ill check for missing tables in each subfolder, imagine quite a lot will be missing.
         resolve();
       })
       .catch((error) => {
