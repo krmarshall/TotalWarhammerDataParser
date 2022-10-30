@@ -1,13 +1,18 @@
 import characterSkillNodesPrune from '../pruneLists/characterSkillNodesPrune.js';
 
 const characterSkillNodes_characterSkills = (characterSkillNodes, characterSkills) => {
+  const skillMap = {};
+  characterSkills.forEach((skill) => {
+    skillMap[skill.key] = skill;
+  });
+
   const stapledTable = characterSkillNodes.map((characterSkillNode) => {
     characterSkillNodesPrune.forEach((prune) => {
       delete characterSkillNode[prune];
     });
-    const relatedSkill = characterSkills.find((characterSkill) => {
-      return characterSkill.key === characterSkillNode.character_skill_key;
-    });
+
+    const relatedSkill = skillMap[characterSkillNode.character_skill_key];
+
     const tempNode = { ...relatedSkill, ...characterSkillNode };
     tempNode.character_skill_key;
 

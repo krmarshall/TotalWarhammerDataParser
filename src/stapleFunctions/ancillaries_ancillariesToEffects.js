@@ -1,16 +1,22 @@
 import ancillariesPrune from '../pruneLists/ancillariesPrune.js';
 
 const ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffects) => {
+  const ancEffectsMap = {};
+  ancillariesToEffects.forEach((ancEffect) => {
+    if (ancEffectsMap[ancEffect.ancillary] === undefined) {
+      ancEffectsMap[ancEffect.ancillary] = [];
+    }
+    ancEffectsMap[ancEffect.ancillary].push(ancEffect);
+  });
+
   const stapledTable = ancillaries.map((ancillary) => {
     ancillariesPrune.forEach((prune) => {
       delete ancillary[prune];
     });
 
-    const relatedEffects = ancillariesToEffects.filter((ancillaryToEffect) => {
-      return ancillaryToEffect.ancillary === ancillary.key;
-    });
+    const relatedEffects = ancEffectsMap[ancillary.key];
 
-    if (relatedEffects.length !== 0) {
+    if (relatedEffects !== undefined) {
       relatedEffects.forEach((relatedEffect) => {
         relatedEffect.effect.value = relatedEffect.value;
         relatedEffect.effect.key = relatedEffect.effect.effect;

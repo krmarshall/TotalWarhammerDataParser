@@ -1,10 +1,13 @@
 import { numberInsertion } from '../otherFunctions/index.js';
 
 const ancillariesToEffects_effects = (ancillariesToEffects, effects) => {
+  const effectsMap = {};
+  effects.forEach((effect) => {
+    effectsMap[effect.effect] = effect;
+  });
   const stapledTable = ancillariesToEffects.map((ancillaryToEffect) => {
-    const relatedEffect = effects.find((effect) => {
-      return effect.effect === ancillaryToEffect.effect;
-    });
+    const relatedEffect = effectsMap[ancillaryToEffect.effect];
+
     ancillaryToEffect.effect = { ...relatedEffect };
     ancillaryToEffect.value = parseInt(ancillaryToEffect.value);
     delete ancillaryToEffect.effect_scope;

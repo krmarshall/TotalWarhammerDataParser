@@ -1,12 +1,18 @@
 import log from '../log.js';
 
 const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, characterSkillLevelToEffectsJunction) => {
-  const stapledTable = characterSkills.map((characterSkill) => {
-    const relatedRecords = characterSkillLevelToEffectsJunction.filter((record) => {
-      return record.character_skill_key === characterSkill.key;
-    });
+  const skillEffectsMap = {};
+  characterSkillLevelToEffectsJunction.forEach((skillEffect) => {
+    if (skillEffectsMap[skillEffect.character_skill_key] === undefined) {
+      skillEffectsMap[skillEffect.character_skill_key] = [];
+    }
+    skillEffectsMap[skillEffect.character_skill_key].push(skillEffect);
+  });
 
-    if (relatedRecords.length) {
+  const stapledTable = characterSkills.map((characterSkill) => {
+    const relatedRecords = skillEffectsMap[characterSkill.key];
+
+    if (relatedRecords !== undefined) {
       relatedRecords.forEach((relatedRecord) => {
         // If the record has effects instead of effect prop, it has already been parsed and doesnt need to have props shuffled around
         if (relatedRecord.effects === undefined) {

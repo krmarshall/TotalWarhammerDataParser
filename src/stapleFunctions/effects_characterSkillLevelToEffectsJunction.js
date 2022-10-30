@@ -7,10 +7,13 @@ const effects_characterSkillLevelToEffectsJunction = (
   combinedLoc,
   missingTextReplacements
 ) => {
+  const effectsMap = {};
+  effects.forEach((effect) => {
+    effectsMap[effect.effect] = effect;
+  });
+
   const stapledTable = characterSkillLevelToEffectsJunction.map((record) => {
-    const relatedEffect = effects.find((effect) => {
-      return effect.effect === record.effect_key;
-    });
+    const relatedEffect = effectsMap[record.effect_key];
 
     if (relatedEffect?.effect === undefined) {
       log(`missing effect: ${record.effect_key}`, 'grey');
