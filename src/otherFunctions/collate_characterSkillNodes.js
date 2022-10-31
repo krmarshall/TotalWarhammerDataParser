@@ -39,6 +39,9 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         // If its hero action success scaling dont add to tree.
       } else if (skillNode.character_skill_key === 'wh3_main_skill_agent_action_success_scaling') {
         // Do Nothing
+        // Cryswars Leaders of Legend 3 shoves vanilla nodes into indent 7 tier 99 to hide them without data coring
+      } else if (skillNode.indent === 7 && skillNode.tier === 99) {
+        // Do nothing
         // Push background skills into their array instead of the skilltree.
       } else if (skillNode.is_background_skill || !skillNode.visible_in_ui) {
         if (collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills === undefined) {
@@ -47,7 +50,7 @@ const collate_characterSkillNodes = (characterSkillNodes, cultures) => {
         collatedNodeSets[skillNode.character_skill_node_set_key].backgroundSkills.push(skillNode);
 
         // If neither of the above add it to the skilltree.
-      } else {
+      } else if (skillNode.indent <= 5) {
         if (collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] === undefined) {
           collatedNodeSets[skillNode.character_skill_node_set_key].skillTree[skillNode.indent] = [];
         }
