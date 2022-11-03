@@ -7,6 +7,7 @@ import numberPrepend from './numberPrepend.js';
 import output_characterLists from './output_characterLists.js';
 import parseFloatToFixed from './parseFloatToFixed.js';
 import globalDataInit from './globalDataInit.js';
+import pruneDupeAbilities from './pruneDupeAbilities.js';
 
 export {
   output_characters,
@@ -18,4 +19,5 @@ export {
   output_characterLists,
   parseFloatToFixed,
   globalDataInit,
+  pruneDupeAbilities,
 };

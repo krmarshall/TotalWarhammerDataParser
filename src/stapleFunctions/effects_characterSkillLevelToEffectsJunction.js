@@ -28,7 +28,7 @@ const effects_characterSkillLevelToEffectsJunction = (
     }
     delete record.effect_key;
     relatedEffect.key = relatedEffect.effect;
-    record.effect = { ...relatedEffect };
+    record.effect = JSON.parse(JSON.stringify(relatedEffect));
     delete record.effect.effect;
     record.value = parseInt(record.value);
 

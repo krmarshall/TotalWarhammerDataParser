@@ -4,7 +4,7 @@ Requires RPFM (or at least the cli) to be available under ./rpfm
 
 Uses NConvert and a webp plugin from XnConvert to convert images and strip metadata.
 
-A saner person would probably have rebuilt the DB in like mongo/mongoose and queried characters out. This was kind of a "I wonder if this would work" that went too far. Being able to serve just json makes deployment a bit cheaper as well.
+A saner person would probably have rebuilt the DB instead.
 
 Reverse engineered DB schema (kinda rough and not totally complete, but handy reference): https://dbdiagram.io/d/6212fade485e433543e7fe91
 

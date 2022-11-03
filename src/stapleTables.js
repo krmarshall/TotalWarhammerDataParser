@@ -2,7 +2,13 @@ import { emptyDirSync } from 'fs-extra';
 import fse from 'fs-extra';
 import * as staple from './stapleFunctions/index.js';
 import * as staple3 from './stapleFunctions3/index.js';
-import { output_characters, collate_characterSkillNodes, filterNodeSets, output_characterLists } from './otherFunctions/index.js';
+import {
+  output_characters,
+  collate_characterSkillNodes,
+  filterNodeSets,
+  output_characterLists,
+  pruneDupeAbilities,
+} from './otherFunctions/index.js';
 import log from './log.js';
 
 const stapleTables = (globalData, folder) => {
@@ -56,6 +62,7 @@ const stapleTables = (globalData, folder) => {
     let effectBundles = readTable('effect_bundles_tables');
     let effectBundlesToEffectsJunc = readTable('effect_bundles_to_effects_junctions_tables');
 
+    // Phases
     unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, combinedLoc, missingTextReplacements);
     specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
       specialAbilityPhaseAttributeEffects,
@@ -77,6 +84,8 @@ const stapleTables = (globalData, folder) => {
       specialAbilityToSpecialAbilityPhaseJuncs,
       specialAbilityPhases
     );
+
+    // Abilities
     unitSpecialAbilities = staple.unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs(
       unitSpecialAbilities,
       specialAbilityToSpecialAbilityPhaseJuncs
@@ -130,12 +139,18 @@ const stapleTables = (globalData, folder) => {
       effectBonusValueMilitaryForceAbilityJunc,
       armySpecialAbilities
     );
+
+    // Effects
     effects = staple.effects_effectsLoc(effects, combinedLoc, missingTextReplacements);
     effects = staple.effects_effectBonusValueUnitAbilityJunc(effects, effectBonusValueUnitAbilityJunc);
     effects = staple.effects_effectBonusValueUnitSetUnitAbilityJunc(effects, effectBonusValueUnitSetUnitAbilityJunc);
     effects = staple.effects_effectBonusValueMilitaryForceAbilityJunc(effects, effectBonusValueMilitaryForceAbilityJunc);
+
+    // Ancillaries
     ancillaryToEffects = staple.ancillariesToEffects_effects(ancillaryToEffects, effects);
     ancillaries = staple.ancillaries_ancillariesToEffects(ancillaries, ancillaryToEffects);
+
+    // Skills
     characterSkillLevelToAncillariesJunction = staple.characterSkillLevelToAncillariesJunction_ancillaries(
       characterSkillLevelToAncillariesJunction,
       ancillaries
@@ -165,9 +180,14 @@ const stapleTables = (globalData, folder) => {
         characterSkillsToLevelReachedCriterias
       );
     }
+    characterSkills = pruneDupeAbilities(characterSkills);
+
+    // Skill Nodes
     characterSkillNodes = staple.characterSkillNodes_characterSkills(characterSkillNodes, characterSkills);
     characterSkillNodes = staple.characterSkillNodes_characterSkillNodeLinks(characterSkillNodes, characterSkillNodeLinks);
     characterSkillNodes = staple.characterSkillNodes_characterSkillNodesSkillLocks(characterSkillNodes, characterSkillNodesSkillLocks);
+
+    // Cultures
     cultures = staple.cultures_culturesLoc(cultures, combinedLoc, missingTextReplacements);
     if (folder.includes('3')) {
       cultures = staple3.cultures_culturesSubcultures(cultures, culturesSubcultures);
