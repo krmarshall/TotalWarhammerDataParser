@@ -2,16 +2,131 @@ import { emptyDirSync } from 'fs-extra';
 import fse from 'fs-extra';
 import * as staple from './stapleFunctions/index.js';
 import * as staple3 from './stapleFunctions3/index.js';
+import * as stapleTechs from './stapleFunctionsTechs/index.js';
 import {
   output_characters,
   collate_characterSkillNodes,
   filterNodeSets,
   output_characterLists,
   pruneDupeAbilities,
+  output_techs,
 } from './otherFunctions/index.js';
 import log from './log.js';
 
-const stapleTables = (globalData, folder) => {
+// Staple tables up to effects, used by both skill and tech trees
+const stapleTablesEffects = (readTable, combinedLoc, missingTextReplacements) => {
+  let unitAttributes = readTable('unit_attributes_tables');
+  let specialAbilityPhaseAttributeEffects = readTable('special_ability_phase_attribute_effects_tables');
+  let specialAbilityPhaseStatEffects = readTable('special_ability_phase_stat_effects_tables');
+  const uiUnitStats = readTable('ui_unit_stats_tables');
+  let specialAbilityPhases = readTable('special_ability_phases_tables');
+  let specialAbilityToSpecialAbilityPhaseJuncs = readTable('special_ability_to_special_ability_phase_junctions_tables');
+  let unitSpecialAbilities = readTable('unit_special_abilities_tables');
+  let unitAbilitiesAdditionalUiEffects = readTable('unit_abilities_additional_ui_effects_tables');
+  let unitAbilitiesToAdditionalUiEffectsJuncs = readTable('unit_abilities_to_additional_ui_effects_juncs_tables');
+  let unitAbilityTypes = readTable('unit_ability_types_tables');
+  let unitAbilities = readTable('unit_abilities_tables');
+  let effectBonusValueUnitAbilityJunc = readTable('effect_bonus_value_unit_ability_junctions_tables');
+  let effects = readTable('effects_tables');
+  let battleVortexes = readTable('battle_vortexs_tables');
+  let projectileBombardments = readTable('projectile_bombardments_tables');
+  let projectiles = readTable('projectiles_tables');
+  let projectilesExplosions = readTable('projectiles_explosions_tables');
+  let specialAbilityAutoDeactivateFlags = readTable('special_ability_to_auto_deactivate_flags_tables');
+  let specialAbilityInvalidTargetFlags = readTable('special_ability_to_invalid_target_flags_tables');
+  let unitSetUnitAbilityJunc = readTable('unit_set_unit_ability_junctions_tables');
+  let effectBonusValueUnitSetUnitAbilityJunc = readTable('effect_bonus_value_unit_set_unit_ability_junctions_tables');
+  let armySpecialAbilities = readTable('army_special_abilities_tables');
+  let effectBonusValueMilitaryForceAbilityJunc = readTable('effect_bonus_value_military_force_ability_junctions_tables');
+
+  // Phases
+  unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, combinedLoc, missingTextReplacements);
+  specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
+    specialAbilityPhaseAttributeEffects,
+    unitAttributes
+  );
+  specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_unitStatLoc(
+    specialAbilityPhaseStatEffects,
+    combinedLoc,
+    missingTextReplacements
+  );
+  specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_uiUnitStats(specialAbilityPhaseStatEffects, uiUnitStats);
+  specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseAttributeEffects(
+    specialAbilityPhases,
+    specialAbilityPhaseAttributeEffects
+  );
+  specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseStatEffects(specialAbilityPhases, specialAbilityPhaseStatEffects);
+  specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhases(specialAbilityPhases);
+  specialAbilityToSpecialAbilityPhaseJuncs = staple.specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases(
+    specialAbilityToSpecialAbilityPhaseJuncs,
+    specialAbilityPhases
+  );
+
+  // Abilities
+  unitSpecialAbilities = staple.unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs(
+    unitSpecialAbilities,
+    specialAbilityToSpecialAbilityPhaseJuncs
+  );
+  battleVortexes = staple.battleVortexes_specialAbilityPhases(battleVortexes, specialAbilityPhases);
+  projectilesExplosions = staple.projectilesExplosions_specialAbilityPhases(projectilesExplosions, specialAbilityPhases);
+  projectiles = staple.projectiles_specialAbilityPhases(projectiles, specialAbilityPhases);
+  projectiles = staple.projectiles_projectilesExplosions(projectiles, projectilesExplosions);
+  projectileBombardments = staple.projectileBombardments_projectiles(projectileBombardments, projectiles);
+  unitSpecialAbilities = staple.unitSpecialAbilities_battleVortexes(unitSpecialAbilities, battleVortexes);
+  unitSpecialAbilities = staple.unitSpecialAbilities_projectiles(unitSpecialAbilities, projectiles);
+  unitSpecialAbilities = staple.unitSpecialAbilities_projectileBombardments(unitSpecialAbilities, projectileBombardments);
+  specialAbilityAutoDeactivateFlags = staple.specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc(
+    specialAbilityAutoDeactivateFlags,
+    combinedLoc,
+    missingTextReplacements
+  );
+  specialAbilityInvalidTargetFlags = staple.specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc(
+    specialAbilityInvalidTargetFlags,
+    combinedLoc,
+    missingTextReplacements
+  );
+  unitSpecialAbilities = staple.unitSpecialAbilities_specialAbilityFlags(
+    unitSpecialAbilities,
+    specialAbilityAutoDeactivateFlags,
+    specialAbilityInvalidTargetFlags
+  );
+
+  unitAbilitiesAdditionalUiEffects = staple.unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc(
+    unitAbilitiesAdditionalUiEffects,
+    combinedLoc,
+    missingTextReplacements
+  );
+  unitAbilitiesToAdditionalUiEffectsJuncs = staple.unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects(
+    unitAbilitiesToAdditionalUiEffectsJuncs,
+    unitAbilitiesAdditionalUiEffects
+  );
+  unitAbilityTypes = staple.unitAbilityTypes_unitAbilityTypesLoc(unitAbilityTypes, combinedLoc, missingTextReplacements);
+  unitAbilities = staple.unitAbilities_unitAbilitiesLoc(unitAbilities, combinedLoc, missingTextReplacements);
+  unitAbilities = staple.unitAbilities_unitAbilityTypes(unitAbilities, unitAbilityTypes);
+  unitAbilities = staple.unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs(unitAbilities, unitAbilitiesToAdditionalUiEffectsJuncs);
+  unitAbilities = staple.unitAbilities_unitSpecialAbilities(unitAbilities, unitSpecialAbilities);
+  effectBonusValueUnitAbilityJunc = staple.effectBonusValueUnitAbilityJunc_unitAbilities(effectBonusValueUnitAbilityJunc, unitAbilities);
+  unitSetUnitAbilityJunc = staple.unitSetUnitAbilityJunc_unit_abilities(unitSetUnitAbilityJunc, unitAbilities);
+  effectBonusValueUnitSetUnitAbilityJunc = staple.effectBonusValueUnitSetUnitAbilityJunc_unitSetUnitAbilityJunc(
+    effectBonusValueUnitSetUnitAbilityJunc,
+    unitSetUnitAbilityJunc
+  );
+  armySpecialAbilities = staple.armySpecialAbilities_unitAbilities(armySpecialAbilities, unitAbilities);
+  effectBonusValueMilitaryForceAbilityJunc = staple.effectBonusValueMilitaryForceAbilityJunc_armySpecialAbilities(
+    effectBonusValueMilitaryForceAbilityJunc,
+    armySpecialAbilities
+  );
+
+  // Effects
+  effects = staple.effects_effectsLoc(effects, combinedLoc, missingTextReplacements);
+  effects = staple.effects_effectBonusValueUnitAbilityJunc(effects, effectBonusValueUnitAbilityJunc);
+  effects = staple.effects_effectBonusValueUnitSetUnitAbilityJunc(effects, effectBonusValueUnitSetUnitAbilityJunc);
+  effects = staple.effects_effectBonusValueMilitaryForceAbilityJunc(effects, effectBonusValueMilitaryForceAbilityJunc);
+
+  return effects;
+};
+
+const stapleTables = (globalData, folder, techs) => {
   return new Promise((resolve) => {
     const readTable = (path) => {
       return JSON.parse(JSON.stringify(globalData.parsedData[folder].db[path]));
@@ -21,14 +136,12 @@ const stapleTables = (globalData, folder) => {
 
     const combinedLoc = JSON.parse(JSON.stringify(globalData.parsedData[folder].text));
 
-    let unitAttributes = readTable('unit_attributes_tables');
-    let specialAbilityPhaseAttributeEffects = readTable('special_ability_phase_attribute_effects_tables');
-    let specialAbilityPhaseStatEffects = readTable('special_ability_phase_stat_effects_tables');
-    const uiUnitStats = readTable('ui_unit_stats_tables');
-    let specialAbilityPhases = readTable('special_ability_phases_tables');
-    let specialAbilityToSpecialAbilityPhaseJuncs = readTable('special_ability_to_special_ability_phase_junctions_tables');
-    let unitSpecialAbilities = readTable('unit_special_abilities_tables');
-    let effects = readTable('effects_tables');
+    const effects = stapleTablesEffects(readTable, combinedLoc, missingTextReplacements);
+
+    if (techs) {
+      stapleTablesTechs(folder, JSON.parse(JSON.stringify(effects)), readTable, combinedLoc);
+    }
+
     let ancillaryToEffects = readTable('ancillary_to_effects_tables');
     let ancillaries = readTable('ancillaries_tables');
     let characterSkillLevelToAncillariesJunction = readTable('character_skill_level_to_ancillaries_junctions_tables');
@@ -44,107 +157,9 @@ const stapleTables = (globalData, folder) => {
     const factions = readTable('factions_tables');
     const factionAgentPermittedSubtypes = readTable('faction_agent_permitted_subtypes_tables');
     const characterSkillNodeSets = readTable('character_skill_node_sets_tables');
-    let unitAbilitiesAdditionalUiEffects = readTable('unit_abilities_additional_ui_effects_tables');
-    let unitAbilitiesToAdditionalUiEffectsJuncs = readTable('unit_abilities_to_additional_ui_effects_juncs_tables');
-    let unitAbilityTypes = readTable('unit_ability_types_tables');
-    let unitAbilities = readTable('unit_abilities_tables');
-    let effectBonusValueUnitAbilityJunc = readTable('effect_bonus_value_unit_ability_junctions_tables');
-    let battleVortexes = readTable('battle_vortexs_tables');
-    let projectileBombardments = readTable('projectile_bombardments_tables');
-    let projectiles = readTable('projectiles_tables');
-    let projectilesExplosions = readTable('projectiles_explosions_tables');
-    let specialAbilityAutoDeactivateFlags = readTable('special_ability_to_auto_deactivate_flags_tables');
-    let specialAbilityInvalidTargetFlags = readTable('special_ability_to_invalid_target_flags_tables');
-    let unitSetUnitAbilityJunc = readTable('unit_set_unit_ability_junctions_tables');
-    let effectBonusValueUnitSetUnitAbilityJunc = readTable('effect_bonus_value_unit_set_unit_ability_junctions_tables');
-    let armySpecialAbilities = readTable('army_special_abilities_tables');
-    let effectBonusValueMilitaryForceAbilityJunc = readTable('effect_bonus_value_military_force_ability_junctions_tables');
+
     let effectBundles = readTable('effect_bundles_tables');
     let effectBundlesToEffectsJunc = readTable('effect_bundles_to_effects_junctions_tables');
-
-    // Phases
-    unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, combinedLoc, missingTextReplacements);
-    specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
-      specialAbilityPhaseAttributeEffects,
-      unitAttributes
-    );
-    specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_unitStatLoc(
-      specialAbilityPhaseStatEffects,
-      combinedLoc,
-      missingTextReplacements
-    );
-    specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_uiUnitStats(specialAbilityPhaseStatEffects, uiUnitStats);
-    specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseAttributeEffects(
-      specialAbilityPhases,
-      specialAbilityPhaseAttributeEffects
-    );
-    specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhaseStatEffects(specialAbilityPhases, specialAbilityPhaseStatEffects);
-    specialAbilityPhases = staple.specialAbilityPhases_specialAbilityPhases(specialAbilityPhases);
-    specialAbilityToSpecialAbilityPhaseJuncs = staple.specialAbilityToSpecialAbilityPhaseJuncs_specialAbilityPhases(
-      specialAbilityToSpecialAbilityPhaseJuncs,
-      specialAbilityPhases
-    );
-
-    // Abilities
-    unitSpecialAbilities = staple.unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs(
-      unitSpecialAbilities,
-      specialAbilityToSpecialAbilityPhaseJuncs
-    );
-    battleVortexes = staple.battleVortexes_specialAbilityPhases(battleVortexes, specialAbilityPhases);
-    projectilesExplosions = staple.projectilesExplosions_specialAbilityPhases(projectilesExplosions, specialAbilityPhases);
-    projectiles = staple.projectiles_specialAbilityPhases(projectiles, specialAbilityPhases);
-    projectiles = staple.projectiles_projectilesExplosions(projectiles, projectilesExplosions);
-    projectileBombardments = staple.projectileBombardments_projectiles(projectileBombardments, projectiles);
-    unitSpecialAbilities = staple.unitSpecialAbilities_battleVortexes(unitSpecialAbilities, battleVortexes);
-    unitSpecialAbilities = staple.unitSpecialAbilities_projectiles(unitSpecialAbilities, projectiles);
-    unitSpecialAbilities = staple.unitSpecialAbilities_projectileBombardments(unitSpecialAbilities, projectileBombardments);
-    specialAbilityAutoDeactivateFlags = staple.specialAbilityAutoDeactivateFlags_specialAbilityInvalidFlagsLoc(
-      specialAbilityAutoDeactivateFlags,
-      combinedLoc,
-      missingTextReplacements
-    );
-    specialAbilityInvalidTargetFlags = staple.specialAbilityInvalidTargetFlags_specialAbilityInvalidFlagsLoc(
-      specialAbilityInvalidTargetFlags,
-      combinedLoc,
-      missingTextReplacements
-    );
-    unitSpecialAbilities = staple.unitSpecialAbilities_specialAbilityFlags(
-      unitSpecialAbilities,
-      specialAbilityAutoDeactivateFlags,
-      specialAbilityInvalidTargetFlags
-    );
-
-    unitAbilitiesAdditionalUiEffects = staple.unitAbilitiesAdditionalUiEffects_unitAbilitiesAdditionalUiEffectsLoc(
-      unitAbilitiesAdditionalUiEffects,
-      combinedLoc,
-      missingTextReplacements
-    );
-    unitAbilitiesToAdditionalUiEffectsJuncs = staple.unitAbilitiesToAdditionalUiEffectsJuncs_unitAbilitiesAdditionalUiEffects(
-      unitAbilitiesToAdditionalUiEffectsJuncs,
-      unitAbilitiesAdditionalUiEffects
-    );
-    unitAbilityTypes = staple.unitAbilityTypes_unitAbilityTypesLoc(unitAbilityTypes, combinedLoc, missingTextReplacements);
-    unitAbilities = staple.unitAbilities_unitAbilitiesLoc(unitAbilities, combinedLoc, missingTextReplacements);
-    unitAbilities = staple.unitAbilities_unitAbilityTypes(unitAbilities, unitAbilityTypes);
-    unitAbilities = staple.unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs(unitAbilities, unitAbilitiesToAdditionalUiEffectsJuncs);
-    unitAbilities = staple.unitAbilities_unitSpecialAbilities(unitAbilities, unitSpecialAbilities);
-    effectBonusValueUnitAbilityJunc = staple.effectBonusValueUnitAbilityJunc_unitAbilities(effectBonusValueUnitAbilityJunc, unitAbilities);
-    unitSetUnitAbilityJunc = staple.unitSetUnitAbilityJunc_unit_abilities(unitSetUnitAbilityJunc, unitAbilities);
-    effectBonusValueUnitSetUnitAbilityJunc = staple.effectBonusValueUnitSetUnitAbilityJunc_unitSetUnitAbilityJunc(
-      effectBonusValueUnitSetUnitAbilityJunc,
-      unitSetUnitAbilityJunc
-    );
-    armySpecialAbilities = staple.armySpecialAbilities_unitAbilities(armySpecialAbilities, unitAbilities);
-    effectBonusValueMilitaryForceAbilityJunc = staple.effectBonusValueMilitaryForceAbilityJunc_armySpecialAbilities(
-      effectBonusValueMilitaryForceAbilityJunc,
-      armySpecialAbilities
-    );
-
-    // Effects
-    effects = staple.effects_effectsLoc(effects, combinedLoc, missingTextReplacements);
-    effects = staple.effects_effectBonusValueUnitAbilityJunc(effects, effectBonusValueUnitAbilityJunc);
-    effects = staple.effects_effectBonusValueUnitSetUnitAbilityJunc(effects, effectBonusValueUnitSetUnitAbilityJunc);
-    effects = staple.effects_effectBonusValueMilitaryForceAbilityJunc(effects, effectBonusValueMilitaryForceAbilityJunc);
 
     // Ancillaries
     ancillaryToEffects = staple.ancillariesToEffects_effects(ancillaryToEffects, effects);
@@ -244,4 +259,47 @@ const stapleTables = (globalData, folder) => {
   });
 };
 
-export { stapleTables };
+const stapleTablesTechs = (folder, effects, readTable, combinedLoc) => {
+  let techs = readTable('technologies_tables');
+  let techEffectsJunc = readTable('technology_effects_junction_tables');
+  const techNodeLinks = readTable('technology_node_links_tables');
+  let techNodeSets = readTable('technology_node_sets_tables');
+  let techNodes = readTable('technology_nodes_tables');
+  const techNodesToAncillariesJunc = readTable('technology_nodes_to_ancillaries_junctions_tables');
+  const techRequiredBuildingJunc = readTable('technology_required_building_levels_junctions_tables');
+  const techRequiredTechJunc = readTable('technology_required_technology_junctions_tables');
+  const techScriptLockReason = readTable('technology_script_lock_reasons_tables');
+  const techUiGroups = readTable('technology_ui_groups_tables');
+  const techUiGroupsToTechNodesJunc = readTable('technology_ui_groups_to_technology_nodes_junctions_tables');
+
+  techEffectsJunc = stapleTechs.techEffectsJunc_effects(techEffectsJunc, effects, combinedLoc);
+  techs = stapleTechs.techs_techLoc(techs, combinedLoc);
+  techs = stapleTechs.techs_techEffectsJunc(techs, techEffectsJunc);
+  techs = stapleTechs.techs_techRequiredBuildingJunc(techs, techRequiredBuildingJunc, combinedLoc);
+  techs = stapleTechs.techs_techRequiredTechJunc(techs, techRequiredTechJunc);
+  techs = stapleTechs.techs_techScriptLockReason(techs, techScriptLockReason);
+  techNodes = stapleTechs.techNodes_techs(techNodes, techs);
+  techNodes = stapleTechs.techNodes_techNodeLinks(techNodes, techNodeLinks);
+  techNodes = stapleTechs.techNodes_techNodesToAncillariesJunc(techNodes, techNodesToAncillariesJunc);
+  const nodeSetLinksList = stapleTechs.nodeSetLinksList(techNodes, techNodeLinks);
+  techNodeSets = stapleTechs.techNodeSets_techNodes(techNodeSets, techNodes);
+  techNodeSets = stapleTechs.techNodeSets_nodeSetLinksList(techNodeSets, nodeSetLinksList);
+
+  output_techs(techNodeSets, folder);
+};
+
+const stapleTablesOnlyTech = (globalData, folder) => {
+  const readTable = (path) => {
+    return JSON.parse(JSON.stringify(globalData.parsedData[folder].db[path]));
+  };
+
+  const missingTextReplacements = [];
+
+  const combinedLoc = JSON.parse(JSON.stringify(globalData.parsedData[folder].text));
+
+  const effects = stapleTablesEffects(readTable, combinedLoc, missingTextReplacements);
+
+  stapleTablesTechs(folder, effects, readTable, combinedLoc);
+};
+
+export { stapleTables, stapleTablesOnlyTech };

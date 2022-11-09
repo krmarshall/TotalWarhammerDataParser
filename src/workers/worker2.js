@@ -22,10 +22,10 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
 
     // Unpruned mods
     const radious2PackNames = ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'];
-    workerMod(globalData, 'sfo2', 'steel_faith_overhaul_2', 'steel_faith_overhaul_2', sfo2DbList, undefined, 'warhammer_2', false);
-    workerModMulti(globalData, 'radious2', radious2PackNames, radious2PackNames, radious2DbList, undefined, 'warhammer_2', false);
+    workerMod(globalData, 'sfo2', 'steel_faith_overhaul_2', 'steel_faith_overhaul_2', sfo2DbList, undefined, 'warhammer_2', false, true);
+    workerModMulti(globalData, 'radious2', radious2PackNames, radious2PackNames, radious2DbList, undefined, 'warhammer_2', false, true);
 
-    return stapleTables(globalData, folder);
+    return stapleTables(globalData, folder, true);
   })
   .then(() => {
     // Pruned mods

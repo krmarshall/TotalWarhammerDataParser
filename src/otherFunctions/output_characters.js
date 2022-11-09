@@ -18,9 +18,9 @@ const pruneChar = (charKey, faction, folder) => {
 };
 
 const output_characters = (cultures, collatedNodeSets, folder) => {
+  const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
   const missingCharacters = [];
   cultures.forEach((culture) => {
-    const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
     culture.lordNodeSets.forEach((lord) => {
       if (collatedNodeSets[lord] === undefined && !missingCharacters.includes(lord)) {
         missingCharacters.push(lord);
@@ -33,9 +33,13 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (culture.key !== 'wh_dlc03_bst_beastmen' && collatedNodeSets[lord].key === 'bst_beastlord') {
         return;
       }
-      fse.outputJSONSync(`./output/${folder}/${cultureMap[culture.key]}/${collatedNodeSets[lord].key}.json`, collatedNodeSets[lord], {
-        spaces,
-      });
+      fse.outputJSONSync(
+        `./output/skills/${folder}/${cultureMap[culture.key]}/${collatedNodeSets[lord].key}.json`,
+        collatedNodeSets[lord],
+        {
+          spaces,
+        }
+      );
     });
 
     culture.heroNodeSets.forEach((hero) => {
@@ -46,9 +50,13 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
       if (pruneChar(collatedNodeSets[hero].key, culture.key, folder)) {
         return;
       }
-      fse.outputJSONSync(`./output/${folder}/${cultureMap[culture.key]}/${collatedNodeSets[hero].key}.json`, collatedNodeSets[hero], {
-        spaces,
-      });
+      fse.outputJSONSync(
+        `./output/skills/${folder}/${cultureMap[culture.key]}/${collatedNodeSets[hero].key}.json`,
+        collatedNodeSets[hero],
+        {
+          spaces,
+        }
+      );
     });
   });
   if (missingCharacters.length > 0) {

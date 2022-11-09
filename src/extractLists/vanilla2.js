@@ -41,6 +41,19 @@ const v2DbList = [
   'army_special_abilities_tables',
   'effect_bundles_tables',
   'effect_bundles_to_effects_junctions_tables',
+
+  // Techs
+  'technologies_tables',
+  'technology_effects_junction_tables',
+  'technology_node_links_tables',
+  'technology_node_sets_tables',
+  'technology_nodes_tables',
+  'technology_nodes_to_ancillaries_junctions_tables',
+  'technology_required_building_levels_junctions_tables',
+  'technology_required_technology_junctions_tables',
+  'technology_script_lock_reasons_tables',
+  'technology_ui_groups_tables',
+  'technology_ui_groups_to_technology_nodes_junctions_tables',
 ];
 
 const v2LocList = [
@@ -58,6 +71,13 @@ const v2LocList = [
   'campaign_effect_scopes__',
   'special_ability_invalid_usage_flags__',
   'effect_bundles__',
+
+  // Techs
+  'technologies__',
+  'technology_node_sets__',
+  'technology_script_lock_reasons__',
+  'technology_ui_groups__',
+  'building_culture_variants__',
 ];
 
 export { v2DbList, v2LocList };
