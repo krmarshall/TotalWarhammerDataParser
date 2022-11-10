@@ -7,7 +7,7 @@ import { workerImage } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 import pruneChars from '../pruneChars.js';
 
-const { globalData, folder, dbPackName, locPackName, dbList, locList, game, prune } = workerData;
+const { globalData, folder, dbPackName, locPackName, dbList, locList, game, prune, tech } = workerData;
 
 ensureDirSync(`./extracted_files/${folder}/`);
 extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
@@ -16,9 +16,9 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     parseFiles(folder, true, globalData);
     mergeTablesIntoVanilla(globalData, folder);
     mergeLocsIntoVanilla(globalData, folder);
-    workerImage(folder, [dbPackName], game);
+    workerImage(folder, [dbPackName], game, tech);
 
-    return stapleTables(globalData, folder);
+    return stapleTables(globalData, folder, tech);
   })
   .then(() => {
     if (prune) {

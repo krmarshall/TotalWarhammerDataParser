@@ -79,3 +79,7 @@ WH3 also needs
 - Use the above image conversion settings/scripts appropriately
 - Copy extracted data TWPData repo
 - Copy extracted imgs TotalWarhammerPlanner repo frontend/public/imgs
+
+## Techs
+
+For Sigmar knows what reason tech indents start at -2, I realigned them to start at 0 for easier array usage. So all indents in output data will be 2 higher than in packs.

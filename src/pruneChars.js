@@ -4,8 +4,8 @@ import log from './log.js';
 
 const pruneChars = (folder) => {
   const vanillaFolder = folder.includes('2') ? 'vanilla2' : 'vanilla3';
-  const vanillaCharPaths = fg.sync(`./output/${vanillaFolder}/**/*.json`, { onlyFiles: true });
-  const modCharPaths = fg.sync(`./output/${folder}/**/*.json`, { onlyFiles: true });
+  const vanillaCharPaths = fg.sync(`./output/skills/${vanillaFolder}/**/*.json`, { onlyFiles: true });
+  const modCharPaths = fg.sync(`./output/skills/${folder}/**/*.json`, { onlyFiles: true });
   modCharPaths.forEach((modCharPath) => {
     const checkVanillaPath = modCharPath.replace(folder, vanillaFolder);
     if (vanillaCharPaths.includes(checkVanillaPath)) {
@@ -13,7 +13,7 @@ const pruneChars = (folder) => {
     }
   });
 
-  const factionFolders = fg.sync(`./output/${folder}/*/`, { onlyDirectories: true });
+  const factionFolders = fg.sync(`./output/skills/${folder}/*/`, { onlyDirectories: true });
   factionFolders.forEach((factionFolder) => {
     fse
       .rmdir(factionFolder)

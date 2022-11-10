@@ -22,20 +22,20 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => {
     parseFiles(folder, false, globalData);
 
-    workerImage(folder, imagePacknames, game);
+    workerImage(folder, imagePacknames, game, true);
 
     // Unpruned Mods
     const radious3PackNames = ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'];
-    workerModMulti(globalData, 'radious3', radious3PackNames, radious3PackNames, radious3DbList, undefined, 'warhammer_3', false);
-    workerMod(globalData, 'crys3', 'crys_leaders', 'crys_leaders', crys3DbList, undefined, 'warhammer_3', false);
+    workerModMulti(globalData, 'radious3', radious3PackNames, radious3PackNames, radious3DbList, undefined, 'warhammer_3', false, true);
+    workerMod(globalData, 'crys3', 'crys_leaders', 'crys_leaders', crys3DbList, undefined, 'warhammer_3', false, false);
 
-    return stapleTables(globalData, folder);
+    return stapleTables(globalData, folder, true);
   })
   .then(() => {
     // Pruned Mods
     const mixuPackNames = ['ab_mixu_legendary_lords', 'ab_unwashed_masses'];
-    workerModMulti(globalData, 'mixu3', mixuPackNames, mixuPackNames, mixu3DbList, undefined, 'warhammer_3', true);
-    workerMod(globalData, 'lege3', '!str_legendary', '!str_legendary', lege3DbList, undefined, 'warhammer_3', true);
+    workerModMulti(globalData, 'mixu3', mixuPackNames, mixuPackNames, mixu3DbList, undefined, 'warhammer_3', true, false);
+    workerMod(globalData, 'lege3', '!str_legendary', '!str_legendary', lege3DbList, undefined, 'warhammer_3', true, false);
   })
   .catch((error) => {
     throw error;

@@ -95,6 +95,19 @@ const tableNameMap2 = {
   army_special_abilities_tables: ['army_special_ability'],
   effect_bundles_tables: ['key'],
   effect_bundles_to_effects_junctions_tables: ['effect_bundle_key', 'effect_key'],
+
+  // Techs
+  technologies_tables: ['key'],
+  technology_effects_junction_tables: ['technology', 'effect'],
+  technology_node_links_tables: ['parent_key', 'child_key'],
+  technology_node_sets_tables: ['key'],
+  technology_nodes_tables: ['key'],
+  technology_nodes_to_ancillaries_junctions_tables: ['technology_node', 'ancillary'],
+  technology_required_building_levels_junctions_tables: ['technology', 'required_building_level'],
+  technology_required_technology_junctions_tables: ['technology', 'required_technology'],
+  technology_script_lock_reasons_tables: ['technology'],
+  technology_ui_groups_tables: ['key'],
+  technology_ui_groups_to_technology_nodes_junctions_tables: ['tech_ui_group'],
 };
 
 const tableNameMap3 = {

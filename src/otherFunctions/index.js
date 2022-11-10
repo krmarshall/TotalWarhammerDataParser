@@ -8,6 +8,7 @@ import output_characterLists from './output_characterLists.js';
 import parseFloatToFixed from './parseFloatToFixed.js';
 import globalDataInit from './globalDataInit.js';
 import pruneDupeAbilities from './pruneDupeAbilities.js';
+import output_techs from './output_techs.js';
 
 export {
   output_characters,
@@ -20,4 +21,5 @@ export {
   parseFloatToFixed,
   globalDataInit,
   pruneDupeAbilities,
+  output_techs,
 };

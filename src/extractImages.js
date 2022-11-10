@@ -5,11 +5,12 @@ import fse from 'fs-extra';
 const cwdRPFM = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 const cwdNconvert = 'D:/GitHub/TotalWarhammerDataParser/bins';
 
-const extractImages = (folder, packNames, game) => {
+const extractImages = (folder, packNames, game, tech) => {
   return new Promise((resolve, reject) => {
     const imagePromises = packNames.map((packName) => {
       return new Promise((resolveI, rejectI) => {
-        const foldersString = '"ui/battle ui/ability_icons" "ui/campaign ui/effect_bundles" "ui/campaign ui/skills"';
+        let foldersString = '"ui/battle ui/ability_icons" "ui/campaign ui/effect_bundles" "ui/campaign ui/skills"';
+        tech ? (foldersString += ' "ui/campaign ui/technologies"') : undefined;
         exec(
           `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${packName}.pack" packfile -E "../extracted_files/${folder}" - ${foldersString}`,
           { cwd: cwdRPFM },
