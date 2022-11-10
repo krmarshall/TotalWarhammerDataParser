@@ -71,13 +71,14 @@ const workerModMulti = (globalData, folder, dbPackNames, locPackNames, dbList, l
   });
 };
 
-const workerImage = (folder, dbPackNames, game) => {
+const workerImage = (folder, dbPackNames, game, tech) => {
   if (process.env.IMG === 'true') {
     const workerImage = new Worker('./src/workers/workerImage.js', {
       workerData: {
         folder,
         dbPackNames,
         game,
+        tech,
       },
     });
     workerImage.on('error', (error) => {

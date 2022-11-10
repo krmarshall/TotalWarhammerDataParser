@@ -1,9 +1,9 @@
 import { workerData } from 'worker_threads';
 import { convertImages, extractImages } from '../extractImages.js';
 
-const { folder, dbPackNames, game } = workerData;
+const { folder, dbPackNames, game, tech } = workerData;
 
-extractImages(folder, dbPackNames, game)
+extractImages(folder, dbPackNames, game, tech)
   .then(async () => {
     await convertImages(folder);
   })

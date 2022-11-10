@@ -22,7 +22,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => {
     parseFiles(folder, false, globalData);
 
-    workerImage(folder, imagePacknames, game);
+    workerImage(folder, imagePacknames, game, true);
 
     // Unpruned Mods
     const radious3PackNames = ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'];

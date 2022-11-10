@@ -18,7 +18,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
   .then(() => {
     parseFiles(folder, false, globalData);
 
-    workerImage(folder, [dbPackName], game);
+    workerImage(folder, [dbPackName], game, true);
 
     // Unpruned mods
     const radious2PackNames = ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'];

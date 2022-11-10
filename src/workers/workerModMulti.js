@@ -16,7 +16,7 @@ extractPackfileMulti(folder, dbPackNames, locPackNames, dbList, locList, game)
     parseFiles(folder, true, globalData);
     mergeTablesIntoVanilla(globalData, folder);
     mergeLocsIntoVanilla(globalData, folder);
-    workerImage(folder, dbPackNames, game);
+    workerImage(folder, dbPackNames, game, tech);
 
     return stapleTables(globalData, folder, tech);
   })
