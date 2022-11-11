@@ -19,9 +19,15 @@ const techNodes_techs = (techNodes, techs) => {
       // For sigmar knows what reason indents start at -2, realign them to 0 for easier array usage
       node.indent = parseInt(node.indent) + 2;
       node.research_points_required = parseInt(node.research_points_required);
-      node.cost_per_round = parseInt(node.cost_per_round);
+      node.cost_per_round === '0' ? delete node.cost_per_round : (node.cost_per_round = parseInt(node.cost_per_round));
       // WH2 doesnt have required parents number
-      node.required_parents !== undefined ? (node.required_parents = parseInt(node.required_parents)) : undefined;
+      if (node.required_parents !== undefined) {
+        if (node.required_parents === '0') {
+          delete node.required_parents;
+        } else {
+          node.required_parents = parseInt(node.required_parents);
+        }
+      }
       ['0', ''].includes(node.pixel_offset_x) ? delete node.pixel_offset_x : parseInt(node.pixel_offset_x);
       ['0', ''].includes(node.pixel_offset_y) ? delete node.pixel_offset_y : parseInt(node.pixel_offset_y);
     }

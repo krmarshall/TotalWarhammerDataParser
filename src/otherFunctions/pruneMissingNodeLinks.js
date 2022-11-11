@@ -4,6 +4,7 @@ const pruneMissingNodeLinks = (techNodeSets) => {
     nodeSet.tree.forEach((row) => {
       row?.forEach((node) => {
         if (node !== null) {
+          delete node.technology_node_set;
           nodeKeys[node.key] = node.key;
         }
       });
