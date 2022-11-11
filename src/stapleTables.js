@@ -10,6 +10,7 @@ import {
   output_characterLists,
   pruneDupeAbilities,
   output_techs,
+  pruneMissingNodeLinks,
 } from './otherFunctions/index.js';
 import log from './log.js';
 
@@ -284,6 +285,8 @@ const stapleTablesTechs = (folder, effects, readTable, combinedLoc) => {
   const nodeSetLinksList = stapleTechs.nodeSetLinksList(techNodes, techNodeLinks);
   techNodeSets = stapleTechs.techNodeSets_techNodes(techNodeSets, techNodes);
   techNodeSets = stapleTechs.techNodeSets_nodeSetLinksList(techNodeSets, nodeSetLinksList);
+
+  techNodeSets = pruneMissingNodeLinks(techNodeSets);
 
   output_techs(techNodeSets, folder);
 };

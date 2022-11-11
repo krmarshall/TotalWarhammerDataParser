@@ -9,6 +9,7 @@ import parseFloatToFixed from './parseFloatToFixed.js';
 import globalDataInit from './globalDataInit.js';
 import pruneDupeAbilities from './pruneDupeAbilities.js';
 import output_techs from './output_techs.js';
+import pruneMissingNodeLinks from './pruneMissingNodeLinks.js';
 
 export {
   output_characters,
@@ -22,4 +23,5 @@ export {
   globalDataInit,
   pruneDupeAbilities,
   output_techs,
+  pruneMissingNodeLinks,
 };
