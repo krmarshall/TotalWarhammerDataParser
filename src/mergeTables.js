@@ -126,6 +126,7 @@ const tableNameMap3 = {
   // rpfm only shows skill_key as the PK, but think it needs to be skill_key and rank CP?
   character_skills_to_level_reached_criterias_tables: ['character_skill', 'character_level', 'upgrade_to_skill_level'],
   faction_starting_general_effects_tables: ['agent_subtype'],
+  technology_ui_group_links_tables: ['parent_key', 'child_key'],
 };
 
 export { mergeTablesIntoVanilla, mergeLocsIntoVanilla };

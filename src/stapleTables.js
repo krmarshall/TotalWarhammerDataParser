@@ -270,7 +270,7 @@ const stapleTablesTechs = (folder, effects, readTable, combinedLoc) => {
   const techRequiredBuildingJunc = readTable('technology_required_building_levels_junctions_tables');
   const techRequiredTechJunc = readTable('technology_required_technology_junctions_tables');
   const techScriptLockReason = readTable('technology_script_lock_reasons_tables');
-  const techUiGroups = readTable('technology_ui_groups_tables');
+  let techUiGroups = readTable('technology_ui_groups_tables');
   const techUiGroupsToTechNodesJunc = readTable('technology_ui_groups_to_technology_nodes_junctions_tables');
 
   techEffectsJunc = stapleTechs.techEffectsJunc_effects(techEffectsJunc, effects, combinedLoc);
@@ -286,8 +286,14 @@ const stapleTablesTechs = (folder, effects, readTable, combinedLoc) => {
   techNodeSets = stapleTechs.techNodeSets_techNodes(techNodeSets, techNodes);
   techNodeSets = stapleTechs.techNodeSets_nodeSetLinksList(techNodeSets, nodeSetLinksList);
 
-  techNodeSets = pruneMissingNodeLinks(techNodeSets);
+  techUiGroups = stapleTechs.techUiGroups_techUiGroupsToTechNodesJunc(techUiGroups, techUiGroupsToTechNodesJunc);
+  techNodeSets = stapleTechs.techNodeSets_techUiGroups(techNodeSets, techUiGroups);
 
+  if (folder.includes('3')) {
+    const techUiGroupLinks = readTable('technology_ui_group_links_tables');
+  }
+
+  techNodeSets = pruneMissingNodeLinks(techNodeSets);
   output_techs(techNodeSets, folder);
 };
 

@@ -10,6 +10,8 @@ import nodeSetLinksList from './nodeSetLinksList.js';
 import techNodes_techNodesToAncillariesJunc from './techNodes_techNodesToAncillariesJunc.js';
 import techNodeSets_techNodes from './techNodeSets_techNodes.js';
 import techNodeSets_nodeSetLinksList from './techNodeSets_nodeSetLinksList.js';
+import techUiGroups_techUiGroupsToTechNodesJunc from './techUiGroups_techUiGroupsToTechNodesJunc.js';
+import techNodeSets_techUiGroups from './techNodeSets_techUiGroups.js';
 
 export {
   techs_techLoc,
@@ -24,4 +26,6 @@ export {
   techNodes_techNodesToAncillariesJunc,
   techNodeSets_techNodes,
   techNodeSets_nodeSetLinksList,
+  techUiGroups_techUiGroupsToTechNodesJunc,
+  techNodeSets_techUiGroups,
 };
