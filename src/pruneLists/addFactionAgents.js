@@ -54,7 +54,6 @@ const addFactionAgents = [
   { faction: 'wh_dlc03_bst_beastmen', agent: 'bst_slugtongue', game: '3', mod: 'mixu3' },
 
   { faction: 'wh_main_chs_chaos', agent: 'chs_azubhor_clawhand', game: '3', mod: 'mixu3' },
-  { faction: 'wh_main_chs_chaos', agent: 'chs_egrimm_van_horstmann', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_chs_chaos', agent: 'chs_malofex_the_storm_chaser', game: '3', mod: 'mixu3' },
 
   { faction: 'wh2_dlc11_cst_vampire_coast', agent: 'cst_drekla', game: '3', mod: 'mixu3' },
@@ -69,7 +68,7 @@ const addFactionAgents = [
 
   { faction: 'wh_main_emp_empire', agent: 'emp_alberich_haupt_anderssen', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_emp_empire', agent: 'emp_alberich_von_korden', game: '3', mod: 'mixu3' },
-  // { faction: 'wh_main_emp_empire', agent: 'emp_alberich_von_korden', game: '3', mod: 'mixu3' }, // Dupe
+  { faction: 'wh_main_emp_empire', agent: 'emp_alberich_von_korden_hero', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_emp_empire', agent: 'emp_aldebrand_ludenhof', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_emp_empire', agent: 'emp_edvard_van_der_kraal', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_emp_empire', agent: 'emp_elspeth', game: '3', mod: 'mixu3' },
@@ -112,6 +111,9 @@ const addFactionAgents = [
   { faction: 'wh_dlc05_wef_wood_elves', agent: 'wef_wychwethyl', game: '3', mod: 'mixu3' },
 
   { faction: 'wh_main_chs_chaos', agent: 'tze_melekh_the_changer', game: '3', mod: 'mixu3' }, // Apparently chaos according to https://steamcommunity.com/workshop/filedetails/discussion/2802810577/3317484899042968859/
+
+  { faction: 'wh3_main_tze_tzeentch', agent: 'chs_egrimm_van_horstmann', game: '3', mod: 'mixu3' },
+  { faction: 'wh3_main_tze_tzeentch', agent: 'mixu_tze_exalted_hero', game: '3', mod: 'mixu3' },
 
   // Mixu 3 Gnobs
   { faction: 'mixer_gnob_gnoblar_horde', agent: 'gnob_bragg_the_gutsman', game: '3', mod: 'mixu3' },
