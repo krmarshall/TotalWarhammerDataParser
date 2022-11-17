@@ -12,7 +12,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 
 ## Keep any eye on
 
-- WH3 Oxyotl and Mazdamundi have quest item ancillaries that still exist in skill tree. If more mods utilize ancilllaries in skill trees could link them properly.
+- WH3 Oxyotl and Mazdamundi have item ancillaries that still exist in skill tree. If more mods utilize ancilllaries in skill trees could link them properly.
 - Prune more props not used in frontend to save file size
 - Can probably prune glade_lord_fem, just keeping in case mods do something with it?
 
@@ -49,7 +49,7 @@ XnConvert webp settings for different conversions:
 - flags: lossless
 - characters quality 90
 
-Warhammer 3 character portholes arent circularized like wh2/1, can use imagemagick to automate cropping/circularizing them. Note the mask is strangely sized, for whatever reason thats what results in a 164x164 output. The mask also loses inner transparency for black, which then gets replaced, so watch for image artifacts.
+Warhammer 3 character portholes arent circularized like wh2/1, can use imagemagick to automate cropping/circularizing them. Note the mask is strangely sized, for whatever reason thats what results in a 164x164 output. The mask also loses inner transparency for black, which then gets replaced, so watch for image artifacts. Can try faffing around with using pink instead?
 
 magick -size 165x166 xc:Transparent -fill White -draw 'circle 83 83 83 1' -alpha Copy mask.png
 
@@ -83,3 +83,7 @@ WH3 also needs
 ## Techs
 
 For Sigmar knows what reason tech indents start at -2, I realigned them to start at 0 for easier array usage. So all indents in output data will be 2 higher than in packs.
+
+## Potential Automation
+
+If enough monthly donations can look at upgrading the droplet to something that could handle running the data parser builds (~4GB mem, ~100GB storage). Use steamcmd to grab workshop files every x interval, if they changed trigger a rebuild. Would probably want to properly automate portrait extraction/linking.

@@ -37,6 +37,7 @@
 - -recharge_time *might be interesting
 - +freeze_recharge *might be interesting
 - +spreading
+- +barrier_heal_amount
 
 ### special_ability_to_special_ability_phase_junctions_tables
 - +target_self
