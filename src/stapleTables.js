@@ -15,7 +15,7 @@ import {
 import log from './log.js';
 
 // Staple tables up to effects, used by both skill and tech trees
-const stapleTablesEffects = (readTable, combinedLoc, missingTextReplacements) => {
+const stapleTablesEffects = (readTable, combinedLoc, missingTextReplacements, globalData, folder) => {
   let unitAttributes = readTable('unit_attributes_tables');
   let specialAbilityPhaseAttributeEffects = readTable('special_ability_phase_attribute_effects_tables');
   let specialAbilityPhaseStatEffects = readTable('special_ability_phase_stat_effects_tables');
@@ -44,7 +44,9 @@ const stapleTablesEffects = (readTable, combinedLoc, missingTextReplacements) =>
   unitAttributes = staple.unitAttributes_unitAttributesLoc(unitAttributes, combinedLoc, missingTextReplacements);
   specialAbilityPhaseAttributeEffects = staple.specialAbilityPhaseAttributeEffects_unitAttributes(
     specialAbilityPhaseAttributeEffects,
-    unitAttributes
+    unitAttributes,
+    globalData,
+    folder
   );
   specialAbilityPhaseStatEffects = staple.specialAbilityPhaseStatEffects_unitStatLoc(
     specialAbilityPhaseStatEffects,
@@ -102,8 +104,8 @@ const stapleTablesEffects = (readTable, combinedLoc, missingTextReplacements) =>
     unitAbilitiesAdditionalUiEffects
   );
   unitAbilityTypes = staple.unitAbilityTypes_unitAbilityTypesLoc(unitAbilityTypes, combinedLoc, missingTextReplacements);
-  unitAbilities = staple.unitAbilities_unitAbilitiesLoc(unitAbilities, combinedLoc, missingTextReplacements);
-  unitAbilities = staple.unitAbilities_unitAbilityTypes(unitAbilities, unitAbilityTypes);
+  unitAbilities = staple.unitAbilities_unitAbilitiesLoc(unitAbilities, combinedLoc, missingTextReplacements, globalData, folder);
+  unitAbilities = staple.unitAbilities_unitAbilityTypes(unitAbilities, unitAbilityTypes, globalData, folder);
   unitAbilities = staple.unitAbilities_unitAbilitiesToAdditionalUiEffectsJuncs(unitAbilities, unitAbilitiesToAdditionalUiEffectsJuncs);
   unitAbilities = staple.unitAbilities_unitSpecialAbilities(unitAbilities, unitSpecialAbilities);
   effectBonusValueUnitAbilityJunc = staple.effectBonusValueUnitAbilityJunc_unitAbilities(effectBonusValueUnitAbilityJunc, unitAbilities);
@@ -119,7 +121,7 @@ const stapleTablesEffects = (readTable, combinedLoc, missingTextReplacements) =>
   );
 
   // Effects
-  effects = staple.effects_effectsLoc(effects, combinedLoc, missingTextReplacements);
+  effects = staple.effects_effectsLoc(effects, combinedLoc, missingTextReplacements, globalData, folder);
   effects = staple.effects_effectBonusValueUnitAbilityJunc(effects, effectBonusValueUnitAbilityJunc);
   effects = staple.effects_effectBonusValueUnitSetUnitAbilityJunc(effects, effectBonusValueUnitSetUnitAbilityJunc);
   effects = staple.effects_effectBonusValueMilitaryForceAbilityJunc(effects, effectBonusValueMilitaryForceAbilityJunc);
@@ -137,7 +139,7 @@ const stapleTables = (globalData, folder, techs) => {
 
     const combinedLoc = JSON.parse(JSON.stringify(globalData.parsedData[folder].text));
 
-    const effects = stapleTablesEffects(readTable, combinedLoc, missingTextReplacements);
+    const effects = stapleTablesEffects(readTable, combinedLoc, missingTextReplacements, globalData, folder);
 
     if (techs) {
       stapleTablesTechs(folder, JSON.parse(JSON.stringify(effects)), readTable, combinedLoc);
@@ -181,7 +183,7 @@ const stapleTables = (globalData, folder, techs) => {
       combinedLoc,
       missingTextReplacements
     );
-    characterSkills = staple.characterSkills_characterSkillsLoc(characterSkills, combinedLoc, missingTextReplacements);
+    characterSkills = staple.characterSkills_characterSkillsLoc(characterSkills, combinedLoc, missingTextReplacements, globalData, folder);
     characterSkills = staple.characterSkills_characterSkillLevelDetails(characterSkills, characterSkillLevelDetails);
     characterSkills = staple.characterSkills_characterSkillLevelToEffectsJunction(characterSkills, characterSkillLevelToEffectsJunction);
     characterSkills = staple.characterSkills_characterSkillLevelToAncillariesJunction(
@@ -306,7 +308,7 @@ const stapleTablesOnlyTech = (globalData, folder) => {
 
   const combinedLoc = JSON.parse(JSON.stringify(globalData.parsedData[folder].text));
 
-  const effects = stapleTablesEffects(readTable, combinedLoc, missingTextReplacements);
+  const effects = stapleTablesEffects(readTable, combinedLoc, missingTextReplacements, globalData, folder);
 
   stapleTablesTechs(folder, effects, readTable, combinedLoc);
 };

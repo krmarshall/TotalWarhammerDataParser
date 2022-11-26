@@ -1,3 +1,6 @@
+#
+Just some rough observations of table changes from 2 to 3/IE
+
 ### ancillaries_tables
 - +faction_set
 

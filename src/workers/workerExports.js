@@ -24,7 +24,7 @@ const workerVanilla = (folder, dbPackName, locPackName, dbList, locList, game) =
 };
 
 const workerMod = (globalData, folder, dbPackName, locPackName, dbList, locList, game, prune, tech) => {
-  console.time(`${folder} total`);
+  console.time(folder);
   const workerMod = new Worker('./src/workers/workerMod.js', {
     workerData: {
       globalData,
@@ -43,12 +43,12 @@ const workerMod = (globalData, folder, dbPackName, locPackName, dbList, locList,
     log(`${folder} failed`, 'red');
   });
   workerMod.on('exit', () => {
-    console.timeEnd(`${folder} total`);
+    console.timeEnd(folder);
   });
 };
 
 const workerModMulti = (globalData, folder, dbPackNames, locPackNames, dbList, locList, game, prune, tech) => {
-  console.time(`${folder} total`);
+  console.time(folder);
   const workerModMulti = new Worker('./src/workers/workerModMulti.js', {
     workerData: {
       globalData,
@@ -67,26 +67,8 @@ const workerModMulti = (globalData, folder, dbPackNames, locPackNames, dbList, l
     log(`${folder} failed`, 'red');
   });
   workerModMulti.on('exit', () => {
-    console.timeEnd(`${folder} total`);
+    console.timeEnd(folder);
   });
 };
 
-const workerImage = (folder, dbPackNames, game, tech) => {
-  if (process.env.IMG === 'true') {
-    const workerImage = new Worker('./src/workers/workerImage.js', {
-      workerData: {
-        folder,
-        dbPackNames,
-        game,
-        tech,
-      },
-    });
-    workerImage.on('error', (error) => {
-      console.log(error);
-      log(`${folder} images failed`, 'red');
-    });
-    return workerImage;
-  }
-};
-
-export { workerVanilla, workerMod, workerModMulti, workerImage };
+export { workerVanilla, workerMod, workerModMulti };

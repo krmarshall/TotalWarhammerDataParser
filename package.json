@@ -12,8 +12,7 @@
     "startProd": "SET NODE_ENV=production&&node --max-old-space-size=8192 ./src/index.js",
     "profile": "node --prof --max-old-space-size=8192 ./src/index.js",
     "fullBuild": "run-s copySource start",
-    "fullBuildProd": "run-s copySource startProd",
-    "img": "SET IMG=true&&node --max-old-space-size=8192 ./src/index.js"
+    "fullBuildProd": "run-s copySource startProd"
   },
   "author": "krmarshall",
   "license": "ISC",

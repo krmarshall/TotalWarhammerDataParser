@@ -2,23 +2,27 @@ import { workerData } from 'worker_threads';
 import { extractPackfileMass, extractTsv } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
-import { workerMod, workerModMulti, workerImage } from './workerExports.js';
+import { workerMod, workerModMulti } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 import { globalDataInit } from '../otherFunctions/index.js';
 import { sfo2DbList } from '../extractLists/sfo2.js';
 import { radious2DbList } from '../extractLists/radious2.js';
+import parseImages from '../extractImages.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
 
+console.time(folder);
 const globalData = globalDataInit(folder);
 
 ensureDirSync(`./extracted_files/${folder}/`);
+const imgPromise = parseImages(folder, [dbPackName], game, true, globalData);
 extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
-  .then(() => extractTsv(folder, game))
+  .then(() => {
+    const tsvPromise = extractTsv(folder, game);
+    return Promise.all([imgPromise, tsvPromise]);
+  })
   .then(() => {
     parseFiles(folder, false, globalData);
-
-    workerImage(folder, [dbPackName], game, true);
 
     // Unpruned mods
     const radious2PackNames = ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'];
@@ -28,6 +32,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     return stapleTables(globalData, folder, true);
   })
   .then(() => {
+    console.timeEnd(folder);
     // Pruned mods
   })
   .catch((error) => {

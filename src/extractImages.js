@@ -34,7 +34,7 @@ const extractImages = (folder, packNames, game, tech) => {
   });
 };
 
-const convertImages = (folder) => {
+const convertImages = (folder, globalData) => {
   const imageDirs = fg.sync(`./extracted_files/${folder}/ui/**/`, { markDirectories: true, onlyDirectories: true });
   const promises = imageDirs.map((imageDir, index) => {
     return new Promise((resolve, reject) => {
@@ -46,8 +46,11 @@ const convertImages = (folder) => {
         let outPath = `../output_img/${folder}/${splitPath[splitPath.length - 1]}`;
         outPath = outPath.replace(' ', '_');
         // ensureDirSync(outPath);
-        const script = `### -out webp -q 90 -rmeta -quiet -o ${outPath}%`;
+        const script = `### -out webp -q 90 -rmeta -quiet -lower -o ${outPath}%`;
         const finalScript = imagePaths.reduce((prev, cur) => {
+          const fileSplitPath = cur.split(`${folder}/ui/`);
+          const filePath = fileSplitPath[fileSplitPath.length - 1].replace(' ', '_').replace('.png', '').toLowerCase();
+          globalData.imgPaths[folder][filePath] = filePath;
           return `${prev}\n.${cur}`;
         }, script);
         fse.outputFileSync(`./bins/nScripts/${folder}${index}.txt`, finalScript);
@@ -72,4 +75,17 @@ const convertImages = (folder) => {
   });
 };
 
-export { extractImages, convertImages };
+const parseImages = (folder, packNames, game, tech, globalData) => {
+  return new Promise((resolve, reject) => {
+    extractImages(folder, packNames, game, tech)
+      .then(() => convertImages(folder, globalData))
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export default parseImages;
