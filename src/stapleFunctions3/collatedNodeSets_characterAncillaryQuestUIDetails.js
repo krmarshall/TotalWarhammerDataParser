@@ -66,13 +66,13 @@ const collatedNodeSets_characterAncillaryQuestUIDetails = (
 export default collatedNodeSets_characterAncillaryQuestUIDetails;
 
 const ancillaryTypeImageEnum = {
-  wh_main_anc_arcane_item: 'vanilla3/campaign_ui/skills/item_arcane_item.png',
-  wh_main_anc_enchanted_item: 'vanilla3/campaign_ui/skills/item_enchanted_item.png',
-  wh_main_anc_weapon: 'vanilla3/campaign_ui/skills/item_weapon.png',
-  wh_main_anc_armour: 'vanilla3/campaign_ui/skills/item_armour.png',
-  wh_main_anc_talisman: 'vanilla3/campaign_ui/skills/item_talisman.png',
-  wh_dlc05_anc_mount_wef_forest_dragon: 'vanilla3/campaign_ui/skills/mount_forest_dragon.png',
-  wh2_dlc17_anc_banner_lzd_poison_daemonbane: 'vanilla3/campaign_ui/skills/0_placeholder_skill.png',
-  wh2_dlc17_anc_banner_lzd_poison_slow_death: 'vanilla3/campaign_ui/skills/0_placeholder_skill.png',
-  wh2_main_anc_magic_standard_sunburst_standard_of_hexoatl: 'vanilla3/campaign_ui/skills/0_placeholder_skill.png',
+  wh_main_anc_arcane_item: 'vanilla3/campaign_ui/skills/item_arcane_item',
+  wh_main_anc_enchanted_item: 'vanilla3/campaign_ui/skills/item_enchanted_item',
+  wh_main_anc_weapon: 'vanilla3/campaign_ui/skills/item_weapon',
+  wh_main_anc_armour: 'vanilla3/campaign_ui/skills/item_armour',
+  wh_main_anc_talisman: 'vanilla3/campaign_ui/skills/item_talisman',
+  wh_dlc05_anc_mount_wef_forest_dragon: 'vanilla3/campaign_ui/skills/mount_forest_dragon',
+  wh2_dlc17_anc_banner_lzd_poison_daemonbane: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
+  wh2_dlc17_anc_banner_lzd_poison_slow_death: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
+  wh2_main_anc_magic_standard_sunburst_standard_of_hexoatl: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
 };
