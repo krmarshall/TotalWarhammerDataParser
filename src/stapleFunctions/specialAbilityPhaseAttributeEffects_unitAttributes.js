@@ -6,7 +6,7 @@ const specialAbilityPhaseAttributeEffects_unitAttributes = (specialAbilityPhaseA
     if (relatedAttribute !== undefined) {
       phase.attribute = { ...relatedAttribute };
       phase.attribute.attribute_type = phase.attribute_type;
-      phase.attribute.icon = findAttributeImage(globalData, folder, phase.attribute.attribute);
+      phase.attribute.icon = findAttributeImage(globalData, folder, phase.attribute.key);
 
       delete phase.attribute_type;
     }
@@ -17,12 +17,11 @@ const specialAbilityPhaseAttributeEffects_unitAttributes = (specialAbilityPhaseA
 
 const findAttributeImage = (globalData, folder, attributeKey) => {
   const vanillaGame = folder.includes('2') ? 'vanilla2' : 'vanilla3';
-  const icon = `${attributeKey}`;
   const searchArray = [
-    `campaign_ui/effect_bundles/attribute_${icon}`,
-    `campaign_ui/effect_bundles/attribute_${icon.toLowerCase()}`,
-    `battle_ui/ability_icons/${icon}`,
-    `battle_ui/ability_icons/${icon.toLowerCase()}`,
+    `campaign_ui/effect_bundles/attribute_${attributeKey}`,
+    `campaign_ui/effect_bundles/attribute_${attributeKey.toLowerCase()}`,
+    `battle_ui/ability_icons/${attributeKey}`,
+    `battle_ui/ability_icons/${attributeKey.toLowerCase()}`,
   ];
 
   const modIcon = searchArray.find((searchPath) => {
@@ -45,7 +44,7 @@ const findAttributeImage = (globalData, folder, attributeKey) => {
     return `${vanillaGame}/${vanillaIcon}`;
   }
 
-  return icon;
+  return attributeKey;
 };
 
 export default specialAbilityPhaseAttributeEffects_unitAttributes;

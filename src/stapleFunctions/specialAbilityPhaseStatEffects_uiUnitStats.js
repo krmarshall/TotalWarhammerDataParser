@@ -5,7 +5,7 @@ const specialAbilityPhaseStatEffects_uiUnitStats = (specialAbilityPhaseStatEffec
     });
     if (relatedUiUnitStat !== undefined) {
       phaseStatEffect.sort_order = parseInt(relatedUiUnitStat.sort_order);
-      phaseStatEffect.icon = `vanilla3/${relatedUiUnitStat.icon.replace(/^ui\//, '').replace('.png', '')}`;
+      phaseStatEffect.icon = `vanilla3/${relatedUiUnitStat.icon.replace(/^ui\//, '').replace('.png', '').replace(' ', '_').toLowerCase()}`;
       if (phaseStatEffect.icon === 'vanilla3/skins/default/placeholder') {
         phaseStatEffect.icon = statEffectIconEnum[phaseStatEffect.stat];
       }
