@@ -129,7 +129,7 @@ const stapleTablesEffects = (readTable, combinedLoc, missingTextReplacements, gl
   return effects;
 };
 
-const stapleTables = (globalData, folder, techs) => {
+const stapleTables = (globalData, folder, techs, pruneVanilla, customPruneList) => {
   return new Promise((resolve) => {
     const readTable = (path) => {
       return JSON.parse(JSON.stringify(globalData.parsedData[folder].db[path]));
@@ -257,7 +257,7 @@ const stapleTables = (globalData, folder, techs) => {
       log(`${folder} missing text replacements: ${missingTextReplacements}`, 'yellow');
     }
 
-    output_characters(cultures, filteredNodeSets, folder);
+    output_characters(cultures, filteredNodeSets, folder, pruneVanilla, customPruneList);
     resolve();
   });
 };

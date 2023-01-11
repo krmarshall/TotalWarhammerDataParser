@@ -1,8 +1,9 @@
 import fse from 'fs-extra';
 import log from '../log.js';
 import { outputCharactersPruneAll, outputCharactersPrune2, outputCharactersPrune3 } from '../pruneLists/outputCharactersPrune.js';
+import vanillaCharList3 from '../pruneLists/vanillaCharList.js';
 
-const pruneChar = (charKey, faction, folder) => {
+const pruneChar = (charKey, faction, folder, pruneVanilla, customPruneList = vanillaCharList3) => {
   if (outputCharactersPruneAll.includes(charKey)) {
     return true;
   }
@@ -14,10 +15,17 @@ const pruneChar = (charKey, faction, folder) => {
       prune = true;
     }
   }
+
+  if (pruneVanilla) {
+    if (customPruneList[charKey] !== undefined) {
+      prune = true;
+    }
+  }
+
   return prune;
 };
 
-const output_characters = (cultures, collatedNodeSets, folder) => {
+const output_characters = (cultures, collatedNodeSets, folder, pruneVanilla, customPruneList) => {
   const spaces = process.env.NODE_ENV === 'production' ? 0 : 2;
   const missingCharacters = [];
   cultures.forEach((culture) => {
@@ -26,7 +34,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
         missingCharacters.push(lord);
         return;
       }
-      if (pruneChar(collatedNodeSets[lord].key, culture.key, folder)) {
+      if (pruneChar(collatedNodeSets[lord].key, culture.key, folder, pruneVanilla, customPruneList)) {
         return;
       }
       // WH3 has beastlords randomly in subculture pools like oxyotl?
@@ -47,7 +55,7 @@ const output_characters = (cultures, collatedNodeSets, folder) => {
         missingCharacters.push(hero);
         return;
       }
-      if (pruneChar(collatedNodeSets[hero].key, culture.key, folder)) {
+      if (pruneChar(collatedNodeSets[hero].key, culture.key, folder, pruneVanilla, customPruneList)) {
         return;
       }
       fse.outputJSONSync(

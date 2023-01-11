@@ -1,18 +1,12 @@
 import { Worker } from 'worker_threads';
 import log from '../log.js';
 
-const workerVanilla = (folder, dbPackName, locPackName, dbList, locList, game) => {
+const workerVanilla = (workerData) => {
+  const { game } = workerData;
   console.time(`${game} total`);
   const workerScript = game === 'warhammer_2' ? './src/workers/worker2.js' : './src/workers/worker3.js';
   const workerVanilla = new Worker(workerScript, {
-    workerData: {
-      folder,
-      dbPackName,
-      locPackName,
-      dbList,
-      locList,
-      game,
-    },
+    workerData,
   });
   workerVanilla.on('error', (error) => {
     console.log(error);
@@ -23,20 +17,11 @@ const workerVanilla = (folder, dbPackName, locPackName, dbList, locList, game) =
   return workerVanilla;
 };
 
-const workerMod = (globalData, folder, dbPackName, locPackName, dbList, locList, game, prune, tech) => {
+const workerMod = (workerData) => {
+  const { folder } = workerData;
   console.time(folder);
   const workerMod = new Worker('./src/workers/workerMod.js', {
-    workerData: {
-      globalData,
-      folder,
-      dbPackName,
-      locPackName,
-      dbList,
-      locList,
-      game,
-      prune,
-      tech,
-    },
+    workerData,
   });
   workerMod.on('error', (error) => {
     console.log(error);
@@ -47,20 +32,11 @@ const workerMod = (globalData, folder, dbPackName, locPackName, dbList, locList,
   });
 };
 
-const workerModMulti = (globalData, folder, dbPackNames, locPackNames, dbList, locList, game, prune, tech) => {
+const workerModMulti = (workerData) => {
+  const { folder } = workerData;
   console.time(folder);
   const workerModMulti = new Worker('./src/workers/workerModMulti.js', {
-    workerData: {
-      globalData,
-      folder,
-      dbPackNames,
-      locPackNames,
-      dbList,
-      locList,
-      game,
-      prune,
-      tech,
-    },
+    workerData,
   });
   workerModMulti.on('error', (error) => {
     console.log(error);

@@ -4,10 +4,9 @@ import { parseFiles } from '../parseFiles.js';
 import { mergeTablesIntoVanilla, mergeLocsIntoVanilla } from '../mergeTables.js';
 import { stapleTables } from '../stapleTables.js';
 import { ensureDirSync } from 'fs-extra';
-import pruneChars from '../pruneChars.js';
 import parseImages from '../extractImages.js';
 
-const { globalData, folder, dbPackName, locPackName, dbList, locList, game, prune, tech } = workerData;
+const { globalData, folder, dbPackName, locPackName, dbList, locList, game, prune, tech, customPruneList } = workerData;
 
 ensureDirSync(`./extracted_files/${folder}/`);
 const imgPromise = parseImages(folder, [dbPackName], game, tech, globalData);
@@ -21,12 +20,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     mergeTablesIntoVanilla(globalData, folder);
     mergeLocsIntoVanilla(globalData, folder);
 
-    return stapleTables(globalData, folder, tech);
-  })
-  .then(() => {
-    if (prune) {
-      pruneChars(folder);
-    }
+    stapleTables(globalData, folder, tech, prune, customPruneList);
   })
   .catch((error) => {
     throw error;

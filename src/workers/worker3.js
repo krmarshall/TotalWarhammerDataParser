@@ -30,18 +30,62 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
 
     // Unpruned Mods
     const radious3PackNames = ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'];
-    workerModMulti(globalData, 'radious3', radious3PackNames, radious3PackNames, radious3DbList, undefined, 'warhammer_3', false, true);
-    workerMod(globalData, 'crys3', 'crys_leaders', 'crys_leaders', crys3DbList, undefined, 'warhammer_3', false, false);
-
-    return stapleTables(globalData, folder, true);
-  })
-  .then(() => {
-    console.timeEnd(folder);
+    workerModMulti({
+      globalData: globalData,
+      folder: 'radious3',
+      dbPackNames: radious3PackNames,
+      locPackNames: radious3PackNames,
+      dbList: radious3DbList,
+      locList: undefined,
+      game: 'warhammer_3',
+      prune: false,
+      tech: true,
+      customPruneList: undefined,
+    });
+    workerMod({
+      globalData: globalData,
+      folder: 'crys3',
+      dbPackName: 'crys_leaders',
+      locPackName: 'crys_leaders',
+      dbList: crys3DbList,
+      locList: undefined,
+      game: 'warhammer_3',
+      prune: false,
+      tech: false,
+      customPruneList: undefined,
+    });
 
     // Pruned Mods
     const mixuPackNames = ['ab_mixu_legendary_lords', 'ab_unwashed_masses'];
-    workerModMulti(globalData, 'mixu3', mixuPackNames, mixuPackNames, mixu3DbList, undefined, 'warhammer_3', true, false);
-    workerMod(globalData, 'lege3', '!str_legendary', '!str_legendary', lege3DbList, undefined, 'warhammer_3', true, false);
+    workerModMulti({
+      globalData: globalData,
+      folder: 'mixu3',
+      dbPackNames: mixuPackNames,
+      locPackNames: mixuPackNames,
+      dbList: mixu3DbList,
+      locList: undefined,
+      game: 'warhammer_3',
+      prune: true,
+      tech: false,
+      customPruneList: undefined,
+    });
+    workerMod({
+      globalData: globalData,
+      folder: 'lege3',
+      dbPackName: '!str_legendary',
+      locPackName: '!str_legendary',
+      dbList: lege3DbList,
+      locList: undefined,
+      game: 'warhammer_3',
+      prune: true,
+      tech: false,
+      customPruneList: undefined,
+    });
+
+    return stapleTables(globalData, folder, true, false, undefined);
+  })
+  .then(() => {
+    console.timeEnd(folder);
   })
   .catch((error) => {
     throw error;

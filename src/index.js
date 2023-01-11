@@ -13,7 +13,21 @@ emptyDirSync('./output_img');
 emptyDirSync('./bins/nScripts');
 
 // Vanilla 2
-workerVanilla('vanilla2', 'data', 'local_en', v2DbList, v2LocList, 'warhammer_2');
+workerVanilla({
+  folder: 'vanilla2',
+  dbPackName: 'data',
+  locPackName: 'local_en',
+  dbList: v2DbList,
+  locList: v2LocList,
+  game: 'warhammer_2',
+});
 
 // Vanilla 3
-workerVanilla('vanilla3', 'data', 'local_en', v3DbList, v3LocList, 'warhammer_3');
+workerVanilla({
+  folder: 'vanilla3',
+  dbPackName: 'data',
+  locPackName: 'local_en',
+  dbList: v3DbList,
+  locList: v3LocList,
+  game: 'warhammer_3',
+});
