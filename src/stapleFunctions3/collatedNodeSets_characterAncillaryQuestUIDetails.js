@@ -75,4 +75,5 @@ const ancillaryTypeImageEnum = {
   wh2_dlc17_anc_banner_lzd_poison_daemonbane: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
   wh2_dlc17_anc_banner_lzd_poison_slow_death: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
   wh2_main_anc_magic_standard_sunburst_standard_of_hexoatl: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
+  hkrul_emp_sec_marem: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
 };

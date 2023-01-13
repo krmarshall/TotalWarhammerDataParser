@@ -13,4 +13,18 @@ ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2791750075" "D:\GitHub\Tot
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2813892035" "D:\GitHub\TotalWarhammerDataParser\game_source\radious3" Radious_WH3_Mod_Part4.pack /NJH /NJS
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2826930183" "D:\GitHub\TotalWarhammerDataParser\game_source\lege3" !str_legendary.pack /NJH /NJS
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2880244265" "D:\GitHub\TotalWarhammerDataParser\game_source\crys3" crys_leaders.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2880515805" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" jade_vamp_pol.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2891621259" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" dead_cult_possessed_unit_V2.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2860291758" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" froeb_warboss_lord.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2790444587" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" dead_jade_army_pack.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2789944159" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" dead_kislev_units.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2890463744" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" @xou_emp.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2890463783" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" @xou_emp_assets.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2874009018" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" !hkrul_emp_secessionists.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2824164139" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" !xou_khorne_karanak.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2803817483" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" !xou_kislev_ivan.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2903601772" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" !!!str_pestilent.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2838941228" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" str_rotblood.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2809422989" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" str_gnoblar.pack /NJH /NJS
+
 EXIT /B

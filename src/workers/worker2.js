@@ -6,7 +6,7 @@ import { workerMod, workerModMulti } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 import { globalDataInit } from '../otherFunctions/index.js';
 import { sfo2DbList } from '../extractLists/sfo2.js';
-import { radious2DbList } from '../extractLists/radious2.js';
+import { radious2DbList, radious2PackNames } from '../extractLists/radious2.js';
 import parseImages from '../extractImages.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
@@ -25,7 +25,6 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     parseFiles(folder, false, globalData);
 
     // Unpruned mods
-    const radious2PackNames = ['radious_total_war_mod_part1', 'radious_total_war_mod_part2', '!sm_radious_hordes_reborn'];
     workerMod({
       globalData: globalData,
       folder: 'sfo2',
@@ -43,6 +42,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
       folder: 'radious2',
       dbPackNames: radious2PackNames,
       locPackNames: radious2PackNames,
+      imgPackNames: radious2PackNames,
       dbList: radious2DbList,
       locList: undefined,
       game: 'warhammer_2',

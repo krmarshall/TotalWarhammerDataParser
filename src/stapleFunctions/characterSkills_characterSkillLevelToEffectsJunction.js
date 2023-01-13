@@ -41,7 +41,7 @@ const characterSkills_characterSkillLevelToEffectsJunction = (characterSkills, c
             return a.priority - b.priority;
           });
         } else {
-          log(`skill level with no effects: ${characterSkill.key}`, 'grey');
+          // log(`skill level with no effects: ${characterSkill.key}`, 'grey');
         }
       });
     }

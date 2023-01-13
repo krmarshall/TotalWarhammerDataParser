@@ -12,20 +12,19 @@ const cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
   });
 
   // Hardcoded fixes z.z
-  const khorneIndex = stapledTable.findIndex((culture) => {
-    return culture.key === 'wh3_main_kho_khorne';
-  });
+  const khorneIndex = stapledTable.findIndex((culture) => culture.key === 'wh3_main_kho_khorne');
   stapledTable[khorneIndex].subcultures = ['wh3_main_sc_kho_khorne'];
 
-  const tzeentchIndex = stapledTable.findIndex((culture) => {
-    return culture.key === 'wh3_main_tze_tzeentch';
-  });
+  const tzeentchIndex = stapledTable.findIndex((culture) => culture.key === 'wh3_main_tze_tzeentch');
   stapledTable[tzeentchIndex].subcultures = ['wh3_main_sc_tze_tzeentch'];
 
-  const proKislevIndex = stapledTable.findIndex((culture) => {
-    return culture.key === 'wh3_main_pro_ksl_kislev';
-  });
+  const proKislevIndex = stapledTable.findIndex((culture) => culture.key === 'wh3_main_pro_ksl_kislev');
   stapledTable.splice(proKislevIndex, 1);
+
+  const jadeVampsIndex = stapledTable.findIndex((culture) => culture.key === 'wh_main_vmp_jade_vampires');
+  if (jadeVampsIndex !== -1) {
+    stapledTable[jadeVampsIndex].subcultures = ['wh_main_sc_vmp_jade_vampires'];
+  }
 
   stapledTable.forEach((culture) => {
     culture.subculture = culture.subcultures[0];

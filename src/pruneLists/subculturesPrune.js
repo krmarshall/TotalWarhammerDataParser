@@ -182,7 +182,7 @@ const subculturesPrune = [
   'wh_main_emp_empire_qb_intro',
   'wh_main_emp_empire_rebels',
   'wh_main_emp_empire_rebels_qb1',
-  'wh_main_emp_empire_separatists',
+  // 'wh_main_emp_empire_separatists',
   'wh_main_emp_marienburg_rebels',
 
   // Greenskins

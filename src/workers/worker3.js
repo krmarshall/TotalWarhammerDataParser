@@ -5,10 +5,11 @@ import { stapleTables } from '../stapleTables.js';
 import { workerMod, workerModMulti } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 import { globalDataInit } from '../otherFunctions/index.js';
-import { radious3DbList } from '../extractLists/radious3.js';
-import { mixu3DbList } from '../extractLists/mixu3.js';
+import { radious3DbList, radious3PackNames } from '../extractLists/radious3.js';
+import { mixu3DbList, mixu3PackNames } from '../extractLists/mixu3.js';
 import { lege3DbList } from '../extractLists/lege3.js';
 import { crys3DbList } from '../extractLists/crys3.js';
+import { scm3DbList, scm3ImgPackNames, scm3PackNames } from '../extractLists/scm3.js';
 import parseImages from '../extractImages.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
@@ -29,12 +30,12 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     parseFiles(folder, false, globalData);
 
     // Unpruned Mods
-    const radious3PackNames = ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'];
     workerModMulti({
       globalData: globalData,
       folder: 'radious3',
       dbPackNames: radious3PackNames,
       locPackNames: radious3PackNames,
+      imgPackNames: radious3PackNames,
       dbList: radious3DbList,
       locList: undefined,
       game: 'warhammer_3',
@@ -56,12 +57,12 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
     });
 
     // Pruned Mods
-    const mixuPackNames = ['ab_mixu_legendary_lords', 'ab_unwashed_masses'];
     workerModMulti({
       globalData: globalData,
       folder: 'mixu3',
-      dbPackNames: mixuPackNames,
-      locPackNames: mixuPackNames,
+      dbPackNames: mixu3PackNames,
+      locPackNames: mixu3PackNames,
+      imgPackNames: mixu3PackNames,
       dbList: mixu3DbList,
       locList: undefined,
       game: 'warhammer_3',
@@ -75,6 +76,19 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
       dbPackName: '!str_legendary',
       locPackName: '!str_legendary',
       dbList: lege3DbList,
+      locList: undefined,
+      game: 'warhammer_3',
+      prune: true,
+      tech: false,
+      customPruneList: undefined,
+    });
+    workerModMulti({
+      globalData: globalData,
+      folder: 'scm3',
+      dbPackNames: scm3PackNames,
+      locPackNames: scm3PackNames,
+      imgPackNames: scm3ImgPackNames,
+      dbList: scm3DbList,
       locList: undefined,
       game: 'warhammer_3',
       prune: true,
