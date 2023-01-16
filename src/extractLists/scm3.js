@@ -14,6 +14,7 @@ const scm3PackNames = [
   '!!!str_pestilent',
   'str_rotblood',
   'str_gnoblar',
+  'str_verms',
 ];
 const scm3ImgPackNames = [
   'jade_vamp_pol',
@@ -29,6 +30,7 @@ const scm3ImgPackNames = [
   '!!!str_pestilent',
   'str_rotblood',
   'str_gnoblar',
+  'str_verms',
 ];
 
 export { scm3DbList, scm3PackNames, scm3ImgPackNames };

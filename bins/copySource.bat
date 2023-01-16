@@ -26,5 +26,6 @@ ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2803817483" "D:\GitHub\Tot
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2903601772" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" !!!str_pestilent.pack /NJH /NJS
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2838941228" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" str_rotblood.pack /NJH /NJS
 ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2809422989" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" str_gnoblar.pack /NJH /NJS
+ROBOCOPY "D:\Steam\steamapps\workshop\content\1142710\2918562980" "D:\GitHub\TotalWarhammerDataParser\game_source\scm3" str_verms.pack /NJH /NJS
 
 EXIT /B
