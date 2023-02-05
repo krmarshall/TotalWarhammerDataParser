@@ -1,5 +1,5 @@
 import { stringInterpolator } from '../otherFunctions/index.js';
-import unitAbilitiesPrune from '../pruneLists/unitAbilitiesPrune.js';
+import unitAbilitiesPrune from '../lists/unitAbilitiesPrune.js';
 
 const unitAbilities_unitAbilitiesLoc = (unitAbilities, combinedLoc, missingTextReplacements, globalData, folder) => {
   const stapledTable = unitAbilities.map((ability) => {

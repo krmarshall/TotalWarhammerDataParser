@@ -1,4 +1,4 @@
-import specialAbilityPhasePrune from '../pruneLists/specialAbilityPhasesPrune.js';
+import specialAbilityPhasePrune from '../lists/specialAbilityPhasesPrune.js';
 import { parseFloatToFixed } from '../otherFunctions/index.js';
 
 // Might have to look more at imbue_contact?

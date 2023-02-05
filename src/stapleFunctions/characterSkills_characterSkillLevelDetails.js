@@ -1,5 +1,5 @@
-import characterSkillsPrune from '../pruneLists/characterSkillsPrune.js';
-import characterSkillLevelDetailsPrune from '../pruneLists/characterSkillLevelDetailsPrune.js';
+import characterSkillsPrune from '../lists/characterSkillsPrune.js';
+import characterSkillLevelDetailsPrune from '../lists/characterSkillLevelDetailsPrune.js';
 
 const characterSkills_characterSkillLevelDetails = (characterSkills, characterSkillLevelDetails) => {
   const stapledTable = characterSkills.map((characterSkill) => {

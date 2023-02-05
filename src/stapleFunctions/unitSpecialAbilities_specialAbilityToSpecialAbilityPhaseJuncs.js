@@ -1,4 +1,4 @@
-import unitSpecialAbilitiesPrune from '../pruneLists/unitSpecialAbilitiesPrune.js';
+import unitSpecialAbilitiesPrune from '../lists/unitSpecialAbilitiesPrune.js';
 import { parseFloatToFixed } from '../otherFunctions/index.js';
 
 const unitSpecialAbilities_specialAbilityToSpecialAbilityPhaseJuncs = (unitSpecialAbilities, specialAbilityToSpecialAbilityPhaseJuncs) => {

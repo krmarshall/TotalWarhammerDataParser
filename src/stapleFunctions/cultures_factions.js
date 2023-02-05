@@ -1,4 +1,4 @@
-import subculturesPrune from '../pruneLists/subculturesPrune.js';
+import subculturesPrune from '../lists/subculturesPrune.js';
 
 const cultures_factions = (cultures, factions) => {
   const stapledTable = cultures.map((culture) => {

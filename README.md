@@ -66,7 +66,7 @@ Alternatively use xnconvert actions or gimp if transparency gets munted.
 - Check if the mod uses any * in table names, rpfm chokes on that character to rename it to something like #
 - Create new extract lists such as ./extractLists/radious3.js, the only time you need to explicitly set the locList like old sfo2 is if rpfm chokes on any table names
 - Add a new workerMod to the mods base game worker (worker2/worker3)
-- Check for characters in agent_subtypes that arent in faction_agent_permitted_subtypes, add to ./pruneLists/addFactionAgents.js
+- Check for characters in agent_subtypes that arent in faction_agent_permitted_subtypes, add to ./lists/addFactionAgents.js
 - Check for bugs, especially in string replacements.
 - Check for manually extracted image paths: 
 - ui/skins/default/fe_logo.png
@@ -79,6 +79,10 @@ WH3 also needs
 - Use the above image conversion settings/scripts appropriately
 - Copy extracted data TWPData repo
 - Copy extracted imgs TotalWarhammerPlanner repo frontend/public/imgs
+
+## Character Skill Node Faction/Subcultures
+
+Skill nodes are able to only be added to trees when they are part of specific factions or subcultures. Mods use this somewhat inconsistently where sometimes its good they aren't added to the "generic" node set, but sometimes they should be. It seems like the former is more common, so if a tree needs it added to the "generic" node set add the faction/subculture to the respective ./lists/cultureMap.js
 
 ## Techs
 

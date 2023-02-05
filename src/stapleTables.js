@@ -6,7 +6,7 @@ import * as stapleTechs from './stapleFunctionsTechs/index.js';
 import {
   output_characters,
   collate_characterSkillNodes,
-  filterNodeSets,
+  filterCharList,
   output_characterLists,
   pruneDupeAbilities,
   output_techs,
@@ -214,15 +214,18 @@ const stapleTables = (globalData, folder, techs, pruneVanilla, customPruneList) 
     }
     cultures = staple.cultures_factions(cultures, factions);
     cultures = staple.cultures_factionAgentPermittedSubtypes(cultures, factionAgentPermittedSubtypes, folder);
-    cultures = staple.cultures_characterSkillNodeSets(cultures, characterSkillNodeSets);
+    cultures = staple.cultures_characterSkillNodeSets(folder, cultures, characterSkillNodeSets);
 
-    let collatedNodeSets = collate_characterSkillNodes(characterSkillNodes, cultures);
+    emptyDirSync(`./test/${folder}`);
+    let charList = output_characterLists(folder, cultures, characterSkillNodeSets, combinedLoc, pruneVanilla, customPruneList);
+
+    charList = collate_characterSkillNodes(characterSkillNodes, charList);
 
     // WH3 attaches quest ancillaries to the agent instead of a skill node
     if (folder.includes('3')) {
       const characterAncillaryQuestUIDetails = readTable('character_ancillary_quest_ui_details_tables');
-      collatedNodeSets = staple3.collatedNodeSets_characterAncillaryQuestUIDetails(
-        collatedNodeSets,
+      charList = staple3.charList_characterAncillaryQuestUIDetails(
+        charList,
         characterSkillNodeSets,
         characterAncillaryQuestUIDetails,
         ancillaries,
@@ -238,26 +241,20 @@ const stapleTables = (globalData, folder, techs, pruneVanilla, customPruneList) 
     if (folder.includes('3')) {
       let factionStartingGeneralEffects = readTable('faction_starting_general_effects_tables');
       factionStartingGeneralEffects = staple3.factionStartingGeneralEffects_effectBundles(factionStartingGeneralEffects, effectBundles);
-      collatedNodeSets = staple3.collatedNodeSets_factionStartingGeneralEffects(
-        collatedNodeSets,
-        characterSkillNodeSets,
-        factionStartingGeneralEffects
-      );
+      charList = staple3.charList_factionStartingGeneralEffects(charList, characterSkillNodeSets, factionStartingGeneralEffects);
     } else {
-      collatedNodeSets = staple.collatedNodeSets_effectBundles(collatedNodeSets, effectBundles);
+      charList = staple.charList_effectBundles(charList, effectBundles);
     }
 
-    const filteredNodeSets = filterNodeSets(collatedNodeSets);
+    charList = filterCharList(charList);
 
-    emptyDirSync(`./test/${folder}`);
-    output_characterLists(folder, cultures, characterSkillNodeSets, combinedLoc);
     fse.outputJSON(`./test/${folder}/cultures.json`, cultures, { spaces: 2 });
 
     if (missingTextReplacements.length > 0) {
       log(`${folder} missing text replacements: ${missingTextReplacements}`, 'yellow');
     }
 
-    output_characters(cultures, filteredNodeSets, folder, pruneVanilla, customPruneList);
+    output_characters(charList, folder);
     resolve();
   });
 };

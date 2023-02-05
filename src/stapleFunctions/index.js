@@ -55,7 +55,7 @@ import specialAbilityPhases_specialAbilityPhases from './specialAbilityPhases_sp
 import effectBundles_loc from './effectBundles_loc.js';
 import effectBundlesToEffectsJunc_effects from './effectBundlesToEffectsJunc_effects.js';
 import effectBundles_effectBundlesToEffectsJunc from './effectBundles_effectBundlesToEffectsJunc.js';
-import collatedNodeSets_effectBundles from './collatedNodeSets_effectBundles.js';
+import charList_effectBundles from './charList_effectBundles.js';
 
 export {
   cultures_characterSkillNodeSets,
@@ -115,5 +115,5 @@ export {
   effectBundles_loc,
   effectBundlesToEffectsJunc_effects,
   effectBundles_effectBundlesToEffectsJunc,
-  collatedNodeSets_effectBundles,
+  charList_effectBundles,
 };

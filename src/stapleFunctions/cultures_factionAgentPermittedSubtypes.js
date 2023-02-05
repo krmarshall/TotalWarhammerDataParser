@@ -1,4 +1,4 @@
-import addFactionAgents from '../pruneLists/addFactionAgents.js';
+import addFactionAgents from '../lists/addFactionAgents.js';
 
 const cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedSubtypes, folder) => {
   const game = folder.includes('2') ? '2' : '3';

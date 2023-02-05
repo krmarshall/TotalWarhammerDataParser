@@ -1,4 +1,4 @@
-import ancillariesPrune from '../pruneLists/ancillariesPrune.js';
+import ancillariesPrune from '../lists/ancillariesPrune.js';
 
 const ancillaries_ancillariesToEffects = (ancillaries, ancillariesToEffects) => {
   const ancEffectsMap = {};
