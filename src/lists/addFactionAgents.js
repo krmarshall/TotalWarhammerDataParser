@@ -119,6 +119,9 @@ const addFactionAgents = [
   { faction: 'mixer_gnob_gnoblar_horde', agent: 'gnob_bragg_the_gutsman', game: '3', mod: 'mixu3' },
   { faction: 'mixer_gnob_gnoblar_horde', agent: 'gnob_gnobbo', game: '3', mod: 'mixu3' },
   { faction: 'mixer_gnob_gnoblar_horde', agent: 'gnob_king_bezos', game: '3', mod: 'mixu3' },
+
+  // Mixu 3 Slayer
+  { faction: 'wh_main_dwf_dwarfs', agent: 'dwf_daemon_slayer', game: '3', mod: 'mixu3' },
 ];
 
 export default addFactionAgents;
