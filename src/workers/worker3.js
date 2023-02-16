@@ -6,6 +6,7 @@ import { workerMod, workerModMulti } from './workerExports.js';
 import { ensureDirSync } from 'fs-extra';
 import { globalDataInit } from '../otherFunctions/index.js';
 import { radious3DbList, radious3PackNames } from '../extractLists/radious3.js';
+import { sfo3DbList } from '../extractLists/sfo3.js';
 import { mixu3DbList, mixu3PackNames } from '../extractLists/mixu3.js';
 import { lege3DbList } from '../extractLists/lege3.js';
 import { crys3DbList } from '../extractLists/crys3.js';
@@ -37,6 +38,18 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
       locPackNames: radious3PackNames,
       imgPackNames: radious3PackNames,
       dbList: radious3DbList,
+      locList: undefined,
+      game: 'warhammer_3',
+      prune: false,
+      tech: true,
+      customPruneList: undefined,
+    });
+    workerMod({
+      globalData: globalData,
+      folder: 'sfo3',
+      dbPackName: 'sfo_grimhammer_3_main',
+      locPackName: 'sfo_grimhammer_3_main',
+      dbList: sfo3DbList,
       locList: undefined,
       game: 'warhammer_3',
       prune: false,

@@ -55,9 +55,13 @@ const stringInterpolator = (string, combinedLoc, missingTextReplacements) => {
         // WH3 adds a bunch of col tags that arent closed by anything as well 🙃
         if (element === null) {
           element = string.match(/\[\[col:[a-zA-Z0-9_./ ]*\]\]/);
-          // SFO also has literally bugged img tags such as [[img:icon_ap] (that also dont have closing tags cause why not) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          // SFO2 also has literally bugged img tags such as [[img:icon_ap] (that also dont have closing tags cause why not) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
           if (element === null) {
             element = string.match(/\[\[(?<tagName>[a-zA-Z_]*):[a-zA-Z0-9_./ ]*\](?<innerText>[^\]])/);
+            // SFO3 also has closing /col tags with no opening tag
+            if (element === null) {
+              element = string.match(/\[\[\/col\]\]/);
+            }
           }
         }
       }
