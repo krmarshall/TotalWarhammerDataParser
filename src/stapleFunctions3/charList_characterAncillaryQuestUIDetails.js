@@ -73,5 +73,9 @@ const ancillaryTypeImageEnum = {
   wh2_dlc17_anc_banner_lzd_poison_daemonbane: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
   wh2_dlc17_anc_banner_lzd_poison_slow_death: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
   wh2_main_anc_magic_standard_sunburst_standard_of_hexoatl: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
+
   hkrul_emp_sec_marem: 'vanilla3/campaign_ui/skills/0_placeholder_skill',
+  kou_mount_zlatgar_mount_1: 'lege3/campaign_ui/skills/kou_razordon_mount_image',
+  kou_skill_stag_chariot_mount: 'lege3/campaign_ui/skills/mount_stag_chariot',
+  kou_anc_treeman_mount: 'lege3/campaign_ui/skills/mount_treeman_companion',
 };
