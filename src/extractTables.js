@@ -1,6 +1,7 @@
 import fg from 'fast-glob';
 import { exec } from 'child_process';
-import { ensureDirSync } from 'fs-extra';
+import fse from 'fs-extra';
+import { basename } from 'path';
 
 const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 
@@ -39,12 +40,19 @@ const extractLoc = (folder, locPackName, locsString, game, inputFolder = folder)
 const extractLocBulk = (folder, locPackName, game, inputFolder = folder) => {
   return new Promise((resolve, reject) => {
     exec(
-      `rpfm_cli.exe -g ${game} -p "../game_source/${inputFolder}/${locPackName}.pack" packfile -E "../extracted_files/${folder}" - "text/db"`,
+      `rpfm_cli.exe -g ${game} -p "../game_source/${inputFolder}/${locPackName}.pack" packfile -E "../extracted_files/${folder}" - "text"`,
       { cwd },
       (error) => {
         if (error) {
           reject(error);
         } else {
+          // Sometimes mods place locs in /text/ not /text/db/, so move those into db
+          const misplacedLocs = fg.sync(`./extracted_files/${folder}/text/*.loc`);
+          misplacedLocs.forEach((loc) => {
+            const fileName = basename(loc);
+            fse.moveSync(loc, `./extracted_files/${folder}/text/db/${fileName}`);
+          });
+
           resolve();
         }
       }
@@ -87,7 +95,7 @@ const extractPackfileMulti = (folder, dbPackNames, locPackNames, dbList, locList
     }, '');
 
     const dataPromises = dbPackNames.map((dbPackName, index) => {
-      ensureDirSync(`./extracted_files/${folder}/subDB${index}`);
+      fse.ensureDirSync(`./extracted_files/${folder}/subDB${index}`);
       return extractData(folder + `/subDB${index}`, dbPackName, tablesString, game, folder);
     });
 
@@ -95,12 +103,12 @@ const extractPackfileMulti = (folder, dbPackNames, locPackNames, dbList, locList
     let locPromises;
     if (locList === undefined) {
       locPromises = locPackNames.map((locPackName, index) => {
-        ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
+        fse.ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
         return extractLocBulk(folder + `/subLOC${index}`, locPackName, game, folder);
       });
     } else {
       locPromises = locPackNames.map((locPackName, index) => {
-        ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
+        fse.ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
         if (locList[index].length === 0) {
           return null;
         }
