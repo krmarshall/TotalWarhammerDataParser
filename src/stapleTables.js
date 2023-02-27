@@ -142,7 +142,7 @@ const stapleTables = (globalData, folder, techs, pruneVanilla, customPruneList) 
     const effects = stapleTablesEffects(readTable, combinedLoc, missingTextReplacements, globalData, folder);
 
     if (techs) {
-      stapleTablesTechs(folder, JSON.parse(JSON.stringify(effects)), readTable, combinedLoc);
+      stapleTablesTechs(folder, JSON.parse(JSON.stringify(effects)), readTable, combinedLoc, pruneVanilla);
     }
 
     let ancillaryToEffects = readTable('ancillary_to_effects_tables');
@@ -259,7 +259,7 @@ const stapleTables = (globalData, folder, techs, pruneVanilla, customPruneList) 
   });
 };
 
-const stapleTablesTechs = (folder, effects, readTable, combinedLoc) => {
+const stapleTablesTechs = (folder, effects, readTable, combinedLoc, pruneVanilla) => {
   let techs = readTable('technologies_tables');
   let techEffectsJunc = readTable('technology_effects_junction_tables');
   const techNodeLinks = readTable('technology_node_links_tables');
@@ -293,7 +293,7 @@ const stapleTablesTechs = (folder, effects, readTable, combinedLoc) => {
   }
 
   techNodeSets = pruneMissingNodeLinks(techNodeSets);
-  output_techs(techNodeSets, folder);
+  output_techs(techNodeSets, folder, pruneVanilla);
 };
 
 const stapleTablesOnlyTech = (globalData, folder) => {

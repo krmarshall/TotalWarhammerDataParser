@@ -80,7 +80,7 @@ extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
       locList: undefined,
       game: 'warhammer_3',
       prune: true,
-      tech: false,
+      tech: true,
       customPruneList: undefined,
     });
     workerMod({
