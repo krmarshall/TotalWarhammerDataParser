@@ -6,13 +6,14 @@ const cwdRPFM = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
 const cwdNconvert = 'D:/GitHub/TotalWarhammerDataParser/bins';
 
 const extractImages = (folder, packNames, game, tech) => {
+  const schema = game.includes('2') ? 'schema_wh2.ron' : 'schema_wh3.ron';
   return new Promise((resolve, reject) => {
     const imagePromises = packNames.map((packName) => {
       return new Promise((resolveI, rejectI) => {
-        let foldersString = '"ui/battle ui/ability_icons" "ui/campaign ui/effect_bundles" "ui/campaign ui/skills"';
-        tech ? (foldersString += ' "ui/campaign ui/technologies"') : undefined;
+        let foldersString = `"/ui/battle ui/ability_icons;../extracted_files/${folder}" "/ui/campaign ui/effect_bundles;../extracted_files/${folder}" "/ui/campaign ui/skills;../extracted_files/${folder}"`;
+        tech ? (foldersString += ` "/ui/campaign ui/technologies;../extracted_files/${folder}"`) : undefined;
         exec(
-          `rpfm_cli.exe -g ${game} -p "../game_source/${folder}/${packName}.pack" packfile -E "../extracted_files/${folder}" - ${foldersString}`,
+          `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${folder}/${packName}.pack" -t "./schemas/${schema}" -F ${foldersString}`,
           { cwd: cwdRPFM },
           (error) => {
             if (error) {

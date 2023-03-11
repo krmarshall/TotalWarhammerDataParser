@@ -18,10 +18,9 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 
 ## How To Use
 
-- Ensure an updated version of rpfm exists in ./rpfm
-- Check absolute file paths in ./bins/copySource.bat for copying game/mod files from their install locations
+- Ensure an updated version of rpfm_cli.exe exists in ./rpfm and updated schemas are downloaded
+- Check absolute file paths in ./bins/copySource.bat for copying game/mod/schema files from their install locations
 - Make sure all mods are downloaded
-- With rpfm (ui) rename all sfo2 locs that start with * to # because rpfm cant handle the * -_-
 - npm run fullBuild (fullBuildProd if you dont care about pretty printed json)
 - Extracted character skill trees and images will be in the ./output and ./output_img folders as parsed json and webp's
 

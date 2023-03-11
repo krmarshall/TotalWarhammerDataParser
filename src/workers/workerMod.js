@@ -1,5 +1,5 @@
 import { workerData } from 'worker_threads';
-import { extractPackfileMass, extractTsv } from '../extractTables.js';
+import { extractPackfileMass } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { mergeTablesIntoVanilla, mergeLocsIntoVanilla } from '../mergeTables.js';
 import { stapleTables } from '../stapleTables.js';
@@ -10,11 +10,8 @@ const { globalData, folder, dbPackName, locPackName, dbList, locList, game, prun
 
 ensureDirSync(`./extracted_files/${folder}/`);
 const imgPromise = parseImages(folder, [dbPackName], game, tech, globalData);
-extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
-  .then(() => {
-    const tsvPromise = extractTsv(folder, game);
-    return Promise.all([imgPromise, tsvPromise]);
-  })
+const tsvPromise = extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game);
+Promise.all([imgPromise, tsvPromise])
   .then(() => {
     parseFiles(folder, true, globalData);
     mergeTablesIntoVanilla(globalData, folder);

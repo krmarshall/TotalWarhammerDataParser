@@ -1,5 +1,5 @@
 import { workerData } from 'worker_threads';
-import { extractPackfileMass, extractTsv } from '../extractTables.js';
+import { extractPackfileMass } from '../extractTables.js';
 import { parseFiles } from '../parseFiles.js';
 import { stapleTables } from '../stapleTables.js';
 // import { workerMod, workerModMulti } from './workerExports.js';
@@ -15,12 +15,12 @@ console.time(folder);
 const globalData = globalDataInit(folder);
 
 ensureDirSync(`./extracted_files/${folder}/`);
-const imgPromise = parseImages(folder, [dbPackName], game, true, globalData);
-extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game)
-  .then(() => {
-    const tsvPromise = extractTsv(folder, game);
-    return Promise.all([imgPromise, tsvPromise]);
-  })
+// Vanilla Packs are really big, parsing these in parallel for both game 2/3 needs ~32gb of ram.
+// const imgPromise = parseImages(folder, [dbPackName], game, true, globalData);
+// const tsvPromise = extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game);
+// Promise.all([imgPromise, tsvPromise]);
+parseImages(folder, [dbPackName], game, true, globalData)
+  .then(() => extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game))
   .then(() => {
     parseFiles(folder, false, globalData);
 
