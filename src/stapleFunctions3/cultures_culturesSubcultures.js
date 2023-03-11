@@ -26,6 +26,11 @@ const cultures_culturesSubcultures = (cultures, culturesSubcultures) => {
     stapledTable[jadeVampsIndex].subcultures = ['wh_main_sc_vmp_jade_vampires'];
   }
 
+  const rotbloodsIndex = stapledTable.findIndex((culture) => culture.key === 'str_rotbloods_subcult');
+  if (rotbloodsIndex !== -1) {
+    stapledTable[rotbloodsIndex].subcultures = ['str_rotbloods_subcult'];
+  }
+
   stapledTable.forEach((culture) => {
     culture.subculture = culture.subcultures[0];
     delete culture.subcultures;

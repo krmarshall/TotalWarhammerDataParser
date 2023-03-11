@@ -79,6 +79,10 @@ WH3 also needs
 - Copy extracted data TWPData repo
 - Copy extracted imgs TotalWarhammerPlanner repo frontend/public/imgs
 
+## Mods that add factions
+
+If mod added factions arent showing up double check cultures_tables and cultures_subsultures tables, may have to hardcode a fix in ./src/stapleFuntions3/cultures_culturesSubcultures.js. Also likely have to add entries in ./src/lists/cultureMap.js
+
 ## Character Skill Node Faction/Subcultures
 
 Skill nodes are able to only be added to trees when they are part of specific factions or subcultures. Mods use this somewhat inconsistently where sometimes its good they aren't added to the "generic" node set, but sometimes they should be. It seems like the former is more common, so if a tree needs it added to the "generic" node set add the faction/subculture to the respective ./lists/cultureMap.js

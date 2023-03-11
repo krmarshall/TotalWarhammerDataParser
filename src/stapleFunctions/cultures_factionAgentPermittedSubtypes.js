@@ -5,7 +5,7 @@ const cultures_factionAgentPermittedSubtypes = (cultures, factionAgentPermittedS
   const stapledTable = cultures.map((culture) => {
     const relatedAgents = factionAgentPermittedSubtypes.filter((agent) => {
       let intersects = false;
-      culture.factions.forEach((faction) => {
+      culture.factions?.forEach((faction) => {
         if (agent.faction === faction) {
           intersects = true;
         }

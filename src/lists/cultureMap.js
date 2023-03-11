@@ -29,7 +29,7 @@ const cultureMap = {
 
   wh_main_vmp_jade_vampires: 'jbv_jade_vampires',
 
-  str_rotblood_cult: 'str_rotblood_cult',
+  str_rotbloods_subcult: 'str_rotblood',
 
   // Oddities
   wh2_main_bst_ripper_horn: 'bst_beastmen',
@@ -66,7 +66,7 @@ const subcultureMap = {
 
   wh_main_sc_vmp_jade_vampires: 'jbv_jade_vampires',
 
-  str_rotblood_subcult: 'str_rotblood_cult',
+  str_rotblood_subcult: 'str_rotblood',
 
   // Oddities
 };
