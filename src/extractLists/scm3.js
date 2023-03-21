@@ -16,6 +16,7 @@ const scm3PackNames = [
   'str_gnoblar',
   'str_verms',
   'str_treecherik',
+  '!hkrul_marienburg_v1.0',
 ];
 const scm3ImgPackNames = [
   'jade_vamp_pol',
@@ -33,6 +34,7 @@ const scm3ImgPackNames = [
   'str_gnoblar',
   'str_verms',
   'str_treecherik',
+  '!hkrul_marienburg_v1.0',
 ];
 
 export { scm3DbList, scm3PackNames, scm3ImgPackNames };

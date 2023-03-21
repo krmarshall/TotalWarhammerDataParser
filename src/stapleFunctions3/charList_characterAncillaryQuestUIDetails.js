@@ -78,4 +78,5 @@ const ancillaryTypeImageEnum = {
   kou_mount_zlatgar_mount_1: 'lege3/campaign_ui/skills/kou_razordon_mount_image',
   kou_skill_stag_chariot_mount: 'lege3/campaign_ui/skills/mount_stag_chariot',
   kou_anc_treeman_mount: 'lege3/campaign_ui/skills/mount_treeman_companion',
+  // hkrul_erkstein_banner: 'lege3/campaign_ui/ancillaries/hkrul_mar_erkstein_banner',
 };
