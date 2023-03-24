@@ -1,4 +1,5 @@
 import { Worker } from 'worker_threads';
+import exportData from '../exportData.js';
 import log from '../log.js';
 
 const workerVanilla = (workerData) => {
@@ -13,6 +14,9 @@ const workerVanilla = (workerData) => {
   });
   workerVanilla.on('exit', () => {
     console.timeEnd(`${game} total`);
+    if (game === 'warhammer_3') {
+      exportData();
+    }
   });
   return workerVanilla;
 };
