@@ -15,6 +15,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - WH3 Oxyotl and Mazdamundi have item ancillaries that still exist in skill tree. If more mods utilize ancilllaries in skill trees could link them properly.
 - Prune more props not used in frontend to save file size
 - Can probably prune glade_lord_fem, just keeping in case mods do something with it?
+- charList_characterAncillaryQuestUIDetails has an enum for ancillary images, might be able to grab them from ancillary_types_tables instead?
 
 ## How To Use
 

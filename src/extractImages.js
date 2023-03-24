@@ -10,7 +10,7 @@ const extractImages = (folder, packNames, game, tech) => {
   return new Promise((resolve, reject) => {
     const imagePromises = packNames.map((packName) => {
       return new Promise((resolveI, rejectI) => {
-        let foldersString = `"/ui/battle ui/ability_icons;../extracted_files/${folder}" "/ui/campaign ui/effect_bundles;../extracted_files/${folder}" "/ui/campaign ui/skills;../extracted_files/${folder}"`;
+        let foldersString = `"/ui/battle ui/ability_icons;../extracted_files/${folder}" "/ui/campaign ui/effect_bundles;../extracted_files/${folder}" "/ui/campaign ui/skills;../extracted_files/${folder}" "/ui/campaign ui/ancillaries;../extracted_files/${folder}"`;
         tech ? (foldersString += ` "/ui/campaign ui/technologies;../extracted_files/${folder}"`) : undefined;
         exec(
           `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${folder}/${packName}.pack" -t "./schemas/${schema}" -F ${foldersString}`,
