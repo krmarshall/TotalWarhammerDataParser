@@ -37,4 +37,22 @@ const scm3ImgPackNames = [
   '!hkrul_marienburg_v1.0',
 ];
 
-export { scm3DbList, scm3PackNames, scm3ImgPackNames };
+const scm3PackNamesEnum = {
+  jade_vamp_pol: 'The Jade-Blooded Vampires: Curse of Nongchang',
+  dead_cult_possessed_unit_V2: "Dead's Cult of the Possessed",
+  froeb_warboss_lord: 'Dark Land Warboss',
+  dead_jade_army_pack: "Dead's Jade Army Expansion",
+  dead_kislev_units: "Dead's Kislev Units",
+  '@xou_emp': "Sigmar's Heirs, an Empire Overhaul",
+  '!hkrul_emp_secessionists': 'Empire Secessionists, Secede!',
+  '!xou_khorne_karanak': 'Karanak, Hound of Vengeance',
+  '!xou_kislev_ivan': 'Ivan Radinov - Commander of the Gryphon Legion',
+  '!!!str_pestilent': 'Pestilent Brotherhood',
+  str_rotblood: 'Rotblood Tribe',
+  str_gnoblar: 'The Gnoblar Horde',
+  str_verms: 'Clan Verms',
+  str_treecherik: 'Clan Treecherik',
+  '!hkrul_marienburg_v1.0': 'Marienburg: The Merchant Empire',
+};
+
+export { scm3DbList, scm3PackNames, scm3ImgPackNames, scm3PackNamesEnum };

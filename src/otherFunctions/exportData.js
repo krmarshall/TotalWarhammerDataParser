@@ -1,5 +1,5 @@
 import fse from 'fs-extra';
-import log from './log.js';
+import log from '../log.js';
 
 const exportData = () => {
   const parserOutputPath = 'D:/GitHub/TotalWarhammerDataParser/output';

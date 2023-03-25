@@ -11,6 +11,7 @@ emptyDirSync('./extracted_files');
 emptyDirSync('./output');
 emptyDirSync('./output_img');
 emptyDirSync('./bins/nScripts');
+emptyDirSync(`./test`);
 
 // Vanilla 2
 workerVanilla({

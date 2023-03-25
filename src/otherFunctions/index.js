@@ -10,6 +10,9 @@ import globalDataInit from './globalDataInit.js';
 import pruneDupeAbilities from './pruneDupeAbilities.js';
 import output_techs from './output_techs.js';
 import pruneMissingNodeLinks from './pruneMissingNodeLinks.js';
+import cleanKeyName from './cleanKeyName.js';
+import exportData from './exportData.js';
+import output_compilationGroups from './output_compilationGroups.js';
 
 export {
   output_characters,
@@ -24,4 +27,7 @@ export {
   pruneDupeAbilities,
   output_techs,
   pruneMissingNodeLinks,
+  cleanKeyName,
+  exportData,
+  output_compilationGroups,
 };

@@ -20,7 +20,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 ## How To Use
 
 - Ensure an updated version of rpfm_cli.exe exists in ./rpfm and updated schemas are downloaded
-- Check absolute file paths in ./bins/copySource.bat for copying game/mod/schema files from their install locations
+- Check absolute file paths in ./bins/copySource.bat and ./src/exportTables.js
 - Make sure all mods are downloaded
 - npm run fullBuild (fullBuildProd if you dont care about pretty printed json)
 - Extracted character skill trees and images will be in the ./output and ./output_img folders as parsed json and webp's

@@ -124,6 +124,8 @@ const extractPackfileMulti = (folder, dbPackNames, locPackNames, dbList, locList
       locPromises = locPackNames.map((locPackName, index) => {
         fse.ensureDirSync(`./extracted_files/${folder}/subDB${index}`);
         fse.ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
+        fse.ensureFile(`./extracted_files/${folder}/subDB${index}/${locPackName}`);
+
         const tablesString = generateTablesString(dbList, folder + `/subDB${index}`);
         return extractData(
           folder + `/subDB${index}`,
@@ -136,6 +138,8 @@ const extractPackfileMulti = (folder, dbPackNames, locPackNames, dbList, locList
     } else {
       dataPromises = dbPackNames.map((dbPackName, index) => {
         fse.ensureDirSync(`./extracted_files/${folder}/subDB${index}`);
+        fse.ensureFile(`./extracted_files/${folder}/subDB${index}/${dbPackName}`);
+
         const tablesString = generateTablesString(dbList, folder + `/subDB${index}`);
         return extractData(folder + `/subDB${index}`, dbPackName, tablesString, game, folder);
       });

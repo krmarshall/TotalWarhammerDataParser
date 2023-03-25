@@ -7,10 +7,10 @@ import { ensureDirSync } from 'fs-extra';
 import { globalDataInit } from '../otherFunctions/index.js';
 import { radious3DbList, radious3PackNames } from '../extractLists/radious3.js';
 import { sfo3DbList } from '../extractLists/sfo3.js';
-import { mixu3DbList, mixu3PackNames } from '../extractLists/mixu3.js';
+import { mixu3DbList, mixu3PackNames, mixu3PackNamesEnum } from '../extractLists/mixu3.js';
 import { lege3DbList } from '../extractLists/lege3.js';
 import { crys3DbList } from '../extractLists/crys3.js';
-import { scm3DbList, scm3ImgPackNames, scm3PackNames } from '../extractLists/scm3.js';
+import { scm3DbList, scm3ImgPackNames, scm3PackNames, scm3PackNamesEnum } from '../extractLists/scm3.js';
 import parseImages from '../extractImages.js';
 
 const { folder, dbPackName, locPackName, dbList, locList, game } = workerData;
@@ -43,6 +43,7 @@ parseImages(folder, imagePacknames, game, true, globalData)
       prune: false,
       tech: true,
       customPruneList: undefined,
+      packNameEnum: undefined,
     });
     workerMod({
       globalData: globalData,
@@ -82,6 +83,7 @@ parseImages(folder, imagePacknames, game, true, globalData)
       prune: true,
       tech: true,
       customPruneList: undefined,
+      packNameEnum: mixu3PackNamesEnum,
     });
     workerMod({
       globalData: globalData,
@@ -107,6 +109,7 @@ parseImages(folder, imagePacknames, game, true, globalData)
       prune: true,
       tech: false,
       customPruneList: undefined,
+      packNameEnum: scm3PackNamesEnum,
     });
 
     return stapleTables(globalData, folder, true, false, undefined);

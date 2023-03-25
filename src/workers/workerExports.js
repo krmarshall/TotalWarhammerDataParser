@@ -1,5 +1,5 @@
 import { Worker } from 'worker_threads';
-import exportData from '../exportData.js';
+import exportData from '../otherFunctions/exportData.js';
 import log from '../log.js';
 
 const workerVanilla = (workerData) => {
