@@ -11,9 +11,8 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets, combine
   const returnList = {};
   cultures.forEach((culture) => {
     const cultureName = cultureMap[culture.key];
-    characterList[`${cultureName}_lords`] = {};
+    characterList[cultureName] = { lords: {}, heroes: {} };
     returnList[`${cultureName}_lords`] = {};
-    characterList[`${cultureName}_heroes`] = {};
     returnList[`${cultureName}_heroes`] = {};
 
     culture.lordNodeSets.forEach((lord) => {
@@ -30,10 +29,10 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets, combine
           const lordName = combinedLoc[`agent_subtypes_onscreen_name_override_${relatedLord.agent_subtype_key}`];
 
           if (lordName === undefined) {
-            characterList[`${cultureName}_lords`][lordKey] = { name: 'undefined' };
+            characterList[cultureName].lords[lordKey] = { name: 'undefined' };
             returnList[`${cultureName}_lords`][lordKey] = { fullKey: relatedLord.key };
           } else {
-            characterList[`${cultureName}_lords`][lordKey] = { name: lordName };
+            characterList[cultureName].lords[lordKey] = { name: lordName };
             returnList[`${cultureName}_lords`][lordKey] = { fullKey: relatedLord.key };
           }
         }
@@ -54,10 +53,10 @@ const output_characterLists = (folder, cultures, characterSkillNodeSets, combine
           const heroName = combinedLoc[`agent_subtypes_onscreen_name_override_${relatedHero.agent_subtype_key}`];
 
           if (heroName === undefined) {
-            characterList[`${cultureName}_heroes`][heroKey] = { name: 'undefined' };
+            characterList[cultureName].heroes[heroKey] = { name: 'undefined' };
             returnList[`${cultureName}_heroes`][heroKey] = { fullKey: relatedHero.key };
           } else {
-            characterList[`${cultureName}_heroes`][heroKey] = { name: heroName };
+            characterList[cultureName].heroes[heroKey] = { name: heroName };
             returnList[`${cultureName}_heroes`][heroKey] = { fullKey: relatedHero.key };
           }
         }
