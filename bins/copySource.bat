@@ -6,10 +6,6 @@ set schemaAppdataPath=C:\Users\fearh\AppData\Roaming\FrodoWazEre\rpfm\config\sch
 set schemaGitPath=D:\GitHub\TotalWarhammerDataParser\rpfm\schemas
 
 ROBOCOPY "%steamPath%\Total War WARHAMMER II\data" "%gitGameSource%\vanilla2" data.pack local_en.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\594570\1149625355" "%gitGameSource%\sfo2" steel_faith_overhaul_2.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\594570\1149634389" "%gitGameSource%\radious2" radious_total_war_mod_part1.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\594570\1149634634" "%gitGameSource%\radious2" radious_total_war_mod_part2.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\594570\1672224407" "%gitGameSource%\radious2" !sm_radious_hordes_reborn.pack /NJH /NJS
 
 ROBOCOPY "%steamPath%\Total War WARHAMMER III\data" "%gitGameSource%\vanilla3" data.pack data_1.pack data_2.pack data_3.pack data_bl.pack data_bm.pack data_sc.pack data_sf.pack data_tk.pack data_we.pack data_wp_.pack local_en.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2802810577" "%gitGameSource%\mixu3" ab_mixu_legendary_lords.pack /NJH /NJS
