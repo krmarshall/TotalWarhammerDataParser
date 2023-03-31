@@ -88,4 +88,5 @@ const ancillaryTypeImageEnum = {
   hkrul_mar_casino: 'scm3/campaign_ui/ancillaries/hkrul_mar_casino',
   hkrul_mar_casanova: 'scm3/campaign_ui/ancillaries/hkrul_mar_casanova',
   hkrul_mar_hilaria: 'scm3/campaign_ui/ancillaries/hkrul_mar_mundvard_follower',
+  hkrul_mar_barrel: 'scm3/campaign_ui/ancillaries/hkrul_mar_barrel',
 };
