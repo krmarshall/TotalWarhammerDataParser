@@ -30,10 +30,13 @@ const output_compilationGroups = (folder, packNameEnum) => {
         compGroups[packTag][key] = true;
       });
     });
-
-    fse.ensureDirSync(`./output/compGroups`);
-    fse.writeJSONSync(`./output/compGroups/${folder}.json`, compGroups, { spaces: 2 });
   });
+
+  const sortedObject = {};
+  Object.values(packNameEnum).forEach((packName) => (sortedObject[packName] = compGroups[packName]));
+
+  fse.ensureDirSync(`./output/compGroups`);
+  fse.writeJSONSync(`./output/compGroups/${folder}.json`, sortedObject, { spaces: 2 });
 };
 
 export default output_compilationGroups;
