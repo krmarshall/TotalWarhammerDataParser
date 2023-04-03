@@ -2,6 +2,8 @@
  
 Requires RPFM (or at least the cli) to be available under ./rpfm
 
+Requires thisthat https://lib.rs/crates/thisthat to be available in your PATH
+
 Uses NConvert and a webp plugin from XnConvert to convert images and strip metadata.
 
 A saner person would probably have rebuilt the DB instead.
