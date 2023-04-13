@@ -1,6 +1,14 @@
-interface TableRecord {
-  [key: string]: string | { value: string; reference: TableRecord };
+interface TableRecordNoRefs {
+  [key: string]: string | number | boolean | TableRecord;
 }
+
+interface TableRecordRefs {
+  foreignRefs?: {
+    [key: string /*Table*/]: Array<TableRecord>;
+  };
+}
+
+type TableRecord = TableRecordNoRefs & TableRecordRefs;
 
 interface GlobalDataInterface {
   imgPaths: {

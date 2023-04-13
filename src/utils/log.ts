@@ -34,4 +34,4 @@ const log = (message: string, color: ColorsEnum) => {
 };
 
 export type ColorsEnum = typeof ColorsEnum[keyof typeof ColorsEnum];
-export { log };
+export default log;

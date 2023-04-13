@@ -1,5 +1,5 @@
 import { Worker } from 'worker_threads';
-import { log } from '../utils/log.js';
+import log from '../utils/log';
 import { WorkerDataInterface } from '../interfaces/WorkerDataInterfaces';
 
 const workerVanilla = (workerData: WorkerDataInterface) => {
@@ -11,7 +11,8 @@ const workerVanilla = (workerData: WorkerDataInterface) => {
     execArgv: ['--require', 'ts-node/register'],
   });
   workerVanilla.on('error', (error) => {
-    console.log(error);
+    log(error.name, 'red');
+    log(error.message, 'red');
   });
   workerVanilla.on('exit', () => {
     console.timeEnd(`${game} total`);

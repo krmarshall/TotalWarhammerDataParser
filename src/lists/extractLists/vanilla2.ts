@@ -39,6 +39,8 @@ const v2DbList = [
   'army_special_abilities_tables',
   'effect_bundles_tables',
   'effect_bundles_to_effects_junctions_tables',
+  'ancillary_types_tables',
+  'agent_subtypes_tables',
 
   // Techs
   'technologies_tables',
