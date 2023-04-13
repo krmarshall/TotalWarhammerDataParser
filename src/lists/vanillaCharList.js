@@ -365,6 +365,24 @@ const vanillaCharList3 = {
   wef_spellweaver_life: 'wef_spellweaver_life',
   wef_spellweaver_shadows: 'wef_spellweaver_shadows',
   wef_waystalker: 'wef_waystalker',
+
+  chd_astragoth: 'chd_astragoth',
+  chd_drazhoath: 'chd_drazhoath',
+  chd_zhatan: 'chd_zhatan',
+  chd_lord_convoy_overseer: 'chd_lord_convoy_overseer',
+  chd_overseer: 'chd_overseer',
+  chd_sorcerer_prophet_death: 'chd_sorcerer_prophet_death',
+  chd_sorcerer_prophet_fire: 'chd_sorcerer_prophet_fire',
+  chd_sorcerer_prophet_hashut: 'chd_sorcerer_prophet_hashut',
+  chd_sorcerer_prophet_metal: 'chd_sorcerer_prophet_metal',
+  chd_gorduz_backstabber: 'chd_gorduz_backstabber',
+  chd_bull_centaur_taurruk: 'chd_bull_centaur_taurruk',
+  chd_daemonsmith_sorcerer_death: 'chd_daemonsmith_sorcerer_death',
+  chd_daemonsmith_sorcerer_fire: 'chd_daemonsmith_sorcerer_fire',
+  chd_daemonsmith_sorcerer_hashut: 'chd_daemonsmith_sorcerer_hashut',
+  chd_daemonsmith_sorcerer_metal: 'chd_daemonsmith_sorcerer_metal',
+  chd_infernal_castellan: 'chd_infernal_castellan',
+  ksl_ulrika: 'ksl_ulrika',
 };
 
 export default vanillaCharList3;
