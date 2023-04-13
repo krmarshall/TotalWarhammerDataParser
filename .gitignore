@@ -136,3 +136,4 @@ dist
 /output/*
 /output_img/*
 /bins/nScripts/*
+.vscode/launch.json

@@ -77,7 +77,12 @@ const collate_characterSkillNodes = (characterSkillNodes, charList) => {
             delete tempNode.faction_key;
             delete tempNode.subculture;
             delete tempNode.character_skill_node_set_key;
-            charNodeSet.skillTree[node.indent][node.tier] = tempNode;
+            // Bad bodge for prologue skill tree pollution
+            if (charNodeSet.skillTree[node.indent][node.tier] !== undefined && tempNode.key.includes('wh_pro')) {
+              // Do nothing
+            } else {
+              charNodeSet.skillTree[node.indent][node.tier] = tempNode;
+            }
           }
         });
       }

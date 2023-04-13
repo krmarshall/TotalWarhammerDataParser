@@ -23,6 +23,7 @@ const cultureMap = {
   wh_main_vmp_vampire_counts: 'vmp_vampire_counts',
   wh_main_chs_chaos: 'chs_chaos',
   wh_dlc05_wef_wood_elves: 'wef_wood_elves',
+  wh3_dlc23_chd_chaos_dwarfs: 'chd_chaos_dwarfs',
 
   // Mods
   mixer_gnob_gnoblar_horde: 'gnb_gnoblars',
@@ -60,6 +61,7 @@ const subcultureMap = {
   wh_main_sc_vmp_vampire_counts: 'vmp_vampire_counts',
   wh_main_sc_chs_chaos: 'chs_chaos',
   wh_dlc05_sc_wef_wood_elves: 'wef_wood_elves',
+  wh3_dlc23_sc_chd_chaos_dwarfs: 'chd_chaos_dwarfs',
 
   // Mods
   mixer_gnob_gnoblar_horde: 'gnb_gnoblars',

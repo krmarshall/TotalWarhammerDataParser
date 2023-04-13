@@ -30,7 +30,13 @@ const specialAbilityPhases_specialAbilityPhaseAttributeEffects = (specialAbility
 
     abilityPhase.barrier_heal_amount = parseFloatToFixed(abilityPhase.barrier_heal_amount);
 
-    abilityPhase.freeze_recharge ? (abilityPhase.freeze_recharge = JSON.parse(abilityPhase.freeze_recharge)) : undefined;
+    abilityPhase.freeze_recharge === 'true'
+      ? (abilityPhase.freeze_recharge = JSON.parse(abilityPhase.freeze_recharge))
+      : delete abilityPhase.freeze_recharge;
+
+    abilityPhase.remove_magical === 'true'
+      ? (abilityPhase.remove_magical = JSON.parse(abilityPhase.remove_magical))
+      : delete abilityPhase.remove_magical;
     // Prune properties that are empty
     [
       'unbreakable',

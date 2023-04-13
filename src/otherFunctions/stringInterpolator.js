@@ -46,25 +46,30 @@ const stringInterpolator = (string, combinedLoc, missingTextReplacements) => {
       element = string.match(/\[\[(?<tagName>[a-zA-Z_]*):(?<tagAttribute>[a-zA-Z0-9_./ ]*)\]\](?<innerText>)\[\[\/\k<tagName>\]\]/);
     }
 
+    // Hardcode Fixes
     // Vanilla locs occasionally have opening img tags without closing tags that lead to a null element here z.z
     if (element === null) {
       element = string.match(/\[\[img:[a-zA-Z0-9_./ ]*\]\]/);
-      // overridecol sometimes closes with /col and sometimes with /overridecol ._.
-      if (element === null) {
-        element = string.match(/\[\[overridecol:[a-zA-Z0-9_./ ]*\]\](?<innerText>.*)\[\[\/col\]\]/);
-        // WH3 adds a bunch of col tags that arent closed by anything as well 🙃
-        if (element === null) {
-          element = string.match(/\[\[col:[a-zA-Z0-9_./ ]*\]\]/);
-          // SFO2 also has literally bugged img tags such as [[img:icon_ap] (that also dont have closing tags cause why not) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-          if (element === null) {
-            element = string.match(/\[\[(?<tagName>[a-zA-Z_]*):[a-zA-Z0-9_./ ]*\](?<innerText>[^\]])/);
-            // SFO3 also has closing /col tags with no opening tag
-            if (element === null) {
-              element = string.match(/\[\[\/col\]\]/);
-            }
-          }
-        }
-      }
+    }
+    // overridecol sometimes closes with /col and sometimes with /overridecol ._.
+    if (element === null) {
+      element = string.match(/\[\[overridecol:[a-zA-Z0-9_./ ]*\]\](?<innerText>.*)\[\[\/col\]\]/);
+    }
+    // WH3 has [[/col]] tags missing a closing ]
+    if (element === null) {
+      element = string.match(/\[\[col:[a-zA-Z0-9_./ ]*\]\](?<innerText>.*)\[\[\/col\]/);
+    }
+    // WH3 adds a bunch of col tags that arent closed by anything as well 🙃
+    if (element === null) {
+      element = string.match(/\[\[col:[a-zA-Z0-9_./ ]*\]\]/);
+    }
+    // SFO2 also has literally bugged img tags such as [[img:icon_ap] (that also dont have closing tags cause why not) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    if (element === null) {
+      element = string.match(/\[\[(?<tagName>[a-zA-Z_]*):[a-zA-Z0-9_./ ]*\](?<innerText>[^\]])/);
+    }
+    // SFO3 also has closing /col tags with no opening tag
+    if (element === null) {
+      element = string.match(/\[\[\/col\]\]/);
     }
 
     let innerText;

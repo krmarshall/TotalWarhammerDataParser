@@ -52,6 +52,9 @@ const unitSpecialAbilitiesPrune = [
 
   'audio_switch_casting_override',
   'ai_usage_template_group',
+
+  'mom_vortex_key',
+  'align_orientation_to_target_unit',
 ];
 
 export default unitSpecialAbilitiesPrune;

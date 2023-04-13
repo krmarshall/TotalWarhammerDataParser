@@ -43,6 +43,8 @@ const projectilesPrune = [
   'is_spell',
   'vegetation_ignore_time',
   'missile_mirror_start_time',
+
+  'projectile_shot_type_display',
 ];
 
 const projectiles_specialAbilityPhases = (projectiles, specialAbilityPhases) => {
@@ -66,6 +68,10 @@ const projectiles_specialAbilityPhases = (projectiles, specialAbilityPhases) => 
     // WH2 Doesn't have can_damage_allies
     if (projectile.can_damage_allies) {
       projectile.can_damage_allies = JSON.parse(projectile.can_damage_allies);
+    }
+    // WH2 Doesn't have spawned_vortex
+    if (projectile.spawned_vortex !== undefined) {
+      projectile.spawned_vortex === '' ? delete projectile.spawned_vortex : undefined;
     }
 
     ['bonus_v_infantry', 'bonus_v_large', 'is_magical', 'is_flaming'].forEach((key) => {

@@ -40,6 +40,10 @@ const addFactionAgents = [
 
   { faction: 'wh3_main_tze_tzeentch', agent: 'wh3_dlc20_chs_daemon_prince_tzeentch', game: '3' },
 
+  { faction: 'wh3_dlc23_chd_chaos_dwarfs', agent: 'wh3_dlc23_chd_astragoth', game: '3' },
+  { faction: 'wh3_dlc23_chd_chaos_dwarfs', agent: 'wh3_dlc23_chd_drazhoath', game: '3' },
+  { faction: 'wh3_dlc23_chd_chaos_dwarfs', agent: 'wh3_dlc23_chd_zhatan', game: '3' },
+
   // Mixu3 LL
   { faction: 'wh_main_brt_bretonnia', agent: 'brt_adalhard', game: '3', mod: 'mixu3' },
   { faction: 'wh_main_brt_bretonnia', agent: 'brt_amalric_de_gaudaron', game: '3', mod: 'mixu3' },
