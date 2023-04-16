@@ -1,10 +1,3 @@
-import CleanListInterface from '../../interfaces/CleanListsInterface';
-
-const character_skill_level_details_tables: CleanListInterface = {
-  faction_key: 'delete',
-  campaign_key: 'delete',
-  subculture_key: 'delete',
-  image_path: 'delete',
-};
+const character_skill_level_details_tables = ['faction_key', 'campaign_key', 'subculture_key', 'image_path'];
 
 export default character_skill_level_details_tables;

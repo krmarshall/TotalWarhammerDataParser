@@ -1,11 +1,9 @@
-import CleanListInterface from '../../interfaces/CleanListsInterface';
-
-const character_skills_tables: CleanListInterface = {
-  unlocked_at_rank: 'delete',
-  is_female_only_background_skill: 'delete',
-  is_male_only_background_skill: 'delete',
-  background_weighting: 'delete',
-  influence_cost: 'delete',
-};
+const character_skills_tables = [
+  'unlocked_at_rank',
+  'is_female_only_background_skill',
+  'is_male_only_background_skill',
+  'background_weighting',
+  'influence_cost',
+];
 
 export default character_skills_tables;

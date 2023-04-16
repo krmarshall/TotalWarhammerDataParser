@@ -20,7 +20,7 @@ const generateTables = (folder: string, globalData: GlobalDataInterface, dbList:
 
 export default generateTables;
 
-class Table {
+export class Table {
   tableName: string;
   tableSchema: TableInterface;
   records: Array<TableRecord>;
@@ -55,9 +55,9 @@ class Table {
       // record[pKey] will always be a string before linkTables()
       tablePKeys.forEach((pKey) => (this.indexedKeys[pKey][record[pKey] as string] = index));
 
-      // Go through columns and delete/convert type
+      // Go through columns and delete unwanted ones
       if (tableCleanList !== undefined) {
-        Object.entries(tableCleanList).forEach((cleanInstruction: Array<string>) => cleanColumn(cleanInstruction, record));
+        tableCleanList.forEach((column) => delete record[column]);
       }
 
       // Link locs to records
@@ -125,33 +125,5 @@ const findHighestVersionDB = (tableVersions: Array<TableInterface>, dbKey: strin
     });
 
     return tableVersions[highestVersionIndex];
-  }
-};
-
-const cleanColumn = (cleanInstruction: Array<string>, record: TableRecord) => {
-  const instructionKey = cleanInstruction[0];
-  const instructionValue = cleanInstruction[1];
-
-  switch (instructionValue) {
-    case 'delete': {
-      delete record[instructionKey];
-      break;
-    }
-    case 'int': {
-      record[instructionKey] = parseInt(record[instructionKey] as string);
-      break;
-    }
-    case 'float': {
-      record[instructionKey] = parseFloat(parseFloat(record[instructionKey] as string).toFixed(4));
-      break;
-    }
-    case 'bool': {
-      record[instructionKey] = record[instructionKey] === 'true';
-      break;
-    }
-    default: {
-      throw 'No/invalid clean instruction given';
-      break;
-    }
   }
 };

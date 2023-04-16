@@ -19,6 +19,9 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - Can probably prune glade_lord_fem, just keeping in case mods do something with it?
 - charList_characterAncillaryQuestUIDetails has an enum for ancillary images, might be able to grab them from ancillary_types_tables instead?
 - If workers error with diagnosticCodes 2352 or 2345 its probably an issue with the SchemaInterface
+- effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
+- technology_nodes_to_ancillaries_junctions_tables
+- technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
 
 ## How To Use
 

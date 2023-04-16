@@ -1,14 +1,15 @@
 import { workerData } from 'worker_threads';
 import { ensureDirSync } from 'fs-extra';
 import { WorkerDataInterface } from '../interfaces/WorkerDataInterfaces';
+import { SchemaInterface } from '../interfaces/SchemaInterfaces';
 import parseImages from '../parseImages';
 import { extractPackfileMass } from '../extractTables';
 import initializeGlobalData from '../utils/initializeGlobalData';
 import csvParse from '../csvParse';
 import generateTables from '../generateTables';
+import processFactions from '../processTables/processFactions';
 
 import schema from '../../bins/jsonSchemas/schema_wh3.json';
-import { SchemaInterface } from '../interfaces/SchemaInterfaces';
 
 const { folder, dbPackName, locPackName, dbList, locList, game }: WorkerDataInterface = workerData;
 
@@ -28,6 +29,8 @@ parseImages(folder, imagePacknames, game, true, globalData)
   .then(() => {
     csvParse(folder, false, globalData);
     const tables = generateTables(folder, globalData, dbList, schema as SchemaInterface);
+    let temp;
+    processFactions(tables);
   })
   .then(() => {
     console.timeEnd(folder);

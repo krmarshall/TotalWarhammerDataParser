@@ -1,5 +1,5 @@
 interface TableRecordNoRefs {
-  [key: string]: string | number | boolean | TableRecord;
+  [key: string]: string | TableRecord;
 }
 
 interface TableRecordRefs {
