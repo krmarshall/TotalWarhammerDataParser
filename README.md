@@ -12,6 +12,9 @@ Reverse engineered DB schema (kinda rough and not totally complete, but handy re
 
 When CA adds weird stuff that probably needs new tables (like mounts getting autoleveled) check https://github.com/Frodo45127/rpfm-schemas commits to look through table changes.
 
+## Refactor Notes
+- Extract ui/skins/default/equipment_items_*.png for ancillary images.
+
 ## Keep any eye on
 
 - WH3 Oxyotl and Mazdamundi have item ancillaries that still exist in skill tree. If more mods utilize ancilllaries in skill trees could link them properly.
@@ -22,6 +25,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
 - technology_nodes_to_ancillaries_junctions_tables
 - technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
+- ancillaries_included_agent_subtypes_tables links character items to agents? might be useful for linking non quest rewards?
 
 ## How To Use
 

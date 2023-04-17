@@ -18,7 +18,6 @@ const ancillaries_tables = [
   'max_expiry_age',
   'immortal',
   'provided_bodyguard_unit',
-  'provided_banner',
   'uniqueness_score',
   'turns_before_swap_allowed',
   'subcategory',

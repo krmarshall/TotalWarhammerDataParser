@@ -97,11 +97,15 @@ export class Table {
           const fieldCurValue = record[refField.fieldName] as string;
           const refRecord = tables[`${refField.refTable}_tables`].findRecordByKey(refField.refKey, fieldCurValue);
           if (refRecord !== undefined) {
-            record[refField.fieldName] = refRecord;
+            // Local Reference
+            record.localRefs === undefined ? (record.localRefs = {}) : undefined;
+            record.localRefs[refField.refTable] = refRecord;
 
+            // Foreign Reference
+            const thisCleanTableName = this.tableName.replace('_tables', '');
             refRecord.foreignRefs === undefined ? (refRecord.foreignRefs = {}) : undefined;
-            refRecord.foreignRefs[this.tableName] === undefined ? (refRecord.foreignRefs[this.tableName] = []) : undefined;
-            refRecord.foreignRefs[this.tableName].push(record);
+            refRecord.foreignRefs[thisCleanTableName] === undefined ? (refRecord.foreignRefs[thisCleanTableName] = []) : undefined;
+            refRecord.foreignRefs[thisCleanTableName].push(record);
           }
         }
       });

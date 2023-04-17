@@ -1,8 +1,13 @@
 interface TableRecordNoRefs {
-  [key: string]: string | TableRecord;
+  [key: string]: string;
 }
 
 interface TableRecordRefs {
+  // This record referencing another
+  localRefs?: {
+    [key: string /*Table*/]: TableRecord;
+  };
+  // Other records referencing this
   foreignRefs?: {
     [key: string /*Table*/]: Array<TableRecord>;
   };
@@ -20,18 +25,18 @@ interface GlobalDataInterface {
     [key: string /*Folder*/]: {
       db: {
         [key: string /*DB Folder*/]: {
-          [key: string /*DB Name*/]: Array<TableRecord>;
+          [key: string /*DB Name*/]: Array<TableRecordNoRefs>;
         };
       };
-      text: TableRecord;
+      text: TableRecordNoRefs;
     };
   };
   parsedData: {
     [key: string /*Folder*/]: {
       db: {
-        [key: string /*DB Folder*/]: Array<TableRecord>;
+        [key: string /*DB Folder*/]: Array<TableRecordNoRefs>;
       };
-      text: TableRecord;
+      text: TableRecordNoRefs;
     };
   };
 }

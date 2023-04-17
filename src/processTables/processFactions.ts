@@ -1,28 +1,30 @@
 import { Table } from '../generateTables';
-import { TableRecord } from '../interfaces/GlobalDataInterface';
+import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
 import processAgent from './processAgent';
 
-const processFactions = (tables: { [key: string]: Table }) => {
+const processFactions = (folder: string, globalData: GlobalDataInterface, tables: { [key: string]: Table }) => {
   tables.cultures_tables?.records.forEach((culture) => {
     if (!ignoreCultures.includes(culture.key as string)) {
-      culture.foreignRefs?.cultures_subcultures_tables.forEach((subculture) => {
+      culture.foreignRefs?.cultures_subcultures.forEach((subculture) => {
         if (!ignoreSubcultures.includes(subculture.subculture as string)) {
-          subculture.foreignRefs?.factions_tables.forEach((faction) => {
+          subculture.foreignRefs?.factions.forEach((faction) => {
             if (
               faction.is_quest_faction === 'false' &&
               faction.is_rebel === 'false' &&
-              !(faction.key as string).includes('_separatists') &&
-              !(faction.key as string).includes('_invasion') &&
-              !(faction.key as string).includes('_prologue') &&
-              !ignoreFactions.includes(faction.key as string)
+              !faction.key.includes('_separatists') &&
+              !faction.key.includes('_invasion') &&
+              !faction.key.includes('_prologue') &&
+              !ignoreFactions.includes(faction.key)
             ) {
-              faction.foreignRefs?.faction_agent_permitted_subtypes_tables.forEach((factionAgent) => {
+              faction.foreignRefs?.faction_agent_permitted_subtypes.forEach((factionAgent) => {
                 if (factionAgent.agent !== 'colonel' && factionAgent.agent !== 'minister') {
                   processAgent(
-                    factionAgent.subtype as TableRecord,
-                    culture.key as string,
-                    subculture.subculture as string,
-                    faction.key as string
+                    folder,
+                    globalData,
+                    factionAgent.localRefs?.agent_subtypes as TableRecord,
+                    culture.key,
+                    subculture.subculture,
+                    faction.key
                   );
                 }
               });

@@ -41,6 +41,8 @@ const v2DbList = [
   'effect_bundles_to_effects_junctions_tables',
   'ancillary_types_tables',
   'agent_subtypes_tables',
+  'ancillary_info_tables',
+  'banners_tables',
 
   // Techs
   'technologies_tables',
