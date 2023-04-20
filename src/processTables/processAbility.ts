@@ -2,7 +2,9 @@ import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterf
 import { AbilityInterface, PhaseInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import { parseBoolean, parseFloating, parseInteger } from '../utils/parseStringToTypes';
+import processBombardment from './processBombardment';
 import processPhase from './processPhase';
+import processProjectile from './processProjectile';
 import processVortex from './processVortex';
 
 const processAbility = (folder: string, globalData: GlobalDataInterface, abilityJunc: TableRecord) => {
@@ -66,14 +68,18 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
   });
   if (phases.length > 0) ability.unit_ability.phases = phases;
   // activated_projectile
-  // To Do
+  if (unitSpecialAbility.localRefs?.projectiles !== undefined) {
+    ability.unit_ability.activated_projectile = processProjectile(folder, globalData, unitSpecialAbility.localRefs?.projectiles);
+  }
 
   // bombardment
-  // To Do
+  if (unitSpecialAbility.localRefs?.projectile_bombardments !== undefined) {
+    ability.unit_ability.bombardment = processBombardment(folder, globalData, unitSpecialAbility.localRefs?.projectile_bombardments);
+  }
 
   // vortex
   if (unitSpecialAbility.localRefs?.battle_vortexs !== undefined) {
-    ability.unit_ability.vortex = processVortex(unitSpecialAbility.localRefs?.battle_vortexs);
+    ability.unit_ability.vortex = processVortex(folder, globalData, unitSpecialAbility.localRefs?.battle_vortexs);
   }
 
   return ability;

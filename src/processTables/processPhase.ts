@@ -5,7 +5,7 @@ import { parseBoolean, parseFloating, parseInteger } from '../utils/parseStringT
 import stringInterpolator from '../utils/stringInterpolator';
 
 const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc: TableRecord, phase: TableRecord) => {
-  const returnValue: PhaseInterface = {
+  const returnPhase: PhaseInterface = {
     order: parseInteger(phaseJunc.order),
     target_enemies: parseBoolean(phaseJunc.target_enemies),
     target_self: parseBoolean(phaseJunc.target_self),
@@ -49,19 +49,19 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     'resurrect',
     'unbreakable',
   ].forEach((field) => {
-    const phaseField = returnValue[field as keyof typeof returnValue];
+    const phaseField = returnPhase[field as keyof typeof returnPhase];
     if (typeof phaseField === 'boolean' && phaseField === false) {
-      delete returnValue[field as keyof typeof returnValue];
+      delete returnPhase[field as keyof typeof returnPhase];
     } else if (typeof phaseField === 'number' && phaseField <= 0) {
-      delete returnValue[field as keyof typeof returnValue];
+      delete returnPhase[field as keyof typeof returnPhase];
     } else if (typeof phaseField === 'string' && phaseField === '') {
-      delete returnValue[field as keyof typeof returnValue];
+      delete returnPhase[field as keyof typeof returnPhase];
     }
   });
 
   // imbue_contact
   if (phase.localRefs?.special_ability_phases !== undefined) {
-    returnValue.imbue_contact = processPhase(
+    returnPhase.imbue_contact = processPhase(
       folder,
       globalData,
       { order: '1', target_enemies: 'true', target_self: 'false', target_friends: 'false' },
@@ -69,10 +69,10 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     );
   }
   // imbue_ignition
-  if (parseInteger(phase.imbue_ignition) >= 1) returnValue.imbue_ignition = true;
+  if (parseInteger(phase.imbue_ignition) >= 1) returnPhase.imbue_ignition = true;
   // spreading
   if (phase.localRefs?.special_ability_spreadings !== undefined) {
-    returnValue.spread_radius = parseInteger(phase.localRefs?.special_ability_spreadings.spread_radius);
+    returnPhase.spread_radius = parseInteger(phase.localRefs?.special_ability_spreadings.spread_radius);
   }
   // stat_effects
   const statEffects: Array<StatEffectInterface> = [];
@@ -98,7 +98,7 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     // To Do
   }
 
-  return returnValue;
+  return returnPhase;
 };
 
 export default processPhase;

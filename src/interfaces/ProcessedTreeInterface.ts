@@ -89,6 +89,7 @@ interface ProjectileInterface {
   can_damage_allies?: boolean;
   contact_stat_effect?: PhaseInterface;
   explosion_type?: ProjectileExplosionInterface;
+  spawned_vortex?: VortexInterface;
 }
 
 interface ProjectileBombardmentInterface {
