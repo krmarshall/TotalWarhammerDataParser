@@ -1,9 +1,4 @@
-export const HowEnum = {
-  add: 'add',
-  mult: 'mult',
-} as const;
-
-const numberPrepend = (string: string, value: number, how: HowEnum) => {
+const numberPrepend = (string: string, value: number, how: string) => {
   if (string[0] !== ' ') {
     string = ` ${string}`;
   }
@@ -21,10 +16,9 @@ const numberPrepend = (string: string, value: number, how: HowEnum) => {
       break;
     }
     default:
-      throw 'Invalid prepend how';
+      throw `Invalid prepend how: ${how}`;
   }
   return string;
 };
 
-export type HowEnum = typeof HowEnum[keyof typeof HowEnum];
 export default numberPrepend;

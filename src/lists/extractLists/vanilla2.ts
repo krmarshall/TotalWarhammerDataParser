@@ -43,6 +43,8 @@ const v2DbList = [
   'agent_subtypes_tables',
   'ancillary_info_tables',
   'banners_tables',
+  'modifiable_unit_stats_tables',
+  'unit_stat_localisations_tables',
 
   // Techs
   'technologies_tables',

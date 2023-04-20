@@ -1,8 +1,10 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { EffectInterface } from '../interfaces/ProcessedTreeInterface';
+import { AbilityInterface, EffectInterface } from '../interfaces/ProcessedTreeInterface';
+import findImage from '../utils/findImage';
 import numberInsertion from '../utils/numberInsertion';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
+import processAbility from './processAbility';
 
 const processEffect = (folder: string, globalData: GlobalDataInterface, effect: TableRecord, value: string, scope: string) => {
   const returnEffect: EffectInterface = {
@@ -12,16 +14,21 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effect: 
     is_positive_value_good: parseBoolean(effect.is_positive_value_good),
     priority: parseInteger(effect.priority),
   };
-  if (scope === 'character_to_character_own') {
-    returnEffect.scope = scope;
-  }
+  if (scope === 'character_to_character_own') returnEffect.scope = scope;
+
+  // Abilities
+  const related_abilities: Array<AbilityInterface> = [];
+  effect.foreignRefs?.effect_bonus_value_unit_ability_junctions?.forEach((effectJunc) => {
+    related_abilities.push(processAbility(folder, globalData, effectJunc));
+  });
+  if (related_abilities.length > 0) returnEffect.related_abilities = related_abilities;
+
   return returnEffect;
 };
 
 export default processEffect;
 
 const findEffectImage = (folder: string, globalData: GlobalDataInterface, iconArg: string) => {
-  const vanillaGame = folder.includes('2') ? 'vanilla2' : 'vanilla3';
   const icon = iconArg.replace('.png', '').trim();
   const searchArray = [
     `campaign_ui/effect_bundles/${icon}`,
@@ -30,25 +37,5 @@ const findEffectImage = (folder: string, globalData: GlobalDataInterface, iconAr
     `battle_ui/ability_icons/${icon.toLowerCase()}`,
   ];
 
-  const modIcon = searchArray.find((searchPath) => {
-    if (globalData.imgPaths[folder][searchPath] !== undefined) {
-      return true;
-    }
-    return false;
-  });
-  if (modIcon !== undefined) {
-    return `${folder}/${modIcon}`;
-  }
-
-  const vanillaIcon = searchArray.find((searchPath) => {
-    if (globalData.imgPaths[vanillaGame][searchPath] !== undefined) {
-      return true;
-    }
-    return false;
-  });
-  if (vanillaIcon !== undefined) {
-    return `${vanillaGame}/${vanillaIcon}`;
-  }
-
-  return icon;
+  return findImage(folder, globalData, searchArray, icon);
 };
