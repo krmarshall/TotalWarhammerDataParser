@@ -146,11 +146,12 @@ interface AbilityInterface {
 }
 
 interface EffectInterface {
+  key: string;
   description: string;
-  effect: string;
   icon: string;
   is_positive_value_good: boolean;
   priority: number;
+  value?: number;
   scope?: string;
   related_abilities?: Array<AbilityInterface>;
 }
@@ -173,10 +174,39 @@ interface ItemInterface {
   ui_icon: string;
 }
 
+interface SkillLevelInterface {
+  unlocked_at_rank?: number;
+  auto_unlock_at_rank?: number;
+  blocks_character_skill_key?: Array<string>;
+  effects?: Array<EffectInterface>;
+}
+
+interface SkillInterface {
+  key: string;
+  image_path: string;
+  is_background_skill: boolean;
+  localised_name: string;
+  localised_description: string;
+  use_quest_for_prefix?: boolean;
+  character_skill_key: string;
+  tier: number;
+  indent: number;
+  points_on_creation: number;
+  required_num_parents: number;
+  parent_required?: Array<string>;
+  parent_subset_required?: Array<string>;
+  visible_in_ui: boolean;
+  right_arrow?: boolean;
+  boxed?: boolean;
+  levels?: Array<SkillLevelInterface>;
+}
+
 interface ProcessedAgentInterface {
   key: string;
+  skillTree: Array<Array<SkillInterface>>;
   factionEffects?: FactionEffectsInterface;
   items?: Array<ItemInterface>;
+  backgroundSkills?: Array<SkillInterface>;
 }
 
 export {
@@ -191,5 +221,7 @@ export {
   AbilityInterface,
   FactionEffectsInterface,
   ItemInterface,
+  SkillLevelInterface,
+  SkillInterface,
   ProcessedAgentInterface,
 };

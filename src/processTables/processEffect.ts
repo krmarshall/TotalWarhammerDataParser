@@ -8,18 +8,39 @@ import processAbility from './processAbility';
 
 const processEffect = (folder: string, globalData: GlobalDataInterface, effect: TableRecord, value: string, scope: string) => {
   const returnEffect: EffectInterface = {
-    description: numberInsertion(stringInterpolator(effect.description, globalData.parsedData[folder].text), parseInteger(value as string)),
-    effect: effect.effect, // Key
+    description: numberInsertion(stringInterpolator(effect.description, globalData.parsedData[folder].text), parseInteger(value)),
+    key: effect.effect,
     icon: findEffectImage(folder, globalData, effect.icon),
     is_positive_value_good: parseBoolean(effect.is_positive_value_good),
     priority: parseInteger(effect.priority),
   };
-  if (scope === 'character_to_character_own') returnEffect.scope = scope;
+  if (scope === 'character_to_character_own') {
+    returnEffect.scope = scope;
+    returnEffect.value = parseInteger(value);
+  }
 
+  const wantedBonusValueIdList = ['enable', 'enable_overchage', 'uses_mod', 'effect_range_mod'];
   // Abilities
   const related_abilities: Array<AbilityInterface> = [];
-  effect.foreignRefs?.effect_bonus_value_unit_ability_junctions?.forEach((effectJunc) => {
-    related_abilities.push(processAbility(folder, globalData, effectJunc));
+  // unit_ability
+  effect.foreignRefs?.effect_bonus_value_unit_ability_junctions?.forEach((abilityJunc, index) => {
+    if ((abilityJunc.bonus_value_id === 'recharge_mod' && index < 4) || wantedBonusValueIdList.includes(abilityJunc.bonus_value_id)) {
+      related_abilities.push(processAbility(folder, globalData, abilityJunc));
+    }
+  });
+  // unit_ability recharge_mods can link to nearly every spell in the game, so limit the number we add for them, but allow everything for the rest
+  wantedBonusValueIdList.push('recharge_mod');
+  // unit_set_ability
+  effect.foreignRefs?.effect_bonus_value_unit_set_unit_ability_junctions?.forEach((abilityJunc) => {
+    if (wantedBonusValueIdList.includes(abilityJunc.bonus_value_id)) {
+      related_abilities.push(processAbility(folder, globalData, abilityJunc));
+    }
+  });
+  // army_special_ability
+  effect.foreignRefs?.effect_bonus_value_military_force_ability_junctions?.forEach((abilityJunc) => {
+    if (wantedBonusValueIdList.includes(abilityJunc.bonus_value_id)) {
+      related_abilities.push(processAbility(folder, globalData, abilityJunc));
+    }
   });
   if (related_abilities.length > 0) returnEffect.related_abilities = related_abilities;
 

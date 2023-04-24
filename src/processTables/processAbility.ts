@@ -2,17 +2,21 @@ import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterf
 import { AbilityInterface, PhaseInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import { parseBoolean, parseFloating, parseInteger } from '../utils/parseStringToTypes';
+import stringInterpolator from '../utils/stringInterpolator';
 import processBombardment from './processBombardment';
 import processPhase from './processPhase';
 import processProjectile from './processProjectile';
 import processVortex from './processVortex';
 
 const processAbility = (folder: string, globalData: GlobalDataInterface, abilityJunc: TableRecord) => {
-  const unitAbility = abilityJunc.localRefs?.unit_abilities as TableRecord;
+  const unitAbility =
+    (abilityJunc.localRefs?.unit_abilities as TableRecord) ??
+    (abilityJunc.localRefs?.unit_set_unit_ability_junctions?.localRefs?.unit_abilities as TableRecord) ??
+    (abilityJunc.localRefs?.army_special_abilities?.localRefs?.unit_special_abilities?.localRefs?.unit_abilities as TableRecord);
   const unitAbilityType = unitAbility.localRefs?.unit_ability_types as TableRecord;
   const unitSpecialAbility = unitAbility.foreignRefs?.unit_special_abilities[0] as TableRecord;
 
-  const ability: AbilityInterface = {
+  const returnAbility: AbilityInterface = {
     effect: abilityJunc.effect,
     bonus_value_id: abilityJunc.bonus_value_id,
     unit_ability: {
@@ -56,9 +60,42 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
     'shared_recharge_time',
     'wind_up_time',
   ].forEach((field) => {
-    if ((ability.unit_ability[field as keyof typeof ability.unit_ability] as number) <= 0) {
-      delete ability.unit_ability[field as keyof typeof ability.unit_ability];
+    if ((returnAbility.unit_ability[field as keyof typeof returnAbility.unit_ability] as number) <= 0) {
+      delete returnAbility.unit_ability[field as keyof typeof returnAbility.unit_ability];
     }
+  });
+
+  // enabled_if
+  unitSpecialAbility.foreignRefs?.special_ability_to_auto_deactivate_flags?.forEach((enable) => {
+    if (returnAbility.unit_ability.enabled_if === undefined) returnAbility.unit_ability.enabled_if = [];
+    returnAbility.unit_ability.enabled_if.push(
+      stringInterpolator(
+        enable.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
+        globalData.parsedData[folder].text
+      )
+    );
+  });
+
+  // target_if
+  unitSpecialAbility.foreignRefs?.special_ability_to_invalid_target_flags?.forEach((target) => {
+    if (returnAbility.unit_ability.target_if === undefined) returnAbility.unit_ability.target_if = [];
+    returnAbility.unit_ability.target_if.push(
+      stringInterpolator(
+        target.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
+        globalData.parsedData[folder].text
+      )
+    );
+  });
+
+  // ui_effects
+  unitAbility.foreignRefs?.unit_abilities_to_additional_ui_effects_juncs?.forEach((uiEffectJunc) => {
+    if (returnAbility.unit_ability.ui_effects === undefined) returnAbility.unit_ability.ui_effects = [];
+    const uiEffect = uiEffectJunc.localRefs?.unit_abilities_additional_ui_effects as TableRecord;
+    returnAbility.unit_ability.ui_effects?.push({
+      key: uiEffect.key,
+      sort_order: parseInteger(uiEffect.sort_order),
+      localised_text: stringInterpolator(uiEffect.localised_text, globalData.parsedData[folder].text),
+    });
   });
 
   const phases: Array<PhaseInterface> = [];
@@ -66,23 +103,25 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
   unitSpecialAbility.foreignRefs?.special_ability_to_special_ability_phase_junction?.forEach((phaseJunc) => {
     phases.push(processPhase(folder, globalData, phaseJunc, phaseJunc.localRefs?.special_ability_phases as TableRecord));
   });
-  if (phases.length > 0) ability.unit_ability.phases = phases;
+  if (phases.length > 0) returnAbility.unit_ability.phases = phases;
+
   // activated_projectile
   if (unitSpecialAbility.localRefs?.projectiles !== undefined) {
-    ability.unit_ability.activated_projectile = processProjectile(folder, globalData, unitSpecialAbility.localRefs?.projectiles);
+    returnAbility.unit_ability.activated_projectile = processProjectile(folder, globalData, unitSpecialAbility.localRefs?.projectiles);
   }
 
   // bombardment
   if (unitSpecialAbility.localRefs?.projectile_bombardments !== undefined) {
-    ability.unit_ability.bombardment = processBombardment(folder, globalData, unitSpecialAbility.localRefs?.projectile_bombardments);
+    returnAbility.unit_ability.bombardment = processBombardment(folder, globalData, unitSpecialAbility.localRefs?.projectile_bombardments);
   }
 
   // vortex
-  if (unitSpecialAbility.localRefs?.battle_vortexs !== undefined) {
-    ability.unit_ability.vortex = processVortex(folder, globalData, unitSpecialAbility.localRefs?.battle_vortexs);
+  const battleVortex = unitSpecialAbility.localRefs?.battle_vortexs;
+  if (battleVortex !== undefined && battleVortex.damage !== '0' && battleVortex.damage_ap !== '0' && battleVortex.contact_effect !== '') {
+    returnAbility.unit_ability.vortex = processVortex(folder, globalData, battleVortex);
   }
 
-  return ability;
+  return returnAbility;
 };
 
 export default processAbility;
