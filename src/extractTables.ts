@@ -76,7 +76,7 @@ const extractLocBulk = (folder: string, locPackName: string, game: string, input
 
 const generateTablesString = (dbList: Array<string>, folder: string) => {
   return dbList.reduce((prev, cur) => {
-    return `${prev} "/db/${cur};../extracted_files/${folder}"`;
+    return `${prev} "/db/${cur}_tables;../extracted_files/${folder}"`;
   }, '');
 };
 

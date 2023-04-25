@@ -78,7 +78,7 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
   const statEffects: Array<StatEffectInterface> = [];
   phase.foreignRefs?.special_ability_phase_stat_effects?.forEach((phaseStat) => {
     const statLoc = phaseStat.localRefs?.modifiable_unit_stats?.localRefs?.unit_stat_localisations as TableRecord;
-    const uiUnitStat = statLoc.foreignRefs?.ui_unit_stats[0] as TableRecord;
+    const uiUnitStat = statLoc.foreignRefs?.ui_unit_stats?.[0] as TableRecord;
     statEffects.push({
       value: parseFloating(phaseStat.value),
       stat: phaseStat.stat,

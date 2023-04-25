@@ -3,6 +3,7 @@ import { SkillInterface, SkillLevelInterface } from '../interfaces/ProcessedTree
 import findImage from '../utils/findImage';
 import log from '../utils/log';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
+import collateNodes from './collateNodes';
 import processEffect from './processEffect';
 
 const processNodeSet = (
@@ -12,8 +13,11 @@ const processNodeSet = (
   subcultureKey: string,
   factionKeys: Set<string>
 ) => {
-  const skillTree: Array<Array<SkillInterface>> = [[], [], [], [], [], []];
-  const backgroundSkills: Array<SkillInterface> = [];
+  const completeNodes: Array<SkillInterface> = [];
+
+  const skillNodeKeys: { [key: string]: boolean } = {};
+  nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => (skillNodeKeys[skillNode.key] = true));
+  const subsetRequiredMap: { [key: string]: Array<SkillInterface> } = {};
 
   nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => {
     const skill = skillNode.localRefs?.character_skills as TableRecord;
@@ -30,6 +34,9 @@ const processNodeSet = (
       localised_name: skill.localised_name,
       localised_description: skill.localised_description,
     };
+
+    if (skillNode.subculture !== '') returnSkill.subculture = skillNode.subculture;
+    if (skillNode.faction_key !== '') returnSkill.faction = skillNode.faction_key;
 
     // Skills refs
     // character_skill_level_to_effects_junctions
@@ -81,16 +88,68 @@ const processNodeSet = (
         }
       }
     });
-    // parent_required
-    // parent_subset_required
-    // right_arrow
-    // boxed
+    // character_skill_nodes_skill_locks
+    skill.foreignRefs?.character_skill_nodes_skill_locks?.forEach((lock) => {
+      const skillLevel = parseInteger(lock.level) - 1;
+      if (returnSkill.levels?.[skillLevel] === undefined) {
+        log(`Skill node lock missing its skill level: ${returnSkill.key}`, 'red');
+      } else if (skillNodeKeys[lock.character_skill_node] === true) {
+        if (returnSkill.levels[skillLevel].blocks_skill_node_keys === undefined) returnSkill.levels[skillLevel].blocks_skill_node_keys = [];
+        if (!returnSkill.levels[skillLevel].blocks_skill_node_keys?.includes(lock.character_skill_node)) {
+          returnSkill.levels[skillLevel].blocks_skill_node_keys?.push(lock.character_skill_node);
+        }
+      }
+    });
+    // character_skill_node_links
+    const parent_required: Array<string> = [];
+    const parent_subset_required: Array<string> = [];
+    skillNode.foreignRefs?.character_skill_node_links?.forEach((link) => {
+      if (skillNodeKeys[link.parent_key] === undefined || skillNodeKeys[link.child_key] === undefined) {
+        // If one of the nodes the links refer to isnt in the node set then ignore it
+      } else {
+        if (skillNode.key === link.parent_key) {
+          if (link.link_type === 'REQUIRED') {
+            returnSkill.right_arrow = true;
+          }
+          if (link.link_type === 'SUBSET_REQUIRED') {
+            if (subsetRequiredMap[link.child_key] === undefined) subsetRequiredMap[link.child_key] = [];
+            subsetRequiredMap[link.child_key].push(returnSkill);
+          }
+        }
+        if (skillNode.key === link.child_key) {
+          if (link.link_type === 'REQUIRED') {
+            parent_required.push(link.parent_key);
+          }
+          if (link.link_type === 'SUBSET_REQUIRED') {
+            parent_subset_required.push(link.parent_key);
+          }
+        }
+      }
+    });
+    if (parent_required.length > 0) returnSkill.parent_required = parent_required;
+    if (parent_subset_required.length > 0) returnSkill.parent_subset_required = parent_subset_required;
 
-    // SkillLevel refs
-    // blocks_character_skill_key
+    completeNodes.push(returnSkill);
   });
 
-  return { skillTree, backgroundSkills };
+  // After all nodes are processed go through subset_required children, give their highest tier parent right_arrow
+  Object.keys(subsetRequiredMap).forEach((subsetKey) => {
+    const subsetRequiredNodes = subsetRequiredMap[subsetKey];
+    let highest = subsetRequiredNodes[0];
+    for (let i = 0; i < subsetRequiredNodes.length; i++) {
+      if (subsetRequiredNodes[i].tier > highest.tier) {
+        highest = subsetRequiredNodes[i];
+      }
+    }
+    highest.right_arrow = true;
+
+    // Also give each parent node boxed if there are more than 1 of them
+    if (subsetRequiredNodes.length > 1) {
+      subsetRequiredNodes.forEach((node) => (node.boxed = true));
+    }
+  });
+
+  return collateNodes(completeNodes, subcultureKey, factionKeys);
 };
 
 export default processNodeSet;

@@ -1,42 +1,75 @@
 import { Table } from '../generateTables';
-import { GlobalDataInterface } from '../interfaces/GlobalDataInterface';
+import CharacterListInterface from '../interfaces/CharacterListInterface';
+import { GlobalDataInterface, RefKey, TableRecord } from '../interfaces/GlobalDataInterface';
+import subcultureMap from '../lists/subcultureMap';
+import vanillaCharacters from '../lists/vanillaCharacters';
+import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import processAgent from './processAgent';
+import fse from 'fs-extra';
 
-const processFactions = (folder: string, globalData: GlobalDataInterface, tables: { [key: string]: Table }) => {
+const processFactions = (folder: string, globalData: GlobalDataInterface, tables: { [key in RefKey]?: Table }, pruneVanilla: boolean) => {
   const agentMap: { [key: string]: { subcultures: Set<string>; factions: Set<string> } } = {};
-  tables.cultures_tables?.records.forEach((culture) => {
-    if (!ignoreCultures.includes(culture.key)) {
-      culture.foreignRefs?.cultures_subcultures.forEach((subculture) => {
-        if (!ignoreSubcultures.includes(subculture.subculture)) {
-          subculture.foreignRefs?.factions.forEach((faction) => {
-            if (
-              faction.is_quest_faction === 'false' &&
-              faction.is_rebel === 'false' &&
-              !faction.key.includes('_separatists') &&
-              !faction.key.includes('_invasion') &&
-              !faction.key.includes('_prologue') &&
-              !ignoreFactions.includes(faction.key)
-            ) {
-              faction.foreignRefs?.faction_agent_permitted_subtypes.forEach((factionAgent) => {
-                if (factionAgent.agent !== 'colonel' && factionAgent.agent !== 'minister') {
-                  if (agentMap[factionAgent.subtype] === undefined) {
-                    agentMap[factionAgent.subtype] = { subcultures: new Set(), factions: new Set() };
-                  }
-                  agentMap[factionAgent.subtype].subcultures.add(subculture.subculture);
-                  agentMap[factionAgent.subtype].factions.add(faction.key);
-                }
-              });
-            }
-          });
-        }
-      });
+  const characterList: CharacterListInterface = {};
+  Object.values(subcultureMap).forEach((subculture) => (characterList[subculture] = { lords: {}, heroes: {} }));
+
+  tables.cultures?.records.forEach((culture) => {
+    if (ignoreCultures.includes(culture.key)) {
+      return;
     }
+    culture.foreignRefs?.cultures_subcultures?.forEach((subculture) => {
+      if (ignoreSubcultures.includes(subculture.subculture)) {
+        return;
+      }
+      subculture.foreignRefs?.factions?.forEach((faction) => {
+        if (
+          faction.is_quest_faction === 'true' ||
+          faction.is_rebel === 'true' ||
+          faction.key.includes('_separatists') ||
+          faction.key.includes('_invasion') ||
+          faction.key.includes('_prologue') ||
+          ignoreFactions.includes(faction.key)
+        ) {
+          return;
+        }
+        faction.foreignRefs?.faction_agent_permitted_subtypes?.forEach((factionAgent) => {
+          if (factionAgent.agent === 'colonel' || factionAgent.agent === 'minister') {
+            return;
+          }
+          if (ignoreAgents.includes(factionAgent.subtype)) {
+            return;
+          }
+          const nodeSetKey = factionAgent?.localRefs?.agent_subtypes?.foreignRefs?.character_skill_node_sets?.[0]?.key;
+          if (nodeSetKey === undefined) {
+            return;
+          }
+          const cleanKey = cleanNodeSetKey(nodeSetKey as string);
+          if (pruneVanilla && vanillaCharacters[cleanKey] !== undefined) {
+            return;
+          }
+
+          if (agentMap[factionAgent.subtype] === undefined) {
+            agentMap[factionAgent.subtype] = { subcultures: new Set(), factions: new Set() };
+          }
+          agentMap[factionAgent.subtype].subcultures.add(subculture.subculture);
+          agentMap[factionAgent.subtype].factions.add(faction.key);
+
+          const nameOverride = factionAgent?.localRefs?.agent_subtypes?.onscreen_name_override as string;
+          if (factionAgent.agent === 'general') {
+            characterList[subcultureMap[subculture.subculture]].lords[cleanKey] = { name: nameOverride, portrait: '' };
+          } else {
+            characterList[subcultureMap[subculture.subculture]].heroes[cleanKey] = { name: nameOverride, portrait: '' };
+          }
+        });
+      });
+    });
   });
+
+  fse.outputJSONSync(`debug/${folder}/characterList.json`, characterList, { spaces: 2 });
 
   Object.keys(agentMap).forEach((agentKey) => {
     const agent = agentMap[agentKey];
     agent.subcultures.forEach((subculture) => {
-      processAgent(folder, globalData, tables.agent_subtypes_tables.findRecordByKey('key', agentKey), subculture, agent.factions);
+      processAgent(folder, globalData, tables.agent_subtypes?.findRecordByKey('key', agentKey) as TableRecord, subculture, agent.factions);
     });
   });
 };
@@ -108,4 +141,14 @@ const ignoreFactions = [
   'wh_main_grn_top_knotz',
   'wh_main_grn_top_knotz_waaagh',
   'wh_main_vmp_rival_sylvanian_vamps',
+];
+
+const ignoreAgents = [
+  'wh2_dlc13_lzd_kroxigor_ancient_horde',
+  'wh2_dlc13_lzd_red_crested_skink_chief_horde',
+  'wh2_dlc13_lzd_saurus_old_blood_horde',
+  'wh2_dlc13_lzd_slann_mage_priest_horde',
+  'wh2_dlc13_lzd_slann_mage_priest_fire_horde',
+  'wh2_dlc13_lzd_slann_mage_priest_high_horde',
+  'wh2_dlc13_lzd_slann_mage_priest_life_horde',
 ];

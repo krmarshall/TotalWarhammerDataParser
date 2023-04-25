@@ -29,7 +29,7 @@ parseImages(folder, imagePacknames, game, true, globalData)
   .then(() => {
     csvParse(folder, false, globalData);
     const tables = generateTables(folder, globalData, dbList, schema as SchemaInterface);
-    processFactions(folder, globalData, tables);
+    processFactions(folder, globalData, tables, false);
   })
   .then(() => {
     console.timeEnd(folder);

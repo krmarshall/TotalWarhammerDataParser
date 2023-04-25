@@ -14,7 +14,7 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
     (abilityJunc.localRefs?.unit_set_unit_ability_junctions?.localRefs?.unit_abilities as TableRecord) ??
     (abilityJunc.localRefs?.army_special_abilities?.localRefs?.unit_special_abilities?.localRefs?.unit_abilities as TableRecord);
   const unitAbilityType = unitAbility.localRefs?.unit_ability_types as TableRecord;
-  const unitSpecialAbility = unitAbility.foreignRefs?.unit_special_abilities[0] as TableRecord;
+  const unitSpecialAbility = unitAbility.foreignRefs?.unit_special_abilities?.[0] as TableRecord;
 
   const returnAbility: AbilityInterface = {
     effect: abilityJunc.effect,
@@ -66,41 +66,44 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
   });
 
   // enabled_if
+  const enabled_if: Array<string> = [];
   unitSpecialAbility.foreignRefs?.special_ability_to_auto_deactivate_flags?.forEach((enable) => {
-    if (returnAbility.unit_ability.enabled_if === undefined) returnAbility.unit_ability.enabled_if = [];
-    returnAbility.unit_ability.enabled_if.push(
+    enabled_if.push(
       stringInterpolator(
         enable.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
         globalData.parsedData[folder].text
       )
     );
   });
+  if (enabled_if.length > 0) returnAbility.unit_ability.enabled_if = enabled_if;
 
   // target_if
+  const target_if: Array<string> = [];
   unitSpecialAbility.foreignRefs?.special_ability_to_invalid_target_flags?.forEach((target) => {
-    if (returnAbility.unit_ability.target_if === undefined) returnAbility.unit_ability.target_if = [];
-    returnAbility.unit_ability.target_if.push(
+    target_if.push(
       stringInterpolator(
         target.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
         globalData.parsedData[folder].text
       )
     );
   });
+  if (target_if.length > 0) returnAbility.unit_ability.target_if = target_if;
 
   // ui_effects
+  const ui_effects: Array<{ key: string; sort_order: number; localised_text: string }> = [];
   unitAbility.foreignRefs?.unit_abilities_to_additional_ui_effects_juncs?.forEach((uiEffectJunc) => {
-    if (returnAbility.unit_ability.ui_effects === undefined) returnAbility.unit_ability.ui_effects = [];
     const uiEffect = uiEffectJunc.localRefs?.unit_abilities_additional_ui_effects as TableRecord;
-    returnAbility.unit_ability.ui_effects?.push({
+    ui_effects.push({
       key: uiEffect.key,
       sort_order: parseInteger(uiEffect.sort_order),
       localised_text: stringInterpolator(uiEffect.localised_text, globalData.parsedData[folder].text),
     });
   });
+  if (ui_effects.length > 0) returnAbility.unit_ability.ui_effects = ui_effects;
 
-  const phases: Array<PhaseInterface> = [];
   // phases
-  unitSpecialAbility.foreignRefs?.special_ability_to_special_ability_phase_junction?.forEach((phaseJunc) => {
+  const phases: Array<PhaseInterface> = [];
+  unitSpecialAbility.foreignRefs?.special_ability_to_special_ability_phase_junctions?.forEach((phaseJunc) => {
     phases.push(processPhase(folder, globalData, phaseJunc, phaseJunc.localRefs?.special_ability_phases as TableRecord));
   });
   if (phases.length > 0) returnAbility.unit_ability.phases = phases;

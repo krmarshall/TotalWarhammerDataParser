@@ -132,7 +132,7 @@ dist
 # Intermediate/Output data folders
 /game_source/*
 /extracted_files/*
-/test/*
+/debug/*
 /output/*
 /output_img/*
 /bins/nScripts/*

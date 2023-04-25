@@ -4,8 +4,10 @@ import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import findImage from '../utils/findImage';
 import log from '../utils/log';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
+import outputAgent from './outputAgent';
 import processEffect from './processEffect';
 import processNodeSet from './processNodeSet';
+import subcultureMap from '../lists/subcultureMap';
 
 const processAgent = (
   folder: string,
@@ -31,7 +33,7 @@ const processAgent = (
       ui_icon: findFactionEffectImage(folder, globalData, effectBundle.ui_icon),
       effects: [],
     };
-    foreignRefs?.effect_bundles_to_effects_junctions.forEach((effect) => {
+    foreignRefs?.effect_bundles_to_effects_junctions?.forEach((effect) => {
       returnAgent.factionEffects?.effects.push(
         processEffect(folder, globalData, effect.localRefs?.effects as TableRecord, effect.value, effect.effect_scope)
       );
@@ -50,7 +52,7 @@ const processAgent = (
         effects.push(processEffect(folder, globalData, effect.localRefs?.effects as TableRecord, effect.value, effect.effect_scope));
       });
       // Banner Effects
-      ancillary.localRefs?.banners?.localRefs?.effect_bundles.foreignRefs?.effect_bundles_to_effects_junctions.forEach((effectJunc) => {
+      ancillary.localRefs?.banners?.localRefs?.effect_bundles?.foreignRefs?.effect_bundles_to_effects_junctions?.forEach((effectJunc) => {
         effects.push(processEffect(folder, globalData, effectJunc.localRefs?.effects as TableRecord, effectJunc.value, effectJunc.scope));
       });
 
@@ -61,7 +63,7 @@ const processAgent = (
         colour_text: ancillary.colour_text,
         unlocked_at_rank: parseInteger(ancillaryQuest.rank),
         instant: parseBoolean(ancillaryQuest.instant),
-        ui_icon: (ancillary.localRefs?.ancillary_types.ui_icon as string).replace(' ', '_').replace('.png', ''),
+        ui_icon: (ancillary.localRefs?.ancillary_types?.ui_icon as string).replace(' ', '_').replace('.png', ''),
       });
     });
   }
@@ -70,7 +72,7 @@ const processAgent = (
   if (agent.foreignRefs?.character_skill_node_sets.length > 1) {
     log(`Agent has multiple skill node sets: ${agent.key}`, 'red');
   }
-  const { skillTree, backgroundSkills } = processNodeSet(
+  const { skillTree, backgroundSkills, items } = processNodeSet(
     folder,
     globalData,
     agent.foreignRefs?.character_skill_node_sets[0],
@@ -79,6 +81,10 @@ const processAgent = (
   );
   returnAgent.skillTree = skillTree;
   returnAgent.backgroundSkills = backgroundSkills;
+  if (returnAgent.items === undefined) returnAgent.items = [];
+  returnAgent.items.push(...items);
+
+  outputAgent(returnAgent, folder, subcultureMap[subcultureKey as keyof typeof subcultureMap]);
 };
 
 export default processAgent;

@@ -177,12 +177,14 @@ interface ItemInterface {
 interface SkillLevelInterface {
   unlocked_at_rank?: number;
   auto_unlock_at_rank?: number;
-  blocks_character_skill_key?: Array<string>;
+  blocks_skill_node_keys?: Array<string>;
   effects?: Array<EffectInterface>;
 }
 
 interface SkillInterface {
   key: string;
+  subculture?: string;
+  faction?: string;
   image_path: string;
   is_background_skill: boolean;
   localised_name: string;

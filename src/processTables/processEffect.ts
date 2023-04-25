@@ -24,7 +24,10 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effect: 
   const related_abilities: Array<AbilityInterface> = [];
   // unit_ability
   effect.foreignRefs?.effect_bonus_value_unit_ability_junctions?.forEach((abilityJunc, index) => {
-    if ((abilityJunc.bonus_value_id === 'recharge_mod' && index < 4) || wantedBonusValueIdList.includes(abilityJunc.bonus_value_id)) {
+    if (
+      (abilityJunc.bonus_value_id === 'recharge_mod' && index < 4 && abilityJunc.localRefs?.unit_abilities?.overpower_option === '') ||
+      wantedBonusValueIdList.includes(abilityJunc.bonus_value_id)
+    ) {
       related_abilities.push(processAbility(folder, globalData, abilityJunc));
     }
   });

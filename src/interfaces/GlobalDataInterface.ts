@@ -1,15 +1,19 @@
+import { v3DbList } from '../lists/extractLists/vanilla3';
+
 interface TableRecordNoRefs {
   [key: string]: string;
 }
 
+type RefKey = typeof v3DbList[number];
+
 interface TableRecordRefs {
   // This record referencing another
   localRefs?: {
-    [key: string /*Table*/]: TableRecord;
+    [key in RefKey]?: TableRecord;
   };
   // Other records referencing this
   foreignRefs?: {
-    [key: string /*Table*/]: Array<TableRecord>;
+    [key in RefKey]?: Array<TableRecord>;
   };
 }
 
@@ -41,4 +45,5 @@ interface GlobalDataInterface {
   };
 }
 
+export type { RefKey };
 export { GlobalDataInterface, TableRecord };
