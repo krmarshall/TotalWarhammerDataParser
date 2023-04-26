@@ -6,17 +6,27 @@ import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
 import processAbility from './processAbility';
 
-const processEffect = (folder: string, globalData: GlobalDataInterface, effect: TableRecord, value: string, scope: string) => {
+const processEffect = (folder: string, globalData: GlobalDataInterface, effectJunc: TableRecord) => {
+  const effect = effectJunc.localRefs?.effects as TableRecord;
   const returnEffect: EffectInterface = {
-    description: numberInsertion(stringInterpolator(effect.description, globalData.parsedData[folder].text), parseInteger(value)),
+    description: numberInsertion(
+      stringInterpolator(effect.description, globalData.parsedData[folder].text),
+      parseInteger(effectJunc.value)
+    ),
     key: effect.effect,
     icon: findEffectImage(folder, globalData, effect.icon),
     is_positive_value_good: parseBoolean(effect.is_positive_value_good),
     priority: parseInteger(effect.priority),
   };
-  if (scope === 'character_to_character_own') {
-    returnEffect.scope = scope;
-    returnEffect.value = parseInteger(value);
+  if (effectJunc.scope === 'character_to_character_own') {
+    returnEffect.scope = effectJunc.scope;
+    returnEffect.value = parseInteger(effectJunc.value);
+  }
+  if (effectJunc.localRefs?.campaign_effect_scopes?.localised_text !== '') {
+    returnEffect.description += stringInterpolator(
+      effectJunc.localRefs?.campaign_effect_scopes?.localised_text as string,
+      globalData.parsedData[folder].text
+    );
   }
 
   const wantedBonusValueIdList = ['enable', 'enable_overchage', 'uses_mod', 'effect_range_mod'];

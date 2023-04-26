@@ -46,6 +46,7 @@ const v2DbList = [
   'banners',
   'modifiable_unit_stats',
   'unit_stat_localisations',
+  'campaign_effect_scopes',
 
   // Techs
   'technologies',

@@ -1,5 +1,6 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { PhaseInterface, StatEffectInterface } from '../interfaces/ProcessedTreeInterface';
+import { AttributeInterface, PhaseInterface, StatEffectInterface } from '../interfaces/ProcessedTreeInterface';
+import findImage from '../utils/findImage';
 import numberPrepend from '../utils/numberPrepend';
 import { parseBoolean, parseFloating, parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
@@ -92,13 +93,37 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
       sort_order: parseInteger(uiUnitStat.sort_order as string),
     });
   });
-  // attributes
-  if (phase.foreignRefs?.special_ability_phase_attribute_effects !== undefined) {
-    let breakpoint;
-    // To Do
+  if (statEffects.length > 0) {
+    statEffects.sort((a, b) => (a.sort_order as number) - (b.sort_order as number)).forEach((statEffect) => delete statEffect.sort_order);
+    returnPhase.stat_effects = statEffects;
   }
+  // attributes
+  const attributeEffects: Array<AttributeInterface> = [];
+  phase.foreignRefs?.special_ability_phase_attribute_effects?.forEach((attribute) => {
+    attributeEffects.push({
+      key: attribute.attribute,
+      description: stringInterpolator(
+        attribute.localRefs?.unit_attributes?.imued_effect_text as string,
+        globalData.parsedData[folder].text
+      ),
+      attribute_type: attribute.attribute_type,
+      icon: findAttributeImage(folder, globalData, attribute.attribute),
+    });
+  });
+  if (attributeEffects.length > 0) returnPhase.attributes = attributeEffects;
 
   return returnPhase;
 };
 
 export default processPhase;
+
+const findAttributeImage = (folder: string, globalData: GlobalDataInterface, attributeKey: string) => {
+  const searchArray = [
+    `campaign_ui/effect_bundles/attribute_${attributeKey}`,
+    `campaign_ui/effect_bundles/attribute_${attributeKey.toLowerCase()}`,
+    `battle_ui/ability_icons/${attributeKey}`,
+    `battle_ui/ability_icons/${attributeKey.toLowerCase()}`,
+  ];
+
+  return findImage(folder, globalData, searchArray, attributeKey);
+};

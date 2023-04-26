@@ -4,7 +4,7 @@ interface StatEffectInterface {
   how: string;
   description: string;
   icon: string;
-  sort_order: number;
+  sort_order?: number;
 }
 
 interface AttributeInterface {
@@ -166,11 +166,11 @@ interface FactionEffectsInterface {
 
 interface ItemInterface {
   key: string;
+  character_skill?: string;
   effects?: Array<EffectInterface>;
   onscreen_name: string;
   colour_text: string;
-  unlocked_at_rank: number;
-  instant: boolean;
+  unlocked_at_rank?: number;
   ui_icon: string;
 }
 
@@ -189,7 +189,6 @@ interface SkillInterface {
   is_background_skill: boolean;
   localised_name: string;
   localised_description: string;
-  use_quest_for_prefix?: boolean;
   character_skill_key: string;
   tier: number;
   indent: number;

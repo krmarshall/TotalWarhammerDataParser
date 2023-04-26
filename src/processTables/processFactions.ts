@@ -17,7 +17,11 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
       return;
     }
     culture.foreignRefs?.cultures_subcultures?.forEach((subculture) => {
-      if (ignoreSubcultures.includes(subculture.subculture)) {
+      if (
+        ignoreSubcultures.some(
+          (ignoreCult) => ignoreCult.subculture === subculture.subculture && (folder === ignoreCult.game || ignoreCult.game === 'ALL')
+        )
+      ) {
         return;
       }
       subculture.foreignRefs?.factions?.forEach((faction) => {
@@ -35,7 +39,14 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
           if (factionAgent.agent === 'colonel' || factionAgent.agent === 'minister') {
             return;
           }
-          if (ignoreAgents.includes(factionAgent.subtype)) {
+          if (
+            ignoreAgents.some(
+              (ignoreAgent) =>
+                ignoreAgent.agent === factionAgent.subtype &&
+                (ignoreAgent.game === 'ALL' || folder === ignoreAgent.game) &&
+                (ignoreAgent.subculture === undefined || ignoreAgent.subculture === subculture.subculture)
+            )
+          ) {
             return;
           }
           const nodeSetKey = factionAgent?.localRefs?.agent_subtypes?.foreignRefs?.character_skill_node_sets?.[0]?.key;
@@ -78,10 +89,12 @@ export default processFactions;
 
 const ignoreCultures = ['*', 'wh2_main_rogue', 'wh3_main_pro_ksl_kislev'];
 const ignoreSubcultures = [
-  'wh3_main_pro_sc_kho_khorne',
-  'wh3_main_pro_sc_tze_tzeentch',
-  'wh_main_sc_grn_savage_orcs',
-  'wh_main_sc_teb_teb',
+  { subculture: 'wh3_main_pro_sc_kho_khorne', game: 'ALL' },
+  { subculture: 'wh3_main_pro_sc_tze_tzeentch', game: 'ALL' },
+  { subculture: 'wh_main_sc_grn_savage_orcs', game: 'ALL' },
+  { subculture: 'wh_main_sc_teb_teb', game: 'ALL' },
+
+  { subculture: 'wh_main_sc_ksl_kislev', game: 'vanilla2' },
 ];
 const ignoreFactions = [
   'wh2_main_skv_unknown_clan_def',
@@ -144,11 +157,18 @@ const ignoreFactions = [
 ];
 
 const ignoreAgents = [
-  'wh2_dlc13_lzd_kroxigor_ancient_horde',
-  'wh2_dlc13_lzd_red_crested_skink_chief_horde',
-  'wh2_dlc13_lzd_saurus_old_blood_horde',
-  'wh2_dlc13_lzd_slann_mage_priest_horde',
-  'wh2_dlc13_lzd_slann_mage_priest_fire_horde',
-  'wh2_dlc13_lzd_slann_mage_priest_high_horde',
-  'wh2_dlc13_lzd_slann_mage_priest_life_horde',
+  { agent: 'wh2_dlc13_lzd_kroxigor_ancient_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_red_crested_skink_chief_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_saurus_old_blood_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_horde', game: 'ALL' },
+  { agent: 'wh2_main_lzd_slann_mage_priest_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_fire_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_high_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_life_horde', game: 'ALL' },
+  { agent: 'wh2_dlc12_lzd_red_crested_skink_chief_legendary', game: 'ALL' },
+  { agent: 'wh2_dlc12_lzd_tlaqua_skink_chief', game: 'ALL' },
+  { agent: 'wh2_dlc12_lzd_tlaqua_skink_priest_beasts', game: 'ALL' },
+  { agent: 'wh2_dlc12_lzd_tlaqua_skink_priest_heavens', game: 'ALL' },
+
+  { agent: 'wh3_dlc20_chs_exalted_hero_mkho', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
 ];

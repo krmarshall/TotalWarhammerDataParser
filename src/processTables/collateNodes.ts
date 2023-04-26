@@ -1,15 +1,18 @@
 import { ItemInterface, SkillInterface } from '../interfaces/ProcessedTreeInterface';
 
-const collateNodes = (completeNodes: Array<SkillInterface>, subcultureKey: string, factionKeys: Set<string>) => {
-  const skillTree: Array<Array<SkillInterface>> = [[], [], [], [], [], []];
+const collateNodes = (
+  completeNodes: Array<SkillInterface>,
+  itemsArg: Array<ItemInterface>,
+  subcultureKey: string,
+  factionKeys: Set<string>
+) => {
+  let skillTree: Array<Array<SkillInterface>> = [[], [], [], [], [], []];
   const backgroundSkills: Array<SkillInterface> = [];
-  const items: Array<ItemInterface> = [];
+  const items: Array<ItemInterface> = [...itemsArg];
 
   nodeFactionPrune.forEach((prune) => factionKeys.delete(prune));
   completeNodes.forEach((completeNode) => {
-    if (completeNode.use_quest_for_prefix) {
-      // push to items
-    } else if (completeNode.character_skill_key === 'wh3_main_skill_agent_action_success_scaling') {
+    if (completeNode.character_skill_key === 'wh3_main_skill_agent_action_success_scaling') {
       // Dont add
     } else if (completeNode.is_background_skill || !completeNode.visible_in_ui) {
       backgroundSkills.push(completeNode);
@@ -25,8 +28,10 @@ const collateNodes = (completeNodes: Array<SkillInterface>, subcultureKey: strin
   });
 
   // Clean null array elements
-  skillTree.filter((indent) => indent !== null);
-  skillTree.map((tier) => tier.filter((skill) => skill !== null));
+  skillTree = skillTree.filter((indent) => indent !== null);
+  skillTree = skillTree.map((tier) => tier.filter((skill) => skill !== null));
+
+  items.sort((a, b) => (a.unlocked_at_rank ?? 0) - (b.unlocked_at_rank ?? 0));
   return { skillTree, backgroundSkills, items };
 };
 

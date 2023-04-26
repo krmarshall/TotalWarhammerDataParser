@@ -1,5 +1,5 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { SkillInterface, SkillLevelInterface } from '../interfaces/ProcessedTreeInterface';
+import { EffectInterface, ItemInterface, SkillInterface, SkillLevelInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import log from '../utils/log';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
@@ -14,6 +14,7 @@ const processNodeSet = (
   factionKeys: Set<string>
 ) => {
   const completeNodes: Array<SkillInterface> = [];
+  const items: Array<ItemInterface> = [];
 
   const skillNodeKeys: { [key: string]: boolean } = {};
   nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => (skillNodeKeys[skillNode.key] = true));
@@ -41,47 +42,80 @@ const processNodeSet = (
     // Skills refs
     // character_skill_level_to_effects_junctions
     skill.foreignRefs?.character_skill_level_to_effects_junctions?.forEach((effectJunc) => {
+      // Most skills have a hidden effect that increases or decreases agent action chances, dont add these
+      if (
+        (effectJunc.effect_key === 'wh_main_effect_agent_action_success_chance_enemy_skill' &&
+          effectJunc.localRefs?.effects?.priority === '0') ||
+        (effectJunc.effect_key === 'wh_main_effect_agent_action_success_chance_skill' && effectJunc.localRefs?.effects?.priority === '0')
+      ) {
+        return;
+      }
       const skillLevel = parseInteger(effectJunc.level) - 1;
       returnSkill.levels = checkSkillLevelExists(returnSkill.levels, skillLevel);
-      returnSkill.levels[skillLevel]?.effects?.push(
-        processEffect(folder, globalData, effectJunc.localRefs?.effects as TableRecord, effectJunc.value, effectJunc.scope)
-      );
+      returnSkill.levels[skillLevel]?.effects?.push(processEffect(folder, globalData, effectJunc as TableRecord));
     });
     // character_skill_level_to_ancillaries_junctions
     skill.foreignRefs?.character_skill_level_to_ancillaries_junctions?.forEach((ancillaryJunc) => {
       const ancillaryEffects = ancillaryJunc.localRefs?.ancillaries?.localRefs?.ancillary_info?.foreignRefs?.ancillary_to_effects;
       if (ancillaryEffects !== undefined) {
-        ancillaryEffects.forEach((effect) => {
-          const skillLevel = parseInteger(effect.level) - 1;
+        ancillaryEffects.forEach((effectJunc) => {
+          const skillLevel = parseInteger(effectJunc.level) - 1;
           returnSkill.levels = checkSkillLevelExists(returnSkill.levels, skillLevel);
-          returnSkill.levels[skillLevel]?.effects?.push(
-            processEffect(folder, globalData, effect.localRefs?.effects as TableRecord, effect.value, effect.effect_scope)
-          );
+          returnSkill.levels[skillLevel]?.effects?.push(processEffect(folder, globalData, effectJunc as TableRecord));
         });
       }
     });
     // character_skills_to_quest_ancillaries
     skill.foreignRefs?.character_skills_to_quest_ancillaries?.forEach((quest) => {
-      const breakpoint = skill;
-      // To Do WH2 Quest Items
+      const ancillary = quest.localRefs?.ancillaries as TableRecord;
+      const effects: Array<EffectInterface> = [];
+      // Standard Item Effects
+      ancillary.localRefs?.ancillary_info?.foreignRefs?.ancillary_to_effects?.forEach((effectJunc) => {
+        effects.push(processEffect(folder, globalData, effectJunc));
+      });
+      // Banner Effects
+      ancillary.localRefs?.banners?.localRefs?.effect_bundles?.foreignRefs?.effect_bundles_to_effects_junctions?.forEach((effectJunc) => {
+        effects.push(processEffect(folder, globalData, effectJunc));
+      });
+      items.push({
+        key: quest.ancillary,
+        character_skill: quest.skill,
+        onscreen_name: ancillary.onscreen_name,
+        colour_text: ancillary.colour_text,
+        ui_icon: ancillary.localRefs?.ancillary_types?.ui_icon.replace(/^ui\//, '').replace('.png', '') as string,
+        effects: effects.sort((a, b) => a.priority - b.priority),
+      });
     });
     // character_skill_level_details
     skill.foreignRefs?.character_skill_level_details?.forEach((skillLevelDetails) => {
       const skillLevel = parseInteger(skillLevelDetails.level) - 1;
       if (returnSkill.levels?.[skillLevel] === undefined) {
-        log(`Skill level unlocked at rank missing its skill level: ${returnSkill.key}`, 'red');
+        const item = items.find((item) => item.character_skill === skillLevelDetails.skill_key);
+        if (item !== undefined) {
+          item.unlocked_at_rank = parseInteger(skillLevelDetails.unlocked_at_rank) + 1;
+        } else {
+          log(`Skill level unlocked at rank missing its skill level: ${returnSkill.key}`, 'red');
+        }
       } else {
         returnSkill.levels[skillLevel].unlocked_at_rank = parseInteger(skillLevelDetails.unlocked_at_rank) + 1;
       }
     });
     // character_skills_to_level_reached_criterias WH3
     skill.foreignRefs?.character_skills_to_level_reached_criterias?.forEach((levelReached) => {
+      if (levelReached.character_skill === 'wh3_main_skill_agent_action_success_scaling') {
+        return;
+      }
       if (levelReached.character_level === '0') {
         returnSkill.points_on_creation = 1;
       } else {
         const upgradeToSkillLevel = parseInteger(levelReached.upgrade_to_skill_level) - 1;
         if (returnSkill.levels?.[upgradeToSkillLevel] === undefined) {
-          log(`Level reached auto skill unlock missing its skill level: ${returnSkill.key}`, 'red');
+          const item = items.find((item) => item.character_skill === levelReached.character_skill);
+          if (item !== undefined) {
+            item.unlocked_at_rank = parseInteger(levelReached.character_level) + 1;
+          } else {
+            log(`Level reached auto skill unlock missing its skill level: ${returnSkill.key}`, 'red');
+          }
         } else {
           returnSkill.levels[upgradeToSkillLevel].auto_unlock_at_rank = parseInteger(levelReached.character_level) + 1;
           delete returnSkill.levels?.[upgradeToSkillLevel].unlocked_at_rank;
@@ -129,6 +163,7 @@ const processNodeSet = (
     if (parent_required.length > 0) returnSkill.parent_required = parent_required;
     if (parent_subset_required.length > 0) returnSkill.parent_subset_required = parent_subset_required;
 
+    returnSkill.levels?.forEach((level) => level.effects?.sort((a, b) => (a.priority = b.priority)));
     completeNodes.push(returnSkill);
   });
 
@@ -149,7 +184,7 @@ const processNodeSet = (
     }
   });
 
-  return collateNodes(completeNodes, subcultureKey, factionKeys);
+  return collateNodes(completeNodes, items, subcultureKey, factionKeys);
 };
 
 export default processNodeSet;

@@ -12,7 +12,8 @@ const subcultureMap: { [key: string]: string } = {
   wh3_main_sc_kho_khorne: 'kho_khorne',
   wh3_main_sc_ksl_kislev: 'ksl_kislev',
   wh2_main_sc_lzd_lizardmen: 'lzd_lizardmen',
-  wh_dlc08_sc_nor_norsca: 'nor_norsca',
+  wh_dlc08_sc_nor_norsca: 'nor_norsca', // WH3
+  wh_main_sc_nor_norsca: 'nor_norsca', // WH2
   wh3_main_sc_nur_nurgle: 'nur_nurgle',
   wh3_main_sc_ogr_ogre_kingdoms: 'ogr_ogre_kingdoms',
   wh2_main_sc_skv_skaven: 'skv_skaven',
