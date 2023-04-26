@@ -1,5 +1,5 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { AbilityInterface, PhaseInterface } from '../interfaces/ProcessedTreeInterface';
+import { AbilityInterface, PhaseInterface, UiEffectInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import { parseBoolean, parseFloating, parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
@@ -26,7 +26,7 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
       type: {
         key: unitAbilityType.key,
         icon_path: findAbilityTypeImage(folder, globalData, unitAbilityType.icon_path),
-        localised_description: unitAbilityType.localised_description,
+        onscreen_name: stringInterpolator(unitAbilityType.onscreen_name, globalData.parsedData[folder].text),
       },
       is_hidden_in_ui: parseBoolean(unitAbility.is_hidden_in_ui),
       onscreen_name: unitAbility.onscreen_name,
@@ -90,23 +90,29 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
   if (target_if.length > 0) returnAbility.unit_ability.target_if = target_if;
 
   // ui_effects
-  const ui_effects: Array<{ key: string; sort_order: number; localised_text: string }> = [];
+  const ui_effects: Array<UiEffectInterface> = [];
   unitAbility.foreignRefs?.unit_abilities_to_additional_ui_effects_juncs?.forEach((uiEffectJunc) => {
     const uiEffect = uiEffectJunc.localRefs?.unit_abilities_additional_ui_effects as TableRecord;
-    ui_effects.push({
+    const returnUiEffect = {
       key: uiEffect.key,
       sort_order: parseInteger(uiEffect.sort_order),
       localised_text: stringInterpolator(uiEffect.localised_text, globalData.parsedData[folder].text),
-    });
+      effect_state: uiEffect.effect_state,
+    };
+    if (uiEffect.effect_state !== undefined) returnUiEffect.effect_state = uiEffect.effect_state;
+    ui_effects.push(returnUiEffect);
   });
-  if (ui_effects.length > 0) returnAbility.unit_ability.ui_effects = ui_effects;
+  if (ui_effects.length > 0) {
+    ui_effects.sort((a, b) => (a.sort_order as number) - (b.sort_order as number)).forEach((effect) => delete effect.sort_order);
+    returnAbility.unit_ability.ui_effects = ui_effects;
+  }
 
   // phases
   const phases: Array<PhaseInterface> = [];
   unitSpecialAbility.foreignRefs?.special_ability_to_special_ability_phase_junctions?.forEach((phaseJunc) => {
     phases.push(processPhase(folder, globalData, phaseJunc, phaseJunc.localRefs?.special_ability_phases as TableRecord));
   });
-  if (phases.length > 0) returnAbility.unit_ability.phases = phases;
+  if (phases.length > 0) returnAbility.unit_ability.phases = phases.sort((a, b) => a.order - b.order);
 
   // activated_projectile
   if (unitSpecialAbility.localRefs?.projectiles !== undefined) {
@@ -120,8 +126,12 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
 
   // vortex
   const battleVortex = unitSpecialAbility.localRefs?.battle_vortexs;
-  if (battleVortex !== undefined && battleVortex.damage !== '0' && battleVortex.damage_ap !== '0' && battleVortex.contact_effect !== '') {
-    returnAbility.unit_ability.vortex = processVortex(folder, globalData, battleVortex);
+  if (battleVortex !== undefined) {
+    if (battleVortex.damage === '0' && battleVortex.damage_ap === '0' && battleVortex.contact_effect === '') {
+      // some vortices are purely there for vfx, dont add these
+    } else {
+      returnAbility.unit_ability.vortex = processVortex(folder, globalData, battleVortex);
+    }
   }
 
   return returnAbility;

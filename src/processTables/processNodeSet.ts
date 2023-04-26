@@ -39,7 +39,6 @@ const processNodeSet = (
     if (skillNode.subculture !== '') returnSkill.subculture = skillNode.subculture;
     if (skillNode.faction_key !== '') returnSkill.faction = skillNode.faction_key;
 
-    // Skills refs
     // character_skill_level_to_effects_junctions
     skill.foreignRefs?.character_skill_level_to_effects_junctions?.forEach((effectJunc) => {
       // Most skills have a hidden effect that increases or decreases agent action chances, dont add these
@@ -77,13 +76,14 @@ const processNodeSet = (
       ancillary.localRefs?.banners?.localRefs?.effect_bundles?.foreignRefs?.effect_bundles_to_effects_junctions?.forEach((effectJunc) => {
         effects.push(processEffect(folder, globalData, effectJunc));
       });
+      effects.sort((a, b) => (a.priority as number) - (b.priority as number)).forEach((effect) => delete effect.priority);
       items.push({
         key: quest.ancillary,
         character_skill: quest.skill,
         onscreen_name: ancillary.onscreen_name,
         colour_text: ancillary.colour_text,
         ui_icon: ancillary.localRefs?.ancillary_types?.ui_icon.replace(/^ui\//, '').replace('.png', '') as string,
-        effects: effects.sort((a, b) => a.priority - b.priority),
+        effects: effects,
       });
     });
     // character_skill_level_details
@@ -163,7 +163,27 @@ const processNodeSet = (
     if (parent_required.length > 0) returnSkill.parent_required = parent_required;
     if (parent_subset_required.length > 0) returnSkill.parent_subset_required = parent_subset_required;
 
-    returnSkill.levels?.forEach((level) => level.effects?.sort((a, b) => (a.priority = b.priority)));
+    // sort effects by priority and delete them after
+    returnSkill.levels?.forEach((level) => {
+      level.effects?.sort((a, b) => (a.priority as number) - (b.priority as number)).forEach((effect) => delete effect.priority);
+    });
+    // remove duplicate abilities on the same level
+    returnSkill.levels?.forEach((level) => {
+      const levelAbilitiesSet: Set<string> = new Set();
+      level.effects?.forEach((effect) => {
+        const deleteIndexes: Array<number> = [];
+        effect.related_abilities?.forEach((ability, index) => {
+          if (levelAbilitiesSet.has(ability.unit_ability.key)) {
+            deleteIndexes.push(index);
+          } else {
+            levelAbilitiesSet.add(ability.unit_ability.key);
+          }
+        });
+
+        deleteIndexes.reverse().forEach((deleteIndex) => effect.related_abilities?.splice(deleteIndex, 1));
+        if (effect.related_abilities?.length === 0) delete effect.related_abilities;
+      });
+    });
     completeNodes.push(returnSkill);
   });
 

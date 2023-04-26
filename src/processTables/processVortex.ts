@@ -7,7 +7,7 @@ const processVortex = (folder: string, globalData: GlobalDataInterface, vortex: 
   const returnVortex: VortexInterface = {
     vortex_key: vortex.vortex_key,
     duration: parseFloating(vortex.duration),
-    damage: parseFloating(vortex.duration),
+    damage: parseFloating(vortex.damage),
     damage_ap: parseFloating(vortex.damage_ap),
     goal_radius: parseFloating(vortex.goal_radius),
     movement_speed: parseFloating(vortex.movement_speed),

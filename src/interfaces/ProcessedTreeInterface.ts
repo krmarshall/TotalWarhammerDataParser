@@ -101,6 +101,13 @@ interface ProjectileBombardmentInterface {
   projectile_type: ProjectileInterface;
 }
 
+interface UiEffectInterface {
+  key: string;
+  sort_order?: number;
+  localised_text: string;
+  effect_state?: string;
+}
+
 interface AbilityInterface {
   effect: string;
   bonus_value_id: string;
@@ -111,15 +118,11 @@ interface AbilityInterface {
     type: {
       key: string;
       icon_path: string;
-      localised_description: string;
+      onscreen_name: string;
     };
     is_hidden_in_ui: boolean;
     onscreen_name: string;
-    ui_effects?: Array<{
-      key: string;
-      sort_order: number;
-      localised_text: string;
-    }>;
+    ui_effects?: Array<UiEffectInterface>;
     active_time?: number;
     recharge_time?: number;
     shared_recharge_time?: number;
@@ -149,8 +152,7 @@ interface EffectInterface {
   key: string;
   description: string;
   icon: string;
-  is_positive_value_good: boolean;
-  priority: number;
+  priority?: number;
   value?: number;
   scope?: string;
   related_abilities?: Array<AbilityInterface>;
@@ -219,6 +221,7 @@ export {
   ProjectileBombardmentInterface,
   ProjectileExplosionInterface,
   ProjectileInterface,
+  UiEffectInterface,
   AbilityInterface,
   FactionEffectsInterface,
   ItemInterface,

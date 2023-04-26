@@ -2,7 +2,7 @@ import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterf
 import { AbilityInterface, EffectInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import numberInsertion from '../utils/numberInsertion';
-import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
+import { parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
 import processAbility from './processAbility';
 
@@ -15,7 +15,6 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
     ),
     key: effect.effect,
     icon: findEffectImage(folder, globalData, effect.icon),
-    is_positive_value_good: parseBoolean(effect.is_positive_value_good),
     priority: parseInteger(effect.priority),
   };
   if (effectJunc.scope === 'character_to_character_own') {

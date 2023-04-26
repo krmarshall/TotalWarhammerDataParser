@@ -3,7 +3,7 @@ import { EffectInterface, ProcessedAgentInterface } from '../interfaces/Processe
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import findImage from '../utils/findImage';
 import log from '../utils/log';
-import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
+import { parseInteger } from '../utils/parseStringToTypes';
 import outputAgent from './outputAgent';
 import processEffect from './processEffect';
 import processNodeSet from './processNodeSet';
@@ -35,7 +35,9 @@ const processAgent = (
     foreignRefs?.effect_bundles_to_effects_junctions?.forEach((effectJunc) => {
       returnAgent.factionEffects?.effects.push(processEffect(folder, globalData, effectJunc as TableRecord));
     });
-    returnAgent.factionEffects.effects.sort((a, b) => a.priority - b.priority);
+    returnAgent.factionEffects.effects
+      .sort((a, b) => (a.priority as number) - (b.priority as number))
+      .forEach((effect) => delete effect.priority);
   }
 
   // Quest Ancillaries WH3
@@ -53,10 +55,10 @@ const processAgent = (
       ancillary.localRefs?.banners?.localRefs?.effect_bundles?.foreignRefs?.effect_bundles_to_effects_junctions?.forEach((effectJunc) => {
         effects.push(processEffect(folder, globalData, effectJunc));
       });
-
+      effects.sort((a, b) => (a.priority as number) - (b.priority as number)).forEach((effect) => delete effect.priority);
       returnAgent.items?.push({
         key: ancillaryInfo.ancillary,
-        effects: effects.sort((a, b) => a.priority - b.priority),
+        effects: effects,
         onscreen_name: ancillary.onscreen_name,
         colour_text: ancillary.colour_text,
         unlocked_at_rank: parseInteger(ancillaryQuest.rank),
