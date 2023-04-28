@@ -8,6 +8,13 @@ import processAbility from './processAbility';
 
 const processEffect = (folder: string, globalData: GlobalDataInterface, effectJunc: TableRecord) => {
   const effect = effectJunc.localRefs?.effects as TableRecord;
+  if (effect === undefined) {
+    return {
+      key: 'invalid_effect',
+      description: 'Invalid Effect',
+      icon: 'vanilla3/campaign_ui/effect_bundles/0_placeholder_effect_bundle',
+    };
+  }
   const returnEffect: EffectInterface = {
     description: numberInsertion(
       stringInterpolator(effect.description, globalData.parsedData[folder].text),

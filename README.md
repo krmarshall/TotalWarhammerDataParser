@@ -18,8 +18,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 
 ## Keep any eye on
 
-- If workers error with diagnosticCodes 2352 or 2345 its probably an issue with the SchemaInterface
-- handmaidens guardian skill polluted dependencies on prod
+- If workers error with diagnosticCodes its probably a typescript issue
 - effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
 - unit_special_abilities_tables behavior random_phases
 - technology_nodes_to_ancillaries_junctions_tables

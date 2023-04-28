@@ -91,7 +91,7 @@ const extractPackfileMass = (
   dbPackName: string,
   locPackName: string,
   dbList: Array<string>,
-  locList: Array<string>,
+  locList: Array<string> | undefined,
   game: string
 ) => {
   return new Promise<void>((resolve, reject) => {
@@ -107,7 +107,7 @@ const extractPackfileMass = (
           reject(error);
         });
     } else {
-      const locsString = generateLocsString(locList, folder);
+      const locsString = generateLocsString(locList as Array<string>, folder);
       const locPromise = extractLoc(folder, locPackName, locsString, game);
       const dataPromise = extractData(folder, dbPackName, tablesString, game);
 
@@ -127,7 +127,7 @@ const extractPackfileMulti = (
   dbPackNames: Array<string>,
   locPackNames: Array<string>,
   dbList: Array<string>,
-  locList: Array<string>,
+  locList: Array<string> | undefined,
   game: string
 ) => {
   return new Promise<void>((resolve, reject) => {
@@ -160,7 +160,7 @@ const extractPackfileMulti = (
 
       locPromises = locPackNames.map((locPackName, index) => {
         fse.ensureDirSync(`./extracted_files/${folder}/subLOC${index}`);
-        const locsString = generateLocsString(locList, folder + `/subLOC${index}`);
+        const locsString = generateLocsString(locList as Array<string>, folder + `/subLOC${index}`);
         return extractLoc(folder + `/subLOC${index}`, locPackName, locsString, game, folder);
       });
     }

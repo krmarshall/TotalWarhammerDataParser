@@ -28,7 +28,7 @@ const overwriteMerge = (vanillaTable: Array<TableRecord>, moddedTables: Array<Ar
   return mergedTable;
 };
 
-const mergeTablesIntoVanilla = (globalData: GlobalDataInterface, folder: string, schema: SchemaInterface) => {
+const mergeTablesIntoVanilla = (folder: string, globalData: GlobalDataInterface, schema: SchemaInterface) => {
   const vanillaFolder = folder.includes('2') ? 'vanilla2' : 'vanilla3';
 
   const vanillaKeys = Object.keys(globalData.parsedData[vanillaFolder].db);
@@ -53,7 +53,7 @@ const mergeTablesIntoVanilla = (globalData: GlobalDataInterface, folder: string,
   });
 };
 
-const mergeLocsIntoVanilla = (globalData: GlobalDataInterface, folder: string) => {
+const mergeLocsIntoVanilla = (folder: string, globalData: GlobalDataInterface) => {
   const vanillaFolder = folder.includes('2') ? 'vanilla2' : 'vanilla3';
   const vanillaLoc = globalData.parsedData[vanillaFolder].text;
   const modLoc = globalData.extractedData[folder].text;

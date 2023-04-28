@@ -22,6 +22,9 @@ const processNodeSet = (
 
   nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => {
     const skill = skillNode.localRefs?.character_skills as TableRecord;
+    if (skill.key === 'wh3_main_skill_agent_action_success_scaling') {
+      return;
+    }
     const returnSkill: SkillInterface = {
       key: skillNode.key,
       image_path: findSkillImage(folder, globalData, skill.image_path),
@@ -58,7 +61,7 @@ const processNodeSet = (
       const ancillaryEffects = ancillaryJunc.localRefs?.ancillaries?.localRefs?.ancillary_info?.foreignRefs?.ancillary_to_effects;
       if (ancillaryEffects !== undefined) {
         ancillaryEffects.forEach((effectJunc) => {
-          const skillLevel = parseInteger(effectJunc.level) - 1;
+          const skillLevel = parseInteger(ancillaryJunc.level) - 1;
           returnSkill.levels = checkSkillLevelExists(returnSkill.levels, skillLevel);
           returnSkill.levels[skillLevel]?.effects?.push(processEffect(folder, globalData, effectJunc as TableRecord));
         });
@@ -89,34 +92,27 @@ const processNodeSet = (
     // character_skill_level_details
     skill.foreignRefs?.character_skill_level_details?.forEach((skillLevelDetails) => {
       const skillLevel = parseInteger(skillLevelDetails.level) - 1;
-      if (returnSkill.levels?.[skillLevel] === undefined) {
-        const item = items.find((item) => item.character_skill === skillLevelDetails.skill_key);
-        if (item !== undefined) {
-          item.unlocked_at_rank = parseInteger(skillLevelDetails.unlocked_at_rank) + 1;
-        } else {
-          log(`Skill level unlocked at rank missing its skill level: ${returnSkill.key}`, 'red');
-        }
+      const item = items.find((item) => item.character_skill === skillLevelDetails.skill_key);
+      if (item !== undefined) {
+        item.unlocked_at_rank = parseInteger(skillLevelDetails.unlocked_at_rank) + 1;
       } else {
+        if (returnSkill.levels === undefined) returnSkill.levels = [];
+        if (returnSkill.levels[skillLevel] === undefined) returnSkill.levels[skillLevel] = {};
         returnSkill.levels[skillLevel].unlocked_at_rank = parseInteger(skillLevelDetails.unlocked_at_rank) + 1;
       }
     });
     // character_skills_to_level_reached_criterias WH3
     skill.foreignRefs?.character_skills_to_level_reached_criterias?.forEach((levelReached) => {
-      if (levelReached.character_skill === 'wh3_main_skill_agent_action_success_scaling') {
-        return;
-      }
       if (levelReached.character_level === '0') {
         returnSkill.points_on_creation = 1;
       } else {
         const upgradeToSkillLevel = parseInteger(levelReached.upgrade_to_skill_level) - 1;
-        if (returnSkill.levels?.[upgradeToSkillLevel] === undefined) {
-          const item = items.find((item) => item.character_skill === levelReached.character_skill);
-          if (item !== undefined) {
-            item.unlocked_at_rank = parseInteger(levelReached.character_level) + 1;
-          } else {
-            log(`Level reached auto skill unlock missing its skill level: ${returnSkill.key}`, 'red');
-          }
+        const item = items.find((item) => item.character_skill === levelReached.character_skill);
+        if (item !== undefined) {
+          item.unlocked_at_rank = parseInteger(levelReached.character_level) + 1;
         } else {
+          if (returnSkill.levels === undefined) returnSkill.levels = [];
+          if (returnSkill.levels[upgradeToSkillLevel] === undefined) returnSkill.levels[upgradeToSkillLevel] = {};
           returnSkill.levels[upgradeToSkillLevel].auto_unlock_at_rank = parseInteger(levelReached.character_level) + 1;
           delete returnSkill.levels?.[upgradeToSkillLevel].unlocked_at_rank;
         }

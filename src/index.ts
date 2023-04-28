@@ -4,6 +4,10 @@ import { workerVanilla } from './workers/workerExports';
 import { RefKey } from './interfaces/GlobalDataInterface';
 import { v2DbList, v2LocList } from './lists/extractLists/vanilla2';
 
+import schema3 from '../bins/jsonSchemas/schema_wh3.json';
+import schema2 from '../bins/jsonSchemas/schema_wh2.json';
+import { SchemaInterface } from './interfaces/SchemaInterfaces';
+
 emptyDirSync('./extracted_files');
 emptyDirSync('./output');
 emptyDirSync('./output_img');
@@ -17,6 +21,9 @@ workerVanilla({
   dbList: v2DbList as unknown as Array<RefKey>,
   locList: v2LocList,
   game: 'warhammer_2',
+  tech: true,
+  schema: schema2 as SchemaInterface,
+  pruneVanilla: false,
 });
 
 workerVanilla({
@@ -26,4 +33,7 @@ workerVanilla({
   dbList: v3DbList as unknown as Array<RefKey>,
   locList: v3LocList,
   game: 'warhammer_3',
+  tech: true,
+  schema: schema3 as SchemaInterface,
+  pruneVanilla: false,
 });

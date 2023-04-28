@@ -1,5 +1,6 @@
 import { Worker } from 'worker_threads';
 import { WorkerDataInterface } from '../interfaces/WorkerDataInterfaces';
+import log from '../utils/log';
 
 const workerVanilla = (workerData: WorkerDataInterface) => {
   const { game } = workerData;
@@ -18,4 +19,33 @@ const workerVanilla = (workerData: WorkerDataInterface) => {
   return workerVanilla;
 };
 
-export { workerVanilla };
+const workerMod = (workerData: WorkerDataInterface) => {
+  const { folder } = workerData;
+  console.time(folder);
+  const workerMod = new Worker('./src/workers/workerMod.ts', { workerData, execArgv: ['--require', 'ts-node/register'] });
+  workerMod.on('error', (error) => {
+    log(`${folder} failed`, 'red');
+    throw error;
+  });
+  workerMod.on('exit', () => {
+    console.timeEnd(folder);
+  });
+};
+
+const workerModMulti = (workerData: WorkerDataInterface) => {
+  const { folder } = workerData;
+  console.time(folder);
+  const workerModMulti = new Worker('./src/workers/workerModMulti.ts', {
+    workerData,
+    execArgv: ['--require', 'ts-node/register'],
+  });
+  workerModMulti.on('error', (error) => {
+    log(`${folder} failed`, 'red');
+    throw error;
+  });
+  workerModMulti.on('exit', () => {
+    console.timeEnd(folder);
+  });
+};
+
+export { workerVanilla, workerMod, workerModMulti };
