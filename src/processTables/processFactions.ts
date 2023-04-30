@@ -26,16 +26,6 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
     if (nodeSetKey === undefined) {
       return;
     }
-    const cleanKey = cleanNodeSetKey(nodeSetKey);
-    const nameOverride = agent.onscreen_name_override;
-    if (characterList[subcultureMap[addAgent.subculture]].unknown === undefined) {
-      characterList[subcultureMap[addAgent.subculture]].unknown = {};
-    }
-
-    (characterList[subcultureMap[addAgent.subculture]].unknown as { [key: string]: CharacterInterface })[cleanKey] = {
-      name: nameOverride,
-      portrait: '',
-    };
 
     agentMap[addAgent.agent] = { subcultures: new Set(), factions: new Set() };
     agentMap[addAgent.agent].subcultures.add(addAgent.subculture);
@@ -92,29 +82,22 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
           }
           agentMap[factionAgent.subtype].subcultures.add(subculture.subculture);
           agentMap[factionAgent.subtype].factions.add(faction.key);
-
-          const nameOverride = factionAgent?.localRefs?.agent_subtypes?.onscreen_name_override as string;
-          if (factionAgent.agent === 'general') {
-            characterList[subcultureMap[subculture.subculture]].lords[cleanKey] = { name: nameOverride, portrait: '' };
-          } else {
-            characterList[subcultureMap[subculture.subculture]].heroes[cleanKey] = { name: nameOverride, portrait: '' };
-          }
         });
       });
     });
   });
-
-  fse.outputJSONSync(`debug/${folder}/characterList.json`, characterList, { spaces: 2 });
 
   Object.keys(agentMap).forEach((agentKey) => {
     const agent = agentMap[agentKey];
     agent.subcultures.forEach((subculture) => {
       const agentRecord = tables.agent_subtypes?.findRecordByKey('key', agentKey);
       if (agentRecord !== undefined) {
-        processAgent(folder, globalData, agentRecord, subculture, agent.factions);
+        processAgent(folder, globalData, agentRecord, subculture, agent.factions, characterList);
       }
     });
   });
+
+  fse.outputJSONSync(`debug/${folder}/characterList.json`, characterList, { spaces: 2 });
 };
 
 export default processFactions;

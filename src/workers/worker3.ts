@@ -25,12 +25,9 @@ console.time(folder);
 const globalData = initializeGlobalData(folder);
 
 ensureDirSync(`./extracted_files/${folder}/`);
-// Vanilla Packs are really big, parsing these in parallel for both game 2/3 needs ~32gb of ram.
-// const imgPromise = parseImages(folder, imagePacknames, game, true, globalData);
-// const tsvPromise = extractPackfileMass(folder, dbPackName, locPackName, dbList, locList, game);
-// Promise.all([imgPromise, tsvPromise]);
-parseImages(folder, imagePacknames, game, tech, globalData)
-  .then(() => extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList, locList, game))
+const imgPromise = parseImages(folder, imagePacknames, game, tech, globalData);
+const tsvPromise = extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList, locList, game);
+Promise.all([imgPromise, tsvPromise])
   .then(() => {
     csvParse(folder, false, globalData);
 

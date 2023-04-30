@@ -2,24 +2,22 @@ import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterf
 import { EffectInterface, ProcessedAgentInterface } from '../interfaces/ProcessedTreeInterface';
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import findImage from '../utils/findImage';
-import log from '../utils/log';
 import { parseInteger } from '../utils/parseStringToTypes';
 import outputAgent from './outputAgent';
 import processEffect from './processEffect';
 import processNodeSet from './processNodeSet';
 import subcultureMap from '../lists/subcultureMap';
+import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 
 const processAgent = (
   folder: string,
   globalData: GlobalDataInterface,
   agent: TableRecord,
   subcultureKey: string,
-  factionKeys: Set<string>
+  factionKeys: Set<string>,
+  characterList: CharacterListInterface
 ) => {
-  if (agent.foreignRefs?.character_skill_node_sets === undefined) {
-    return;
-  }
-  const returnAgent: ProcessedAgentInterface = { key: cleanNodeSetKey(agent.foreignRefs?.character_skill_node_sets[0].key), skillTree: [] };
+  const returnAgent: ProcessedAgentInterface = { key: '', skillTree: [] };
 
   // LL Faction Effects WH3
   if (agent.foreignRefs?.faction_starting_general_effects !== undefined) {
@@ -67,23 +65,30 @@ const processAgent = (
     });
   }
 
-  // Skill Node Set
-  if (agent.foreignRefs?.character_skill_node_sets.length > 1 && agent.key !== 'nor_marauder_chieftain') {
-    log(`Agent has multiple skill node sets: ${agent.key}`, 'red');
-  }
-  const { skillTree, backgroundSkills, items } = processNodeSet(
-    folder,
-    globalData,
-    agent.foreignRefs?.character_skill_node_sets[0],
-    subcultureKey,
-    factionKeys
-  );
-  returnAgent.skillTree = skillTree;
-  returnAgent.backgroundSkills = backgroundSkills;
-  if (returnAgent.items === undefined) returnAgent.items = [];
-  returnAgent.items.push(...items);
+  agent.foreignRefs?.character_skill_node_sets?.forEach((nodeSet, index) => {
+    if (index === 1 && agent.key === 'nor_marauder_chieftain') {
+      return;
+    }
 
-  outputAgent(returnAgent, folder, subcultureMap[subcultureKey as keyof typeof subcultureMap]);
+    const nodeSetKey = cleanNodeSetKey(nodeSet.key);
+    if (nodeSet.agent_key === 'general') {
+      characterList[subcultureMap[subcultureKey]].lords[nodeSetKey] = { name: agent.onscreen_name_override, portrait: '' };
+    } else {
+      characterList[subcultureMap[subcultureKey]].heroes[nodeSetKey] = { name: agent.onscreen_name_override, portrait: '' };
+    }
+
+    const { skillTree, backgroundSkills, items } = processNodeSet(folder, globalData, nodeSet, subcultureKey, factionKeys);
+    const tempAgent = JSON.parse(JSON.stringify(returnAgent));
+    tempAgent.key = nodeSetKey;
+    tempAgent.skillTree = skillTree;
+    tempAgent.backgroundSkills = backgroundSkills;
+    if (tempAgent.items === undefined && items.length > 0) {
+      tempAgent.items = [];
+      tempAgent.items.push(...items);
+    }
+
+    outputAgent(tempAgent, folder, subcultureMap[subcultureKey as keyof typeof subcultureMap]);
+  });
 };
 
 export default processAgent;
