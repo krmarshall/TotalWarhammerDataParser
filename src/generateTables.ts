@@ -68,11 +68,7 @@ export class Table {
         } else {
           const guessCompKey = tablePKeys.reduce((prev, cur) => prev + record[cur], '');
           const guessLoc = tableLoc[`${tableName}_${locField[0]}_${guessCompKey}`];
-          if (guessLoc !== undefined) {
-            record[locField[0]] = guessLoc;
-          } else {
-            throw `Loc Link encountered Composite Key: ${tableName} | ${tablePKeys}`;
-          }
+          record[locField[0]] = guessLoc ?? 'COMPOSITE KEY MISSING/INVALID LOC';
         }
       });
     });
