@@ -3,8 +3,7 @@ import { exec } from 'child_process';
 import fse from 'fs-extra';
 import { GlobalDataInterface } from './interfaces/GlobalDataInterface';
 
-const cwdRPFM = 'D:/GitHub/TotalWarhammerDataParser/bins';
-const cwdNconvert = 'D:/GitHub/TotalWarhammerDataParser/bins';
+const cwd = process.env.CWD + '/bins';
 
 const extractImages = (folder: string, packNames: Array<string>, game: string, tech: boolean) => {
   const schema = game.includes('2') ? 'schema_wh2.ron' : 'schema_wh3.ron';
@@ -15,7 +14,7 @@ const extractImages = (folder: string, packNames: Array<string>, game: string, t
         tech ? (foldersString += ` "/ui/campaign ui/technologies;../extracted_files/${folder}"`) : undefined;
         exec(
           `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${folder}/${packName}.pack" -t "../rpfm-schemas/${schema}" -F ${foldersString}`,
-          { cwd: cwdRPFM },
+          { cwd },
           (error) => {
             if (error) {
               rejectI(error);
@@ -56,7 +55,7 @@ const convertImages = (folder: string, globalData: GlobalDataInterface) => {
           return `${prev}\n.${cur}`;
         }, script);
         fse.outputFileSync(`./bins/nScripts/${folder}${index}.txt`, finalScript);
-        exec(`nconvert.exe ./nScripts/${folder}${index}.txt`, { cwd: cwdNconvert, maxBuffer: 5 * 1024 * 1024 }, (error) => {
+        exec(`nconvert.exe ./nScripts/${folder}${index}.txt`, { cwd, maxBuffer: 5 * 1024 * 1024 }, (error) => {
           if (error) {
             reject(error);
           } else {

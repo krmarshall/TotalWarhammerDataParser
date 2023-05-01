@@ -5,7 +5,7 @@ interface NodeLinkInterface {
   child_key: string;
   parent_link_position: string;
   child_link_position: string;
-  visible?: boolean;
+  visible_in_ui?: boolean;
 }
 
 interface TechSkillInterface {

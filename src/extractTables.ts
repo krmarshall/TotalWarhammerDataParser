@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 import fse from 'fs-extra';
 import { basename, dirname } from 'path';
 
-const cwd = 'D:/GitHub/TotalWarhammerDataParser/bins';
+const cwd = process.env.CWD + '/bins';
 
 const moveMisplacedLocs = (folder: string) => {
   // Sometimes mods place locs in /text/ not /text/db/, so move those into db

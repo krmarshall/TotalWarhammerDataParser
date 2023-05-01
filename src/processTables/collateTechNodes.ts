@@ -1,7 +1,6 @@
-import { GlobalDataInterface } from '../interfaces/GlobalDataInterface';
 import { TechNodeBgFillerInterface, TechNodeInterface } from '../interfaces/TechInterface';
 
-const collateTechNodes = (folder: string, globalData: GlobalDataInterface, processedNodes: Array<TechNodeInterface>) => {
+const collateTechNodes = (processedNodes: Array<TechNodeInterface>) => {
   const uiGroups: { [key: string]: Array<TechNodeInterface> } = {};
   const tree: Array<Array<TechNodeInterface | TechNodeBgFillerInterface>> = [];
   processedNodes.forEach((node) => {

@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { emptyDirSync } from 'fs-extra';
 import { v3DbList, v3LocList } from './lists/extractLists/vanilla3';
 import { workerVanilla } from './workers/workerExports';
