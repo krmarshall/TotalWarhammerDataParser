@@ -1,13 +1,33 @@
 import fg from 'fast-glob';
 import { exec } from 'child_process';
-import fse from 'fs-extra';
+import fse, { emptyDirSync } from 'fs-extra';
 import { GlobalDataInterface } from './interfaces/GlobalDataInterface';
+import { statSync } from 'fs';
 
 const cwd = process.env.CWD + '/bins';
+
+const createExtractedTimestampImg = (folder: string, dbPackName: string) => {
+  const fileStats = statSync(`./game_source/${folder}/${dbPackName}.pack`);
+  fse.outputJSONSync(`./extracted_files/${folder}/${dbPackName}_timestamp_img.json`, { time: fileStats.mtime.toString() });
+};
 
 const extractImages = (folder: string, packNames: Array<string>, game: string, tech: boolean) => {
   const schema = game.includes('2') ? 'schema_wh2.ron' : 'schema_wh3.ron';
   return new Promise<void>((resolve, reject) => {
+    let goodPreExtract = true;
+    packNames.forEach((packName) => {
+      const oldDbTimestamp = fse.readJSONSync(`./extracted_files/${folder}/${packName}_timestamp_img.json`, { throws: false });
+      const newFileStats = statSync(`./game_source/${folder}/${packName}.pack`);
+      if (oldDbTimestamp === null || oldDbTimestamp.time !== newFileStats.mtime.toString()) {
+        goodPreExtract = false;
+      }
+    });
+    if (goodPreExtract) {
+      return resolve();
+    } else {
+      emptyDirSync(`./extracted_files/${folder}/ui`);
+    }
+
     const imagePromises = packNames.map((packName) => {
       return new Promise<void>((resolveI, rejectI) => {
         let foldersString = `"/ui/battle ui/ability_icons;../extracted_files/${folder}" "/ui/campaign ui/effect_bundles;../extracted_files/${folder}" "/ui/campaign ui/skills;../extracted_files/${folder}" "/ui/campaign ui/ancillaries;../extracted_files/${folder}"`;
@@ -27,6 +47,7 @@ const extractImages = (folder: string, packNames: Array<string>, game: string, t
     });
     Promise.all(imagePromises)
       .then(() => {
+        packNames.forEach((packName) => createExtractedTimestampImg(folder, packName));
         resolve();
       })
       .catch((error) => {

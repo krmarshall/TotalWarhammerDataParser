@@ -15,9 +15,8 @@ if (globalData === undefined) {
 }
 
 ensureDirSync(`./extracted_files/${folder}/`);
-const imgPromise = parseImages(folder, [dbPackName as string], game, tech, globalData);
-const tablesPromise = extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList, locList, game);
-Promise.all([imgPromise, tablesPromise])
+extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList, locList, game)
+  .then(() => parseImages(folder, [dbPackName as string], game, tech, globalData))
   .then(() => {
     csvParse(folder, true, globalData);
     mergeTablesIntoVanilla(folder, globalData, schema);

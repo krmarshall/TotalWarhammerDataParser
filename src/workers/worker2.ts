@@ -15,9 +15,8 @@ console.time(folder);
 const globalData = initializeGlobalData(folder);
 
 ensureDirSync(`./extracted_files/${folder}/`);
-const imgPromise = parseImages(folder, [dbPackName as string], game, tech, globalData);
-const tsvPromise = extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList, locList, game);
-Promise.all([imgPromise, tsvPromise])
+extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList, locList, game)
+  .then(() => parseImages(folder, [dbPackName as string], game, tech, globalData))
   .then(() => {
     csvParse(folder, false, globalData);
     const tables = generateTables(folder, globalData, dbList, schema);

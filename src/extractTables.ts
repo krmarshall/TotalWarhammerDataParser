@@ -1,7 +1,9 @@
 import fg from 'fast-glob';
 import { exec } from 'child_process';
-import fse from 'fs-extra';
+import fse, { emptyDirSync } from 'fs-extra';
 import { basename, dirname } from 'path';
+import { statSync } from 'fs';
+import log from './utils/log';
 
 const cwd = process.env.CWD + '/bins';
 
@@ -18,6 +20,11 @@ const moveMisplacedLocs = (folder: string) => {
     const filePath = dirname(loc);
     fse.moveSync(loc, `${filePath}/db/${fileName}`);
   });
+};
+
+const createExtractedTimestamp = (folder: string, dbPackName: string) => {
+  const fileStats = statSync(`./game_source/${folder}/${dbPackName}.pack`);
+  fse.outputJSONSync(`./extracted_files/${folder}/${dbPackName}_timestamp.json`, { time: fileStats.mtime.toString() });
 };
 
 const extractData = (folder: string, dbPackName: string, tablesString: string, game: string, inputFolder = folder) => {
@@ -97,10 +104,20 @@ const extractPackfileMass = (
   return new Promise<void>((resolve, reject) => {
     const tablesString = generateTablesString(dbList, folder);
 
+    const oldDbTimestamp = fse.readJSONSync(`./extracted_files/${folder}/${dbPackName}_timestamp.json`, { throws: false });
+    const newFileStats = statSync(`./game_source/${folder}/${dbPackName}.pack`);
+    if (oldDbTimestamp !== null && oldDbTimestamp.time === newFileStats.mtime.toString()) {
+      log(`Pre-extract ${folder}`, 'green');
+      return resolve();
+    } else {
+      emptyDirSync(`./extracted_files/${folder}`);
+    }
+
     // If a locList isnt provided, just extract every loc file alongside the dbs, useful for mods, too much data for vanilla games.
     if (locList === undefined && dbPackName === locPackName) {
       extractData(folder, dbPackName, tablesString + ` "/text;../extracted_files/${folder}"`, game)
         .then(() => {
+          createExtractedTimestamp(folder, dbPackName);
           resolve();
         })
         .catch((error) => {
@@ -113,6 +130,7 @@ const extractPackfileMass = (
 
       Promise.all([dataPromise, locPromise])
         .then(() => {
+          createExtractedTimestamp(folder, dbPackName);
           resolve();
         })
         .catch((error) => {
@@ -131,6 +149,21 @@ const extractPackfileMulti = (
   game: string
 ) => {
   return new Promise<void>((resolve, reject) => {
+    let goodPreExtract = true;
+    dbPackNames.forEach((dbPackName) => {
+      const oldDbTimestamp = fse.readJSONSync(`./extracted_files/${folder}/${dbPackName}_timestamp.json`, { throws: false });
+      const newFileStats = statSync(`./game_source/${folder}/${dbPackName}.pack`);
+      if (oldDbTimestamp === null || oldDbTimestamp.time !== newFileStats.mtime.toString()) {
+        goodPreExtract = false;
+      }
+    });
+    if (goodPreExtract) {
+      log(`Pre-extract ${folder}`, 'green');
+      return resolve();
+    } else {
+      emptyDirSync(`./extracted_files/${folder}`);
+    }
+
     // If a locList isnt provided, just extract every loc file alongside the dbs, useful for mods, too much data for vanilla games.
     let dataPromises;
     let locPromises;
@@ -170,6 +203,7 @@ const extractPackfileMulti = (
     }
     Promise.all(promiseArray)
       .then(() => {
+        dbPackNames.forEach((dbPackName) => createExtractedTimestamp(folder, dbPackName));
         resolve();
       })
       .catch((error) => {

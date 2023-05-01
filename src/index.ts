@@ -10,7 +10,6 @@ import schema3 from '../bins/jsonSchemas/schema_wh3.json';
 import schema2 from '../bins/jsonSchemas/schema_wh2.json';
 import { SchemaInterface } from './interfaces/SchemaInterfaces';
 
-emptyDirSync('./extracted_files');
 emptyDirSync('./output');
 emptyDirSync('./output_img');
 emptyDirSync('./bins/nScripts');

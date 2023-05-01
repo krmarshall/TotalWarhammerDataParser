@@ -28,9 +28,8 @@ if (globalData === undefined) {
 }
 
 ensureDirSync(`./extracted_files/${folder}/`);
-const imgPromise = parseImages(folder, dbPackNames as Array<string>, game, tech, globalData);
-const tablesPromise = extractPackfileMulti(folder, dbPackNames as Array<string>, locPackNames as Array<string>, dbList, locList, game);
-Promise.all([imgPromise, tablesPromise])
+extractPackfileMulti(folder, dbPackNames as Array<string>, locPackNames as Array<string>, dbList, locList, game)
+  .then(() => parseImages(folder, dbPackNames as Array<string>, game, tech, globalData))
   .then(() => {
     if (packNameEnum !== undefined) {
       outputCompilationGroups(folder, packNameEnum);
