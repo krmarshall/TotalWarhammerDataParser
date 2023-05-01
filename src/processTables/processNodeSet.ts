@@ -4,6 +4,7 @@ import findImage from '../utils/findImage';
 import log from '../utils/log';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
 import collateNodes from './collateNodes';
+import processAncillary from './processAncillary';
 import processEffect from './processEffect';
 
 const processNodeSet = (
@@ -69,25 +70,7 @@ const processNodeSet = (
     });
     // character_skills_to_quest_ancillaries
     skill.foreignRefs?.character_skills_to_quest_ancillaries?.forEach((quest) => {
-      const ancillary = quest.localRefs?.ancillaries as TableRecord;
-      const effects: Array<EffectInterface> = [];
-      // Standard Item Effects
-      ancillary.localRefs?.ancillary_info?.foreignRefs?.ancillary_to_effects?.forEach((effectJunc) => {
-        effects.push(processEffect(folder, globalData, effectJunc));
-      });
-      // Banner Effects
-      ancillary.localRefs?.banners?.localRefs?.effect_bundles?.foreignRefs?.effect_bundles_to_effects_junctions?.forEach((effectJunc) => {
-        effects.push(processEffect(folder, globalData, effectJunc));
-      });
-      effects.sort((a, b) => (a.priority as number) - (b.priority as number)).forEach((effect) => delete effect.priority);
-      items.push({
-        key: quest.ancillary,
-        character_skill: quest.skill,
-        onscreen_name: ancillary.onscreen_name,
-        colour_text: ancillary.colour_text,
-        ui_icon: ancillary.localRefs?.ancillary_types?.ui_icon.replace(/^ui\//, '').replace('.png', '') as string,
-        effects: effects,
-      });
+      items.push(processAncillary(folder, globalData, quest, undefined));
     });
     // character_skill_level_details
     skill.foreignRefs?.character_skill_level_details?.forEach((skillLevelDetails) => {

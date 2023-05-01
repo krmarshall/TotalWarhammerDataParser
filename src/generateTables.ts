@@ -66,7 +66,13 @@ export class Table {
         if (tablePKeys.length === 1) {
           record[locField[0]] = tableLoc[`${tableName}_${locField[0]}_${record[tablePKeys[0]]}`] ?? locField[1];
         } else {
-          throw `Loc Link encountered Composite Key: ${tableName} | ${tablePKeys}`;
+          const guessCompKey = tablePKeys.reduce((prev, cur) => prev + record[cur], '');
+          const guessLoc = tableLoc[`${tableName}_${locField[0]}_${guessCompKey}`];
+          if (guessLoc !== undefined) {
+            record[locField[0]] = guessLoc;
+          } else {
+            throw `Loc Link encountered Composite Key: ${tableName} | ${tablePKeys}`;
+          }
         }
       });
     });

@@ -1,5 +1,5 @@
 import { Table } from '../generateTables';
-import { CharacterListInterface, CharacterInterface } from '../interfaces/CharacterListInterface';
+import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 import { GlobalDataInterface, RefKey } from '../interfaces/GlobalDataInterface';
 import { addAgents, ignoreAgents, ignoreCultures, ignoreFactions, ignoreSubcultures } from '../lists/processFactionsLists';
 import subcultureMap from '../lists/subcultureMap';
@@ -7,6 +7,7 @@ import vanillaCharacters from '../lists/vanillaCharacters';
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import processAgent from './processAgent';
 import fse from 'fs-extra';
+import processTechNodeSet from './processTechNodeSet';
 
 const processFactions = (folder: string, globalData: GlobalDataInterface, tables: { [key in RefKey]?: Table }, pruneVanilla: boolean) => {
   const game = folder.includes('2') ? '2' : '3';
@@ -35,6 +36,9 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
     if (ignoreCultures.includes(culture.key)) {
       return;
     }
+    culture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
+      processTechNodeSet(folder, globalData, techNodeSet, tables);
+    });
     culture.foreignRefs?.cultures_subcultures?.forEach((subculture) => {
       if (
         ignoreSubcultures.some(

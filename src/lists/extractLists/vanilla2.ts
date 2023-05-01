@@ -60,6 +60,8 @@ const v2DbList = [
   'technology_script_lock_reasons',
   'technology_ui_groups',
   'technology_ui_groups_to_technology_nodes_junctions',
+  'building_levels',
+  'building_culture_variants',
 ] as const;
 
 const v2LocList = [
