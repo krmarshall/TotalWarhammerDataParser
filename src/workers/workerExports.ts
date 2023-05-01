@@ -3,12 +3,13 @@ import { WorkerDataInterface } from '../interfaces/WorkerDataInterfaces';
 import log from '../utils/log';
 
 const workerVanilla = (workerData: WorkerDataInterface) => {
-  const { game } = workerData;
+  const { game, folder } = workerData;
   console.time(`${game} total`);
   const workerScript = game === 'warhammer_2' ? './src/workers/worker2.ts' : './src/workers/worker3.ts';
   const workerVanilla = new Worker(workerScript, {
     workerData,
     execArgv: ['--require', 'ts-node/register'],
+    name: folder,
   });
   workerVanilla.on('error', (error) => {
     throw error;
@@ -22,7 +23,7 @@ const workerVanilla = (workerData: WorkerDataInterface) => {
 const workerMod = (workerData: WorkerDataInterface) => {
   const { folder } = workerData;
   console.time(folder);
-  const workerMod = new Worker('./src/workers/workerMod.ts', { workerData, execArgv: ['--require', 'ts-node/register'] });
+  const workerMod = new Worker('./src/workers/workerMod.ts', { workerData, execArgv: ['--require', 'ts-node/register'], name: folder });
   workerMod.on('error', (error) => {
     log(`${folder} failed`, 'red');
     throw error;
@@ -38,6 +39,7 @@ const workerModMulti = (workerData: WorkerDataInterface) => {
   const workerModMulti = new Worker('./src/workers/workerModMulti.ts', {
     workerData,
     execArgv: ['--require', 'ts-node/register'],
+    name: folder,
   });
   workerModMulti.on('error', (error) => {
     log(`${folder} failed`, 'red');

@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 import fse from 'fs-extra';
 import { GlobalDataInterface } from './interfaces/GlobalDataInterface';
 
-const cwdRPFM = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
+const cwdRPFM = 'D:/GitHub/TotalWarhammerDataParser/bins';
 const cwdNconvert = 'D:/GitHub/TotalWarhammerDataParser/bins';
 
 const extractImages = (folder: string, packNames: Array<string>, game: string, tech: boolean) => {

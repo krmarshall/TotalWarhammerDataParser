@@ -1,7 +1,5 @@
 import { GlobalDataInterface, TableRecord } from './interfaces/GlobalDataInterface';
 import log from './utils/log';
-import schema_wh2 from '../bins/jsonSchemas/schema_wh2.json';
-import schema_wh3 from '../bins/jsonSchemas/schema_wh3.json';
 import { SchemaInterface } from './interfaces/SchemaInterfaces';
 import findHighestVersionDB from './utils/findHighestVersionDB';
 

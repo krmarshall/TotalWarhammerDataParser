@@ -1,12 +1,8 @@
 # TotalWarhammerDataParser
  
-Requires RPFM (or at least the cli) to be available under ./rpfm
-
-Requires thisthat https://lib.rs/crates/thisthat to be available in your PATH
+Requires rpfm_cli.exe under ./bins
 
 Uses NConvert and a webp plugin from XnConvert to convert images and strip metadata.
-
-A saner person would probably have rebuilt the DB instead.
 
 Reverse engineered DB schema (kinda rough and not totally complete, but handy reference): https://dbdiagram.io/d/6212fade485e433543e7fe91
 
@@ -27,9 +23,9 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 
 ## How To Use
 
-- Ensure an updated version of rpfm_cli.exe exists in ./rpfm and updated schemas are downloaded
+- Ensure an updated version of rpfm_cli.exe exists in ./bins and updated schemas are downloaded
 - Check absolute file paths in ./bins/copySource.bat and ./src/exportTables.js
-- Make sure all mods are downloaded
+- Make sure all mods are downloaded in steam
 - npm run fullBuild (fullBuildProd if you dont care about pretty printed json)
 - Extracted character skill trees and images will be in the ./output and ./output_img folders as parsed json and webp's
 
@@ -94,7 +90,7 @@ If mod added factions arent showing up double check cultures_tables and cultures
 
 ## Character Skill Node Faction/Subcultures
 
-Skill nodes are able to only be added to trees when they are part of specific factions or subcultures. Mods use this somewhat inconsistently where sometimes its good they aren't added to the "generic" node set, but sometimes they should be. It seems like the former is more common, so if a tree needs it added to the "generic" node set add the faction/subculture to the respective ./lists/cultureMap.js
+Skill nodes are able to only be added to trees when they are part of specific factions or subcultures. Mods use this somewhat inconsistently where sometimes its good they aren't added to the "generic" node set, but sometimes they should be.
 
 ## Techs
 

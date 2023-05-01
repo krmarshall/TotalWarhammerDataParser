@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 import fse from 'fs-extra';
 import { basename, dirname } from 'path';
 
-const cwd = 'D:/GitHub/TotalWarhammerDataParser/rpfm';
+const cwd = 'D:/GitHub/TotalWarhammerDataParser/bins';
 
 const moveMisplacedLocs = (folder: string) => {
   // Sometimes mods place locs in /text/ not /text/db/, so move those into db
@@ -24,7 +24,7 @@ const extractData = (folder: string, dbPackName: string, tablesString: string, g
   const schema = game.includes('2') ? 'schema_wh2.ron' : 'schema_wh3.ron';
   return new Promise<void>((resolveI, rejectI) => {
     exec(
-      `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${inputFolder}/${dbPackName}.pack" -t "./schemas/${schema}" -F ${tablesString}`,
+      `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${inputFolder}/${dbPackName}.pack" -t "../rpfm-schemas/${schema}" -F ${tablesString}`,
       { cwd },
       (error) => {
         if (error) {
@@ -42,7 +42,7 @@ const extractLoc = (folder: string, locPackName: string, locsString: string, gam
   const schema = game.includes('2') ? 'schema_wh2.ron' : 'schema_wh3.ron';
   return new Promise<void>((resolveI, rejectI) => {
     exec(
-      `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${inputFolder}/${locPackName}.pack" -t "./schemas/${schema}" -f ${locsString}`,
+      `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${inputFolder}/${locPackName}.pack" -t "../rpfm-schemas/${schema}" -f ${locsString}`,
       { cwd },
       (error) => {
         if (error) {
@@ -60,7 +60,7 @@ const extractLocBulk = (folder: string, locPackName: string, game: string, input
   const schema = game.includes('2') ? 'schema_wh2.ron' : 'schema_wh3.ron';
   return new Promise<void>((resolve, reject) => {
     exec(
-      `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${inputFolder}/${locPackName}.pack" -t "./schemas/${schema}" -F "/text;../extracted_files/${folder}"`,
+      `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${inputFolder}/${locPackName}.pack" -t "../rpfm-schemas/${schema}" -F "/text;../extracted_files/${folder}"`,
       { cwd },
       (error) => {
         if (error) {

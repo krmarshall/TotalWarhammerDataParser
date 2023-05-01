@@ -126,9 +126,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# RPFM
-/rpfm/*
-
 # Intermediate/Output data folders
 /game_source/*
 /extracted_files/*
@@ -137,4 +134,5 @@ dist
 /output_img/*
 /bins/nScripts/*
 /bins/jsonSchemas/*
+/bins/rpfm_cli.exe
 .vscode/launch.json
