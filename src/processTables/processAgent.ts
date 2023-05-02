@@ -1,8 +1,7 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { EffectInterface, ProcessedAgentInterface } from '../interfaces/ProcessedTreeInterface';
+import { ProcessedAgentInterface } from '../interfaces/ProcessedTreeInterface';
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import findImage from '../utils/findImage';
-import { parseInteger } from '../utils/parseStringToTypes';
 import outputAgent from './outputAgent';
 import processEffect from './processEffect';
 import processNodeSet from './processNodeSet';

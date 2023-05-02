@@ -39,9 +39,7 @@ const processTechNodeSet = (
   const { tree, uiGroups } = collateTechNodes(processedNodes);
   returnTechNodeSet.tree = tree;
 
-  Object.entries(uiGroups).forEach((uiGroup) => {
-    const uiGroupKey = uiGroup[0];
-    const uiGroupNodes = uiGroup[1];
+  Object.keys(uiGroups).forEach((uiGroupKey) => {
     const uiGroupRecord = tables.technology_ui_groups?.findRecordByKey('key', uiGroupKey);
     if (uiGroupRecord === undefined) {
       log(`Missing ui group: ${uiGroupKey}`, 'red');
@@ -88,10 +86,7 @@ const processTechNodeSet = (
     }
   });
 
-  Object.entries(nodeLinksMap).forEach((nodeLinkMap) => {
-    const nodeLinkParentKey = nodeLinkMap[0];
-    const nodeLinks = nodeLinkMap[1];
-
+  Object.values(nodeLinksMap).forEach((nodeLinks) => {
     nodeLinks.forEach((nodeLink) => {
       const returnLink: NodeLinkInterface = {
         parent_key: nodeLink.parent_key,
