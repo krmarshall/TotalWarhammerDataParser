@@ -80,6 +80,13 @@ const ignoreAgents = [
   { agent: 'wh2_dlc12_lzd_tlaqua_skink_chief', game: 'ALL' },
   { agent: 'wh2_dlc12_lzd_tlaqua_skink_priest_beasts', game: 'ALL' },
   { agent: 'wh2_dlc12_lzd_tlaqua_skink_priest_heavens', game: 'ALL' },
+  { agent: 'wh2_dlc09_tmb_necrotect_ritual', game: 'ALL' },
+  { agent: 'wh2_main_skv_warlock_engineer_ritual', game: 'ALL' },
+  { agent: 'wh2_main_skv_plague_priest_ritual', game: 'ALL' },
+  { agent: 'wh3_main_nur_cultist_plague_ritual', game: 'ALL' },
+  { agent: 'wh2_dlc10_hef_shadow_walker', game: 'ALL' },
+  { agent: 'wh2_pro08_neu_felix', game: 'ALL' },
+  { agent: 'wh2_pro08_neu_gotrek', game: 'ALL' },
 
   { agent: 'wh3_dlc20_chs_exalted_hero_mkho', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
 ];
@@ -208,6 +215,9 @@ const addAgents = [
 
   // Mixu 3 Slayer
   { agent: 'dwf_daemon_slayer', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+
+  // Empire Secessionists
+  { agent: 'hkrul_emp_sec_hans', subculture: 'wh_main_sc_emp_empire', game: '3' },
 ];
 
 export { ignoreCultures, ignoreSubcultures, ignoreFactions, ignoreAgents, addAgents };

@@ -50,6 +50,9 @@ const processAgent = (
     if (index === 1 && agent.key === 'nor_marauder_chieftain') {
       return;
     }
+    if (nodeSet.foreignRefs?.character_skill_nodes === undefined || nodeSet.foreignRefs?.character_skill_nodes.length === 0) {
+      return;
+    }
 
     const nodeSetKey = cleanNodeSetKey(nodeSet.key);
     if (nodeSet.agent_key === 'general') {

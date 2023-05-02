@@ -1,6 +1,6 @@
 import { Table } from '../generateTables';
 import { CharacterListInterface } from '../interfaces/CharacterListInterface';
-import { GlobalDataInterface, RefKey } from '../interfaces/GlobalDataInterface';
+import { GlobalDataInterface, RefKey, TableRecord } from '../interfaces/GlobalDataInterface';
 import { addAgents, ignoreAgents, ignoreCultures, ignoreFactions, ignoreSubcultures } from '../lists/processFactionsLists';
 import { techNodeSetsPrune2, techNodeSetsPrune3, vanilla3TechNodeSets } from '../lists/processFactionsTechLists';
 import subcultureMap from '../lists/subcultureMap';
@@ -12,8 +12,8 @@ import processTechNodeSet from './processTechNodeSet';
 
 const processFactions = (folder: string, globalData: GlobalDataInterface, tables: { [key in RefKey]?: Table }, pruneVanilla: boolean) => {
   const game = folder.includes('2') ? '2' : '3';
-  const gameTechNodePrune = game === '2' ? techNodeSetsPrune2 : techNodeSetsPrune3;
 
+  const completedTechNodeSets: { [key: string]: boolean } = {};
   const agentMap: { [key: string]: { subcultures: Set<string>; factions: Set<string> } } = {};
   const characterList: CharacterListInterface = {};
   Object.values(subcultureMap).forEach((subculture) => (characterList[subculture] = { lords: {}, heroes: {} }));
@@ -30,8 +30,22 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
     if (nodeSetKey === undefined) {
       return;
     }
+    if (
+      ignoreAgents.some(
+        (ignoreAgent) =>
+          ignoreAgent.agent === addAgent.agent &&
+          (ignoreAgent.game === 'ALL' || game === ignoreAgent.game) &&
+          (ignoreAgent.subculture === undefined || ignoreAgent.subculture === addAgent.subculture)
+      )
+    ) {
+      return;
+    }
+    const cleanKey = cleanNodeSetKey(nodeSetKey as string);
+    if (pruneVanilla && vanillaCharacters[cleanKey] !== undefined) {
+      return;
+    }
 
-    agentMap[addAgent.agent] = { subcultures: new Set(), factions: new Set() };
+    if (agentMap[addAgent.agent] === undefined) agentMap[addAgent.agent] = { subcultures: new Set(), factions: new Set() };
     agentMap[addAgent.agent].subcultures.add(addAgent.subculture);
   });
 
@@ -40,15 +54,13 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
       return;
     }
     culture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
-      if (gameTechNodePrune.includes(techNodeSet.key)) {
-        return;
-      }
-      if (pruneVanilla && vanilla3TechNodeSets.includes(techNodeSet.key)) {
-        return;
-      }
-      processTechNodeSet(folder, globalData, techNodeSet, tables);
+      handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
     });
     culture.foreignRefs?.cultures_subcultures?.forEach((subculture) => {
+      subculture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
+        handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
+      });
+
       if (
         ignoreSubcultures.some(
           (ignoreCult) => ignoreCult.subculture === subculture.subculture && (folder === ignoreCult.game || ignoreCult.game === 'ALL')
@@ -57,6 +69,9 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
         return;
       }
       subculture.foreignRefs?.factions?.forEach((faction) => {
+        faction.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
+          handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
+        });
         if (
           faction.is_quest_faction === 'true' ||
           faction.is_rebel === 'true' ||
@@ -75,7 +90,7 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
             ignoreAgents.some(
               (ignoreAgent) =>
                 ignoreAgent.agent === factionAgent.subtype &&
-                (ignoreAgent.game === 'ALL' || folder === ignoreAgent.game) &&
+                (ignoreAgent.game === 'ALL' || game === ignoreAgent.game) &&
                 (ignoreAgent.subculture === undefined || ignoreAgent.subculture === subculture.subculture)
             )
           ) {
@@ -114,3 +129,26 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
 };
 
 export default processFactions;
+
+const handleTechs = (
+  game: string,
+  pruneVanilla: boolean,
+  techNodeSet: TableRecord,
+  folder: string,
+  globalData: GlobalDataInterface,
+  tables: { [key in RefKey]?: Table },
+  completedTechNodeSets: { [key: string]: boolean }
+) => {
+  if (completedTechNodeSets[techNodeSet.key] !== undefined) {
+    return;
+  }
+  const gameTechNodePrune = game === '2' ? techNodeSetsPrune2 : techNodeSetsPrune3;
+  if (gameTechNodePrune.includes(techNodeSet.key)) {
+    return;
+  }
+  if (pruneVanilla && vanilla3TechNodeSets.includes(techNodeSet.key)) {
+    return;
+  }
+  completedTechNodeSets[techNodeSet.key] = true;
+  processTechNodeSet(folder, globalData, techNodeSet, tables);
+};
