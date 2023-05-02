@@ -1,6 +1,7 @@
 import { Worker } from 'worker_threads';
 import { WorkerDataInterface } from '../interfaces/WorkerDataInterfaces';
 import log from '../utils/log';
+import exportData from '../utils/exportData';
 
 const workerVanilla = (workerData: WorkerDataInterface) => {
   const { game, folder } = workerData;
@@ -16,6 +17,9 @@ const workerVanilla = (workerData: WorkerDataInterface) => {
   });
   workerVanilla.on('exit', () => {
     console.timeEnd(`${game} total`);
+    if (game === 'warhammer_3') {
+      exportData();
+    }
   });
   return workerVanilla;
 };

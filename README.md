@@ -8,16 +8,11 @@ Reverse engineered DB schema (kinda rough and not totally complete, but handy re
 
 When CA adds weird stuff that probably needs new tables (like mounts getting autoleveled) check https://github.com/Frodo45127/rpfm-schemas commits to look through table changes.
 
-## Refactor Notes
-
-- Extract ui/skins/default/equipment_items_*.png for ancillary images.
-
 ## Keep any eye on
 
 - If workers error with diagnosticCodes its probably a typescript issue
 - effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
 - unit_special_abilities_tables behavior random_phases
-- technology_nodes_to_ancillaries_junctions_tables
 - technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
 - ancillaries_included_agent_subtypes_tables links character items to agents? might be useful for linking non quest rewards?
 
@@ -67,11 +62,10 @@ Alternatively use xnconvert actions or gimp if transparency gets munted.
 ## Adding a mod
 
 - Add relevant robocopies in the copySource.bat
-- Check if the mod uses any * in table names, rpfm chokes on that character to rename it to something like #
-- Create new extract lists such as ./extractLists/radious3.js, the only time you need to explicitly set the locList like old sfo2 is if rpfm chokes on any table names
+- If its a multi pack mod add pack names and an enum in ./src/lists/extractLists/modPackNames.ts
 - Add a new workerMod to the mods base game worker (worker2/worker3)
-- Check for characters in agent_subtypes that arent in faction_agent_permitted_subtypes, add to ./lists/addFactionAgents.js
-- Check for bugs, especially in string replacements.
+- Check for characters in agent_subtypes that arent in faction_agent_permitted_subtypes, add to addAgents in ./src/lists/processFactionsLists.ts
+- If adding a subculture potentially add it to ./src/lists/subcultureMap.ts
 - Check for manually extracted image paths: 
 - ui/skins/default/fe_logo.png
 - ui/skins/default/icon_stat_*
@@ -83,10 +77,6 @@ WH3 also needs
 - Use the above image conversion settings/scripts appropriately
 - Copy extracted data TWPData repo
 - Copy extracted imgs TotalWarhammerPlanner repo frontend/public/imgs
-
-## Mods that add factions
-
-If mod added factions arent showing up double check cultures_tables and cultures_subsultures tables, may have to hardcode a fix in ./src/stapleFuntions3/cultures_culturesSubcultures.js. Also likely have to add entries in ./src/lists/cultureMap.js
 
 ## Character Skill Node Faction/Subcultures
 
