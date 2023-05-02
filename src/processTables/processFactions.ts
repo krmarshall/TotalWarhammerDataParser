@@ -2,6 +2,7 @@ import { Table } from '../generateTables';
 import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 import { GlobalDataInterface, RefKey } from '../interfaces/GlobalDataInterface';
 import { addAgents, ignoreAgents, ignoreCultures, ignoreFactions, ignoreSubcultures } from '../lists/processFactionsLists';
+import { techNodeSetsPrune2, techNodeSetsPrune3, vanilla3TechNodeSets } from '../lists/processFactionsTechLists';
 import subcultureMap from '../lists/subcultureMap';
 import vanillaCharacters from '../lists/vanillaCharacters';
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
@@ -11,6 +12,8 @@ import processTechNodeSet from './processTechNodeSet';
 
 const processFactions = (folder: string, globalData: GlobalDataInterface, tables: { [key in RefKey]?: Table }, pruneVanilla: boolean) => {
   const game = folder.includes('2') ? '2' : '3';
+  const gameTechNodePrune = game === '2' ? techNodeSetsPrune2 : techNodeSetsPrune3;
+
   const agentMap: { [key: string]: { subcultures: Set<string>; factions: Set<string> } } = {};
   const characterList: CharacterListInterface = {};
   Object.values(subcultureMap).forEach((subculture) => (characterList[subculture] = { lords: {}, heroes: {} }));
@@ -37,6 +40,12 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
       return;
     }
     culture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
+      if (gameTechNodePrune.includes(techNodeSet.key)) {
+        return;
+      }
+      if (pruneVanilla && vanilla3TechNodeSets.includes(techNodeSet.key)) {
+        return;
+      }
       processTechNodeSet(folder, globalData, techNodeSet, tables);
     });
     culture.foreignRefs?.cultures_subcultures?.forEach((subculture) => {

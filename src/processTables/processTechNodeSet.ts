@@ -4,6 +4,7 @@ import { NodeLinkInterface, TechNodeInterface, TechSetInterface } from '../inter
 import log from '../utils/log';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
 import collateTechNodes from './collateTechNodes';
+import outputTechNodeSet from './outputTechNodeSet';
 import processTechNode from './processTechNode';
 
 const processTechNodeSet = (
@@ -12,7 +13,7 @@ const processTechNodeSet = (
   techNodeSet: TableRecord,
   tables: { [key in RefKey]?: Table }
 ) => {
-  const techSet: TechSetInterface = {
+  const returnTechNodeSet: TechSetInterface = {
     key: techNodeSet.key,
     faction_key: techNodeSet.faction_key,
     culture: techNodeSet.culture,
@@ -36,7 +37,7 @@ const processTechNodeSet = (
   });
 
   const { tree, uiGroups } = collateTechNodes(processedNodes);
-  techSet.tree = tree;
+  returnTechNodeSet.tree = tree;
 
   Object.entries(uiGroups).forEach((uiGroup) => {
     const uiGroupKey = uiGroup[0];
@@ -57,30 +58,31 @@ const processTechNodeSet = (
       return;
     }
     // Indent = y, Tier = x
-    const topBound = parseInteger(topLeftNode.indent);
-    const bottomBound = parseInteger(botRightNode.indent);
+    const topBound = parseInteger(topLeftNode.indent) + 2;
+    const bottomBound = parseInteger(botRightNode.indent) + 2;
     const leftBound = parseInteger(topLeftNode.tier);
     const rightBound = parseInteger(botRightNode.tier);
 
     for (let y = topBound; y <= bottomBound; y++) {
       for (let x = leftBound; x <= rightBound; x++) {
-        if (techSet.tree[y] === null || techSet.tree[y] === undefined) techSet.tree[y] = [];
-        if (techSet.tree[y][x] === null || techSet.tree[y][x] === undefined) techSet.tree[y][x] = { bgFiller: true };
-        techSet.tree[y][x].ui_group = uiGroupKey;
-        techSet.tree[y][x].ui_group_colour = uiGroupRecord.colour_hex;
-        techSet.tree[y][x].ui_group_position = '';
+        if (returnTechNodeSet.tree[y] === null || returnTechNodeSet.tree[y] === undefined) returnTechNodeSet.tree[y] = [];
+        if (returnTechNodeSet.tree[y][x] === null || returnTechNodeSet.tree[y][x] === undefined)
+          returnTechNodeSet.tree[y][x] = { bgFiller: true };
+        returnTechNodeSet.tree[y][x].ui_group = uiGroupKey;
+        returnTechNodeSet.tree[y][x].ui_group_colour = uiGroupRecord.colour_hex;
+        returnTechNodeSet.tree[y][x].ui_group_position = '';
 
         if (y === topBound) {
-          techSet.tree[y][x].ui_group_position += 'top';
+          returnTechNodeSet.tree[y][x].ui_group_position += 'top';
         }
         if (y === bottomBound) {
-          techSet.tree[y][x].ui_group_position += 'bottom';
+          returnTechNodeSet.tree[y][x].ui_group_position += 'bottom';
         }
         if (x === leftBound) {
-          techSet.tree[y][x].ui_group_position += 'left';
+          returnTechNodeSet.tree[y][x].ui_group_position += 'left';
         }
         if (x === rightBound) {
-          techSet.tree[y][x].ui_group_position += 'right';
+          returnTechNodeSet.tree[y][x].ui_group_position += 'right';
         }
       }
     }
@@ -98,9 +100,11 @@ const processTechNodeSet = (
         child_link_position: translatePosition(nodeLink.child_link_position, nodeLink.child_key),
       };
       if (nodeLink.visible_in_ui !== undefined) returnLink.visible_in_ui = parseBoolean(nodeLink.visible_in_ui);
-      techSet.node_links.push(returnLink);
+      returnTechNodeSet.node_links.push(returnLink);
     });
   });
+
+  outputTechNodeSet(returnTechNodeSet, folder);
 };
 
 export default processTechNodeSet;

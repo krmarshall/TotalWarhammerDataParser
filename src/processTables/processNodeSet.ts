@@ -1,5 +1,5 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { EffectInterface, ItemInterface, SkillInterface, SkillLevelInterface } from '../interfaces/ProcessedTreeInterface';
+import { ItemInterface, SkillInterface, SkillLevelInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import log from '../utils/log';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
