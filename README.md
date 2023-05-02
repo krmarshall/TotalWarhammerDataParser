@@ -1,27 +1,31 @@
 # TotalWarhammerDataParser
  
-Requires RPFM (or at least the cli) to be available under ./rpfm
+Requires rpfm_cli.exe under ./bins
 
 Uses NConvert and a webp plugin from XnConvert to convert images and strip metadata.
-
-A saner person would probably have rebuilt the DB instead.
 
 Reverse engineered DB schema (kinda rough and not totally complete, but handy reference): https://dbdiagram.io/d/6212fade485e433543e7fe91
 
 When CA adds weird stuff that probably needs new tables (like mounts getting autoleveled) check https://github.com/Frodo45127/rpfm-schemas commits to look through table changes.
 
+## Refactor Notes
+
+- Extract ui/skins/default/equipment_items_*.png for ancillary images.
+
 ## Keep any eye on
 
-- WH3 Oxyotl and Mazdamundi have item ancillaries that still exist in skill tree. If more mods utilize ancilllaries in skill trees could link them properly.
-- Prune more props not used in frontend to save file size
-- Can probably prune glade_lord_fem, just keeping in case mods do something with it?
-- charList_characterAncillaryQuestUIDetails has an enum for ancillary images, might be able to grab them from ancillary_types_tables instead?
+- If workers error with diagnosticCodes its probably a typescript issue
+- effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
+- unit_special_abilities_tables behavior random_phases
+- technology_nodes_to_ancillaries_junctions_tables
+- technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
+- ancillaries_included_agent_subtypes_tables links character items to agents? might be useful for linking non quest rewards?
 
 ## How To Use
 
-- Ensure an updated version of rpfm_cli.exe exists in ./rpfm and updated schemas are downloaded
-- Check absolute file paths in ./bins/copySource.bat and ./src/exportTables.js
-- Make sure all mods are downloaded
+- Ensure an updated version of rpfm_cli.exe exists in ./bins and updated schemas are downloaded
+- Check absolute file paths in ./bins/copySource.bat and create a .env in root following example.env
+- Make sure all mods are downloaded in steam
 - npm run fullBuild (fullBuildProd if you dont care about pretty printed json)
 - Extracted character skill trees and images will be in the ./output and ./output_img folders as parsed json and webp's
 
@@ -86,7 +90,7 @@ If mod added factions arent showing up double check cultures_tables and cultures
 
 ## Character Skill Node Faction/Subcultures
 
-Skill nodes are able to only be added to trees when they are part of specific factions or subcultures. Mods use this somewhat inconsistently where sometimes its good they aren't added to the "generic" node set, but sometimes they should be. It seems like the former is more common, so if a tree needs it added to the "generic" node set add the faction/subculture to the respective ./lists/cultureMap.js
+Skill nodes are able to only be added to trees when they are part of specific factions or subcultures. Mods use this somewhat inconsistently where sometimes its good they aren't added to the "generic" node set, but sometimes they should be.
 
 ## Techs
 

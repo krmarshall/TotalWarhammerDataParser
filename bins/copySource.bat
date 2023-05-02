@@ -2,9 +2,6 @@ set steamPath=D:\Steam\steamapps\common
 set workshopPath=D:\Steam\steamapps\workshop\content
 set gitGameSource=D:\GitHub\TotalWarhammerDataParser\game_source
 
-set schemaAppdataPath=C:\Users\fearh\AppData\Roaming\FrodoWazEre\rpfm\config\schemas
-set schemaGitPath=D:\GitHub\TotalWarhammerDataParser\rpfm\schemas
-
 ROBOCOPY "%steamPath%\Total War WARHAMMER II\data" "%gitGameSource%\vanilla2" data.pack local_en.pack /NJH /NJS
 
 ROBOCOPY "%steamPath%\Total War WARHAMMER III\data" "%gitGameSource%\vanilla3" data.pack data_1.pack data_2.pack data_3.pack data_bl.pack data_bm.pack data_sc.pack data_sf.pack data_tk.pack data_we.pack data_wp_.pack local_en.pack /NJH /NJS
@@ -36,5 +33,6 @@ ROBOCOPY "%workshopPath%\1142710\2918562980" "%gitGameSource%\scm3" str_verms.pa
 ROBOCOPY "%workshopPath%\1142710\2925447605" "%gitGameSource%\scm3" str_treecherik.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2949216752" "%gitGameSource%\scm3" !hkrul_marienburg_v1.0.pack /NJH /NJS
 
-ROBOCOPY "%schemaAppdataPath%" "%schemaGitPath%" schema_wh2.ron schema_wh3.ron /NJH /NJS
+ROBOCOPY "..\rpfm-schemas" ".\jsonSchemas" schema_wh2.ron schema_wh3.ron /NJH /NJS
+
 EXIT /B
