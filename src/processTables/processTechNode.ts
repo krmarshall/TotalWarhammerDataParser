@@ -6,7 +6,13 @@ import { parseInteger } from '../utils/parseStringToTypes';
 import processAncillary from './processAncillary';
 import processEffect from './processEffect';
 
-const processTechNode = (folder: string, globalData: GlobalDataInterface, techNode: TableRecord) => {
+const processTechNode = (
+  folder: string,
+  globalData: GlobalDataInterface,
+  techNode: TableRecord,
+  techReqJuncMap: { [key: string]: Array<{ key: string; name: string }> },
+  nodeLinksMap: { [key: string]: Array<string> }
+) => {
   const tech = techNode.localRefs?.technologies;
   if (tech === undefined) {
     return;
@@ -16,6 +22,7 @@ const processTechNode = (folder: string, globalData: GlobalDataInterface, techNo
   tech.foreignRefs?.technology_effects_junction?.forEach((effectJunc) => {
     effects.push(processEffect(folder, globalData, effectJunc));
   });
+  effects.sort((a, b) => (a.priority as number) - (b.priority as number)).forEach((effect) => delete effect.priority);
 
   const returnTechNode: TechNodeInterface = {
     key: techNode.key,
@@ -32,7 +39,9 @@ const processTechNode = (folder: string, globalData: GlobalDataInterface, techNo
   };
 
   if (techNode.cost_per_round !== '0') returnTechNode.cost_per_round = parseInteger(techNode.cost_per_round);
-  if (techNode.required_parents !== '0') returnTechNode.required_parents = parseInteger(techNode.required_parents);
+  if (techNode.required_parents !== '0' && techNode.required_parents !== undefined) {
+    returnTechNode.required_parents = parseInteger(techNode.required_parents);
+  }
   const uiGroup = techNode.localRefs?.technology_ui_groups?.key;
   if (uiGroup !== undefined) returnTechNode.ui_group = uiGroup;
 
@@ -49,6 +58,22 @@ const processTechNode = (folder: string, globalData: GlobalDataInterface, techNo
     if (returnTechNode.items === undefined) returnTechNode.items = [];
     returnTechNode.items.push(processAncillary(folder, globalData, ancillaryJunc, undefined));
   });
+
+  Object.entries(techReqJuncMap).forEach((techJuncPair) => {
+    const techJuncKey = techJuncPair[0];
+    const techJuncReqs = techJuncPair[1];
+    if (returnTechNode.technology.key !== techJuncKey) {
+      return;
+    }
+    if (returnTechNode.required_tech_keys === undefined) returnTechNode.required_tech_keys = [];
+    returnTechNode.required_tech_keys.push(...techJuncReqs);
+  });
+
+  const nodeLinks = nodeLinksMap[returnTechNode.key];
+  if (nodeLinks !== undefined) {
+    if (returnTechNode.required_tech_node_keys === undefined) returnTechNode.required_tech_node_keys = [];
+    returnTechNode.required_tech_node_keys.push(...nodeLinks);
+  }
 
   return returnTechNode;
 };

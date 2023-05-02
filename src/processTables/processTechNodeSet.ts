@@ -21,18 +21,32 @@ const processTechNodeSet = (
     node_links: [],
   };
 
-  const processedNodes: Array<TechNodeInterface> = [];
+  const techNodeRequiredJuncMap: { [key: string]: Array<{ key: string; name: string }> } = {};
+  tables.technology_required_technology_junctions?.records?.forEach((techJunc) => {
+    if (techNodeRequiredJuncMap[techJunc.technology] === undefined) techNodeRequiredJuncMap[techJunc.technology] = [];
+    const reqTech = tables.technologies?.findRecordByKey('key', techJunc.required_technology) as TableRecord;
+    techNodeRequiredJuncMap[techJunc.technology].push({ key: techJunc.required_technology, name: reqTech.onscreen_name });
+  });
+
   const nodeLinksMap: { [key: string]: Array<TableRecord> } = {};
+  const nodeLinksMapChild: { [key: string]: Array<string> } = {};
   techNodeSet.foreignRefs?.technology_nodes?.forEach((techNode) => {
-    const tempNode = processTechNode(folder, globalData, techNode);
+    techNode.foreignRefs?.technology_node_links?.forEach((nodeLink) => {
+      if (techNode.key === nodeLink.parent_key) {
+        if (nodeLinksMap[techNode.key] === undefined) nodeLinksMap[techNode.key] = [];
+        nodeLinksMap[techNode.key].push(nodeLink);
+      } else if (techNode.key === nodeLink.child_key) {
+        if (nodeLinksMapChild[techNode.key] === undefined) nodeLinksMapChild[techNode.key] = [];
+        nodeLinksMapChild[techNode.key].push(nodeLink.parent_key);
+      }
+    });
+  });
+
+  const processedNodes: Array<TechNodeInterface> = [];
+  techNodeSet.foreignRefs?.technology_nodes?.forEach((techNode) => {
+    const tempNode = processTechNode(folder, globalData, techNode, techNodeRequiredJuncMap, nodeLinksMapChild);
     if (tempNode !== undefined) {
       processedNodes.push(tempNode);
-      techNode.foreignRefs?.technology_node_links?.forEach((nodeLink) => {
-        if (tempNode.key === nodeLink.parent_key) {
-          if (nodeLinksMap[tempNode.key] === undefined) nodeLinksMap[tempNode.key] = [];
-          nodeLinksMap[tempNode.key].push(nodeLink);
-        }
-      });
     }
   });
 

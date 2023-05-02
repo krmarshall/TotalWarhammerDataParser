@@ -25,6 +25,8 @@ interface TechNodeInterface {
   cost_per_round?: number;
   optional_ui_group?: string;
   required_parents?: number;
+  required_tech_keys?: Array<{ key: string; name: string }>;
+  required_tech_node_keys?: Array<string>;
   technology: TechSkillInterface;
   items?: Array<ItemInterface>;
   ui_group?: string;
