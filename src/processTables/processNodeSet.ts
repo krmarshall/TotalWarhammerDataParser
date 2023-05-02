@@ -3,6 +3,7 @@ import { ItemInterface, SkillInterface, SkillLevelInterface } from '../interface
 import findImage from '../utils/findImage';
 import log from '../utils/log';
 import { parseBoolean, parseInteger } from '../utils/parseStringToTypes';
+import stringInterpolator from '../utils/stringInterpolator';
 import collateNodes from './collateNodes';
 import processAncillary from './processAncillary';
 import processEffect from './processEffect';
@@ -36,8 +37,8 @@ const processNodeSet = (
       required_num_parents: parseInteger(skillNode.required_num_parents),
       visible_in_ui: parseBoolean(skillNode.visible_in_ui),
       is_background_skill: parseBoolean(skill.is_background_skill),
-      localised_name: skill.localised_name,
-      localised_description: skill.localised_description,
+      localised_name: stringInterpolator(skill.localised_name, globalData.parsedData[folder].text),
+      localised_description: stringInterpolator(skill.localised_description, globalData.parsedData[folder].text),
     };
 
     if (skillNode.subculture !== '') returnSkill.subculture = skillNode.subculture;

@@ -15,7 +15,7 @@ const processAncillary = (
     key: ancillaryInfo.ancillary,
     onscreen_name: ancillary.onscreen_name,
     colour_text: ancillary.colour_text,
-    ui_icon: (ancillary.localRefs?.ancillary_types?.ui_icon as string).replace(' ', '_').replace('.png', ''),
+    ui_icon: (ancillary.localRefs?.ancillary_types?.ui_icon as string).replace(' ', '_').replace('.png', '').replace(/^ui\//, ''),
   };
 
   if (unlocked_at_rank !== undefined && unlocked_at_rank !== '') returnItem.unlocked_at_rank = parseInteger(unlocked_at_rank);

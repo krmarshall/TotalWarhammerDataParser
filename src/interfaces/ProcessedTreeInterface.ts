@@ -161,9 +161,9 @@ interface EffectInterface {
 interface FactionEffectsInterface {
   effects: Array<EffectInterface>;
   key: string;
-  localised_description?: string;
-  localised_title?: string;
-  ui_icon?: string;
+  localised_description: string;
+  localised_title: string;
+  ui_icon: string;
 }
 
 interface ItemInterface {
