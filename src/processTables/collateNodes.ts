@@ -14,7 +14,10 @@ const collateNodes = (
   completeNodes.forEach((completeNode) => {
     if (completeNode.character_skill_key === 'wh3_main_skill_agent_action_success_scaling') {
       // Dont add
+    } else if (completeNode.use_quest_for_prefix) {
+      // Dont add (wh2 quest item)
     } else if (completeNode.is_background_skill || !completeNode.visible_in_ui) {
+      if (completeNode.use_quest_for_prefix !== undefined) delete completeNode.use_quest_for_prefix;
       backgroundSkills.push(completeNode);
     } else if (
       (completeNode.subculture && completeNode.subculture !== subcultureKey) ||
@@ -23,6 +26,7 @@ const collateNodes = (
       // Dont add
     } else if (completeNode.indent <= 5) {
       if (skillTree[completeNode.indent] === undefined) skillTree[completeNode.indent] = [];
+      if (completeNode.use_quest_for_prefix !== undefined) delete completeNode.use_quest_for_prefix;
       skillTree[completeNode.indent][completeNode.tier] = completeNode;
     }
   });

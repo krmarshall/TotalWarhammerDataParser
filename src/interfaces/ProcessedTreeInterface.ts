@@ -201,6 +201,7 @@ interface SkillInterface {
   visible_in_ui: boolean;
   right_arrow?: boolean;
   boxed?: boolean;
+  use_quest_for_prefix?: boolean;
   levels?: Array<SkillLevelInterface>;
 }
 

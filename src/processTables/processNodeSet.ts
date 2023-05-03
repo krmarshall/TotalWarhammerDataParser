@@ -71,6 +71,7 @@ const processNodeSet = (
     });
     // character_skills_to_quest_ancillaries
     skill.foreignRefs?.character_skills_to_quest_ancillaries?.forEach((quest) => {
+      returnSkill.use_quest_for_prefix = parseBoolean(quest.use_quest_for_prefix);
       items.push(processAncillary(folder, globalData, quest, undefined));
     });
     // character_skill_level_details
