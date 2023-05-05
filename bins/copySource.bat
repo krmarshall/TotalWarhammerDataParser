@@ -33,6 +33,4 @@ ROBOCOPY "%workshopPath%\1142710\2918562980" "%gitGameSource%\scm3" str_verms.pa
 ROBOCOPY "%workshopPath%\1142710\2925447605" "%gitGameSource%\scm3" str_treecherik.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2949216752" "%gitGameSource%\scm3" !hkrul_marienburg_v1.0.pack /NJH /NJS
 
-ROBOCOPY "..\rpfm-schemas" ".\jsonSchemas" schema_wh2.ron schema_wh3.ron /NJH /NJS
-
 EXIT /B

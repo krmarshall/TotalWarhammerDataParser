@@ -6,10 +6,10 @@
     "lint": "eslint ./src",
     "lintFix": "eslint ./src --fix",
     "updateSchemas": "git submodule update --remote",
+    "convertSchemas": "cd ./bins && convertSchemas.bat",
     "copySource": "cd ./bins && copySource.bat",
-    "convertRons": "cd ./bins && convertRonJson.bat",
     "start": "set NODE_OPTIONS='--max-old-space-size=8192' && ts-node ./src/index.ts",
-    "fullBuild": "run-s updateSchemas copySource convertRons start",
+    "fullBuild": "run-s updateSchemas convertSchemas copySource start",
     "profile": "set NODE_OPTIONS='--max-old-space-size=8192' && node -r ts-node/register --prof ./src/index.ts"
   },
   "author": "krmarshall",
