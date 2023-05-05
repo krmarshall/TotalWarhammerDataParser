@@ -141,6 +141,7 @@ interface AbilityInterface {
     mana_cost?: number;
     miscast_chance?: number;
     num_uses?: number;
+    random_phases?: boolean;
     phases?: Array<PhaseInterface>;
     vortex?: VortexInterface;
     activated_projectile?: ProjectileInterface;

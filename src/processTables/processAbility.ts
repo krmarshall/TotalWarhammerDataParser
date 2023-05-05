@@ -65,6 +65,8 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
     }
   });
 
+  if (unitSpecialAbility.behaviour === 'random_phases') returnAbility.unit_ability.random_phases = true;
+
   // enabled_if
   const enabled_if: Array<string> = [];
   unitSpecialAbility.foreignRefs?.special_ability_to_auto_deactivate_flags?.forEach((enable) => {

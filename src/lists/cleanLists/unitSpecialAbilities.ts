@@ -38,7 +38,6 @@ const unit_special_abilities_tables = [
   'unit_position_offset',
   'update_phase_by_ability_duration',
   'formation',
-  'behaviour',
   'audio_switch_override',
   'current_mana_moves_to_reserve',
   'spawn_shares_health_and_fatigue',
