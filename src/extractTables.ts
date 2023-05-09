@@ -106,7 +106,14 @@ const extractPackfileMass = (
 
     const oldDbTimestamp = fse.readJSONSync(`./extracted_files/${folder}/${dbPackName}_timestamp.json`, { throws: false });
     const newFileStats = statSync(`./game_source/${folder}/${dbPackName}.pack`);
-    if (oldDbTimestamp !== null && oldDbTimestamp.time === newFileStats.mtime.toString()) {
+    const oldTables = fse.readJSONSync(`./extracted_files/${folder}/tables.json`, { throws: false });
+    const newTables = dbList;
+    if (
+      oldDbTimestamp !== null &&
+      oldDbTimestamp.time === newFileStats.mtime.toString() &&
+      oldTables !== null &&
+      JSON.stringify(oldTables) === JSON.stringify(newTables)
+    ) {
       log(`Pre-extract ${folder}`, 'green');
       return resolve();
     } else {
@@ -131,6 +138,7 @@ const extractPackfileMass = (
       Promise.all([dataPromise, locPromise])
         .then(() => {
           createExtractedTimestamp(folder, dbPackName);
+          fse.outputJSONSync(`./extracted_files/${folder}/tables.json`, dbList);
           resolve();
         })
         .catch((error) => {
@@ -157,7 +165,9 @@ const extractPackfileMulti = (
         goodPreExtract = false;
       }
     });
-    if (goodPreExtract) {
+    const oldTables = fse.readJSONSync(`./extracted_files/${folder}/tables.json`, { throws: false });
+    const newTables = dbList;
+    if (goodPreExtract && oldTables !== null && JSON.stringify(oldTables) === JSON.stringify(newTables)) {
       log(`Pre-extract ${folder}`, 'green');
       return resolve();
     } else {
@@ -204,6 +214,7 @@ const extractPackfileMulti = (
     Promise.all(promiseArray)
       .then(() => {
         dbPackNames.forEach((dbPackName) => createExtractedTimestamp(folder, dbPackName));
+        fse.outputJSONSync(`./extracted_files/${folder}/tables.json`, dbList);
         resolve();
       })
       .catch((error) => {

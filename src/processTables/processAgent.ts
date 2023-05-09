@@ -8,6 +8,7 @@ import processNodeSet from './processNodeSet';
 import subcultureMap from '../lists/subcultureMap';
 import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 import processAncillary from './processAncillary';
+import processUnitStats from './processUnitStats';
 
 const processAgent = (
   folder: string,
@@ -17,7 +18,11 @@ const processAgent = (
   factionKeys: Set<string>,
   characterList: CharacterListInterface
 ) => {
-  const returnAgent: ProcessedAgentInterface = { key: '', skillTree: [] };
+  const returnAgent: ProcessedAgentInterface = {
+    key: '',
+    skillTree: [],
+    unitStats: processUnitStats(folder, globalData, agent.localRefs?.main_units as TableRecord),
+  };
 
   // LL Faction Effects WH3
   if (agent.foreignRefs?.faction_starting_general_effects !== undefined) {

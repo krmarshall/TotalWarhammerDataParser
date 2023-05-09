@@ -47,6 +47,16 @@ const v2DbList = [
   'modifiable_unit_stats',
   'unit_stat_localisations',
   'campaign_effect_scopes',
+  'main_units',
+  'land_units',
+  'battle_entities',
+  'unit_shield_types',
+  'unit_armour_types',
+  'melee_weapons',
+  'missile_weapons',
+  'unit_attributes_groups',
+  'unit_attributes_to_groups_junctions',
+  'land_units_to_unit_abilites_junctions',
 
   // Techs
   'technologies',
@@ -79,6 +89,7 @@ const v2LocList = [
   'campaign_effect_scopes__',
   'special_ability_invalid_usage_flags__',
   'effect_bundles__',
+  'land_units__',
 
   // Techs
   'technologies__',
