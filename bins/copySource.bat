@@ -20,7 +20,8 @@ ROBOCOPY "%workshopPath%\1142710\2880515805" "%gitGameSource%\scm3" jade_vamp_po
 ROBOCOPY "%workshopPath%\1142710\2891621259" "%gitGameSource%\scm3" dead_cult_possessed_unit_V2.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2860291758" "%gitGameSource%\scm3" froeb_warboss_lord.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2790444587" "%gitGameSource%\scm3" dead_jade_army_pack.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2789944159" "%gitGameSource%\scm3" dead_kislev_units.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2973289132" "%gitGameSource%\scm3" dead_kislev_hero_shaman.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2973289038" "%gitGameSource%\scm3" dead_kislev_hero_blademaster.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2890463744" "%gitGameSource%\scm3" @xou_emp.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2890463783" "%gitGameSource%\scm3" @xou_emp_assets.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2874009018" "%gitGameSource%\scm3" !hkrul_emp_secessionists.pack /NJH /NJS

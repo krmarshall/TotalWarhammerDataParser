@@ -12,7 +12,6 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 
 - If workers error with diagnosticCodes its probably a typescript issue
 - effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
-- unit_special_abilities_tables behavior random_phases
 - technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
 - ancillaries_included_agent_subtypes_tables links character items to agents? might be useful for linking non quest rewards?
 
@@ -21,7 +20,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - Ensure an updated version of rpfm_cli.exe exists in ./bins and updated schemas are downloaded
 - Check absolute file paths in ./bins/copySource.bat and create a .env in root following example.env
 - Make sure all mods are downloaded in steam
-- npm run fullBuild (fullBuildProd if you dont care about pretty printed json)
+- npm run fullBuild
 - Extracted character skill trees and images will be in the ./output and ./output_img folders as parsed json and webp's
 
 ## Image Extraction
@@ -88,4 +87,4 @@ For Sigmar knows what reason tech indents start at -2, I realigned them to start
 
 ## Potential Automation
 
-If enough monthly donations can look at upgrading the droplet to something that could handle running the data parser builds (~4GB mem, ~100GB storage). Use steamcmd to grab workshop files every x interval, if they changed trigger a rebuild. Would probably want to properly automate portrait extraction/linking.
+If enough monthly donations can look at upgrading the droplet to something that could handle running the data parser builds (4-32GB mem, ~100GB storage). Use steamcmd to grab workshop files every x interval, if they changed trigger a rebuild. Would probably want to properly automate portrait extraction/linking.
