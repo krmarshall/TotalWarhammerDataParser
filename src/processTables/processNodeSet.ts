@@ -7,6 +7,7 @@ import stringInterpolator from '../utils/stringInterpolator';
 import collateNodes from './collateNodes';
 import processAncillary from './processAncillary';
 import processEffect from './processEffect';
+import processUnitStats from './processUnitStats';
 
 const processNodeSet = (
   folder: string,
@@ -61,12 +62,19 @@ const processNodeSet = (
     // character_skill_level_to_ancillaries_junctions
     skill.foreignRefs?.character_skill_level_to_ancillaries_junctions?.forEach((ancillaryJunc) => {
       const ancillaryEffects = ancillaryJunc.localRefs?.ancillaries?.localRefs?.ancillary_info?.foreignRefs?.ancillary_to_effects;
+      const skillLevel = parseInteger(ancillaryJunc.level) - 1;
       if (ancillaryEffects !== undefined) {
         ancillaryEffects.forEach((effectJunc) => {
-          const skillLevel = parseInteger(ancillaryJunc.level) - 1;
           returnSkill.levels = checkSkillLevelExists(returnSkill.levels, skillLevel);
           returnSkill.levels[skillLevel]?.effects?.push(processEffect(folder, globalData, effectJunc as TableRecord));
         });
+      }
+      if (ancillaryJunc.localRefs?.ancillaries?.category === 'mount') {
+        const main_unit = ancillaryJunc.localRefs?.ancillaries?.localRefs?.main_units;
+        if (main_unit !== undefined) {
+          returnSkill.levels = checkSkillLevelExists(returnSkill.levels, skillLevel);
+          returnSkill.levels[skillLevel].mount_unit_stats = processUnitStats(folder, globalData, main_unit);
+        }
       }
     });
     // character_skills_to_quest_ancillaries

@@ -181,6 +181,7 @@ interface SkillLevelInterface {
   auto_unlock_at_rank?: number;
   blocks_skill_node_keys?: Array<string>;
   effects?: Array<EffectInterface>;
+  mount_unit_stats?: UnitStatsInterface;
 }
 
 interface SkillInterface {
