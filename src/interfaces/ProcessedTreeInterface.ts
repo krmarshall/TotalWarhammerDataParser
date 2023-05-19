@@ -227,7 +227,7 @@ interface UnitStatsInterface {
   damage_mod_all: number;
 
   melee_attack: number;
-  melee_defense: number;
+  melee_defence: number;
   charge_bonus: number;
   bonus_v_large: number;
   bonus_v_infantry: number;

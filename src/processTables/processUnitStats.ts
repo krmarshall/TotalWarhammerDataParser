@@ -29,7 +29,7 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
     damage_mod_all: parseInteger(landUnit.damage_mod_all),
 
     melee_attack: parseInteger(landUnit.melee_attack),
-    melee_defense: parseInteger(landUnit.melee_defense),
+    melee_defence: parseInteger(landUnit.melee_defence),
     charge_bonus: parseInteger(landUnit.charge_bonus),
     bonus_v_large: parseInteger(meleeWeapon.bonus_v_large),
     bonus_v_infantry: parseInteger(meleeWeapon.bonus_v_infantry),
