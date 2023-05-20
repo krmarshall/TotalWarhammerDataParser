@@ -34,7 +34,7 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
     bonus_v_large: parseInteger(meleeWeapon.bonus_v_large),
     bonus_v_infantry: parseInteger(meleeWeapon.bonus_v_infantry),
     damage: parseInteger(meleeWeapon.damage),
-    ap_damage: parseInteger(meleeWeapon.damage),
+    ap_damage: parseInteger(meleeWeapon.ap_damage),
     splash_target_size_limit: meleeWeapon.splash_attack_target_size,
     splash_attack_max_attacks: parseInteger(meleeWeapon.splash_attack_max_attacks),
     melee_attack_interval: parseFloating(meleeWeapon.melee_attack_interval),

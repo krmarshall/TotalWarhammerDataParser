@@ -10,6 +10,7 @@ const processProjectile = (folder: string, globalData: GlobalDataInterface, proj
     damage: parseFloating(projectile.damage),
     ap_damage: parseFloating(projectile.ap_damage),
     shockwave_radius: parseFloating(projectile.shockwave_radius),
+    effective_range: parseInteger(projectile.effective_range),
   };
 
   if (parseInteger(projectile.bonus_v_infantry) > 0) returnProjectile.bonus_v_infantry = parseInteger(projectile.bonus_v_infantry);
