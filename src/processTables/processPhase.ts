@@ -8,6 +8,7 @@ import processAttribute from './processAttribute';
 
 const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc: TableRecord, phase: TableRecord) => {
   const returnPhase: PhaseInterface = {
+    icon: findPhaseImage(folder, globalData, phase.id),
     order: parseInteger(phaseJunc.order),
     target_enemies: parseBoolean(phaseJunc.target_enemies),
     target_self: parseBoolean(phaseJunc.target_self),
@@ -112,3 +113,10 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
 };
 
 export default processPhase;
+
+const findPhaseImage = (folder: string, globalData: GlobalDataInterface, icon_path: string) => {
+  const icon = icon_path.replace('.png', '').trim();
+  const searchArray = [`battle_ui/ability_icons/${icon}`, `battle_ui/ability_icons/${icon.toLowerCase()}`];
+
+  return findImage(folder, globalData, searchArray, icon);
+};

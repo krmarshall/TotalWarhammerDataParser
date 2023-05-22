@@ -14,6 +14,7 @@ interface AttributeInterface {
 }
 
 interface PhaseInterface {
+  icon: string;
   order: number;
   target_enemies: boolean;
   target_self: boolean;
