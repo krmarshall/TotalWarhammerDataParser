@@ -12,7 +12,6 @@ const projectiles_tables = [
   'spread',
   'can_bounce',
   'collision_radius',
-  'base_reload_time',
   'calibration_distance',
   'calibration_area',
   'projectile_display',

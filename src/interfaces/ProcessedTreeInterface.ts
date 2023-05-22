@@ -79,6 +79,7 @@ interface ProjectileInterface {
   damage: number;
   ap_damage: number;
   effective_range: number;
+  base_reload_time: number;
   bonus_v_infantry?: number;
   bonus_v_large?: number;
   shockwave_radius: number;
