@@ -57,6 +57,7 @@ const v2DbList = [
   'unit_attributes_groups',
   'unit_attributes_to_groups_junctions',
   'land_units_to_unit_abilites_junctions',
+  'mounts',
 
   // Techs
   'technologies',

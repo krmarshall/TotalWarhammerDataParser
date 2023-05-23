@@ -76,6 +76,18 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
   });
   if (abilities.length > 0) returnStats.abilities = abilities;
 
+  const mountEntity = landUnit?.localRefs?.mounts?.localRefs?.battle_entities;
+  if (mountEntity !== undefined) {
+    returnStats.hit_points = parseInteger(mountEntity.hit_points);
+    returnStats.mass = parseInteger(mountEntity.mass);
+    returnStats.run_speed = parseInteger(mountEntity.run_speed);
+    returnStats.size = mountEntity.size;
+    if (mountEntity.fly_speed !== '0') returnStats.fly_speed = parseFloating(mountEntity.fly_speed);
+    if (missileWeapon !== undefined) {
+      returnStats.fire_arc = parseInteger(mountEntity.fire_arc_close);
+    }
+  }
+
   return returnStats;
 };
 
