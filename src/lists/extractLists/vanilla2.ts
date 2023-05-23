@@ -90,6 +90,7 @@ const v2LocList = [
   'special_ability_invalid_usage_flags__',
   'effect_bundles__',
   'land_units__',
+  'special_ability_phases__',
 
   // Techs
   'technologies__',
