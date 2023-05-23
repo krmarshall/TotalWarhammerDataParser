@@ -44,7 +44,7 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
   if (mainUnit.can_siege === 'true') returnStats.can_siege = true;
   if (landUnit.can_skirmish === 'true') returnStats.can_skirmish = true;
   if (battleEntity.fly_speed !== '0') returnStats.fly_speed = parseFloating(battleEntity.fly_speed);
-  if (meleeWeapon.ignition_amount !== '0') returnStats.is_flaming = true;
+  if (parseInteger(meleeWeapon.ignition_amount) >= 1) returnStats.is_flaming = true;
   if (meleeWeapon.is_magical === 'true') returnStats.is_magical = true;
   if (meleeWeapon.localRefs?.special_ability_phases !== undefined) {
     returnStats.contact_phase = processPhase(
