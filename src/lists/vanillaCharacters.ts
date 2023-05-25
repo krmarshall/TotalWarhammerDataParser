@@ -383,6 +383,8 @@ const vanillaCharacters: { [key: string]: string } = {
   chd_daemonsmith_sorcerer_metal: 'chd_daemonsmith_sorcerer_metal',
   chd_infernal_castellan: 'chd_infernal_castellan',
   ksl_ulrika: 'ksl_ulrika',
+
+  chs_cha_harald_hammerstorm: 'chs_cha_harald_hammerstorm',
 };
 
 export default vanillaCharacters;
