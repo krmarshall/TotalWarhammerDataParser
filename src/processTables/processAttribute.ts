@@ -3,11 +3,16 @@ import findImage from '../utils/findImage';
 import stringInterpolator from '../utils/stringInterpolator';
 
 const processAttribute = (folder: string, globalData: GlobalDataInterface, attribute: TableRecord) => {
-  return {
+  const returnAttribute = {
     key: attribute.attribute,
     description: stringInterpolator(attribute.localRefs?.unit_attributes?.imued_effect_text as string, globalData.parsedData[folder].text),
     icon: findAttributeImage(folder, globalData, attribute.attribute),
   };
+  if (attribute.attribute_type === 'negative') {
+    returnAttribute.description = 'Removes ' + returnAttribute.description.trimStart();
+  }
+
+  return returnAttribute;
 };
 
 export default processAttribute;
