@@ -117,6 +117,7 @@ interface AbilityInterface {
     key: string;
     icon_name: string;
     overpower_option: string;
+    requires_effect_enabling?: boolean;
     type: {
       key: string;
       icon_path: string;

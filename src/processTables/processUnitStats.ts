@@ -72,7 +72,11 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
 
   const abilities: Array<AbilityInterface> = [];
   landUnit.foreignRefs?.land_units_to_unit_abilites_junctions?.forEach((abilityJunc) => {
-    abilities.push(processAbility(folder, globalData, abilityJunc));
+    const tempAbility = processAbility(folder, globalData, abilityJunc, true);
+    if (tempAbility.unit_ability.requires_effect_enabling !== undefined && !tempAbility.unit_ability.requires_effect_enabling) {
+      delete tempAbility.unit_ability.requires_effect_enabling;
+      abilities.push(tempAbility);
+    }
   });
   if (abilities.length > 0) returnStats.abilities = abilities;
 

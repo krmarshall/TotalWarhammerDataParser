@@ -1,6 +1,5 @@
 const unit_abilities_tables = [
   'superseded_abilities_set',
-  'requires_effect_enabling',
   'video',
   'uniqueness',
   'is_unit_upgrade',

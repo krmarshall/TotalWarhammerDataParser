@@ -8,7 +8,12 @@ import processPhase from './processPhase';
 import processProjectile from './processProjectile';
 import processVortex from './processVortex';
 
-const processAbility = (folder: string, globalData: GlobalDataInterface, abilityJunc: TableRecord) => {
+const processAbility = (
+  folder: string,
+  globalData: GlobalDataInterface,
+  abilityJunc: TableRecord,
+  effectEnabling: boolean | undefined = false
+) => {
   const unitAbility =
     (abilityJunc.localRefs?.unit_abilities as TableRecord) ??
     (abilityJunc.localRefs?.unit_set_unit_ability_junctions?.localRefs?.unit_abilities as TableRecord) ??
@@ -48,6 +53,8 @@ const processAbility = (folder: string, globalData: GlobalDataInterface, ability
       wind_up_time: parseFloating(unitSpecialAbility.wind_up_time),
     },
   };
+  if (effectEnabling) returnAbility.unit_ability.requires_effect_enabling = parseBoolean(unitAbility.requires_effect_enabling);
+
   [
     'active_time',
     'mana_cost',
