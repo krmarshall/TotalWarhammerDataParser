@@ -22,6 +22,7 @@ const processNodeSet = (
   const skillNodeKeys: { [key: string]: boolean } = {};
   nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => (skillNodeKeys[skillNode.key] = true));
   const subsetRequiredMap: { [key: string]: Array<SkillInterface> } = {};
+  const requiredMap: { [key: string]: Array<SkillInterface> } = {};
 
   nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => {
     const skill = skillNode.localRefs?.character_skills as TableRecord;
@@ -142,6 +143,8 @@ const processNodeSet = (
         if (skillNode.key === link.child_key) {
           if (link.link_type === 'REQUIRED') {
             parent_required.push(link.parent_key);
+            if (requiredMap[link.parent_key] === undefined) requiredMap[link.parent_key] = [];
+            requiredMap[link.parent_key].push(returnSkill);
           }
           if (link.link_type === 'SUBSET_REQUIRED') {
             parent_subset_required.push(link.parent_key);
@@ -177,8 +180,7 @@ const processNodeSet = (
   });
 
   // After all nodes are processed go through subset_required children, give their highest tier parent right_arrow
-  Object.keys(subsetRequiredMap).forEach((subsetKey) => {
-    const subsetRequiredNodes = subsetRequiredMap[subsetKey];
+  Object.values(subsetRequiredMap).forEach((subsetRequiredNodes) => {
     let highest = subsetRequiredNodes[0];
     for (let i = 0; i < subsetRequiredNodes.length; i++) {
       if (subsetRequiredNodes[i].tier > highest.tier) {
@@ -190,6 +192,12 @@ const processNodeSet = (
     // Also give each parent node boxed if there are more than 1 of them
     if (subsetRequiredNodes.length > 1) {
       subsetRequiredNodes.forEach((node) => (node.boxed = true));
+    }
+  });
+  // Go through required children, if more than 1 node requires the same parent give them boxed
+  Object.values(requiredMap).forEach((requiredNodes) => {
+    if (requiredNodes.length > 1) {
+      requiredNodes.forEach((node) => (node.boxed = true));
     }
   });
 
