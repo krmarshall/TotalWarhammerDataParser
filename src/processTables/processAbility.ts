@@ -34,7 +34,7 @@ const processAbility = (
         onscreen_name: stringInterpolator(unitAbilityType.onscreen_name, globalData.parsedData[folder].text),
       },
       is_hidden_in_ui: parseBoolean(unitAbility.is_hidden_in_ui),
-      onscreen_name: unitAbility.onscreen_name,
+      onscreen_name: stringInterpolator(unitAbility.onscreen_name, globalData.parsedData[folder].text),
       active_time: parseFloating(unitSpecialAbility.active_time),
       effect_range: parseFloating(unitSpecialAbility.effect_range),
       mana_cost: parseInteger(unitSpecialAbility.mana_cost),
