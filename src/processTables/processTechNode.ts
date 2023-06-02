@@ -3,6 +3,7 @@ import { EffectInterface } from '../interfaces/ProcessedTreeInterface';
 import { TechNodeInterface } from '../interfaces/TechInterface';
 import findImage from '../utils/findImage';
 import { parseInteger } from '../utils/parseStringToTypes';
+import stringInterpolator from '../utils/stringInterpolator';
 import processAncillary from './processAncillary';
 import processEffect from './processEffect';
 
@@ -32,8 +33,8 @@ const processTechNode = (
     technology: {
       key: tech.key,
       icon_name: findTechImage(folder, globalData, tech.icon_name),
-      onscreen_name: tech.onscreen_name,
-      short_description: tech.short_description,
+      onscreen_name: stringInterpolator(tech.onscreen_name, globalData.parsedData[folder].text),
+      short_description: stringInterpolator(tech.short_description, globalData.parsedData[folder].text),
       effects: effects,
     },
   };
