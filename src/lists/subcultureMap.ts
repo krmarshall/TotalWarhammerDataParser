@@ -30,6 +30,8 @@ const subcultureMap: { [key: string]: string } = {
   wh_main_sc_vmp_jade_vampires: 'jbv_jade_vampires',
 
   str_rotbloods_subcult: 'str_rotblood',
+
+  mixer_teb_southern_realms: 'teb_southern_realms',
 };
 
 export default subcultureMap;

@@ -46,4 +46,11 @@ const scm3PackNamesEnum = {
   '!!!str_pestilent': 'Pestilent Brotherhood',
 };
 
-export { radious3PackNames, mixu3PackNames, mixu3PackNamesEnum, scm3PackNames, scm3PackNamesEnum };
+const cat3PackNames = ['!ak_teb3', '!ak_seapatrol', '!ak_kraka3'];
+const cat3PackNamesEnum = {
+  '!ak_teb3': "Cataph's Southern Realms (TEB)",
+  '!ak_kraka3': "Cataph's Kraka Drak: the Norse Dwarfs",
+  '!ak_seapatrol': "Cataph's High Elf Sea Patrol",
+};
+
+export { radious3PackNames, mixu3PackNames, mixu3PackNamesEnum, scm3PackNames, scm3PackNamesEnum, cat3PackNames, cat3PackNamesEnum };

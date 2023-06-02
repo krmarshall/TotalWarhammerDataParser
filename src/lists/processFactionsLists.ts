@@ -6,6 +6,11 @@ const ignoreSubcultures = [
   { subculture: 'wh_main_sc_teb_teb', game: 'ALL' },
 
   { subculture: 'wh_main_sc_ksl_kislev', game: 'vanilla2' },
+
+  { subculture: 'wh_main_teb_border_princes_CB', game: 'cat3' },
+  { subculture: 'wh_main_teb_estalia_CB', game: 'cat3' },
+  { subculture: 'wh_main_teb_tilea_CB', game: 'cat3' },
+  { subculture: 'wh2_main_emp_new_world_colonies_CB', game: 'cat3' },
 ];
 const ignoreFactions = [
   'wh2_main_skv_unknown_clan_def',
@@ -218,6 +223,19 @@ const addAgents = [
 
   // Empire Secessionists
   { agent: 'hkrul_emp_sec_hans', subculture: 'wh_main_sc_emp_empire', game: '3' },
+
+  // Cataph TEB
+  { agent: 'teb_borgio_the_besieger', subculture: 'mixer_teb_southern_realms', game: '3' },
+  { agent: 'teb_gashnag', subculture: 'mixer_teb_southern_realms', game: '3' },
+  { agent: 'teb_lucrezzia_belladonna', subculture: 'mixer_teb_southern_realms', game: '3' },
+  { agent: 'teb_catrazza', subculture: 'mixer_teb_southern_realms', game: '3' },
+  { agent: 'teb_lupio', subculture: 'mixer_teb_southern_realms', game: '3' },
+  { agent: 'teb_gausser', subculture: 'mixer_teb_southern_realms', game: '3' },
+  { agent: 'teb_colombo', subculture: 'mixer_teb_southern_realms', game: '3' },
+  { agent: 'teb_cadavo', subculture: 'mixer_teb_southern_realms', game: '3' },
+
+  // Cataph Kraka Drak
+  { agent: 'kraka_cromson', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
 ];
 
 export { ignoreCultures, ignoreSubcultures, ignoreFactions, ignoreAgents, addAgents };
