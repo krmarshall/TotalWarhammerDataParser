@@ -1,6 +1,7 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
 import { EffectInterface, ItemInterface } from '../interfaces/ProcessedTreeInterface';
 import { parseInteger } from '../utils/parseStringToTypes';
+import stringInterpolator from '../utils/stringInterpolator';
 import processEffect from './processEffect';
 
 const processAncillary = (
@@ -13,8 +14,8 @@ const processAncillary = (
   const ancillaryInfo = ancillary.localRefs?.ancillary_info as TableRecord;
   const returnItem: ItemInterface = {
     key: ancillaryInfo.ancillary,
-    onscreen_name: ancillary.onscreen_name,
-    colour_text: ancillary.colour_text,
+    onscreen_name: stringInterpolator(ancillary.onscreen_name, globalData.parsedData[folder].text),
+    colour_text: stringInterpolator(ancillary.colour_text, globalData.parsedData[folder].text),
     ui_icon: (ancillary.localRefs?.ancillary_types?.ui_icon as string).replace(' ', '_').replace('.png', '').replace(/^ui\//, ''),
   };
 
