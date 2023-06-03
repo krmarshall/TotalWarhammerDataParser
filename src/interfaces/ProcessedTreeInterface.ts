@@ -10,6 +10,7 @@ interface StatEffectInterface {
 interface AttributeInterface {
   key: string;
   description: string;
+  bullet_text: string;
   icon: string;
 }
 
