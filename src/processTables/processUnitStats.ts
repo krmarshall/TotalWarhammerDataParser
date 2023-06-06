@@ -66,7 +66,10 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
 
   const attributes: Array<AttributeInterface> = [];
   attributeGroup?.foreignRefs?.unit_attributes_to_groups_junctions?.forEach((attributeJunc) => {
-    attributes.push(processAttribute(folder, globalData, attributeJunc));
+    const attribute = attributeJunc?.localRefs?.unit_attributes;
+    if (attribute !== undefined) {
+      attributes.push(processAttribute(folder, globalData, attribute));
+    }
   });
   if (attributes.length > 0) returnStats.attributes = attributes;
 

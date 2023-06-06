@@ -104,8 +104,11 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
   }
   // attributes
   const attributeEffects: Array<AttributeInterface> = [];
-  phase.foreignRefs?.special_ability_phase_attribute_effects?.forEach((attribute) => {
-    attributeEffects.push(processAttribute(folder, globalData, attribute));
+  phase.foreignRefs?.special_ability_phase_attribute_effects?.forEach((attributePhase) => {
+    const attribute = attributePhase?.localRefs?.unit_attributes;
+    if (attribute !== undefined) {
+      attributeEffects.push(processAttribute(folder, globalData, attribute, attributePhase.attribute_type));
+    }
   });
   if (attributeEffects.length > 0) returnPhase.attributes = attributeEffects;
 

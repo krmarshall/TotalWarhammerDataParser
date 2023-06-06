@@ -1,10 +1,11 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { AbilityInterface, EffectInterface } from '../interfaces/ProcessedTreeInterface';
+import { AbilityInterface, AttributeInterface, EffectInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import numberInsertion from '../utils/numberInsertion';
 import { parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
 import processAbility from './processAbility';
+import processAttribute from './processAttribute';
 
 const processEffect = (folder: string, globalData: GlobalDataInterface, effectJunc: TableRecord) => {
   const effect = effectJunc.localRefs?.effects as TableRecord;
@@ -62,6 +63,28 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
     }
   });
   if (related_abilities.length > 0) returnEffect.related_abilities = related_abilities;
+
+  // Attributes
+  const related_attributes: Array<AttributeInterface> = [];
+  effect.foreignRefs?.effect_bonus_value_unit_attribute_junctions?.forEach((attributeJunc) => {
+    const attribute = attributeJunc?.localRefs?.unit_attributes;
+    if (attribute !== undefined) {
+      related_attributes.push(processAttribute(folder, globalData, attribute));
+    }
+  });
+  effect.foreignRefs?.effect_bonus_value_unit_set_unit_attribute_junctions?.forEach((attributeJunc) => {
+    const attribute = attributeJunc?.localRefs?.unit_set_unit_attribute_junctions?.localRefs?.unit_attributes;
+    if (attribute !== undefined) {
+      related_attributes.push(processAttribute(folder, globalData, attribute));
+    }
+  });
+  effect?.foreignRefs?.effect_bonus_value_battle_context_unit_attribute_junctions?.forEach((attributeJunc) => {
+    const attribute = attributeJunc?.localRefs?.battle_context_unit_attribute_junctions?.localRefs?.unit_attributes;
+    if (attribute !== undefined) {
+      related_attributes.push(processAttribute(folder, globalData, attribute));
+    }
+  });
+  if (related_attributes.length > 0) returnEffect.related_attributes = related_attributes;
 
   return returnEffect;
 };
