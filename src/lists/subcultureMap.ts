@@ -32,6 +32,8 @@ const subcultureMap: { [key: string]: string } = {
   str_rotbloods_subcult: 'str_rotblood',
 
   mixer_teb_southern_realms: 'teb_southern_realms',
+
+  mixu_vmp_mousillon_qb: 'msl_mousillon',
 };
 
 export default subcultureMap;

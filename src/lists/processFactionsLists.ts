@@ -96,6 +96,11 @@ const ignoreAgents = [
   { agent: 'wh3_dlc20_chs_exalted_hero_mkho', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
 ];
 
+const remapFactions: { [key: string]: string } = {
+  mixer_msl_mallobaude: 'mixu_vmp_mousillon_qb',
+  mixer_msl_cult_of_the_bloody_grail: 'mixu_vmp_mousillon_qb',
+};
+
 const addAgents = [
   // WH2
   { agent: 'dlc03_emp_boris_todbringer', subculture: 'wh_main_sc_emp_empire', game: '2' },
@@ -213,6 +218,15 @@ const addAgents = [
   { agent: 'chs_egrimm_van_horstmann', subculture: 'wh3_main_sc_tze_tzeentch', game: '3' },
   { agent: 'mixu_tze_exalted_hero', subculture: 'wh3_main_sc_tze_tzeentch', game: '3' },
 
+  // Mixu 3 Mousillon
+  { agent: 'msl_mallobaude', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
+  { agent: 'msl_bougars_the_butcher', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
+  { agent: 'msl_eustache_of_the_rusting_blade', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
+  { agent: 'msl_aucassin_de_hane', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
+  { agent: 'msl_the_old_one', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
+  { agent: 'msl_nicolete_de_oisement', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
+  { agent: 'msl_lady_of_the_black_grail', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
+
   // Mixu 3 Gnobs
   { agent: 'gnob_bragg_the_gutsman', subculture: 'mixer_gnob_gnoblar_horde', game: '3' },
   { agent: 'gnob_gnobbo', subculture: 'mixer_gnob_gnoblar_horde', game: '3' },
@@ -238,4 +252,4 @@ const addAgents = [
   { agent: 'kraka_cromson', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
 ];
 
-export { ignoreCultures, ignoreSubcultures, ignoreFactions, ignoreAgents, addAgents };
+export { ignoreCultures, ignoreSubcultures, ignoreFactions, ignoreAgents, addAgents, remapFactions };

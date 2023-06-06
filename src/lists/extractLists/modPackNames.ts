@@ -1,8 +1,9 @@
 const radious3PackNames = ['Radious_WH3_Mod_Part1', 'Radious_WH3_Mod_Part2', 'Radious_WH3_Mod_Part3', 'Radious_WH3_Mod_Part4'];
 
-const mixu3PackNames = ['ab_mixu_legendary_lords', 'ab_unwashed_masses', 'ab_mixu_slayer', 'ab_mixu_shadowdancer'];
+const mixu3PackNames = ['ab_mixu_legendary_lords', 'ab_unwashed_masses', 'ab_mixu_slayer', 'ab_mixu_shadowdancer', 'ab_mixu_mousillon'];
 const mixu3PackNamesEnum = {
   ab_mixu_legendary_lords: "Mixu's Legendary Lords",
+  ab_mixu_mousillon: "Mixu's Mousillon",
   ab_unwashed_masses: 'Gnoblar Hordes - The Unwashed Masses',
   ab_mixu_slayer: "Mixu's Slayer",
   ab_mixu_shadowdancer: "Mixu's Shadowdancer",

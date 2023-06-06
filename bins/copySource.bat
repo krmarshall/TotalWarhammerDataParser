@@ -10,6 +10,7 @@ ROBOCOPY "%workshopPath%\1142710\2802810577" "%gitGameSource%\mixu3" ab_mixu_leg
 ROBOCOPY "%workshopPath%\1142710\2825728189" "%gitGameSource%\mixu3" ab_unwashed_masses.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2853477423" "%gitGameSource%\mixu3" ab_mixu_slayer.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2933920316" "%gitGameSource%\mixu3" ab_mixu_shadowdancer.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2985441419" "%gitGameSource%\mixu3" ab_mixu_mousillon.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\1142710\2791750313" "%gitGameSource%\radious3" Radious_WH3_Mod_Part1.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2791750896" "%gitGameSource%\radious3" Radious_WH3_Mod_Part2.pack /NJH /NJS

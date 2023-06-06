@@ -1,7 +1,7 @@
 import { Table } from '../generateTables';
 import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 import { GlobalDataInterface, RefKey, TableRecord } from '../interfaces/GlobalDataInterface';
-import { addAgents, ignoreAgents, ignoreCultures, ignoreFactions, ignoreSubcultures } from '../lists/processFactionsLists';
+import { addAgents, ignoreAgents, ignoreCultures, ignoreFactions, ignoreSubcultures, remapFactions } from '../lists/processFactionsLists';
 import { techNodeSetsPrune2, techNodeSetsPrune3, vanilla3TechNodeSets } from '../lists/processFactionsTechLists';
 import subcultureMap from '../lists/subcultureMap';
 import vanillaCharacters from '../lists/vanillaCharacters';
@@ -105,10 +105,12 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
             return;
           }
 
+          const remappedSubculture = remapFactions[faction.key] ?? subculture.subculture;
+
           if (agentMap[factionAgent.subtype] === undefined) {
             agentMap[factionAgent.subtype] = { subcultures: new Set(), factions: new Set() };
           }
-          agentMap[factionAgent.subtype].subcultures.add(subculture.subculture);
+          agentMap[factionAgent.subtype].subcultures.add(remappedSubculture);
           agentMap[factionAgent.subtype].factions.add(faction.key);
         });
       });
