@@ -98,7 +98,7 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
     }
   });
   effect?.foreignRefs?.effect_bonus_value_unit_set_special_ability_phase_junctions?.forEach((phaseJunc) => {
-    const phase = phaseJunc?.localRefs?.special_ability_phases;
+    const phase = phaseJunc?.localRefs?.unit_set_special_ability_phase_junctions?.localRefs?.special_ability_phases;
     if (phase !== undefined) {
       related_phases.push(
         processPhase(folder, globalData, { order: '0', target_enemies: 'true', target_self: 'false', target_friends: 'false' }, phase)
