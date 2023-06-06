@@ -63,6 +63,9 @@ const v2DbList = [
   'unit_set_unit_attribute_junctions',
   'effect_bonus_value_battle_context_unit_attribute_junctions',
   'battle_context_unit_attribute_junctions',
+  'effect_bonus_value_special_ability_phase_record_junctions',
+  'effect_bonus_value_unit_set_special_ability_phase_junctions',
+  'unit_set_special_ability_phase_junctions',
 
   // Techs
   'technologies',

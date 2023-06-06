@@ -1,11 +1,12 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { AbilityInterface, AttributeInterface, EffectInterface } from '../interfaces/ProcessedTreeInterface';
+import { AbilityInterface, AttributeInterface, EffectInterface, PhaseInterface } from '../interfaces/ProcessedTreeInterface';
 import findImage from '../utils/findImage';
 import numberInsertion from '../utils/numberInsertion';
 import { parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
 import processAbility from './processAbility';
 import processAttribute from './processAttribute';
+import processPhase from './processPhase';
 
 const processEffect = (folder: string, globalData: GlobalDataInterface, effectJunc: TableRecord) => {
   const effect = effectJunc.localRefs?.effects as TableRecord;
@@ -85,6 +86,26 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
     }
   });
   if (related_attributes.length > 0) returnEffect.related_attributes = related_attributes;
+
+  // Phases
+  const related_phases: Array<PhaseInterface> = [];
+  effect?.foreignRefs?.effect_bonus_value_special_ability_phase_record_junctions?.forEach((phaseJunc) => {
+    const phase = phaseJunc?.localRefs?.special_ability_phases;
+    if (phase !== undefined) {
+      related_phases.push(
+        processPhase(folder, globalData, { order: '0', target_enemies: 'true', target_self: 'false', target_friends: 'false' }, phase)
+      );
+    }
+  });
+  effect?.foreignRefs?.effect_bonus_value_unit_set_special_ability_phase_junctions?.forEach((phaseJunc) => {
+    const phase = phaseJunc?.localRefs?.special_ability_phases;
+    if (phase !== undefined) {
+      related_phases.push(
+        processPhase(folder, globalData, { order: '0', target_enemies: 'true', target_self: 'false', target_friends: 'false' }, phase)
+      );
+    }
+  });
+  if (related_phases.length > 0) returnEffect.related_phases = related_phases;
 
   return returnEffect;
 };

@@ -161,6 +161,7 @@ interface EffectInterface {
   value?: number;
   scope?: string;
   related_abilities?: Array<AbilityInterface>;
+  related_phases?: Array<PhaseInterface>;
   related_attributes?: Array<AttributeInterface>;
 }
 
