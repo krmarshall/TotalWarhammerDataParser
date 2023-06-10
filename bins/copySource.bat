@@ -40,6 +40,7 @@ ROBOCOPY "%workshopPath%\1142710\2809422989" "%gitGameSource%\scm3" str_gnoblar.
 ROBOCOPY "%workshopPath%\1142710\2918562980" "%gitGameSource%\scm3" str_verms.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2925447605" "%gitGameSource%\scm3" str_treecherik.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2949216752" "%gitGameSource%\scm3" !hkrul_marienburg_v1.0.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2986441662" "%gitGameSource%\scm3" str_crooktail.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\1142710\2927296206" "%gitGameSource%\cat3" !ak_teb3.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2968330247" "%gitGameSource%\cat3" !ak_seapatrol.pack /NJH /NJS
