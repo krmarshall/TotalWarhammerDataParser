@@ -16,7 +16,10 @@ const processAncillary = (
     key: ancillaryInfo.ancillary,
     onscreen_name: stringInterpolator(ancillary.onscreen_name, globalData.parsedData[folder].text),
     colour_text: stringInterpolator(ancillary.colour_text, globalData.parsedData[folder].text),
-    ui_icon: (ancillary.localRefs?.ancillary_types?.ui_icon as string).replace(' ', '_').replace('.png', '').replace(/^ui\//, ''),
+    ui_icon: (ancillary.localRefs?.ancillary_types?.ui_icon as string)
+      .replace(' ', '_')
+      .replace('.png', '')
+      .replace(/^ui\/|^UI\/|^Ui\//, ''),
   };
 
   if (unlocked_at_rank !== undefined && unlocked_at_rank !== '') returnItem.unlocked_at_rank = parseInteger(unlocked_at_rank);
