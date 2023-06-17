@@ -94,6 +94,9 @@ const ignoreAgents = [
   { agent: 'wh2_pro08_neu_gotrek', game: 'ALL' },
 
   { agent: 'wh3_dlc20_chs_exalted_hero_mkho', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
+
+  { agent: 'cth_pirate_lord', game: '3', subculture: 'wh2_dlc11_sc_cst_vampire_coast' },
+  { agent: 'cth_pirate_queen', game: '3', subculture: 'wh2_dlc11_sc_cst_vampire_coast' },
 ];
 
 const remapFactions: { [key: string]: string } = {
