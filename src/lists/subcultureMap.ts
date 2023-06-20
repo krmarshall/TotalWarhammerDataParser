@@ -34,6 +34,8 @@ const subcultureMap: { [key: string]: string } = {
   mixer_teb_southern_realms: 'teb_southern_realms',
 
   mixu_vmp_mousillon_qb: 'msl_mousillon',
+
+  jiangshi_subculture: 'vmp_vampire_counts',
 };
 
 export default subcultureMap;

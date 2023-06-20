@@ -42,6 +42,7 @@ ROBOCOPY "%workshopPath%\1142710\2925447605" "%gitGameSource%\scm3" str_treecher
 ROBOCOPY "%workshopPath%\1142710\2949216752" "%gitGameSource%\scm3" !hkrul_marienburg_v1.0.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2986441662" "%gitGameSource%\scm3" str_crooktail.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2989226363" "%gitGameSource%\scm3" cth_yinyin_pol.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2991431203" "%gitGameSource%\scm3" AAA_dynasty_of_the_damned.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\1142710\2927296206" "%gitGameSource%\cat3" !ak_teb3.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2968330247" "%gitGameSource%\cat3" !ak_seapatrol.pack /NJH /NJS
