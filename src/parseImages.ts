@@ -56,7 +56,11 @@ const extractImages = (folder: string, packNames: Array<string>, game: string, t
 };
 
 const convertImages = (folder: string, globalData: GlobalDataInterface) => {
-  const imageDirs = fg.sync(`./extracted_files/${folder}/ui/**/`, { markDirectories: true, onlyDirectories: true });
+  const imageDirs = fg.sync(`./extracted_files/${folder}/ui/**/`, {
+    markDirectories: true,
+    onlyDirectories: true,
+    ignore: [`./extracted_files/${folder}/ui/portraits/**/`],
+  });
   const promises = imageDirs.map((imageDir, index) => {
     return new Promise<void>((resolve, reject) => {
       const imagePaths = fg.sync(`${imageDir}*.png`);
