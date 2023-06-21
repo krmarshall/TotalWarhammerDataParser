@@ -25,6 +25,11 @@ interface GlobalDataInterface {
       [key: string /*Filepath*/]: string;
     };
   };
+  portraitPaths: {
+    [key: string /* Folder */]: {
+      [key: string /* art set id */]: string; //
+    };
+  };
   extractedData: {
     [key: string /*Folder*/]: {
       db: {

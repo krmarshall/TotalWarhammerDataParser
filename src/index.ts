@@ -12,6 +12,7 @@ import { SchemaInterface } from './interfaces/SchemaInterfaces';
 
 emptyDirSync('./output');
 emptyDirSync('./output_img');
+emptyDirSync('./output_portraits');
 emptyDirSync('./bins/nScripts');
 emptyDirSync(`./debug`);
 

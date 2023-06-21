@@ -9,6 +9,7 @@ import subcultureMap from '../lists/subcultureMap';
 import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 import processAncillary from './processAncillary';
 import processUnitStats from './processUnitStats';
+import addCharacterListReference from '../utils/addCharacterListReference';
 
 const processAgent = (
   folder: string,
@@ -59,15 +60,11 @@ const processAgent = (
       return;
     }
 
-    const nodeSetKey = cleanNodeSetKey(nodeSet.key);
-    if (nodeSet.agent_key === 'general') {
-      characterList[subcultureMap[subcultureKey]].lords[nodeSetKey] = { name: agent.onscreen_name_override, portrait: '' };
-    } else {
-      characterList[subcultureMap[subcultureKey]].heroes[nodeSetKey] = { name: agent.onscreen_name_override, portrait: '' };
-    }
+    addCharacterListReference(folder, globalData, agent, nodeSet, subcultureKey, characterList);
 
     const { skillTree, backgroundSkills, items } = processNodeSet(folder, globalData, nodeSet, subcultureKey, factionKeys);
     const tempAgent = JSON.parse(JSON.stringify(returnAgent));
+    const nodeSetKey = cleanNodeSetKey(nodeSet.key);
     tempAgent.key = nodeSetKey;
     tempAgent.skillTree = skillTree;
     tempAgent.backgroundSkills = backgroundSkills;

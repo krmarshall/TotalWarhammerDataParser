@@ -6,6 +6,7 @@ const v3DbList = [
   'character_skills_to_level_reached_criterias',
   'faction_starting_general_effects',
   'special_ability_spreadings',
+  'campaign_character_art_sets',
 
   // Tech
   'technology_ui_group_links',

@@ -8,6 +8,7 @@ const initializeGlobalData = (folder: string) => {
     extractedData: {},
     parsedData: {},
     imgPaths: {},
+    portraitPaths: {},
   };
   const modFolders = fg.sync(`./game_source/*${game}/`, { onlyDirectories: true });
   modFolders.forEach((folderPath) => {
@@ -21,6 +22,7 @@ const initializeGlobalData = (folder: string) => {
       text: {},
     };
     globalData.imgPaths[folder] = {};
+    globalData.portraitPaths[folder] = {};
   });
   return globalData;
 };

@@ -132,6 +132,7 @@ dist
 /debug/*
 /output/*
 /output_img/*
+/output_portraits/*
 /bins/nScripts/*
 /bins/jsonSchemas/*
 /bins/rpfm_cli.exe
