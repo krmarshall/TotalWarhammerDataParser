@@ -29,6 +29,7 @@ const scm3PackNames = [
   'str_crooktail',
   'str_treecherik',
   'str_verms',
+  'str_vrrtkin',
   '!!!str_pestilent',
 ];
 const scm3PackNamesEnum = {
@@ -50,6 +51,7 @@ const scm3PackNamesEnum = {
   str_crooktail: 'Clan Crooktail',
   str_treecherik: 'Clan Treecherik',
   str_verms: 'Clan Verms',
+  str_vrrtkin: 'Clan Vrrtkin',
   '!!!str_pestilent': 'Pestilent Brotherhood',
 };
 
