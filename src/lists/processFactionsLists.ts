@@ -253,6 +253,9 @@ const addAgents = [
 
   // Cataph Kraka Drak
   { agent: 'kraka_cromson', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+
+  // OvN Grudgebringers
+  { agent: 'ludwig_uberdorf_agent_subtype', subculture: 'wh_main_sc_emp_empire', game: '3' },
 ];
 
 export { ignoreCultures, ignoreSubcultures, ignoreFactions, ignoreAgents, addAgents, remapFactions };

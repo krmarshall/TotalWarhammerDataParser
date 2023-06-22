@@ -26,16 +26,17 @@ const subcultureMap: { [key: string]: string } = {
   wh_dlc05_sc_wef_wood_elves: 'wef_wood_elves',
 
   mixer_gnob_gnoblar_horde: 'gnb_gnoblars',
+  mixu_vmp_mousillon_qb: 'msl_mousillon',
 
   wh_main_sc_vmp_jade_vampires: 'jbv_jade_vampires',
-
   str_rotbloods_subcult: 'str_rotblood',
+  jiangshi_subculture: 'vmp_vampire_counts',
 
   mixer_teb_southern_realms: 'teb_southern_realms',
 
-  mixu_vmp_mousillon_qb: 'msl_mousillon',
-
-  jiangshi_subculture: 'vmp_vampire_counts',
+  ovn_sc_alb_albion: 'alb_albion',
+  ovn_sc_fim_fimir: 'fim_fimir',
+  ovn_sc_grudgebringers: 'emp_grudgebringers',
 };
 
 export default subcultureMap;

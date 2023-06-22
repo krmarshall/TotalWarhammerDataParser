@@ -16,6 +16,8 @@ import {
   scm3PackNamesEnum,
   cat3PackNames,
   cat3PackNamesEnum,
+  ovn3PackNames,
+  ovn3PackNamesEnum,
 } from '../lists/extractLists/modPackNames';
 
 const { folder, dbPackName, locPackName, dbList, locList, game, schema, tech, pruneVanilla }: WorkerDataInterface = workerData;
@@ -41,6 +43,7 @@ extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList,
     workerMod(legeWorkerData);
     workerModMulti(scmWorkerData);
     workerModMulti(cat3WorkerData);
+    workerModMulti(ovn3WorkerData);
 
     const tables = generateTables(folder, globalData, dbList, schema);
     processFactions(folder, globalData, tables, pruneVanilla);
@@ -150,4 +153,18 @@ const cat3WorkerData = {
   pruneVanilla: true,
   tech: true,
   packNameEnum: cat3PackNamesEnum,
+};
+
+const ovn3WorkerData = {
+  globalData: globalData,
+  folder: 'ovn3',
+  dbPackNames: ovn3PackNames,
+  locPackNames: ovn3PackNames,
+  dbList: dbList,
+  locList: undefined,
+  game: 'warhammer_3',
+  schema: schema,
+  pruneVanilla: true,
+  tech: true,
+  packNameEnum: ovn3PackNamesEnum,
 };

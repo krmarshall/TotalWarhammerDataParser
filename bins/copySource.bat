@@ -49,4 +49,9 @@ ROBOCOPY "%workshopPath%\1142710\2927296206" "%gitGameSource%\cat3" !ak_teb3.pac
 ROBOCOPY "%workshopPath%\1142710\2968330247" "%gitGameSource%\cat3" !ak_seapatrol.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2878423760" "%gitGameSource%\cat3" !ak_kraka3.pack /NJH /NJS
 
+ROBOCOPY "%workshopPath%\1142710\2873961274" "%gitGameSource%\ovn3" ovn_albion.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2899955636" "%gitGameSource%\ovn3" ovn_fimir.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2950121489" "%gitGameSource%\ovn3" ovn_citadel_of_dusk.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2989710828" "%gitGameSource%\ovn3" ovn_grudgebringers.pack /NJH /NJS
+
 EXIT /B
