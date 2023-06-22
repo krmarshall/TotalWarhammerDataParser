@@ -97,6 +97,9 @@ const ignoreAgents = [
 
   { agent: 'cth_pirate_lord', game: '3', subculture: 'wh2_dlc11_sc_cst_vampire_coast' },
   { agent: 'cth_pirate_queen', game: '3', subculture: 'wh2_dlc11_sc_cst_vampire_coast' },
+
+  { agent: 'fim_finmor_kroll', game: '3', subculture: 'ovn_sc_fim_fimir' },
+  { agent: 'aky_chief_fimir_great_weapons_kroll', game: '3', subculture: 'ovn_sc_fim_fimir' },
 ];
 
 const remapFactions: { [key: string]: string } = {
