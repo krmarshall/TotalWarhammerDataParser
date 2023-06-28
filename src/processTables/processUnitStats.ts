@@ -40,7 +40,7 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
     melee_attack_interval: parseFloating(meleeWeapon.melee_attack_interval),
   };
 
-  if (mainUnit.barrier_health !== '0') returnStats.barrier = parseInteger(mainUnit.barrier_health);
+  if (mainUnit.barrier_health !== undefined && mainUnit.barrier_health !== '0') returnStats.barrier = parseInteger(mainUnit.barrier_health);
   if (mainUnit.can_siege === 'true') returnStats.can_siege = true;
   if (landUnit.can_skirmish === 'true') returnStats.can_skirmish = true;
   if (battleEntity.fly_speed !== '0') returnStats.fly_speed = parseFloating(battleEntity.fly_speed);
