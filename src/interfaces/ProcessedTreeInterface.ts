@@ -258,6 +258,10 @@ interface UnitStatsInterface {
   abilities?: Array<AbilityInterface>;
 }
 
+interface AltFactionNodeSetsInterface {
+  [key: string]: { factionName: string; nodes: Array<SkillInterface> };
+}
+
 interface ProcessedAgentInterface {
   key: string;
   skillTree: Array<Array<SkillInterface>>;
@@ -265,7 +269,7 @@ interface ProcessedAgentInterface {
   factionEffects?: FactionEffectsInterface;
   items?: Array<ItemInterface>;
   backgroundSkills?: Array<SkillInterface>;
-  altFactionNodeSets?: { [key: string]: { factionName: string; nodes: Array<SkillInterface> } };
+  altFactionNodeSets?: AltFactionNodeSetsInterface;
 }
 
 export {
@@ -284,5 +288,6 @@ export {
   SkillLevelInterface,
   SkillInterface,
   UnitStatsInterface,
+  AltFactionNodeSetsInterface,
   ProcessedAgentInterface,
 };

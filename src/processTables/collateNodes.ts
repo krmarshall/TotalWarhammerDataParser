@@ -1,5 +1,5 @@
 import { GlobalDataInterface } from '../interfaces/GlobalDataInterface';
-import { ItemInterface, SkillInterface } from '../interfaces/ProcessedTreeInterface';
+import { AltFactionNodeSetsInterface, ItemInterface, SkillInterface } from '../interfaces/ProcessedTreeInterface';
 
 const collateNodes = (
   folder: string,
@@ -12,7 +12,7 @@ const collateNodes = (
   let skillTree: Array<Array<SkillInterface>> = [[], [], [], [], [], []];
   const backgroundSkills: Array<SkillInterface> = [];
   const items: Array<ItemInterface> = [...itemsArg];
-  let altFactionNodeSets: { [key: string]: { factionName: string; nodes: Array<SkillInterface> } } | undefined = undefined;
+  let altFactionNodeSets: AltFactionNodeSetsInterface | undefined = undefined;
 
   completeNodes.forEach((completeNode) => {
     if (completeNode.character_skill_key === 'wh3_main_skill_agent_action_success_scaling') {
