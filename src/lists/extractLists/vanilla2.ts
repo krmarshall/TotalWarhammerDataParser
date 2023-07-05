@@ -100,6 +100,7 @@ const v2LocList = [
   'effect_bundles__',
   'land_units__',
   'special_ability_phases__',
+  'factions__',
 
   // Techs
   'technologies__',

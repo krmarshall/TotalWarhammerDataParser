@@ -265,6 +265,7 @@ interface ProcessedAgentInterface {
   factionEffects?: FactionEffectsInterface;
   items?: Array<ItemInterface>;
   backgroundSkills?: Array<SkillInterface>;
+  altFactionNodeSets?: { [key: string]: { factionName: string; nodes: Array<SkillInterface> } };
 }
 
 export {

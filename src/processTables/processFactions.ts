@@ -14,7 +14,7 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
   const game = folder.includes('2') ? '2' : '3';
 
   const completedTechNodeSets: { [key: string]: boolean } = {};
-  const agentMap: { [key: string]: { subcultures: Set<string>; factions: Set<string> } } = {};
+  const agentMap: { [key: string /* Agent Key */]: { [key: string /* Subculture Key */]: Set<string /* Faction Key */> } } = {};
   const characterList: CharacterListInterface = {};
   Object.values(subcultureMap).forEach((subculture) => (characterList[subculture] = { lords: {}, heroes: {} }));
 
@@ -45,8 +45,8 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
       return;
     }
 
-    if (agentMap[addAgent.agent] === undefined) agentMap[addAgent.agent] = { subcultures: new Set(), factions: new Set() };
-    agentMap[addAgent.agent].subcultures.add(addAgent.subculture);
+    if (agentMap[addAgent.agent] === undefined) agentMap[addAgent.agent] = {};
+    agentMap[addAgent.agent][addAgent.subculture] = new Set<string>();
   });
 
   tables.cultures?.records.forEach((culture) => {
@@ -107,11 +107,11 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
 
           const remappedSubculture = remapFactions[faction.key] ?? subculture.subculture;
 
-          if (agentMap[factionAgent.subtype] === undefined) {
-            agentMap[factionAgent.subtype] = { subcultures: new Set(), factions: new Set() };
+          if (agentMap[factionAgent.subtype] === undefined) agentMap[factionAgent.subtype] = {};
+          if (agentMap[factionAgent.subtype][remappedSubculture] === undefined) {
+            agentMap[factionAgent.subtype][remappedSubculture] = new Set<string>();
           }
-          agentMap[factionAgent.subtype].subcultures.add(remappedSubculture);
-          agentMap[factionAgent.subtype].factions.add(faction.key);
+          agentMap[factionAgent.subtype][remappedSubculture].add(faction.key);
         });
       });
     });
@@ -119,10 +119,11 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
 
   Object.keys(agentMap).forEach((agentKey) => {
     const agent = agentMap[agentKey];
-    agent.subcultures.forEach((subculture) => {
+    Object.keys(agent).forEach((subcultureKey) => {
+      const factions = agent[subcultureKey];
       const agentRecord = tables.agent_subtypes?.findRecordByKey('key', agentKey);
       if (agentRecord !== undefined) {
-        processAgent(folder, globalData, agentRecord, subculture, agent.factions, characterList);
+        processAgent(folder, globalData, agentRecord, subcultureKey, factions, characterList);
       }
     });
   });

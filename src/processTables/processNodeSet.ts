@@ -201,7 +201,7 @@ const processNodeSet = (
     }
   });
 
-  return collateNodes(completeNodes, items, subcultureKey, factionKeys);
+  return collateNodes(folder, globalData, completeNodes, items, subcultureKey, factionKeys);
 };
 
 export default processNodeSet;

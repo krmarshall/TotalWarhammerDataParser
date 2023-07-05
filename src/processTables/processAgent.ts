@@ -62,7 +62,13 @@ const processAgent = (
 
     addCharacterListReference(folder, globalData, agent, nodeSet, subcultureKey, characterList);
 
-    const { skillTree, backgroundSkills, items } = processNodeSet(folder, globalData, nodeSet, subcultureKey, factionKeys);
+    const { skillTree, backgroundSkills, items, altFactionNodeSets } = processNodeSet(
+      folder,
+      globalData,
+      nodeSet,
+      subcultureKey,
+      factionKeys
+    );
     const tempAgent = JSON.parse(JSON.stringify(returnAgent));
     const nodeSetKey = cleanNodeSetKey(nodeSet.key);
     tempAgent.key = nodeSetKey;
@@ -71,6 +77,9 @@ const processAgent = (
     if (tempAgent.items === undefined && items.length > 0) {
       tempAgent.items = [];
       tempAgent.items.push(...items);
+    }
+    if (altFactionNodeSets !== undefined) {
+      tempAgent.altFactionNodeSets = altFactionNodeSets;
     }
 
     outputAgent(tempAgent, folder, subcultureMap[subcultureKey as keyof typeof subcultureMap]);
