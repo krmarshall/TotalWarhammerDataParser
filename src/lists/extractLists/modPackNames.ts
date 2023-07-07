@@ -35,7 +35,6 @@ const scm3PackNamesEnum = {
   str_rotblood: 'Rotblood Tribe',
   jade_vamp_pol: 'The Jade-Blooded Vampires: Curse of Nongchang',
   AAA_dynasty_of_the_damned: 'Dynasty of the Damned',
-  str_garbag: "Garbag's Cunnin' Alliance",
   '@xou_emp': "Sigmar's Heirs, an Empire Overhaul",
   '!hkrul_emp_secessionists': 'Empire Secessionists, Secede!',
   str_gnoblar: 'The Gnoblar Horde',
@@ -46,6 +45,7 @@ const scm3PackNamesEnum = {
   '!xou_kislev_ivan': 'Ivan Radinov - Commander of the Gryphon Legion',
   dead_kislev_hero_shaman: "Dead's Kislev Shaman",
   dead_kislev_hero_blademaster: "Dead's Kislev Droyashka",
+  str_garbag: "Garbag's Cunnin' Alliance",
   froeb_warboss_lord: 'Dark Land Warboss',
 };
 
