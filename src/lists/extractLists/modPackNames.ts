@@ -26,33 +26,27 @@ const scm3PackNames = [
   'dead_jade_army_pack',
   'dead_kislev_hero_shaman',
   'dead_kislev_hero_blademaster',
-  'str_crooktail',
-  'str_treecherik',
-  'str_verms',
-  'str_vrrtkin',
-  '!!!str_pestilent',
+  'str_skaven_clans',
+  'str_garbag',
 ];
 const scm3PackNamesEnum = {
-  jade_vamp_pol: 'The Jade-Blooded Vampires: Curse of Nongchang',
-  str_rotblood: 'Rotblood Tribe',
   '!hkrul_marienburg_v1.0': 'Marienburg: The Merchant Empire',
+  str_skaven_clans: 'Skaven Clans',
+  str_rotblood: 'Rotblood Tribe',
+  jade_vamp_pol: 'The Jade-Blooded Vampires: Curse of Nongchang',
   AAA_dynasty_of_the_damned: 'Dynasty of the Damned',
+  str_garbag: "Garbag's Cunnin' Alliance",
   '@xou_emp': "Sigmar's Heirs, an Empire Overhaul",
   '!hkrul_emp_secessionists': 'Empire Secessionists, Secede!',
   str_gnoblar: 'The Gnoblar Horde',
-  cth_yinyin_pol: 'Roar of the Jade Sea : Yin-Yin, the Sea Dragon',
-  '!xou_khorne_karanak': 'Karanak, Hound of Vengeance',
-  '!xou_kislev_ivan': 'Ivan Radinov - Commander of the Gryphon Legion',
-  froeb_warboss_lord: 'Dark Land Warboss',
   dead_cult_possessed_unit_V2: "Dead's Cult of the Possessed",
+  '!xou_khorne_karanak': 'Karanak, Hound of Vengeance',
+  cth_yinyin_pol: 'Roar of the Jade Sea : Yin-Yin, the Sea Dragon',
   dead_jade_army_pack: "Dead's Jade Army Expansion",
+  '!xou_kislev_ivan': 'Ivan Radinov - Commander of the Gryphon Legion',
   dead_kislev_hero_shaman: "Dead's Kislev Shaman",
   dead_kislev_hero_blademaster: "Dead's Kislev Droyashka",
-  str_crooktail: 'Clan Crooktail',
-  str_treecherik: 'Clan Treecherik',
-  str_verms: 'Clan Verms',
-  str_vrrtkin: 'Clan Vrrtkin',
-  '!!!str_pestilent': 'Pestilent Brotherhood',
+  froeb_warboss_lord: 'Dark Land Warboss',
 };
 
 const cat3PackNames = ['!ak_teb3', '!ak_seapatrol', '!ak_kraka3'];
@@ -65,8 +59,8 @@ const cat3PackNamesEnum = {
 const ovn3PackNames = ['ovn_albion', 'ovn_fimir', 'ovn_citadel_of_dusk', 'ovn_grudgebringers'];
 const ovn3PackNamesEnum = {
   ovn_albion: 'Albion',
-  ovn_fimir: 'Fimir',
   ovn_citadel_of_dusk: 'Citadel of Dusk',
+  ovn_fimir: 'Fimir',
   ovn_grudgebringers: 'Grudgebringers',
 };
 

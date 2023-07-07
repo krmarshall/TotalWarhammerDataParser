@@ -34,16 +34,13 @@ ROBOCOPY "%workshopPath%\1142710\2890463783" "%gitGameSource%\scm3" @xou_emp_ass
 ROBOCOPY "%workshopPath%\1142710\2874009018" "%gitGameSource%\scm3" !hkrul_emp_secessionists.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2824164139" "%gitGameSource%\scm3" !xou_khorne_karanak.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2803817483" "%gitGameSource%\scm3" !xou_kislev_ivan.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2903601772" "%gitGameSource%\scm3" !!!str_pestilent.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2838941228" "%gitGameSource%\scm3" str_rotblood.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2809422989" "%gitGameSource%\scm3" str_gnoblar.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2918562980" "%gitGameSource%\scm3" str_verms.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2925447605" "%gitGameSource%\scm3" str_treecherik.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2949216752" "%gitGameSource%\scm3" !hkrul_marienburg_v1.0.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2986441662" "%gitGameSource%\scm3" str_crooktail.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2989226363" "%gitGameSource%\scm3" cth_yinyin_pol.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2991431203" "%gitGameSource%\scm3" AAA_dynasty_of_the_damned.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2992700807" "%gitGameSource%\scm3" str_vrrtkin.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2986543735" "%gitGameSource%\scm3" str_skaven_clans.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\2999786962" "%gitGameSource%\scm3" str_garbag.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\1142710\2927296206" "%gitGameSource%\cat3" !ak_teb3.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2968330247" "%gitGameSource%\cat3" !ak_seapatrol.pack /NJH /NJS

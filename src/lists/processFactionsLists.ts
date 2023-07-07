@@ -100,6 +100,12 @@ const ignoreAgents = [
 
   { agent: 'fim_finmor_kroll', game: '3', subculture: 'ovn_sc_fim_fimir' },
   { agent: 'aky_chief_fimir_great_weapons_kroll', game: '3', subculture: 'ovn_sc_fim_fimir' },
+
+  // Lege3 WIPS
+  { agent: 'str_ungrol', game: 'ALL' },
+  { agent: 'str_dechala', game: 'ALL' },
+  { agent: 'str_sayl', game: 'ALL' },
+  { agent: 'str_gutrot', game: 'ALL' },
 ];
 
 const remapFactions: { [key: string]: string } = {
