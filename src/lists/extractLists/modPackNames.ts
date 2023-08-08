@@ -56,10 +56,11 @@ const cat3PackNamesEnum = {
   '!ak_seapatrol': "Cataph's High Elf Sea Patrol",
 };
 
-const ovn3PackNames = ['ovn_albion', 'ovn_fimir', 'ovn_citadel_of_dusk', 'ovn_grudgebringers'];
+const ovn3PackNames = ['ovn_albion', 'ovn_fimir', 'ovn_citadel_of_dusk', 'ovn_grudgebringers', 'ovn_dread_king'];
 const ovn3PackNamesEnum = {
   ovn_albion: 'Albion',
   ovn_citadel_of_dusk: 'Citadel of Dusk',
+  ovn_dread_king: 'Dread King Legions',
   ovn_fimir: 'Fimir',
   ovn_grudgebringers: 'Grudgebringers',
 };
