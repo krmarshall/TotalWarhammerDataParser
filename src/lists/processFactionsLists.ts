@@ -230,6 +230,9 @@ const addAgents = [
   { agent: 'chs_egrimm_van_horstmann', subculture: 'wh3_main_sc_tze_tzeentch', game: '3' },
   { agent: 'mixu_tze_exalted_hero', subculture: 'wh3_main_sc_tze_tzeentch', game: '3' },
 
+  // Lege 3
+  { agent: 'str_rykarth', subculture: 'wh3_dlc23_sc_chd_chaos_dwarfs', game: '3' },
+
   // Mixu 3 Mousillon
   { agent: 'msl_mallobaude', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
   { agent: 'msl_bougars_the_butcher', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
