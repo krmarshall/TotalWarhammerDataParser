@@ -1,5 +1,5 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { ProcessedAgentInterface } from '../interfaces/ProcessedTreeInterface';
+import { ItemInterface, ProcessedAgentInterface } from '../interfaces/ProcessedTreeInterface';
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import findImage from '../utils/findImage';
 import outputAgent from './outputAgent';
@@ -24,6 +24,7 @@ const processAgent = (
     skillTree: [],
     unitStats: processUnitStats(folder, globalData, agent.localRefs?.main_units as TableRecord),
   };
+  const unfilteredItems: Array<ItemInterface> = [];
 
   // LL Faction Effects WH3
   if (agent.foreignRefs?.faction_starting_general_effects !== undefined) {
@@ -46,9 +47,8 @@ const processAgent = (
 
   // Quest Ancillaries WH3
   if (agent.foreignRefs?.character_ancillary_quest_ui_details !== undefined) {
-    returnAgent.items = [];
     agent.foreignRefs?.character_ancillary_quest_ui_details.forEach((ancillaryQuest) => {
-      returnAgent.items?.push(processAncillary(folder, globalData, ancillaryQuest, ancillaryQuest.rank));
+      unfilteredItems.push(processAncillary(folder, globalData, ancillaryQuest, ancillaryQuest.rank));
     });
   }
 
@@ -73,11 +73,18 @@ const processAgent = (
     const nodeSetKey = cleanNodeSetKey(nodeSet.key);
     tempAgent.key = nodeSetKey;
     tempAgent.skillTree = skillTree;
-    tempAgent.backgroundSkills = backgroundSkills;
-    if (tempAgent.items === undefined && items.length > 0) {
+    unfilteredItems.push(...items);
+    if (unfilteredItems.length > 0) {
       tempAgent.items = [];
-      tempAgent.items.push(...items);
+      const itemKeys = new Set<string>();
+      unfilteredItems.forEach((item) => {
+        if (!itemKeys.has(item.key)) {
+          tempAgent.items?.push(item);
+          itemKeys.add(item.key);
+        }
+      });
     }
+    tempAgent.backgroundSkills = backgroundSkills;
     if (altFactionNodeSets !== undefined) {
       tempAgent.altFactionNodeSets = altFactionNodeSets;
     }
