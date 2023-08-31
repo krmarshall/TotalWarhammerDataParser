@@ -44,6 +44,7 @@ interface PhaseInterface {
   replenish_ammo?: number;
   spread_radius?: number; // Linked through specialAbilityPhases spreading fk
   remove_magical?: boolean;
+  execute_ratio?: number;
   stat_effects?: Array<StatEffectInterface>;
   attributes?: Array<AttributeInterface>;
 }

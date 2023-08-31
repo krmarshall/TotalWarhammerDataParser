@@ -14,6 +14,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
 - technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
 - ancillaries_included_agent_subtypes_tables links character items to agents? might be useful for linking non quest rewards?
+- passive ability links for heroes to self? see vanilla3 Aekold Helbrass
 
 ## How To Use
 

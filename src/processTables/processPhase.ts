@@ -34,6 +34,9 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     unbreakable: parseBoolean(phase.unbreakable),
   };
 
+  // execute_ratio
+  if (phase.execute_ratio !== undefined) returnPhase.execute_ratio = parseFloating(phase.execute_ratio);
+
   [
     'onscreen_name',
     'ability_recharge_change',
@@ -51,6 +54,7 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     'replenish_ammo',
     'resurrect',
     'unbreakable',
+    'execute_ratio',
   ].forEach((field) => {
     const phaseField = returnPhase[field as keyof typeof returnPhase];
     if (typeof phaseField === 'boolean' && phaseField === false) {
