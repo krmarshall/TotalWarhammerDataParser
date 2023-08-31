@@ -385,6 +385,17 @@ const vanillaCharacters: { [key: string]: string } = {
   ksl_ulrika: 'ksl_ulrika',
 
   chs_cha_harald_hammerstorm: 'chs_cha_harald_hammerstorm',
+
+  cth_celestial_general_yang: 'cth_celestial_general_yang',
+  cth_celestial_general_yin: 'cth_celestial_general_yin',
+  cth_yuan_bo: 'cth_yuan_bo',
+  ksl_hag_witch_beasts: 'ksl_hag_witch_beasts',
+  ksl_hag_witch_death: 'ksl_hag_witch_death',
+  ksl_hag_witch_shadows: 'ksl_hag_witch_shadows',
+  ksl_mother_ostankya: 'ksl_mother_ostankya',
+  tze_aekold_helbrass: 'tze_aekold_helbrass',
+  tze_blue_scribes: 'tze_blue_scribes',
+  tze_the_changeling: 'tze_the_changeling',
 };
 
 export default vanillaCharacters;

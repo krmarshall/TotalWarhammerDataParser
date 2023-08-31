@@ -56,8 +56,18 @@ const processAgent = (
     if (index === 1 && agent.key === 'nor_marauder_chieftain') {
       return;
     }
-    if (nodeSet.foreignRefs?.character_skill_nodes === undefined || nodeSet.foreignRefs?.character_skill_nodes.length === 0) {
-      return;
+
+    if (folder.includes('2')) {
+      if (nodeSet.foreignRefs?.character_skill_nodes === undefined || nodeSet.foreignRefs?.character_skill_nodes.length === 0) {
+        return;
+      }
+    } else {
+      if (
+        nodeSet.foreignRefs?.character_skill_node_set_items === undefined ||
+        nodeSet.foreignRefs?.character_skill_node_set_items.length === 0
+      ) {
+        return;
+      }
     }
 
     addCharacterListReference(folder, globalData, agent, nodeSet, subcultureKey, characterList);

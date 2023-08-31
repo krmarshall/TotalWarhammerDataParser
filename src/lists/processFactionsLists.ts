@@ -92,6 +92,9 @@ const ignoreAgents = [
   { agent: 'wh2_dlc10_hef_shadow_walker', game: 'ALL' },
   { agent: 'wh2_pro08_neu_felix', game: 'ALL' },
   { agent: 'wh2_pro08_neu_gotrek', game: 'ALL' },
+  { agent: 'wh3_dlc24_tze_exalted_lord_of_change_metal_locked_army', game: 'ALL' },
+  { agent: 'wh3_dlc24_tze_exalted_lord_of_change_tzeentch_locked_army', game: 'ALL' },
+  { agent: 'wh3_dlc24_tze_the_changeling_cultist_special', game: 'ALL' },
 
   { agent: 'wh3_dlc20_chs_exalted_hero_mkho', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
 

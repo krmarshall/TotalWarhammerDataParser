@@ -31,7 +31,11 @@ const stringInterpolator = (string: string, loc: TableRecord): string => {
     } else {
       let cleanedKey = tagR[0].replace('{{tr:', '');
       cleanedKey = cleanedKey.replace('}}', '');
-      const replacementText = loc[`ui_text_replacements_localised_text_${cleanedKey}`] as string;
+      let replacementText = loc[`ui_text_replacements_localised_text_${cleanedKey}`] as string;
+      // WH3 can text replace from loc tables besides ui_text_replacements_localised_text, see if the lookup is valid for that case
+      if (replacementText === undefined) {
+        replacementText = loc[cleanedKey] as string;
+      }
       if (replacementText === undefined) {
         log(`Missing {{tr}} loc: ${string}`, 'yellow');
         string = string.replace(tagR[0], '!Missing!');

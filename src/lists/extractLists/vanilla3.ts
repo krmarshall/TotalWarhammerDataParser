@@ -7,6 +7,7 @@ const v3DbList = [
   'faction_starting_general_effects',
   'special_ability_spreadings',
   'campaign_character_art_sets',
+  'character_skill_node_set_items',
 
   // Tech
   'technology_ui_group_links',
