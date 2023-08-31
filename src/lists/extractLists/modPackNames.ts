@@ -23,11 +23,11 @@ const scm3PackNames = [
   '!xou_kislev_ivan',
   'froeb_warboss_lord',
   'dead_cult_possessed_unit_V2',
-  'dead_jade_army_pack',
   'dead_kislev_hero_shaman',
   'dead_kislev_hero_blademaster',
   'str_skaven_clans',
   'str_garbag',
+  'dead_gate_master',
 ];
 const scm3PackNamesEnum = {
   '!hkrul_marienburg_v1.0': 'Marienburg: The Merchant Empire',
@@ -41,7 +41,7 @@ const scm3PackNamesEnum = {
   dead_cult_possessed_unit_V2: "Dead's Cult of the Possessed",
   '!xou_khorne_karanak': 'Karanak, Hound of Vengeance',
   cth_yinyin_pol: 'Roar of the Jade Sea : Yin-Yin, the Sea Dragon',
-  dead_jade_army_pack: "Dead's Jade Army Expansion",
+  dead_gate_master: 'Cathay Gate Master',
   '!xou_kislev_ivan': 'Ivan Radinov - Commander of the Gryphon Legion',
   dead_kislev_hero_shaman: "Dead's Kislev Shaman",
   dead_kislev_hero_blademaster: "Dead's Kislev Droyashka",
