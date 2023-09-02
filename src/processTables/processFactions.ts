@@ -10,7 +10,13 @@ import processAgent from './processAgent';
 import fse from 'fs-extra';
 import processTechNodeSet from './processTechNodeSet';
 
-const processFactions = (folder: string, globalData: GlobalDataInterface, tables: { [key in RefKey]?: Table }, pruneVanilla: boolean) => {
+const processFactions = (
+  folder: string,
+  globalData: GlobalDataInterface,
+  tables: { [key in RefKey]?: Table },
+  pruneVanilla: boolean,
+  tech: boolean
+) => {
   const game = folder.includes('2') ? '2' : '3';
 
   const completedTechNodeSets: { [key: string]: boolean } = {};
@@ -53,13 +59,18 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
     if (ignoreCultures.includes(culture.key)) {
       return;
     }
-    culture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
-      handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
-    });
-    culture.foreignRefs?.cultures_subcultures?.forEach((subculture) => {
-      subculture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
+    if (tech) {
+      culture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
         handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
       });
+    }
+
+    culture.foreignRefs?.cultures_subcultures?.forEach((subculture) => {
+      if (tech) {
+        subculture.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
+          handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
+        });
+      }
 
       if (
         ignoreSubcultures.some(
@@ -69,9 +80,11 @@ const processFactions = (folder: string, globalData: GlobalDataInterface, tables
         return;
       }
       subculture.foreignRefs?.factions?.forEach((faction) => {
-        faction.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
-          handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
-        });
+        if (tech) {
+          faction.foreignRefs?.technology_node_sets?.forEach((techNodeSet) => {
+            handleTechs(game, pruneVanilla, techNodeSet, folder, globalData, tables, completedTechNodeSets);
+          });
+        }
         if (
           faction.is_quest_faction === 'true' ||
           faction.is_rebel === 'true' ||

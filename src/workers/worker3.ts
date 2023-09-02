@@ -46,7 +46,7 @@ extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList,
     workerModMulti(ovn3WorkerData);
 
     const tables = generateTables(folder, globalData, dbList, schema);
-    processFactions(folder, globalData, tables, pruneVanilla);
+    processFactions(folder, globalData, tables, pruneVanilla, tech);
   })
   .then(() => {
     console.timeEnd(folder);

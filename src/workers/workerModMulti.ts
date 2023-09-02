@@ -39,7 +39,7 @@ extractPackfileMulti(folder, dbPackNames as Array<string>, locPackNames as Array
     mergeLocsIntoVanilla(folder, globalData);
 
     const tables = generateTables(folder, globalData, dbList, schema);
-    processFactions(folder, globalData, tables, pruneVanilla);
+    processFactions(folder, globalData, tables, pruneVanilla, tech);
   })
   .catch((error) => {
     throw error;
