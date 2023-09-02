@@ -172,6 +172,7 @@ const addAgents = [
   { agent: 'bst_ghorros_warhoof', subculture: 'wh_dlc03_sc_bst_beastmen', game: '3' },
   { agent: 'bst_gorehoof', subculture: 'wh_dlc03_sc_bst_beastmen', game: '3' },
   { agent: 'bst_slugtongue', subculture: 'wh_dlc03_sc_bst_beastmen', game: '3' },
+  { agent: 'bst_little_morella', subculture: 'wh_dlc03_sc_bst_beastmen', game: '3' },
 
   { agent: 'chs_azubhor_clawhand', subculture: 'wh_main_sc_chs_chaos', game: '3' },
   { agent: 'chs_malofex_the_storm_chaser', subculture: 'wh_main_sc_chs_chaos', game: '3' },

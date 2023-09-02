@@ -1,5 +1,6 @@
 import { GlobalDataInterface } from '../interfaces/GlobalDataInterface';
 import { AltFactionNodeSetsInterface, ItemInterface, SkillInterface } from '../interfaces/ProcessedTreeInterface';
+import log from '../utils/log';
 
 const collateNodes = (
   folder: string,
@@ -29,6 +30,9 @@ const collateNodes = (
     } else if (completeNode.indent <= 5 && completeNode.faction === undefined) {
       if (skillTree[completeNode.indent] === undefined) skillTree[completeNode.indent] = [];
       if (completeNode.use_quest_for_prefix !== undefined) delete completeNode.use_quest_for_prefix;
+      // if (skillTree[completeNode.indent][completeNode.tier] !== undefined) {
+      //   log(`Overlapping node indent/tier: ${completeNode.key}`, 'yellow');
+      // }
       skillTree[completeNode.indent][completeNode.tier] = completeNode;
     } else if (completeNode.indent <= 5 && completeNode.faction && factionKeys.has(completeNode.faction)) {
       if (altFactionNodeSets === undefined) altFactionNodeSets = {};

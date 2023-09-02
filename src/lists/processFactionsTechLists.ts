@@ -23,6 +23,7 @@ const vanilla3TechNodeSets = [
   'kho_mil',
   'ksl_mil',
   'ksl_mil_pro',
+  'ksl_ostankya',
   'lzd_mil',
   'lzd_nakai',
   'nor_mil',
@@ -33,6 +34,7 @@ const vanilla3TechNodeSets = [
   'sla_mil',
   'tmb_mil',
   'tze_mil',
+  'tze_the_changeling',
   'vmp_mil',
 ];
 
