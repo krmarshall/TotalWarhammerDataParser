@@ -41,6 +41,7 @@ ROBOCOPY "%workshopPath%\1142710\2991431203" "%gitGameSource%\scm3" AAA_dynasty_
 ROBOCOPY "%workshopPath%\1142710\2986543735" "%gitGameSource%\scm3" str_skaven_clans.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\3007387103" "%gitGameSource%\scm3" str_garbag.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\3025827638" "%gitGameSource%\scm3" dead_gate_master.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\3029928348" "%gitGameSource%\scm3" !xou_age_TKExtended.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\1142710\2927296206" "%gitGameSource%\cat3" !ak_teb3.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2968330247" "%gitGameSource%\cat3" !ak_seapatrol.pack /NJH /NJS

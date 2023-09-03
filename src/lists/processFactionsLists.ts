@@ -256,6 +256,8 @@ const addAgents = [
 
   // Empire Secessionists
   { agent: 'hkrul_emp_sec_hans', subculture: 'wh_main_sc_emp_empire', game: '3' },
+  { agent: 'tmb_sea', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
+  { agent: 'loki_nekaph', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
 
   // Cataph TEB
   { agent: 'teb_borgio_the_besieger', subculture: 'mixer_teb_southern_realms', game: '3' },

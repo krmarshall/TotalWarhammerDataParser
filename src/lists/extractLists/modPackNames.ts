@@ -28,6 +28,7 @@ const scm3PackNames = [
   'str_skaven_clans',
   'str_garbag',
   'dead_gate_master',
+  '!xou_age_TKExtended',
 ];
 const scm3PackNamesEnum = {
   '!hkrul_marienburg_v1.0': 'Marienburg: The Merchant Empire',
@@ -47,6 +48,7 @@ const scm3PackNamesEnum = {
   dead_kislev_hero_blademaster: "Dead's Kislev Droyashka",
   str_garbag: "Garbag's Cunnin' Alliance",
   froeb_warboss_lord: 'Dark Land Warboss',
+  '!xou_age_TKExtended': 'Tomb Kings Extended',
 };
 
 const cat3PackNames = ['!ak_teb3', '!ak_seapatrol', '!ak_kraka3'];
