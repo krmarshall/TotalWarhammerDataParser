@@ -18,7 +18,7 @@ const moveMisplacedLocs = (folder: string) => {
   misplacedSubLocs.forEach((loc) => {
     const fileName = basename(loc);
     const filePath = dirname(loc);
-    fse.moveSync(loc, `${filePath}/db/${fileName}`);
+    fse.moveSync(loc, `${filePath}/db/${fileName}`, { overwrite: true });
   });
 };
 

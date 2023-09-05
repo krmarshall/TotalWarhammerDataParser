@@ -30,12 +30,12 @@ ROBOCOPY "%workshopPath%\1142710\2973289132" "%gitGameSource%\scm3" dead_kislev_
 ROBOCOPY "%workshopPath%\1142710\2973289038" "%gitGameSource%\scm3" dead_kislev_hero_blademaster.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2890463744" "%gitGameSource%\scm3" @xou_emp.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2890463783" "%gitGameSource%\scm3" @xou_emp_assets.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2874009018" "%gitGameSource%\scm3" !hkrul_emp_secessionists.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\3030410786" "%gitGameSource%\scm3" !scm_empire_secessionists.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2824164139" "%gitGameSource%\scm3" !xou_khorne_karanak.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2803817483" "%gitGameSource%\scm3" !xou_kislev_ivan.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2838941228" "%gitGameSource%\scm3" str_rotblood.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2809422989" "%gitGameSource%\scm3" str_gnoblar.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\1142710\2949216752" "%gitGameSource%\scm3" !hkrul_marienburg_v1.0.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\1142710\3030996759" "%gitGameSource%\scm3" !scm_marienburg.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2989226363" "%gitGameSource%\scm3" cth_yinyin_pol.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2991431203" "%gitGameSource%\scm3" AAA_dynasty_of_the_damned.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\1142710\2986543735" "%gitGameSource%\scm3" str_skaven_clans.pack /NJH /NJS
