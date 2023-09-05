@@ -256,6 +256,11 @@ const addAgents = [
 
   // Empire Secessionists
   { agent: 'hkrul_emp_sec_hans', subculture: 'wh_main_sc_emp_empire', game: '3' },
+
+  // Marienburg
+  //{ agent: 'rhox_mar_mundvard_criminal', subculture: 'wh_main_sc_emp_empire', game: '3' },
+
+  // TKE
   { agent: 'tmb_sea', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
   { agent: 'loki_nekaph', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
 

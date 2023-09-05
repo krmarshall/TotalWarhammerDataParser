@@ -21,7 +21,7 @@ const scm3PackNames = [
   'cth_yinyin_pol',
   '!xou_khorne_karanak',
   '!xou_kislev_ivan',
-  'froeb_warboss_lord',
+  'froeb_dark_land_orcs',
   'dead_cult_possessed_unit_V2',
   'dead_kislev_hero_shaman',
   'dead_kislev_hero_blademaster',
@@ -47,7 +47,7 @@ const scm3PackNamesEnum = {
   dead_kislev_hero_shaman: "Dead's Kislev Shaman",
   dead_kislev_hero_blademaster: "Dead's Kislev Droyashka",
   str_garbag: "Garbag's Cunnin' Alliance",
-  froeb_warboss_lord: 'Dark Land Warboss',
+  froeb_dark_land_orcs: 'Dark Land Orcs',
   '!xou_age_TKExtended': 'Tomb Kings Extended',
 };
 
