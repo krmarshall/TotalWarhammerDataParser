@@ -15,6 +15,7 @@ When CA adds weird stuff that probably needs new tables (like mounts getting aut
 - technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
 - ancillaries_included_agent_subtypes_tables links character items to agents? might be useful for linking non quest rewards?
 - passive ability links for heroes to self? see vanilla3 Aekold Helbrass
+- Unique hero/lord starting traits would require asskit start_pos_characters.xml/start_pos_character_traits.xml and pack db character_traits_tables + related, could integrate those and do something similar to faction variants?
 
 ## How To Use
 

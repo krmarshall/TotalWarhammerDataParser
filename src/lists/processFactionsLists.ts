@@ -73,6 +73,8 @@ const ignoreFactions = [
 ];
 
 const ignoreAgents = [
+  { agent: 'wh_main_chs_lord_of_change', game: '3' },
+
   { agent: 'wh2_dlc13_lzd_kroxigor_ancient_horde', game: 'ALL' },
   { agent: 'wh2_dlc13_lzd_red_crested_skink_chief_horde', game: 'ALL' },
   { agent: 'wh2_dlc13_lzd_saurus_old_blood_horde', game: 'ALL' },
@@ -159,6 +161,9 @@ const addAgents = [
   { agent: 'wh3_dlc23_chd_astragoth', subculture: 'wh3_dlc23_sc_chd_chaos_dwarfs', game: '3' },
   { agent: 'wh3_dlc23_chd_drazhoath', subculture: 'wh3_dlc23_sc_chd_chaos_dwarfs', game: '3' },
   { agent: 'wh3_dlc23_chd_zhatan', subculture: 'wh3_dlc23_sc_chd_chaos_dwarfs', game: '3' },
+
+  { agent: 'wh3_dlc24_tze_aekold_helbrass', subculture: 'wh3_main_sc_dae_daemons', game: '3' },
+  { agent: 'wh3_dlc24_tze_aekold_helbrass', subculture: 'wh_main_sc_chs_chaos', game: '3' },
 
   // Mixu3 LL
   { agent: 'brt_adalhard', subculture: 'wh_main_sc_brt_bretonnia', game: '3' },
