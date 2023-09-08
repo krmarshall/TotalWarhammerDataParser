@@ -136,7 +136,7 @@ const processFactions = (
       const factions = agent[subcultureKey];
       const agentRecord = tables.agent_subtypes?.findRecordByKey('key', agentKey);
       if (agentRecord !== undefined) {
-        processAgent(folder, globalData, agentRecord, subcultureKey, factions, characterList);
+        processAgent(folder, globalData, tables, agentRecord, subcultureKey, factions, characterList);
       }
     });
   });

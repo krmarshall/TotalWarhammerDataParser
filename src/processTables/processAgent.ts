@@ -1,4 +1,4 @@
-import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
+import { GlobalDataInterface, RefKey, TableRecord } from '../interfaces/GlobalDataInterface';
 import { ItemInterface, ProcessedAgentInterface } from '../interfaces/ProcessedTreeInterface';
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import findImage from '../utils/findImage';
@@ -10,10 +10,13 @@ import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 import processAncillary from './processAncillary';
 import processUnitStats from './processUnitStats';
 import addCharacterListReference from '../utils/addCharacterListReference';
+import processStartPosTraits from './processStartPosTraits';
+import { Table } from '../generateTables';
 
 const processAgent = (
   folder: string,
   globalData: GlobalDataInterface,
+  tables: { [key in RefKey]?: Table },
   agent: TableRecord,
   subcultureKey: string,
   factionKeys: Set<string>,
@@ -25,6 +28,13 @@ const processAgent = (
     unitStats: processUnitStats(folder, globalData, agent.localRefs?.main_units as TableRecord),
   };
   const unfilteredItems: Array<ItemInterface> = [];
+
+  // Unique heroes require start_pos data from the assembly kit, unlikely mods will use start_pos just to add traits
+  // and would have to find a way to process modded start_pos
+  if (folder === 'vanilla3') {
+    const startPosTraits = processStartPosTraits(folder, globalData, tables, agent, subcultureKey);
+    if (startPosTraits !== undefined) returnAgent.startPosTraits = startPosTraits;
+  }
 
   // LL Faction Effects WH3
   if (agent.foreignRefs?.faction_starting_general_effects !== undefined) {

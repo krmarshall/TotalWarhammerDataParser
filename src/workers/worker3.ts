@@ -5,6 +5,7 @@ import parseImages from '../parseImages';
 import { extractPackfileMass } from '../extractTables';
 import initializeGlobalData from '../utils/initializeGlobalData';
 import csvParse from '../csvParse';
+import akData from '../akData';
 import generateTables from '../generateTables';
 import processFactions from '../processTables/processFactions';
 import { workerMod, workerModMulti } from './workerExports';
@@ -33,6 +34,7 @@ extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList,
   .then(() => parseImages(folder, imagePacknames, game, tech, globalData))
   .then(() => {
     csvParse(folder, false, globalData);
+    akData(folder, globalData);
 
     // Unpruned Mods
     workerModMulti(radiousWorkerData);
