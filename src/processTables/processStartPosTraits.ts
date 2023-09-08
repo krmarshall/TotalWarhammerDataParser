@@ -49,9 +49,10 @@ const processStartPosTraits = (
           const faction = startPosFaction?.localRefs?.factions?.screen_name ?? 'MISSING';
           const campaign = startPosFaction?.localRefs?.campaigns?.onscreen_name ?? 'MISSING';
           const imgPath =
-            'vanilla3/' +
+            'vanilla3' +
               traitLevel?.localRefs?.trait_info?.foreignRefs?.character_traits?.[0]?.localRefs?.trait_categories?.icon_path
                 .replace('campaign ui', 'campaign_ui')
+                .replace(/^ui/, '')
                 .replace('.png', '') ?? '';
 
           variants[character.ID] = {
