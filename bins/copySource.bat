@@ -27,7 +27,7 @@ ROBOCOPY "%workshopPath%\2880244265" "%gitGameSource%\crys3" crys_leaders.pack /
 ROBOCOPY "%workshopPath%\2880515805" "%gitGameSource%\scm3" jade_vamp_pol.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2891621259" "%gitGameSource%\scm3" dead_cult_possessed_unit_V2.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2919542060" "%gitGameSource%\scm3" froeb_dark_land_orcs.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\2973289132" "%gitGameSource%\scm3" dead_kislev_hero_shaman.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\3036658395" "%gitGameSource%\scm3" dead_kislev_lord_shaman.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2973289038" "%gitGameSource%\scm3" dead_kislev_hero_blademaster.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2890463744" "%gitGameSource%\scm3" @xou_emp.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2890463783" "%gitGameSource%\scm3" @xou_emp_assets.pack /NJH /NJS

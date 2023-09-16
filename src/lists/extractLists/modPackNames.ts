@@ -23,7 +23,7 @@ const scm3PackNames = [
   '!xou_kislev_ivan',
   'froeb_dark_land_orcs',
   'dead_cult_possessed_unit_V2',
-  'dead_kislev_hero_shaman',
+  'dead_kislev_lord_shaman',
   'dead_kislev_hero_blademaster',
   'str_skaven_clans',
   'str_garbag',
@@ -49,7 +49,7 @@ const scm3PackNamesEnum = {
   cth_yinyin_pol: 'RotJS: Yin-Yin, the Sea Dragon',
   dead_gate_master: 'Cathay Gate Master',
   '!xou_kislev_ivan': 'Ivan Radinov',
-  dead_kislev_hero_shaman: "Dead's Kislev Shaman",
+  dead_kislev_lord_shaman: "Dead's Kislev Shaman",
   dead_kislev_hero_blademaster: "Dead's Kislev Droyashka",
   str_gnoblar: 'The Gnoblar Horde',
 };
