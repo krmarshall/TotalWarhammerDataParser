@@ -30,7 +30,7 @@ const processVortex = (folder: string, globalData: GlobalDataInterface, vortex: 
       folder,
       globalData,
       { order: '1', target_enemies: 'true', target_self: 'false', target_friends: returnVortex.affects_allies.toString() },
-      vortex.localRefs?.special_ability_phases
+      vortex.localRefs?.special_ability_phases,
     );
   }
 

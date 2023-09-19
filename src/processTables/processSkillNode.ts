@@ -15,7 +15,7 @@ const processSkillNode = (
   skillNodeKeys: { [key: string]: boolean },
   items: Array<ItemInterface>,
   subsetRequiredMap: { [key: string]: Array<SkillInterface> },
-  requiredMap: { [key: string]: Array<SkillInterface> }
+  requiredMap: { [key: string]: Array<SkillInterface> },
 ) => {
   const skill = skillNode.localRefs?.character_skills as TableRecord;
   if (skill.key === 'wh3_main_skill_agent_action_success_scaling') {

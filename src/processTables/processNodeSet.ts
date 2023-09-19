@@ -8,7 +8,7 @@ const processNodeSet = (
   globalData: GlobalDataInterface,
   nodeSet: TableRecord,
   subcultureKey: string,
-  factionKeys: Set<string>
+  factionKeys: Set<string>,
 ) => {
   const completeNodes: Array<SkillInterface> = [];
   const items: Array<ItemInterface> = [];
@@ -18,7 +18,7 @@ const processNodeSet = (
     nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => (skillNodeKeys[skillNode.key] = true));
   } else {
     nodeSet.foreignRefs?.character_skill_node_set_items?.forEach(
-      (nodeSetItem) => (skillNodeKeys[(nodeSetItem?.localRefs?.character_skill_nodes as TableRecord).key] = true)
+      (nodeSetItem) => (skillNodeKeys[(nodeSetItem?.localRefs?.character_skill_nodes as TableRecord).key] = true),
     );
   }
 

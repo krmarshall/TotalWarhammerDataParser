@@ -10,7 +10,7 @@ const generateTables = (folder: string, globalData: GlobalDataInterface, dbList:
       db,
       findHighestVersionDB(schema.definitions[db + '_tables'], db),
       globalData.parsedData[folder].db[db + '_tables'],
-      globalData.parsedData[folder].text
+      globalData.parsedData[folder].text,
     );
   });
 

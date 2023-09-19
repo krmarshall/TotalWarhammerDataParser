@@ -33,5 +33,5 @@ const log = (message: string, color: ColorsEnum) => {
   console.log(`\x1b[${colorReference}m`, `\b${message}`, '\x1b[0m');
 };
 
-export type ColorsEnum = typeof ColorsEnum[keyof typeof ColorsEnum];
+export type ColorsEnum = (typeof ColorsEnum)[keyof typeof ColorsEnum];
 export default log;

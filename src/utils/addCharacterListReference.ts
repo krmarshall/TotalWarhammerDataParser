@@ -9,7 +9,7 @@ const addCharacterListReference = (
   agent: TableRecord,
   nodeSet: TableRecord,
   subcultureKey: string,
-  characterList: CharacterListInterface
+  characterList: CharacterListInterface,
 ) => {
   const characterListEntry = { name: '', portrait: '' };
 

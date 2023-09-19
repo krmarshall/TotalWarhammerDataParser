@@ -4,7 +4,7 @@ interface TableRecordNoRefs {
   [key: string]: string;
 }
 
-type RefKey = typeof v3DbList[number];
+type RefKey = (typeof v3DbList)[number];
 
 interface TableRecordRefs {
   // This record referencing another

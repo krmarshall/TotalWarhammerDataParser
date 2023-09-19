@@ -12,7 +12,7 @@ const processTechNode = (
   globalData: GlobalDataInterface,
   techNode: TableRecord,
   techReqJuncMap: { [key: string]: Array<{ key: string; name: string }> },
-  nodeLinksMap: { [key: string]: Array<string> }
+  nodeLinksMap: { [key: string]: Array<string> },
 ) => {
   const tech = techNode.localRefs?.technologies;
   if (tech === undefined) {

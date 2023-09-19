@@ -51,7 +51,7 @@ const processUnitStats = (folder: string, globalData: GlobalDataInterface, mainU
       folder,
       globalData,
       { order: '1', target_enemies: 'true', target_self: 'false', target_friends: 'false' },
-      meleeWeapon.localRefs?.special_ability_phases
+      meleeWeapon.localRefs?.special_ability_phases,
     );
   }
 

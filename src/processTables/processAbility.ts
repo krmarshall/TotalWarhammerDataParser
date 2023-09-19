@@ -12,7 +12,7 @@ const processAbility = (
   folder: string,
   globalData: GlobalDataInterface,
   abilityJunc: TableRecord,
-  effectEnabling: boolean | undefined = false
+  effectEnabling: boolean | undefined = false,
 ) => {
   const unitAbility =
     (abilityJunc.localRefs?.unit_abilities as TableRecord) ??
@@ -80,8 +80,8 @@ const processAbility = (
     enabled_if.push(
       stringInterpolator(
         enable.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
-        globalData.parsedData[folder].text
-      )
+        globalData.parsedData[folder].text,
+      ),
     );
   });
   if (enabled_if.length > 0) returnAbility.unit_ability.enabled_if = enabled_if;
@@ -92,8 +92,8 @@ const processAbility = (
     target_if.push(
       stringInterpolator(
         target.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
-        globalData.parsedData[folder].text
-      )
+        globalData.parsedData[folder].text,
+      ),
     );
   });
   if (target_if.length > 0) returnAbility.unit_ability.target_if = target_if;

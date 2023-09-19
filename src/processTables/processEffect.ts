@@ -20,7 +20,7 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
   const returnEffect: EffectInterface = {
     description: numberInsertion(
       stringInterpolator(effect.description, globalData.parsedData[folder].text),
-      parseInteger(effectJunc.value)
+      parseInteger(effectJunc.value),
     ),
     key: effect.effect,
     icon: findEffectImage(folder, globalData, effect.icon),
@@ -33,7 +33,7 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
   if (effectJunc.localRefs?.campaign_effect_scopes?.localised_text !== '') {
     returnEffect.description += stringInterpolator(
       effectJunc.localRefs?.campaign_effect_scopes?.localised_text as string,
-      globalData.parsedData[folder].text
+      globalData.parsedData[folder].text,
     );
   }
 
@@ -93,7 +93,7 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
     const phase = phaseJunc?.localRefs?.special_ability_phases;
     if (phase !== undefined) {
       related_phases.push(
-        processPhase(folder, globalData, { order: '0', target_enemies: 'true', target_self: 'false', target_friends: 'false' }, phase)
+        processPhase(folder, globalData, { order: '0', target_enemies: 'true', target_self: 'false', target_friends: 'false' }, phase),
       );
     }
   });
@@ -101,7 +101,7 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
     const phase = phaseJunc?.localRefs?.unit_set_special_ability_phase_junctions?.localRefs?.special_ability_phases;
     if (phase !== undefined) {
       related_phases.push(
-        processPhase(folder, globalData, { order: '0', target_enemies: 'true', target_self: 'false', target_friends: 'false' }, phase)
+        processPhase(folder, globalData, { order: '0', target_enemies: 'true', target_self: 'false', target_friends: 'false' }, phase),
       );
     }
   });

@@ -40,7 +40,7 @@ const extractData = (folder: string, dbPackName: string, tablesString: string, g
           moveMisplacedLocs(inputFolder);
           resolveI();
         }
-      }
+      },
     );
   });
 };
@@ -58,7 +58,7 @@ const extractLoc = (folder: string, locPackName: string, locsString: string, gam
           moveMisplacedLocs(inputFolder);
           resolveI();
         }
-      }
+      },
     );
   });
 };
@@ -76,7 +76,7 @@ const extractLocBulk = (folder: string, locPackName: string, game: string, input
           moveMisplacedLocs(inputFolder);
           resolve();
         }
-      }
+      },
     );
   });
 };
@@ -99,7 +99,7 @@ const extractPackfileMass = (
   locPackName: string,
   dbList: Array<string>,
   locList: Array<string> | undefined,
-  game: string
+  game: string,
 ) => {
   return new Promise<void>((resolve, reject) => {
     const tablesString = generateTablesString(dbList, folder);
@@ -154,7 +154,7 @@ const extractPackfileMulti = (
   locPackNames: Array<string>,
   dbList: Array<string>,
   locList: Array<string> | undefined,
-  game: string
+  game: string,
 ) => {
   return new Promise<void>((resolve, reject) => {
     let goodPreExtract = true;
@@ -189,7 +189,7 @@ const extractPackfileMulti = (
           locPackName,
           tablesString + ` "/text;../extracted_files/${folder}/subLOC${index}"`,
           game,
-          folder
+          folder,
         );
       });
     } else {

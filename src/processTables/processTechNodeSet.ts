@@ -11,7 +11,7 @@ const processTechNodeSet = (
   folder: string,
   globalData: GlobalDataInterface,
   techNodeSet: TableRecord,
-  tables: { [key in RefKey]?: Table }
+  tables: { [key in RefKey]?: Table },
 ) => {
   const returnTechNodeSet: TechSetInterface = {
     key: techNodeSet.key,

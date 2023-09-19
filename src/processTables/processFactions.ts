@@ -15,7 +15,7 @@ const processFactions = (
   globalData: GlobalDataInterface,
   tables: { [key in RefKey]?: Table },
   pruneVanilla: boolean,
-  tech: boolean
+  tech: boolean,
 ) => {
   const game = folder.includes('2') ? '2' : '3';
 
@@ -41,7 +41,7 @@ const processFactions = (
         (ignoreAgent) =>
           ignoreAgent.agent === addAgent.agent &&
           (ignoreAgent.game === 'ALL' || game === ignoreAgent.game) &&
-          (ignoreAgent.subculture === undefined || ignoreAgent.subculture === addAgent.subculture)
+          (ignoreAgent.subculture === undefined || ignoreAgent.subculture === addAgent.subculture),
       )
     ) {
       return;
@@ -74,7 +74,7 @@ const processFactions = (
 
       if (
         ignoreSubcultures.some(
-          (ignoreCult) => ignoreCult.subculture === subculture.subculture && (folder === ignoreCult.game || ignoreCult.game === 'ALL')
+          (ignoreCult) => ignoreCult.subculture === subculture.subculture && (folder === ignoreCult.game || ignoreCult.game === 'ALL'),
         )
       ) {
         return;
@@ -104,7 +104,7 @@ const processFactions = (
               (ignoreAgent) =>
                 ignoreAgent.agent === factionAgent.subtype &&
                 (ignoreAgent.game === 'ALL' || game === ignoreAgent.game) &&
-                (ignoreAgent.subculture === undefined || ignoreAgent.subculture === subculture.subculture)
+                (ignoreAgent.subculture === undefined || ignoreAgent.subculture === subculture.subculture),
             )
           ) {
             return;
@@ -153,7 +153,7 @@ const handleTechs = (
   folder: string,
   globalData: GlobalDataInterface,
   tables: { [key in RefKey]?: Table },
-  completedTechNodeSets: { [key: string]: boolean }
+  completedTechNodeSets: { [key: string]: boolean },
 ) => {
   if (completedTechNodeSets[techNodeSet.key] !== undefined) {
     return;

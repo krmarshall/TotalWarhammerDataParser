@@ -9,7 +9,7 @@ const processStartPosTraits = (
   globalData: GlobalDataInterface,
   tables: { [key in RefKey]?: Table },
   agent: TableRecord,
-  subcultureKey: string
+  subcultureKey: string,
 ): undefined | StartPosTraitInterface => {
   const variants: StartPosTraitInterface = {};
 

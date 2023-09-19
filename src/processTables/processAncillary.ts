@@ -8,7 +8,7 @@ const processAncillary = (
   folder: string,
   globalData: GlobalDataInterface,
   ancillaryJunc: TableRecord,
-  unlocked_at_rank: string | undefined
+  unlocked_at_rank: string | undefined,
 ) => {
   const ancillary = ancillaryJunc.localRefs?.ancillaries as TableRecord;
   const ancillaryInfo = ancillary.localRefs?.ancillary_info as TableRecord;

@@ -72,7 +72,7 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
       folder,
       globalData,
       { order: '1', target_enemies: 'true', target_self: 'false', target_friends: 'false' },
-      phase.localRefs?.special_ability_phases as TableRecord
+      phase.localRefs?.special_ability_phases as TableRecord,
     );
   }
   // imbue_ignition
@@ -96,7 +96,7 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
       description: numberPrepend(
         stringInterpolator(statLoc.onscreen_name, globalData.parsedData[folder].text),
         parseFloating(phaseStat.value),
-        phaseStat.how
+        phaseStat.how,
       ),
       icon: 'vanilla3/' + uiUnitStat.icon.replace(/^ui\//, '').replace('.png', '').replace(' ', '_').toLowerCase(),
       sort_order: parseInteger(uiUnitStat.sort_order as string),

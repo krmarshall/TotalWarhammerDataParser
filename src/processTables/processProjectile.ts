@@ -40,7 +40,7 @@ const processProjectile = (folder: string, globalData: GlobalDataInterface, proj
         folder,
         globalData,
         { order: '1', target_enemies: 'true', target_self: 'false', target_friends: explosion.affects_allies },
-        explosion.localRefs?.special_ability_phases
+        explosion.localRefs?.special_ability_phases,
       );
     }
   }
@@ -50,7 +50,7 @@ const processProjectile = (folder: string, globalData: GlobalDataInterface, proj
       folder,
       globalData,
       { order: '1', target_enemies: 'true', target_self: 'false', target_friends: projectile.can_damage_allies },
-      projectile.localRefs?.special_ability_phases
+      projectile.localRefs?.special_ability_phases,
     );
   }
 

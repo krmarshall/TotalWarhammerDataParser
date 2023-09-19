@@ -38,7 +38,7 @@ const extractImages = (folder: string, packNames: Array<string>, game: string, t
         tech ? (foldersString += ` "/ui/campaign ui/technologies;../extracted_files/${folder}"`) : undefined;
         execPromise(
           `rpfm_cli.exe -g ${game} pack extract -p "../game_source/${folder}/${packName}.pack" -t "../rpfm-schemas/${schema}" -F ${foldersString}`,
-          { cwd }
+          { cwd },
         )
           .then(() => resolveI())
           .catch((error) => rejectI(error));
@@ -117,7 +117,7 @@ const convertPortraitBins = (folder: string, game: string, globalData: GlobalDat
         const portraitSettingName = basename(portraitSetting, '.bin');
         execPromise(
           `rpfm_cli.exe -g ${game} portrait-settings to-json --bin-path ".${portraitSetting}" --json-path "../extracted_files/${folder}/ui/portraits/portholes/${portraitSettingName}.json"`,
-          { cwd }
+          { cwd },
         )
           .then(() => {
             fillPortraitGlobalData(folder, globalData, portraitSetting.replace(/.bin$/, '.json'));

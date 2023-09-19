@@ -52,7 +52,7 @@ const stringInterpolator = (string: string, loc: TableRecord): string => {
     // If its an img we want the first instance of its closing tagName not the last.
     if (element?.groups?.tagName === 'img') {
       element = string.match(
-        /\[\[(?<tagName>[a-zA-Z_]*):?(?<tagAttribute>[a-zA-Z0-9_./ ]*)\]\](?<innerText>[a-zA-Z0-9_.!?, ]*)\[\[\/\k<tagName>\]\]/
+        /\[\[(?<tagName>[a-zA-Z_]*):?(?<tagAttribute>[a-zA-Z0-9_./ ]*)\]\](?<innerText>[a-zA-Z0-9_.!?, ]*)\[\[\/\k<tagName>\]\]/,
       );
     }
 

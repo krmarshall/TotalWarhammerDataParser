@@ -8,7 +8,7 @@ const collateNodes = (
   completeNodes: Array<SkillInterface>,
   itemsArg: Array<ItemInterface>,
   subcultureKey: string,
-  factionKeys: Set<string>
+  factionKeys: Set<string>,
 ) => {
   let skillTree: Array<Array<SkillInterface>> = [[], [], [], [], [], []];
   const backgroundSkills: Array<SkillInterface> = [];

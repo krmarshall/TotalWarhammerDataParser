@@ -20,7 +20,7 @@ const processAgent = (
   agent: TableRecord,
   subcultureKey: string,
   factionKeys: Set<string>,
-  characterList: CharacterListInterface
+  characterList: CharacterListInterface,
 ) => {
   const returnAgent: ProcessedAgentInterface = {
     key: '',
@@ -87,7 +87,7 @@ const processAgent = (
       globalData,
       nodeSet,
       subcultureKey,
-      factionKeys
+      factionKeys,
     );
     const tempAgent = JSON.parse(JSON.stringify(returnAgent));
     const nodeSetKey = cleanNodeSetKey(nodeSet.key);
