@@ -206,6 +206,7 @@ const addAgents = [
   { agent: 'emp_vorn_thugenheim', subculture: 'wh_main_sc_emp_empire', game: '3' },
   { agent: 'emp_warrior_priest_of_taal', subculture: 'wh_main_sc_emp_empire', game: '3' },
   { agent: 'emp_wolfram_hertwig', subculture: 'wh_main_sc_emp_empire', game: '3' },
+  { agent: 'emp_oleg_von_raukov', subculture: 'wh_main_sc_emp_empire', game: '3' },
 
   { agent: 'grn_gorfang_rotgut', subculture: 'wh_main_sc_grn_greenskins', game: '3' },
 
