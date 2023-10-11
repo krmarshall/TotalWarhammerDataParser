@@ -245,6 +245,13 @@ const addAgents = [
 
   // Lege 3
   { agent: 'str_rykarth', subculture: 'wh3_dlc23_sc_chd_chaos_dwarfs', game: '3' },
+  { agent: 'str_byrrnoth_grundadrakk', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'str_rorek_granitehand', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'str_alrik_ranulfsson', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'str_sven_hasselfriesian', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'str_brokk_ironpick', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'str_hag_queen_malida', subculture: 'wh2_main_sc_def_dark_elves', game: '3' },
+  { agent: 'frob_gorbad_ironclaw', subculture: 'wh_main_sc_grn_greenskins', game: '3' },
 
   // Mixu 3 Mousillon
   { agent: 'msl_mallobaude', subculture: 'mixu_vmp_mousillon_qb', game: '3' },
