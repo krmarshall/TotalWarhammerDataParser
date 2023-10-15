@@ -27,7 +27,6 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     imbue_magical: parseBoolean(phase.imbue_magical),
     mana_max_depletion_mod: parseFloating(phase.mana_max_depletion_mod),
     mana_regen_mod: parseFloating(phase.mana_regen_mod),
-    max_damaged_entities: parseInteger(phase.max_damaged_entities),
     remove_magical: parseBoolean(phase.remove_magical),
     replenish_ammo: parseFloating(phase.replenish_ammo),
     resurrect: parseBoolean(phase.resurrect),
@@ -49,7 +48,6 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     'imbue_magical',
     'mana_max_depletion_mod',
     'mana_regen_mod',
-    'max_damaged_entities',
     'remove_magical',
     'replenish_ammo',
     'resurrect',
@@ -59,12 +57,15 @@ const processPhase = (folder: string, globalData: GlobalDataInterface, phaseJunc
     const phaseField = returnPhase[field as keyof typeof returnPhase];
     if (typeof phaseField === 'boolean' && phaseField === false) {
       delete returnPhase[field as keyof typeof returnPhase];
-    } else if (typeof phaseField === 'number' && phaseField <= 0) {
+    } else if (typeof phaseField === 'number' && phaseField === 0) {
       delete returnPhase[field as keyof typeof returnPhase];
     } else if (typeof phaseField === 'string' && phaseField === '') {
       delete returnPhase[field as keyof typeof returnPhase];
     }
   });
+
+  const max_damaged_entities = parseInteger(phase.max_damaged_entities);
+  if (max_damaged_entities !== -1 && max_damaged_entities !== 0) returnPhase.max_damaged_entities = max_damaged_entities;
 
   // imbue_contact
   if (phase.localRefs?.special_ability_phases !== undefined) {
