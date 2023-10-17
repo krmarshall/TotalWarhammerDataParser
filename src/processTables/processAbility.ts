@@ -17,7 +17,8 @@ const processAbility = (
   const unitAbility =
     (abilityJunc.localRefs?.unit_abilities as TableRecord) ??
     (abilityJunc.localRefs?.unit_set_unit_ability_junctions?.localRefs?.unit_abilities as TableRecord) ??
-    (abilityJunc.localRefs?.army_special_abilities?.localRefs?.unit_special_abilities?.localRefs?.unit_abilities as TableRecord);
+    (abilityJunc.localRefs?.army_special_abilities?.localRefs?.unit_special_abilities?.localRefs?.unit_abilities as TableRecord) ??
+    (abilityJunc.localRefs?.battle_context_unit_ability_junctions?.localRefs?.unit_abilities as TableRecord);
   const unitAbilityType = unitAbility.localRefs?.unit_ability_types as TableRecord;
   const unitSpecialAbility = unitAbility.foreignRefs?.unit_special_abilities?.[0] as TableRecord;
 

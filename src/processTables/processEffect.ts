@@ -63,6 +63,12 @@ const processEffect = (folder: string, globalData: GlobalDataInterface, effectJu
       related_abilities.push(processAbility(folder, globalData, abilityJunc));
     }
   });
+  // battle_context
+  effect.foreignRefs?.effect_bonus_value_battle_context_unit_ability_junctions?.forEach((abilityJunc) => {
+    if (wantedBonusValueIdList.includes(abilityJunc.bonus_value_id)) {
+      related_abilities.push(processAbility(folder, globalData, abilityJunc));
+    }
+  });
   if (related_abilities.length > 0) returnEffect.related_abilities = related_abilities;
 
   // Attributes
