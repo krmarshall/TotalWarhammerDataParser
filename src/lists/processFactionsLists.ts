@@ -273,6 +273,13 @@ const addAgents = [
   // Empire Secessionists
   { agent: 'hkrul_emp_sec_hans', subculture: 'wh_main_sc_emp_empire', game: '3' },
 
+  // Marienburg
+  { agent: 'hkrul_dauphine', subculture: 'wh_main_sc_emp_empire', game: '3' },
+  { agent: 'mar_sea_wizard', subculture: 'wh_main_sc_emp_empire', game: '3' },
+  { agent: 'hkrul_fooger', subculture: 'wh_main_sc_emp_empire', game: '3' },
+  { agent: 'hkrul_fooger_caravan_master', subculture: 'wh_main_sc_emp_empire', game: '3' },
+  { agent: 'hkrul_arbatt', subculture: 'wh_main_sc_emp_empire', game: '3' },
+
   // TKE
   { agent: 'tmb_sea', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
   { agent: 'loki_nekaph', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
