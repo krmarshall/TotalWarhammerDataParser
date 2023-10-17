@@ -45,14 +45,17 @@ const processNodeSet = (
   }
 
   // After all nodes are processed go through subset_required children, give their highest tier parent right_arrow
+  // Multiple nodes can share the same tier and overlap for diff circumstances, give them all right arrow as well
   Object.values(subsetRequiredMap).forEach((subsetRequiredNodes) => {
-    let highest = subsetRequiredNodes[0];
+    let highest: Array<SkillInterface> = [subsetRequiredNodes[0]];
     for (let i = 0; i < subsetRequiredNodes.length; i++) {
-      if (subsetRequiredNodes[i].tier > highest.tier) {
-        highest = subsetRequiredNodes[i];
+      if (subsetRequiredNodes[i].tier > highest[0].tier) {
+        highest = [subsetRequiredNodes[i]];
+      } else if (subsetRequiredNodes[i].tier === highest[0].tier) {
+        highest.push(subsetRequiredNodes[i]);
       }
     }
-    highest.right_arrow = true;
+    highest.forEach((node) => (node.right_arrow = true));
 
     // Also give each parent node boxed if there are more than 1 of them
     if (subsetRequiredNodes.length > 1) {
