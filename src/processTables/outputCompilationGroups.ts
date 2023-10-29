@@ -4,6 +4,7 @@ import fse from 'fs-extra';
 import { parse } from 'csv-parse/sync';
 import cleanNodeSetKey from '../utils/cleanNodeSetKey';
 import { TableRecord } from '../interfaces/GlobalDataInterface';
+import { skipVanillaAgentPrune } from '../lists/processFactionsLists';
 
 const csvParseConfig = {
   delimiter: '\t',
@@ -39,6 +40,13 @@ const outputCompilationGroups = (folder: string, packNameEnum: { [key: string]: 
 
   const sortedObject: CompGroupsInterface = {};
   Object.values(packNameEnum).forEach((packName) => (sortedObject[packName] = compGroups[packName]));
+  Object.entries(skipVanillaAgentPrune).forEach((entry) => {
+    const key = entry[0];
+    const value = entry[1];
+    if (folder === value.mod) {
+      sortedObject[packNameEnum[value.packname]][key] = true;
+    }
+  });
 
   fse.ensureDirSync(`./output/compGroups`);
   fse.writeJSONSync(`./output/compGroups/${folder}.json`, sortedObject, { spaces: 2 });

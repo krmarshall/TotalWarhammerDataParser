@@ -301,8 +301,8 @@ const addAgents = [
   { agent: 'ludwig_uberdorf_agent_subtype', subculture: 'wh_main_sc_emp_empire', game: '3' },
 ];
 
-const skipVanillaAgentPrune: { [agentKey: string]: { subculture: string; mod: string } } = {
-  tmb_tomb_king: { subculture: 'wh2_dlc09_sc_tmb_tomb_kings', mod: 'scm3' },
+const skipVanillaAgentPrune: { [agentKey: string]: { subculture: string; mod: string; packname: string } } = {
+  tmb_tomb_king: { subculture: 'wh2_dlc09_sc_tmb_tomb_kings', mod: 'scm3', packname: '!xou_age_TKExtended' },
 };
 
 export { ignoreCultures, ignoreSubcultures, ignoreFactions, ignoreAgents, addAgents, remapFactions, skipVanillaAgentPrune };
