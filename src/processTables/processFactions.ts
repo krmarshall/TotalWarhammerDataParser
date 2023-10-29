@@ -1,7 +1,15 @@
 import { Table } from '../generateTables';
 import { CharacterListInterface } from '../interfaces/CharacterListInterface';
 import { GlobalDataInterface, RefKey, TableRecord } from '../interfaces/GlobalDataInterface';
-import { addAgents, ignoreAgents, ignoreCultures, ignoreFactions, ignoreSubcultures, remapFactions } from '../lists/processFactionsLists';
+import {
+  addAgents,
+  ignoreAgents,
+  ignoreCultures,
+  ignoreFactions,
+  ignoreSubcultures,
+  remapFactions,
+  skipVanillaAgentPrune,
+} from '../lists/processFactionsLists';
 import { techNodeSetsPrune2, techNodeSetsPrune3, vanilla3TechNodeSets } from '../lists/processFactionsTechLists';
 import subcultureMap from '../lists/subcultureMap';
 import vanillaCharacters from '../lists/vanillaCharacters';
@@ -113,8 +121,15 @@ const processFactions = (
           if (nodeSetKey === undefined) {
             return;
           }
+
           const cleanKey = cleanNodeSetKey(nodeSetKey as string);
-          if (pruneVanilla && vanillaCharacters[cleanKey] !== undefined) {
+          if (
+            skipVanillaAgentPrune[cleanKey] !== undefined &&
+            skipVanillaAgentPrune[cleanKey].mod === folder &&
+            skipVanillaAgentPrune[cleanKey].subculture === subculture.subculture
+          ) {
+            // Pass
+          } else if (pruneVanilla && vanillaCharacters[cleanKey] !== undefined) {
             return;
           }
 
