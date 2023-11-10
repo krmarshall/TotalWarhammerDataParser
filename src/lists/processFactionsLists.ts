@@ -109,11 +109,6 @@ const ignoreAgents = [
   // Marienburg
   { agent: 'rhox_mar_mundvard_criminal', game: '3' },
 
-  // Champions of Undeath
-  { agent: 'bm_blood_dragon_lord_horde', game: '3' },
-  { agent: 'bm_drakenhof_templar_lord_horde', game: '3' },
-  { agent: 'bm_depth_guard_lord_horde', game: '3' },
-
   // Lege3 WIPS
   { agent: 'str_ungrol', game: 'ALL' },
   { agent: 'str_dechala', game: 'ALL' },
@@ -288,6 +283,10 @@ const addAgents = [
   // TKE
   { agent: 'tmb_sea', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
   { agent: 'loki_nekaph', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
+
+  // Champions of Undeath
+  { agent: 'bm_jade_blooded_dragon_hero', subculture: 'wh_main_sc_vmp_vampire_counts', game: '3' },
+  { agent: 'bm_ovn_kahled', subculture: 'wh_main_sc_vmp_vampire_counts', game: '3' },
 
   // Cataph TEB
   { agent: 'teb_borgio_the_besieger', subculture: 'mixer_teb_southern_realms', game: '3' },
