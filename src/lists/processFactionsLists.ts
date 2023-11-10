@@ -109,6 +109,11 @@ const ignoreAgents = [
   // Marienburg
   { agent: 'rhox_mar_mundvard_criminal', game: '3' },
 
+  // Champions of Undeath
+  { agent: 'bm_blood_dragon_lord_horde', game: '3' },
+  { agent: 'bm_drakenhof_templar_lord_horde', game: '3' },
+  { agent: 'bm_depth_guard_lord_horde', game: '3' },
+
   // Lege3 WIPS
   { agent: 'str_ungrol', game: 'ALL' },
   { agent: 'str_dechala', game: 'ALL' },

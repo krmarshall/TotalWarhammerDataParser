@@ -30,18 +30,20 @@ const scm3PackNames = [
   'dead_gate_master',
   '!xou_age_TKExtended',
   'jade_vamp_pol_IotM',
+  '!!!!!!Champions_of_undeath_merged_fun_tyme',
 ];
 // Order here determines order of filters on FE
 const scm3PackNamesEnum = {
-  '!scm_marienburg': 'Marienburg',
   str_skaven_clans: 'Skaven Clans',
-  str_rotblood: 'Rotblood Tribe',
+  '!scm_marienburg': 'Marienburg',
+  '!!!!!!Champions_of_undeath_merged_fun_tyme': 'Champions of Undeath',
   jade_vamp_pol: 'JBV: Curse of Nongchang',
   jade_vamp_pol_IotM: 'JBV: Islanders of the Moon',
   AAA_dynasty_of_the_damned: 'Dynasty of the Damned',
+  '!xou_age_TKExtended': 'Tomb Kings Extended',
+  str_rotblood: 'Rotblood Tribe',
   '@xou_emp': "Sigmar's Heirs",
   '!scm_empire_secessionists': 'Empire Secessionists',
-  '!xou_age_TKExtended': 'Tomb Kings Extended',
   str_garbag: "Garbag's Cunnin' Alliance",
   froeb_dark_land_orcs: 'Dark Land Orcs',
   dead_cult_possessed_unit_V2: "Dead's Cult of the Possessed",

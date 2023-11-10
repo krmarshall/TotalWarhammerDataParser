@@ -44,6 +44,7 @@ ROBOCOPY "%workshopPath%\3007387103" "%gitGameSource%\scm3" str_garbag.pack /NJH
 ROBOCOPY "%workshopPath%\3025827638" "%gitGameSource%\scm3" dead_gate_master.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3029928348" "%gitGameSource%\scm3" !xou_age_TKExtended.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3032432016" "%gitGameSource%\scm3" jade_vamp_pol_IotM.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\3022054734" "%gitGameSource%\scm3" !!!!!!Champions_of_undeath_merged_fun_tyme.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\2927296206" "%gitGameSource%\cat3" !ak_teb3.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2968330247" "%gitGameSource%\cat3" !ak_seapatrol.pack /NJH /NJS
