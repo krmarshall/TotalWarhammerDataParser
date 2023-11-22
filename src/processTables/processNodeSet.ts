@@ -17,9 +17,11 @@ const processNodeSet = (
   if (folder.includes('2')) {
     nodeSet.foreignRefs?.character_skill_nodes?.forEach((skillNode) => (skillNodeKeys[skillNode.key] = true));
   } else {
-    nodeSet.foreignRefs?.character_skill_node_set_items?.forEach(
-      (nodeSetItem) => (skillNodeKeys[(nodeSetItem?.localRefs?.character_skill_nodes as TableRecord).key] = true),
-    );
+    nodeSet.foreignRefs?.character_skill_node_set_items?.forEach((nodeSetItem) => {
+      if (nodeSetItem?.localRefs?.character_skill_nodes !== undefined) {
+        skillNodeKeys[nodeSetItem?.localRefs?.character_skill_nodes.key] = true;
+      }
+    });
   }
 
   const subsetRequiredMap: { [key: string]: Array<SkillInterface> } = {};

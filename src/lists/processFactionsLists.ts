@@ -98,6 +98,12 @@ const ignoreAgents = [
   { agent: 'wh3_dlc24_tze_exalted_lord_of_change_tzeentch_locked_army', game: 'ALL' },
   { agent: 'wh3_dlc24_tze_the_changeling_cultist_special', game: 'ALL' },
 
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_beasts_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_death_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_heavens_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_metal_horde', game: 'ALL' },
+  { agent: 'wh2_dlc13_lzd_slann_mage_priest_shadows_horde', game: 'ALL' },
+
   { agent: 'wh3_dlc20_chs_exalted_hero_mkho', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
 
   { agent: 'cth_pirate_lord', game: '3', subculture: 'wh2_dlc11_sc_cst_vampire_coast' },
@@ -287,6 +293,10 @@ const addAgents = [
   // Champions of Undeath
   { agent: 'bm_jade_blooded_dragon_hero', subculture: 'wh_main_sc_vmp_vampire_counts', game: '3' },
   { agent: 'bm_ovn_kahled', subculture: 'wh_main_sc_vmp_vampire_counts', game: '3' },
+
+  // Skaven Clans
+  { agent: 'str_flem_plague_lord', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
+  { agent: 'str_flem_plague_lord_sling', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
 
   // Cataph TEB
   { agent: 'teb_borgio_the_besieger', subculture: 'mixer_teb_southern_realms', game: '3' },

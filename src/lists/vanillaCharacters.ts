@@ -396,6 +396,12 @@ const vanillaCharacters: { [key: string]: string } = {
   tze_aekold_helbrass: 'tze_aekold_helbrass',
   tze_blue_scribes: 'tze_blue_scribes',
   tze_the_changeling: 'tze_the_changeling',
+
+  lzd_slann_mage_priest_beasts: 'lzd_slann_mage_priest_beasts',
+  lzd_slann_mage_priest_death: 'lzd_slann_mage_priest_death',
+  lzd_slann_mage_priest_heavens: 'lzd_slann_mage_priest_heavens',
+  lzd_slann_mage_priest_metal: 'lzd_slann_mage_priest_metal',
+  lzd_slann_mage_priest_shadows: 'lzd_slann_mage_priest_shadows',
 };
 
 export default vanillaCharacters;
