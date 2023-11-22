@@ -295,8 +295,8 @@ const addAgents = [
   { agent: 'bm_ovn_kahled', subculture: 'wh_main_sc_vmp_vampire_counts', game: '3' },
 
   // Skaven Clans
-  { agent: 'str_flem_plague_lord', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
-  { agent: 'str_flem_plague_lord_sling', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
+  // { agent: 'str_flem_plague_lord', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
+  // { agent: 'str_flem_plague_lord_sling', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
 
   // Cataph TEB
   { agent: 'teb_borgio_the_besieger', subculture: 'mixer_teb_southern_realms', game: '3' },
