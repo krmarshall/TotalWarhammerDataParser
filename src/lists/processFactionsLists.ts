@@ -120,6 +120,9 @@ const ignoreAgents = [
   { agent: 'str_dechala', game: 'ALL' },
   { agent: 'str_sayl', game: 'ALL' },
   { agent: 'str_gutrot', game: 'ALL' },
+
+  // Champions of Undeath
+  { agent: 'bm_abhorash_2hp', game: '3', subculture: 'wh_main_sc_vmp_vampire_counts' },
 ];
 
 const remapFactions: { [key: string]: string } = {
