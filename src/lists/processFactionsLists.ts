@@ -123,6 +123,12 @@ const ignoreAgents = [
 
   // Champions of Undeath
   { agent: 'bm_abhorash_2hp', game: '3', subculture: 'wh_main_sc_vmp_vampire_counts' },
+
+  // Skaven Clans
+  { agent: 'str_gangrous_stinking_thing_ritual', game: '3', subculture: 'wh2_main_sc_skv_skaven' },
+  { agent: 'str_septik_stinking_thing_ritual', game: '3', subculture: 'wh2_main_sc_skv_skaven' },
+  { agent: 'str_kreepus_eshin_sorcerer_ritual', game: '3', subculture: 'wh2_main_sc_skv_skaven' },
+  { agent: 'str_bileflesh', game: '3', subculture: 'wh2_main_sc_skv_skaven' },
 ];
 
 const remapFactions: { [key: string]: string } = {
