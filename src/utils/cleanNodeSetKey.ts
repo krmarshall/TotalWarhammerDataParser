@@ -2,7 +2,7 @@
 const cleanNodeSetKey = (key: string) => {
   const trimmedKey = key.replace(/_([sS]kills?)?(_?[nN]odes?)?(_?[sS]ets?)?$/, '');
   const keyName = trimmedKey.split(
-    /node_set_|_skill_(node_)?(?!set_)|variety_agent_subtype_|wh[0-3]?_dlc[0-9]?[0-9]?_|rad_wh3_part3_main_unit_|^kou_skill_|^dust_skill_|^wh[0-3]?_pro[0-9]?[0-9]?_|^set_/,
+    /node_set_|_skill_node_(?!set_)|^skill_set_|variety_agent_subtype_|wh[0-3]?_dlc[0-9]?[0-9]?_|rad_wh3_part3_main_unit_|^kou_skill_|^dust_skill_|^wh[0-3]?_pro[0-9]?[0-9]?_|^set_/,
   );
   return keyName[keyName.length - 1];
 };
