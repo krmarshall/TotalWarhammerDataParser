@@ -19,6 +19,8 @@ import {
   cat3PackNamesEnum,
   ovn3PackNames,
   ovn3PackNamesEnum,
+  lege3PackNames,
+  lege3PackNamesEnum,
 } from '../lists/extractLists/modPackNames';
 
 const { folder, dbPackName, locPackName, dbList, locList, game, schema, tech, pruneVanilla }: WorkerDataInterface = workerData;
@@ -42,7 +44,7 @@ extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList,
     workerMod(crysWorkerData);
     // Pruned Mods
     workerModMulti(mixuWorkerData);
-    workerMod(legeWorkerData);
+    workerModMulti(legeWorkerData);
     workerModMulti(scmWorkerData);
     workerModMulti(cat3WorkerData);
     workerModMulti(ovn3WorkerData);
@@ -118,15 +120,15 @@ const mixuWorkerData = {
 const legeWorkerData = {
   globalData: globalData,
   folder: 'lege3',
-  dbPackName: '!str_legendary',
-  locPackName: '!str_legendary',
+  dbPackNames: lege3PackNames,
+  locPackNames: lege3PackNames,
   dbList: dbList,
   locList: undefined,
   game: 'warhammer_3',
   schema: schema,
   pruneVanilla: true,
   tech: false,
-  packNameEnum: undefined,
+  packNameEnum: lege3PackNamesEnum,
 };
 
 const scmWorkerData = {

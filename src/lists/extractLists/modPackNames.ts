@@ -9,6 +9,12 @@ const mixu3PackNamesEnum = {
   ab_mixu_shadowdancer: "Mixu's Shadowdancer",
 };
 
+const lege3PackNames = ['!str_legendary', 'scm_lccp'];
+const lege3PackNamesEnum = {
+  '!str_legendary': 'Legendary Characters',
+  scm_lccp: 'SCM LCCP',
+};
+
 const scm3PackNames = [
   'jade_vamp_pol',
   'str_rotblood',
@@ -76,6 +82,8 @@ export {
   radious3PackNames,
   mixu3PackNames,
   mixu3PackNamesEnum,
+  lege3PackNames,
+  lege3PackNamesEnum,
   scm3PackNames,
   scm3PackNamesEnum,
   cat3PackNames,

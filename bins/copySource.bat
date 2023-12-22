@@ -21,6 +21,7 @@ ROBOCOPY "%workshopPath%\2813892035" "%gitGameSource%\radious3" Radious_WH3_Mod_
 ROBOCOPY "%workshopPath%\2792731173" "%gitGameSource%\sfo3" sfo_grimhammer_3_main.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\2826930183" "%gitGameSource%\lege3" !str_legendary.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\3113531421" "%gitGameSource%\lege3" scm_lccp.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\2880244265" "%gitGameSource%\crys3" crys_leaders.pack /NJH /NJS
 
