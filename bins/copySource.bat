@@ -56,5 +56,6 @@ ROBOCOPY "%workshopPath%\2899955636" "%gitGameSource%\ovn3" ovn_fimir.pack /NJH 
 ROBOCOPY "%workshopPath%\2950121489" "%gitGameSource%\ovn3" ovn_citadel_of_dusk.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2989710828" "%gitGameSource%\ovn3" ovn_grudgebringers.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3016830682" "%gitGameSource%\ovn3" ovn_dread_king.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\3134922105" "%gitGameSource%\ovn3" ovn_araby.pack /NJH /NJS
 
 EXIT /B

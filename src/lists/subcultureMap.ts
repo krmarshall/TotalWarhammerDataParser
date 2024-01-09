@@ -36,7 +36,7 @@ const subcultureMap: { [key: string]: string } = {
 
   ovn_sc_alb_albion: 'alb_albion',
   ovn_sc_fim_fimir: 'fim_fimir',
-  ovn_sc_grudgebringers: 'emp_grudgebringers',
+  ovn_sc_arb_araby: 'arb_araby',
 };
 
 export default subcultureMap;
