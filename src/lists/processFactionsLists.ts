@@ -154,6 +154,7 @@ const ignoreAgents: Array<{ agent: string; game?: string; subculture?: string; f
 const remapFactions: { [key: string]: string } = {
   mixer_msl_mallobaude: 'mixu_vmp_mousillon_qb',
   mixer_msl_cult_of_the_bloody_grail: 'mixu_vmp_mousillon_qb',
+  mixer_emp_van_der_kraal: 'wh_main_sc_emp_empire',
 };
 
 const addAgents = [
