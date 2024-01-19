@@ -35,10 +35,12 @@ const addCharacterListReference = (
   }
 
   const nodeSetKey = cleanNodeSetKey(nodeSet.key);
-  if (nodeSet.agent_key === 'general') {
-    characterList[subcultureMap[subcultureKey]].lords[nodeSetKey] = characterListEntry;
-  } else {
-    characterList[subcultureMap[subcultureKey]].heroes[nodeSetKey] = characterListEntry;
+  if (characterList[subcultureMap[subcultureKey]] !== undefined) {
+    if (nodeSet.agent_key === 'general') {
+      characterList[subcultureMap[subcultureKey]].lords[nodeSetKey] = characterListEntry;
+    } else {
+      characterList[subcultureMap[subcultureKey]].heroes[nodeSetKey] = characterListEntry;
+    }
   }
 };
 

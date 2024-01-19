@@ -48,6 +48,7 @@ extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList,
     workerModMulti(scmWorkerData);
     workerModMulti(cat3WorkerData);
     workerModMulti(ovn3WorkerData);
+    workerModMulti(hol3WorkerData);
 
     const tables = generateTables(folder, globalData, dbList, schema);
     processFactions(folder, globalData, tables, pruneVanilla, tech);
@@ -171,4 +172,18 @@ const ovn3WorkerData = {
   pruneVanilla: true,
   tech: true,
   packNameEnum: ovn3PackNamesEnum,
+};
+
+const hol3WorkerData = {
+  globalData: globalData,
+  folder: 'hol3',
+  dbPackNames: ['!ak_teb3', 'inq_lol_hero'],
+  locPackNames: ['!ak_teb3', 'inq_lol_hero'],
+  dbList: dbList,
+  locList: undefined,
+  game: 'warhammer_3',
+  schema: schema,
+  pruneVanilla: true,
+  tech: true,
+  packNameEnum: undefined,
 };

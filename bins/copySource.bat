@@ -58,4 +58,8 @@ ROBOCOPY "%workshopPath%\2989710828" "%gitGameSource%\ovn3" ovn_grudgebringers.p
 ROBOCOPY "%workshopPath%\3016830682" "%gitGameSource%\ovn3" ovn_dread_king.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3134922105" "%gitGameSource%\ovn3" ovn_araby.pack /NJH /NJS
 
+
+ROBOCOPY "%workshopPath%\2927296206" "%gitGameSource%\hol3" !ak_teb3.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\2931087074" "%gitGameSource%\hol3" inq_lol_hero.pack /NJH /NJS
+
 EXIT /B

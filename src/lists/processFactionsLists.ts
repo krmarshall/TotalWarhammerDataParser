@@ -72,7 +72,7 @@ const ignoreFactions = [
   'wh_main_vmp_rival_sylvanian_vamps',
 ];
 
-const ignoreAgents = [
+const ignoreAgents: Array<{ agent: string; game?: string; subculture?: string; folder?: string }> = [
   { agent: 'wh_main_chs_lord_of_change', game: '3' },
 
   { agent: 'wh2_dlc13_lzd_kroxigor_ancient_horde', game: 'ALL' },
@@ -129,6 +129,26 @@ const ignoreAgents = [
   { agent: 'str_septik_stinking_thing_ritual', game: '3', subculture: 'wh2_main_sc_skv_skaven' },
   { agent: 'str_kreepus_eshin_sorcerer_ritual', game: '3', subculture: 'wh2_main_sc_skv_skaven' },
   { agent: 'str_bileflesh', game: '3', subculture: 'wh2_main_sc_skv_skaven' },
+
+  // Heroes of Legend - Soft requires TEB for a character, want some db stuff, but none of the characters
+  { agent: 'teb_priestess', game: '3', folder: 'hol3' },
+  { agent: 'bor_ranger_lord', game: '3', folder: 'hol3' },
+  { agent: 'til_merchant', game: '3', folder: 'hol3' },
+  { agent: 'est_inquisitor', game: '3', folder: 'hol3' },
+  { agent: 'teb_borgio_the_besieger', game: '3', folder: 'hol3' },
+  { agent: 'teb_gashnag', game: '3', folder: 'hol3' },
+  { agent: 'teb_lucrezzia_belladonna', game: '3', folder: 'hol3' },
+  { agent: 'teb_catrazza', game: '3', folder: 'hol3' },
+  { agent: 'teb_lupio', game: '3', folder: 'hol3' },
+  { agent: 'teb_gausser', game: '3', folder: 'hol3' },
+  { agent: 'teb_colombo', game: '3', folder: 'hol3' },
+  { agent: 'teb_cadavo', game: '3', folder: 'hol3' },
+  { agent: 'teb_templar_lord', game: '3', folder: 'hol3' },
+  { agent: 'teb_eldaddio', game: '3', folder: 'hol3' },
+  { agent: 'teb_duellist_hero', game: '3', folder: 'hol3' },
+  { agent: 'teb_merc_general', game: '3', folder: 'hol3' },
+  { agent: 'teb_merc_captain', game: '3', folder: 'hol3' },
+  { agent: 'teb_lorenzo_lupo', game: '3', folder: 'hol3' },
 ];
 
 const remapFactions: { [key: string]: string } = {
@@ -322,6 +342,18 @@ const addAgents = [
 
   // OvN Grudgebringers
   { agent: 'ludwig_uberdorf_agent_subtype', subculture: 'wh_main_sc_emp_empire', game: '3' },
+
+  // Heroes of Legend
+  { agent: 'augustine_de_chegney', subculture: 'wh_main_sc_brt_bretonnia', game: '3' },
+  { agent: 'balkrag_grimgorson', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'borri_forkbeard', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'sceolan', subculture: 'wh_dlc05_sc_wef_wood_elves', game: '3' },
+  { agent: 'shi_hong', subculture: 'wh3_main_sc_cth_cathay', game: '3' },
+  { agent: 'simaergul_0', subculture: 'wh_main_sc_chs_chaos', game: '3' },
+  { agent: 'simaergul_0', subculture: 'wh3_main_sc_kho_khorne', game: '3' },
+  { agent: 'ulther_stonehammer', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'vile_prince', subculture: 'wh3_main_sc_nur_nurgle', game: '3' },
+  { agent: 'vile_prince', subculture: 'wh_main_sc_chs_chaos', game: '3' },
 ];
 
 const skipVanillaAgentPrune: { [agentKey: string]: { subculture: string; mod: string; packname: string } } = {

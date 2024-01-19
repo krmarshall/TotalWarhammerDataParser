@@ -49,6 +49,7 @@ const processFactions = (
         (ignoreAgent) =>
           ignoreAgent.agent === addAgent.agent &&
           (ignoreAgent.game === 'ALL' || game === ignoreAgent.game) &&
+          (ignoreAgent.folder === undefined || ignoreAgent.folder === folder) &&
           (ignoreAgent.subculture === undefined || ignoreAgent.subculture === addAgent.subculture),
       )
     ) {
@@ -112,6 +113,7 @@ const processFactions = (
               (ignoreAgent) =>
                 ignoreAgent.agent === factionAgent.subtype &&
                 (ignoreAgent.game === 'ALL' || game === ignoreAgent.game) &&
+                (ignoreAgent.folder === undefined || ignoreAgent.folder === folder) &&
                 (ignoreAgent.subculture === undefined || ignoreAgent.subculture === subculture.subculture),
             )
           ) {
