@@ -1,8 +1,12 @@
 import { writeJSON } from 'fs-extra';
 import modIdMap from '../lists/modIdMap';
 
+interface TimeStampInterface {
+  [modHeader: string]: { [subMod: string]: number };
+}
+
 const modTimestamps = () => {
-  const timestampObj: { [modHeader: string]: { [subMod: string]: number } } = {};
+  const timestampObj: TimeStampInterface = {};
   const promiseArray: Array<Promise<void | Response>> = [];
   Object.entries(modIdMap).forEach((entry) => {
     const modHeader = entry[0];
@@ -29,7 +33,18 @@ const modTimestamps = () => {
   });
 
   Promise.all(promiseArray).then(() => {
-    writeJSON('./output/modTimestamps,json', timestampObj, { spaces: 2 });
+    const sortedObj: TimeStampInterface = {};
+    Object.keys(timestampObj)
+      .sort()
+      .forEach((key) => {
+        sortedObj[key] = {};
+        Object.keys(timestampObj[key])
+          .sort()
+          .forEach((subKey) => {
+            sortedObj[key][subKey] = timestampObj[key][subKey];
+          });
+      });
+    writeJSON('./output/modTimestamps,json', sortedObj, { spaces: 2 });
   });
 };
 
