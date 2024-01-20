@@ -44,7 +44,7 @@ const modTimestamps = () => {
             sortedObj[key][subKey] = timestampObj[key][subKey];
           });
       });
-    writeJSON('./output/modTimestamps,json', sortedObj, { spaces: 2 });
+    writeJSON('./output/modTimestamps.json', sortedObj, { spaces: 2 });
   });
 };
 
