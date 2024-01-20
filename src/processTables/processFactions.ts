@@ -158,7 +158,7 @@ const processFactions = (
     });
   });
 
-  fse.outputJSONSync(`debug/${folder}/characterList.json`, characterList, { spaces: 2 });
+  fse.outputJSONSync(`debug/${folder}characterList.json`, characterList, { spaces: 2 });
 };
 
 export default processFactions;

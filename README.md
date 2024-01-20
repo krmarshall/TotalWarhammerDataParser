@@ -62,6 +62,7 @@ Alternatively use xnconvert actions or gimp if transparency gets munted.
 ## Adding a mod
 
 - Add relevant robocopies in the copySource.bat
+- Add relevant id's to ./src/lists/modIdMap.ts
 - If its a multi pack mod add pack names and an enum in ./src/lists/extractLists/modPackNames.ts
 - Add a new workerMod to the mods base game worker (worker2/worker3)
 - Check for characters in agent_subtypes that arent in faction_agent_permitted_subtypes, add to addAgents in ./src/lists/processFactionsLists.ts

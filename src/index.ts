@@ -9,12 +9,15 @@ import { v2DbList, v2LocList } from './lists/extractLists/vanilla2';
 import schema3 from '../bins/jsonSchemas/schema_wh3.json';
 import schema2 from '../bins/jsonSchemas/schema_wh2.json';
 import { SchemaInterface } from './interfaces/SchemaInterfaces';
+import modTimestamps from './utils/modTimestamps';
 
 emptyDirSync('./output');
 emptyDirSync('./output_img');
 emptyDirSync('./output_portraits');
 emptyDirSync('./bins/nScripts');
 emptyDirSync(`./debug`);
+
+modTimestamps();
 
 workerVanilla({
   folder: 'vanilla2',
