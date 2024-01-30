@@ -21,7 +21,6 @@ ROBOCOPY "%workshopPath%\2813892035" "%gitGameSource%\radious3" Radious_WH3_Mod_
 ROBOCOPY "%workshopPath%\2792731173" "%gitGameSource%\sfo3" sfo_grimhammer_3_main.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\2826930183" "%gitGameSource%\lege3" !str_legendary.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\3113531421" "%gitGameSource%\lege3" scm_lccp.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\2880244265" "%gitGameSource%\crys3" crys_leaders.pack /NJH /NJS
 
@@ -46,6 +45,7 @@ ROBOCOPY "%workshopPath%\3025827638" "%gitGameSource%\scm3" dead_gate_master.pac
 ROBOCOPY "%workshopPath%\3029928348" "%gitGameSource%\scm3" !xou_age_TKExtended.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3032432016" "%gitGameSource%\scm3" jade_vamp_pol_IotM.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3022054734" "%gitGameSource%\scm3" !!!!!!Champions_of_undeath_merged_fun_tyme.pack /NJH /NJS
+ROBOCOPY "%workshopPath%\3113531421" "%gitGameSource%\scm3" scm_lccp.pack /NJH /NJS
 
 ROBOCOPY "%workshopPath%\2927296206" "%gitGameSource%\cat3" !ak_teb3.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2968330247" "%gitGameSource%\cat3" !ak_seapatrol.pack /NJH /NJS

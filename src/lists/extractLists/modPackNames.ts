@@ -9,12 +9,6 @@ const mixu3PackNamesEnum = {
   ab_mixu_shadowdancer: "Mixu's Shadowdancer",
 };
 
-const lege3PackNames = ['!str_legendary', 'scm_lccp'];
-const lege3PackNamesEnum = {
-  '!str_legendary': 'Legendary Characters',
-  scm_lccp: 'SCM LCCP',
-};
-
 const scm3PackNames = [
   'jade_vamp_pol',
   'str_rotblood',
@@ -37,9 +31,11 @@ const scm3PackNames = [
   '!xou_age_TKExtended',
   'jade_vamp_pol_IotM',
   '!!!!!!Champions_of_undeath_merged_fun_tyme',
+  'scm_lccp',
 ];
 // Order here determines order of filters on FE
 const scm3PackNamesEnum = {
+  scm_lccp: 'LCCP',
   str_skaven_clans: 'Skaven Clans',
   '!scm_marienburg': 'Marienburg',
   '!!!!!!Champions_of_undeath_merged_fun_tyme': 'Champions of Undeath',
@@ -83,8 +79,6 @@ export {
   radious3PackNames,
   mixu3PackNames,
   mixu3PackNamesEnum,
-  lege3PackNames,
-  lege3PackNamesEnum,
   scm3PackNames,
   scm3PackNamesEnum,
   cat3PackNames,
