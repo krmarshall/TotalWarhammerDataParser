@@ -25,9 +25,10 @@ interface TableInterface {
 
 interface PatchInterface {
   [key: string]: {
-    default_value: string;
+    default_value?: string;
     explanation: string;
-    not_empty: string;
+    not_empty?: string;
+    is_reference?: string;
   };
 }
 
