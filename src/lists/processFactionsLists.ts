@@ -203,6 +203,8 @@ const addAgents = [
   { agent: 'wh3_dlc24_tze_aekold_helbrass', subculture: 'wh3_main_sc_dae_daemons', game: '3' },
   { agent: 'wh3_dlc24_tze_aekold_helbrass', subculture: 'wh_main_sc_chs_chaos', game: '3' },
 
+  { agent: 'wh3_dlc24_chs_lord_mtze', subculture: 'wh_main_sc_chs_chaos', game: '3' },
+
   // Mixu3 LL
   { agent: 'brt_adalhard', subculture: 'wh_main_sc_brt_bretonnia', game: '3' },
   { agent: 'brt_amalric_de_gaudaron', subculture: 'wh_main_sc_brt_bretonnia', game: '3' },
