@@ -105,6 +105,7 @@ const ignoreAgents: Array<{ agent: string; game?: string; subculture?: string; f
   { agent: 'wh2_dlc13_lzd_slann_mage_priest_shadows_horde', game: 'ALL' },
 
   { agent: 'wh3_dlc20_chs_exalted_hero_mkho', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
+  { agent: 'wh3_dlc24_chs_exalted_hero_mtze', game: '3', subculture: 'wh3_main_sc_dae_daemons' },
 
   { agent: 'cth_pirate_lord', game: '3', subculture: 'wh2_dlc11_sc_cst_vampire_coast' },
   { agent: 'cth_pirate_queen', game: '3', subculture: 'wh2_dlc11_sc_cst_vampire_coast' },
