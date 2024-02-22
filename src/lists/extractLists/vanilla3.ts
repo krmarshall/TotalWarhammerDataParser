@@ -21,6 +21,7 @@ const v3DbList = [
   'technology_ui_group_links',
 ] as const;
 
-const v3LocList = [...v2LocList, 'character_trait_levels__', 'names__', 'campaigns__'];
+// If adding new loc table delete old extracted_files to force a re-extract
+const v3LocList = [...v2LocList, 'character_trait_levels__', 'names__', 'campaigns__', 'units_custom_battle_mounts__'];
 
 export { v3DbList, v3LocList };

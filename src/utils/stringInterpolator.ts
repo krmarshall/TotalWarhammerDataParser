@@ -16,6 +16,11 @@ import log from './log';
 // For the time being just does text replacement for {{tr}} tags, and returns whatever is inside [[]] tags
 
 const stringInterpolator = (string: string, loc: TableRecord): string => {
+  // Can have issues with mods referencing outdated tables/records
+  if (string === undefined) {
+    log(`Invalid stringInterpolator call`, 'red');
+    return '!InvalidStringInterpolatorCall';
+  }
   if (!string.includes('[[') && !string.includes('{{')) {
     // Replacing this before going through the rest of string interpolator breaks element innertext checks at bottom.
     if (string.includes('\\\\n')) {
@@ -23,6 +28,12 @@ const stringInterpolator = (string: string, loc: TableRecord): string => {
     }
     return string;
   }
+
+  // Remove color tags
+  string = string.replaceAll(/\[\[(col:[a-zA-Z]*|\/col)\]\]/g, '');
+  // Remove bold tags
+  string = string.replaceAll(/\[\[b\]\]/g, '');
+  string = string.replaceAll(/\[\[\/b\]\]/g, '');
 
   if (string.includes('{{')) {
     const tagR = string.match(/\{\{[a-zA-Z0-9:_./ ]*\}\}/);
@@ -47,7 +58,7 @@ const stringInterpolator = (string: string, loc: TableRecord): string => {
 
   if (string.includes('[[')) {
     // Grab element within first tag and last tag of the same tagName
-    const regex = new RegExp(/\[\[(?<tagName>[a-zA-Z_]*):?(?<tagAttribute>[a-zA-Z0-9_./ ]*)\]\](?<innerText>.*)\[\[\/\k<tagName>\]\]/);
+    const regex = new RegExp(/\[\[(?<tagName>[a-zA-Z_]*)[:=]?(?<tagAttribute>[a-zA-Z0-9_./ ]*)\]\](?<innerText>.*)\[\[\/\k<tagName>\]\]/);
     let element = string.match(regex);
     // If its an img we want the first instance of its closing tagName not the last.
     if (element?.groups?.tagName === 'img') {

@@ -402,6 +402,14 @@ const vanillaCharacters: { [key: string]: string } = {
   lzd_slann_mage_priest_heavens: 'lzd_slann_mage_priest_heavens',
   lzd_slann_mage_priest_metal: 'lzd_slann_mage_priest_metal',
   lzd_slann_mage_priest_shadows: 'lzd_slann_mage_priest_shadows',
+
+  chs_lord_mtze: 'chs_lord_mtze',
+  chs_exalted_hero_mtze: 'chs_exalted_hero_mtze',
+  cth_gate_master: 'cth_gate_master',
+  cth_saytang_the_watcher: 'cth_saytang_the_watcher',
+  ksl_druzhina: 'ksl_druzhina',
+  ksl_hag_witch_hag: 'ksl_hag_witch_hag',
+  ksl_the_golden_knight: 'ksl_the_golden_knight',
 };
 
 export default vanillaCharacters;

@@ -85,6 +85,7 @@ const v2DbList = [
   'building_culture_variants',
 ] as const;
 
+// If adding new loc table delete old extracted_files to force a re-extract
 const v2LocList = [
   'ancillaries__',
   'character_skills__',
