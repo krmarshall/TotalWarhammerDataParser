@@ -112,7 +112,7 @@ const mixuWorkerData = {
   game: 'warhammer_3',
   schema: schema,
   pruneVanilla: true,
-  tech: true,
+  tech: false,
   packNameEnum: mixu3PackNamesEnum,
 };
 
@@ -140,7 +140,7 @@ const scmWorkerData = {
   game: 'warhammer_3',
   schema: schema,
   pruneVanilla: true,
-  tech: true,
+  tech: false,
   packNameEnum: scm3PackNamesEnum,
 };
 
@@ -154,7 +154,7 @@ const cat3WorkerData = {
   game: 'warhammer_3',
   schema: schema,
   pruneVanilla: true,
-  tech: true,
+  tech: false,
   packNameEnum: cat3PackNamesEnum,
 };
 
@@ -168,7 +168,7 @@ const ovn3WorkerData = {
   game: 'warhammer_3',
   schema: schema,
   pruneVanilla: true,
-  tech: true,
+  tech: false,
   packNameEnum: ovn3PackNamesEnum,
 };
 
@@ -182,6 +182,6 @@ const hol3WorkerData = {
   game: 'warhammer_3',
   schema: schema,
   pruneVanilla: true,
-  tech: true,
+  tech: false,
   packNameEnum: undefined,
 };

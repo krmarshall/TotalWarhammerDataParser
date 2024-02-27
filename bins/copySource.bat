@@ -41,7 +41,6 @@ ROBOCOPY "%workshopPath%\2989226363" "%gitGameSource%\scm3" cth_yinyin_pol.pack 
 ROBOCOPY "%workshopPath%\2991431203" "%gitGameSource%\scm3" AAA_dynasty_of_the_damned.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\2986543735" "%gitGameSource%\scm3" str_skaven_clans.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3007387103" "%gitGameSource%\scm3" str_garbag.pack /NJH /NJS
-ROBOCOPY "%workshopPath%\3025827638" "%gitGameSource%\scm3" dead_gate_master.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3029928348" "%gitGameSource%\scm3" !xou_age_TKExtended.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3032432016" "%gitGameSource%\scm3" jade_vamp_pol_IotM.pack /NJH /NJS
 ROBOCOPY "%workshopPath%\3022054734" "%gitGameSource%\scm3" !!!!!!Champions_of_undeath_merged_fun_tyme.pack /NJH /NJS
