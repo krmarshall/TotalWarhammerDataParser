@@ -40,7 +40,6 @@ const modIdMap = {
     AAA_dynasty_of_the_damned: 2991431203,
     str_skaven_clans: 2986543735,
     str_garbag: 3007387103,
-    dead_gate_master: 3025827638,
     '!xou_age_TKExtended': 3029928348,
     jade_vamp_pol_IotM: 3032432016,
     '!!!!!!Champions_of_undeath_merged_fun_tyme': 3022054734,

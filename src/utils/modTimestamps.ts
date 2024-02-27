@@ -1,11 +1,13 @@
-import { writeJSON } from 'fs-extra';
+import { readJSONSync, writeJSON } from 'fs-extra';
 import modIdMap from '../lists/modIdMap';
+import log from './log';
 
 interface TimeStampInterface {
   [modHeader: string]: { [subMod: string]: number };
 }
 
 const modTimestamps = () => {
+  const oldTimestamps = readJSONSync(`${process.env.TWP_DATA_PATH}/modTimestamps.json`);
   const timestampObj: TimeStampInterface = {};
   const promiseArray: Array<Promise<void | Response>> = [];
   Object.entries(modIdMap).forEach((entry) => {
@@ -26,7 +28,14 @@ const modTimestamps = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            timestampObj[modHeader][subHeader] = data.response.publishedfiledetails[0].time_updated;
+            if (data.response.publishedfiledetails[0].time_updated === undefined) {
+              timestampObj[modHeader][subHeader] = oldTimestamps[modHeader][subHeader];
+            } else {
+              timestampObj[modHeader][subHeader] = data.response.publishedfiledetails[0].time_updated;
+            }
+          })
+          .catch((error) => {
+            log(`Timestamp Error: ${error}`, 'red');
           }),
       );
     });
