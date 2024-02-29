@@ -326,6 +326,15 @@ const addAgents = [
   { agent: 'bm_jade_blooded_dragon_hero', subculture: 'wh_main_sc_vmp_vampire_counts', game: '3' },
   { agent: 'bm_ovn_kahled', subculture: 'wh_main_sc_vmp_vampire_counts', game: '3' },
 
+  // LCCP
+  // { agent: 'rhox_hrothyogg_recruiter', subculture: 'wh3_main_sc_ogr_ogre_kingdoms', game: '3' },
+  { agent: 'hkrul_orghotts', subculture: 'wh3_main_sc_nur_nurgle', game: '3' },
+  { agent: 'hkrul_hrothyogg', subculture: 'wh3_main_sc_ogr_ogre_kingdoms', game: '3' },
+  { agent: 'hkrul_burlok', subculture: 'wh_main_sc_dwf_dwarfs', game: '3' },
+  { agent: 'hkrul_arbaal', subculture: 'wh3_main_sc_kho_khorne', game: '3' },
+  { agent: 'hkrul_karitamen', subculture: 'wh2_dlc09_sc_tmb_tomb_kings', game: '3' },
+  { agent: 'hkrul_duriath', subculture: 'wh2_main_sc_def_dark_elves', game: '3' },
+
   // Skaven Clans
   // { agent: 'str_flem_plague_lord', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
   // { agent: 'str_flem_plague_lord_sling', subculture: 'wh2_main_sc_skv_skaven', game: '3' },
