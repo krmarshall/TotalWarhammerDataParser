@@ -1,12 +1,14 @@
 import { readJSONSync, writeJSON } from 'fs-extra';
 import modIdMap from '../lists/modIdMap';
 import log from './log';
+import steamworks from 'steamworks.js';
 
 interface TimeStampInterface {
   [modHeader: string]: { [subMod: string]: number };
 }
 
 const modTimestamps = () => {
+  const client = steamworks.init(1142710);
   const oldTimestamps = readJSONSync(`${process.env.TWP_DATA_PATH}/modTimestamps.json`);
   const timestampObj: TimeStampInterface = {};
   const promiseArray: Array<Promise<void | Response>> = [];
@@ -18,24 +20,22 @@ const modTimestamps = () => {
     Object.entries(subMods).forEach((subEntry) => {
       const subHeader = subEntry[0];
       const subId = subEntry[1];
+
       promiseArray.push(
-        fetch(`https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: `itemcount=1&publishedfileids%5B0%5D=${subId}`,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.response.publishedfiledetails[0].time_updated === undefined) {
-              timestampObj[modHeader][subHeader] = oldTimestamps[modHeader][subHeader];
-            } else {
-              timestampObj[modHeader][subHeader] = data.response.publishedfiledetails[0].time_updated;
+        client.workshop
+          .getItem(BigInt(subId))
+          .then((workshopItem) => {
+            if (workshopItem !== null) {
+              if (workshopItem.timeUpdated === undefined) {
+                log(`Workshop item missing timestamp: ${subHeader}`, 'yellow');
+                timestampObj[modHeader][subHeader] = oldTimestamps[modHeader][subHeader];
+              } else {
+                timestampObj[modHeader][subHeader] = workshopItem.timeUpdated;
+              }
             }
           })
           .catch((error) => {
-            log(`Timestamp Error: ${error}`, 'red');
+            log(`Workshop item error ${subHeader}: ${error}`, 'yellow');
           }),
       );
     });

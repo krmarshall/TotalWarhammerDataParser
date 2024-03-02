@@ -19,6 +19,9 @@ const workerVanilla = (workerData: WorkerDataInterface) => {
     console.timeEnd(`${game} total`);
     if (game === 'warhammer_3') {
       exportData();
+      // steamworks.js doesnt seem to be intended for scripts like this, stays open holding the node process running
+      // force close after everything is finished
+      process.exit();
     }
   });
   return workerVanilla;
