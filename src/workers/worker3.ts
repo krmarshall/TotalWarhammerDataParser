@@ -48,6 +48,8 @@ extractPackfileMass(folder, dbPackName as string, locPackName as string, dbList,
     workerModMulti(ovn3WorkerData);
     workerModMulti(hol3WorkerData);
 
+    // AK Tables we dont extract with rpfm, but have schemas for now, only want in vanilla3 unless I add mod startpos
+    dbList.push('start_pos_characters', 'start_pos_character_traits');
     const tables = generateTables(folder, globalData, dbList, schema);
     processFactions(folder, globalData, tables, pruneVanilla, tech);
   })
