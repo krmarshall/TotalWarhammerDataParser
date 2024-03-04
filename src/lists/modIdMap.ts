@@ -17,7 +17,6 @@ const modIdMap = {
   },
   lege3: {
     '!str_legendary': 2826930183,
-    scm_lccp: 3113531421,
   },
   crys3: {
     crys_leaders: 2880244265,
@@ -43,6 +42,7 @@ const modIdMap = {
     '!xou_age_TKExtended': 3029928348,
     jade_vamp_pol_IotM: 3032432016,
     '!!!!!!Champions_of_undeath_merged_fun_tyme': 3022054734,
+    scm_lccp: 3113531421,
   },
   cat3: {
     '!ak_teb3': 2927296206,
