@@ -56,11 +56,24 @@ const processAgent = (
   }
 
   // Quest Ancillaries WH3
-  if (agent.foreignRefs?.character_ancillary_quest_ui_details !== undefined) {
-    agent.foreignRefs?.character_ancillary_quest_ui_details.forEach((ancillaryQuest) => {
-      unfilteredItems.push(processAncillary(folder, globalData, ancillaryQuest, ancillaryQuest.rank));
-    });
-  }
+  agent.foreignRefs?.character_ancillary_quest_ui_details?.forEach((ancillaryQuest) => {
+    unfilteredItems.push(processAncillary(folder, globalData, ancillaryQuest, ancillaryQuest.rank));
+  });
+  // Character locked ancillaries (no unlock rank, so mostly for picking up edge cases), includes mounts
+  agent.foreignRefs?.ancillaries_included_agent_subtypes?.forEach((ancillaryAgent) => {
+    if (
+      ancillaryAgent?.localRefs?.ancillaries?.category !== undefined &&
+      ancillaryAgent?.localRefs?.ancillaries?.category !== 'mount' &&
+      ancillaryAgent?.localRefs?.ancillaries?.transferrable !== 'true'
+    ) {
+      const findItem = unfilteredItems.find(
+        (unfItem) => unfItem.key === ancillaryAgent?.localRefs?.ancillaries?.localRefs?.ancillary_info?.ancillary,
+      );
+      if (findItem === undefined) {
+        unfilteredItems.push(processAncillary(folder, globalData, ancillaryAgent, undefined));
+      }
+    }
+  });
 
   agent.foreignRefs?.character_skill_node_sets?.forEach((nodeSet, index) => {
     if (index === 1 && agent.key === 'nor_marauder_chieftain') {
@@ -103,6 +116,7 @@ const processAgent = (
           itemKeys.add(item.key);
         }
       });
+      tempAgent.items.sort((a: ItemInterface, b: ItemInterface) => (a.unlocked_at_rank ?? 99) - (b.unlocked_at_rank ?? 99));
     }
     tempAgent.backgroundSkills = backgroundSkills;
     if (altFactionNodeSets !== undefined) {

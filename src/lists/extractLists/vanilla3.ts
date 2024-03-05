@@ -16,6 +16,7 @@ const v3DbList = [
   'names',
   'start_pos_factions',
   'campaigns',
+  'ancillaries_included_agent_subtypes',
 
   // Tech
   'technology_ui_group_links',
