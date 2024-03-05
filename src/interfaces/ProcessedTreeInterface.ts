@@ -174,6 +174,14 @@ interface FactionEffectsInterface {
   ui_icon: string;
 }
 
+interface ItemSetInterface {
+  key: string;
+  name: string;
+  description: string;
+  contains?: Array<{ icon: string; name: string }>;
+  effects?: Array<EffectInterface>;
+}
+
 interface ItemInterface {
   key: string;
   character_skill?: string;
@@ -182,6 +190,7 @@ interface ItemInterface {
   colour_text: string;
   unlocked_at_rank?: number;
   ui_icon: string;
+  item_set?: ItemSetInterface;
 }
 
 interface SkillLevelInterface {
@@ -297,4 +306,5 @@ export {
   AltFactionNodeSetsInterface,
   ProcessedAgentInterface,
   StartPosTraitInterface,
+  ItemSetInterface,
 };
