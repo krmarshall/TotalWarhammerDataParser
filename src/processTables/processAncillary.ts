@@ -1,5 +1,5 @@
 import { GlobalDataInterface, TableRecord } from '../interfaces/GlobalDataInterface';
-import { EffectInterface, ItemInterface, ItemSetInterface } from '../interfaces/ProcessedTreeInterface';
+import { EffectInterface, ItemInterface } from '../interfaces/ProcessedTreeInterface';
 import { parseInteger } from '../utils/parseStringToTypes';
 import stringInterpolator from '../utils/stringInterpolator';
 import processEffect from './processEffect';
