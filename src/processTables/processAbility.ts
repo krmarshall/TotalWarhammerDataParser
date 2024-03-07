@@ -80,7 +80,10 @@ const processAbility = (
   unitSpecialAbility.foreignRefs?.special_ability_to_auto_deactivate_flags?.forEach((enable) => {
     enabled_if.push(
       stringInterpolator(
-        enable.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
+        hardcodeKillThresholds(
+          enable.localRefs?.special_ability_invalid_usage_flags?.flag_key,
+          enable.localRefs?.special_ability_invalid_usage_flags?.alt_description,
+        ),
         globalData.parsedData[folder].text,
       ),
     );
@@ -92,7 +95,10 @@ const processAbility = (
   unitSpecialAbility.foreignRefs?.special_ability_to_invalid_target_flags?.forEach((target) => {
     target_if.push(
       stringInterpolator(
-        target.localRefs?.special_ability_invalid_usage_flags?.alt_description as string,
+        hardcodeKillThresholds(
+          target.localRefs?.special_ability_invalid_usage_flags?.flag_key,
+          target.localRefs?.special_ability_invalid_usage_flags?.alt_description,
+        ),
         globalData.parsedData[folder].text,
       ),
     );
@@ -148,6 +154,19 @@ const processAbility = (
 };
 
 export default processAbility;
+
+const hardcodeKillThresholds = (key: string | undefined, text: string | undefined) => {
+  if (key === 'unit_tier1_kills') {
+    return 'More than 40 kills';
+  }
+  if (key === 'unit_tier2_kills') {
+    return 'More than 80 kills';
+  }
+  if (key === 'unit_tier3_kills') {
+    return 'More than 120 kills';
+  }
+  return text ?? '';
+};
 
 const findAbilityImage = (folder: string, globalData: GlobalDataInterface, icon_name: string) => {
   const icon = icon_name.replace('.png', '').trim();
