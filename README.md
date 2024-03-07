@@ -8,9 +8,13 @@ Reverse engineered DB schema (kinda rough and not totally complete, but handy re
 
 When CA adds weird stuff that probably needs new tables (like mounts getting autoleveled) check https://github.com/Frodo45127/rpfm-schemas commits to look through table changes.
 
-## Keep any eye on
+## Weird Errors
 
 - If workers error with diagnosticCodes its probably a typescript issue
+- If localRefs or foreignRefs arent linked correctly it could be a schema update renaming a field, and the cached extract still has the old field name. Try deleting extracted_files to force a re-extract
+
+## Keep any eye on
+
 - effect_bonus_value_unit_list_junctions_tables | ui_effect_excluded_units_and_sets_tables related to showing what units benefit from effects?
 - technology_ui_tabs_tables | technology_ui_tabs_to_technology_nodes_junctions_tables
 
