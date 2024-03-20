@@ -4,7 +4,7 @@ set gitGameSource=D:\GitHub\TotalWarhammerDataParser\game_source
 
 ROBOCOPY "%steamPath%\Total War WARHAMMER II\data" "%gitGameSource%\vanilla2" data.pack local_en.pack /NJH /NJS
 
-ROBOCOPY "%steamPath%\Total War WARHAMMER III\data" "%gitGameSource%\vanilla3" data.pack data_1.pack data_2.pack data_3.pack data_bl.pack data_bm.pack data_sc.pack data_sf.pack data_tk.pack data_we.pack data_wp_.pack local_en.pack /NJH /NJS
+ROBOCOPY "%steamPath%\Total War WARHAMMER III\data" "%gitGameSource%\vanilla3" db.pack data.pack data_1.pack data_2.pack data_3.pack data_bl.pack data_bm.pack data_sc.pack data_sf.pack data_tk.pack data_we.pack data_wp_.pack local_en.pack /NJH /NJS
 ROBOCOPY "%steamPath%\Total War WARHAMMER III\assembly_kit\raw_data\db" "%gitGameSource%\vanilla3" start_pos_characters.xml start_pos_character_traits.xml /NJH /NJS
 
 ROBOCOPY "%workshopPath%\2802810577" "%gitGameSource%\mixu3" ab_mixu_legendary_lords.pack /NJH /NJS

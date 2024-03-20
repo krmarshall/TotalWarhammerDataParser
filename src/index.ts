@@ -33,7 +33,7 @@ workerVanilla({
 
 workerVanilla({
   folder: 'vanilla3',
-  dbPackName: 'data',
+  dbPackName: 'db',
   locPackName: 'local_en',
   dbList: v3DbList as unknown as Array<RefKey>,
   locList: v3LocList,
