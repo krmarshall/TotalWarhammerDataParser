@@ -56,7 +56,7 @@ const processFactions = (
     ) {
       return;
     }
-    const cleanKey = cleanNodeSetKey(nodeSetKey as string);
+    const cleanKey = cleanNodeSetKey(nodeSetKey as string, true);
     if (pruneVanilla && vanillaCharacters[cleanKey] !== undefined) {
       return;
     }
@@ -125,7 +125,7 @@ const processFactions = (
             return;
           }
 
-          const cleanKey = cleanNodeSetKey(nodeSetKey as string);
+          const cleanKey = cleanNodeSetKey(nodeSetKey as string, true);
           if (
             skipVanillaAgentPrune[cleanKey] !== undefined &&
             skipVanillaAgentPrune[cleanKey].mod === folder &&
