@@ -1,6 +1,6 @@
 // If regex is a perf issue memoize this?
 const cleanNodeSetKey = (key: string, force = false) => {
-  if (process.env.NODE_ENV !== 'twdp' && !force) {
+  if (process.env.NODE_ENV !== 'twdp' && force !== true) {
     return key;
   }
   const trimmedKey = key.replace(/_([sS]kills?)?(_?[nN]odes?)?(_?[sS]ets?)?$/, '');
