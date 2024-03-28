@@ -24,6 +24,7 @@ const processFactions = (
   tables: { [key in RefKey]?: Table },
   pruneVanilla: boolean,
   tech: boolean,
+  charListPath: string = `debug/${folder}characterList.json`,
 ) => {
   const game = folder.includes('2') ? '2' : '3';
 
@@ -158,7 +159,7 @@ const processFactions = (
     });
   });
 
-  fse.outputJSONSync(`debug/${folder}characterList.json`, characterList, { spaces: 2 });
+  fse.outputJSONSync(charListPath, characterList, { spaces: 2 });
 };
 
 export default processFactions;

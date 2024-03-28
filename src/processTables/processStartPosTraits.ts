@@ -44,10 +44,10 @@ const processStartPosTraits = (
       const campaign = startPosFaction?.localRefs?.campaigns?.onscreen_name ?? 'MISSING';
       const imgPath =
         'vanilla3' +
-          traitLevel?.localRefs?.trait_info?.foreignRefs?.character_traits?.[0]?.localRefs?.trait_categories?.icon_path
-            .replace('campaign ui', 'campaign_ui')
-            .replace(/^ui/, '')
-            .replace('.png', '') ?? '';
+        traitLevel?.localRefs?.trait_info?.foreignRefs?.character_traits?.[0]?.localRefs?.trait_categories?.icon_path
+          .replace('campaign ui', 'campaign_ui')
+          .replace(/^ui/, '')
+          .replace('.png', '');
 
       variants[spChar.ID] = {
         name: `${first}${last.length === 0 ? '' : ' '}${last}`,
