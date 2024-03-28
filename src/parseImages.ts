@@ -183,3 +183,4 @@ const parseImages = (folder: string, packNames: Array<string>, game: string, tec
 };
 
 export default parseImages;
+export { fillPortraitGlobalData };

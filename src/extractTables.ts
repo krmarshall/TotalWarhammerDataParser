@@ -1,26 +1,9 @@
-import fg from 'fast-glob';
 import { exec } from 'child_process';
 import fse, { emptyDirSync } from 'fs-extra';
-import { basename, dirname } from 'path';
 import { statSync } from 'fs';
 import log from './utils/log';
 
 const cwd = process.env.CWD + '/bins';
-
-const moveMisplacedLocs = (folder: string) => {
-  // Sometimes mods place locs in /text/ not /text/db/, so move those into db
-  const misplacedLocs = fg.sync(`./extracted_files/${folder}/text/*.loc.tsv`);
-  misplacedLocs.forEach((loc) => {
-    const fileName = basename(loc);
-    fse.moveSync(loc, `./extracted_files/${folder}/text/db/${fileName}`);
-  });
-  const misplacedSubLocs = fg.sync(`./extracted_files/${folder}/subLOC*/text/*.loc.tsv`);
-  misplacedSubLocs.forEach((loc) => {
-    const fileName = basename(loc);
-    const filePath = dirname(loc);
-    fse.moveSync(loc, `${filePath}/db/${fileName}`, { overwrite: true });
-  });
-};
 
 const createExtractedTimestamp = (folder: string, dbPackName: string) => {
   const fileStats = statSync(`./game_source/${folder}/${dbPackName}.pack`);
@@ -37,7 +20,6 @@ const extractData = (folder: string, dbPackName: string, tablesString: string, g
         if (error) {
           rejectI(error);
         } else {
-          moveMisplacedLocs(inputFolder);
           resolveI();
         }
       },
@@ -55,7 +37,6 @@ const extractLoc = (folder: string, locPackName: string, locsString: string, gam
         if (error) {
           rejectI(error);
         } else {
-          moveMisplacedLocs(inputFolder);
           resolveI();
         }
       },
@@ -73,7 +54,6 @@ const extractLocBulk = (folder: string, locPackName: string, game: string, input
         if (error) {
           reject(error);
         } else {
-          moveMisplacedLocs(inputFolder);
           resolve();
         }
       },
