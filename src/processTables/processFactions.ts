@@ -24,7 +24,7 @@ const processFactions = (
   tables: { [key in RefKey]?: Table },
   pruneVanilla: boolean,
   tech: boolean,
-  charListPath: string = `debug/${folder}characterList.json`,
+  charListPath = `debug/${folder}characterList.json`,
 ) => {
   const game = folder.includes('2') ? '2' : '3';
 
